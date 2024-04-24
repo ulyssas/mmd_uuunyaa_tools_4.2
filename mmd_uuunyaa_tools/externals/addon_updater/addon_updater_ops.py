@@ -1497,7 +1497,7 @@ def register(bl_info):
     # Set the min and max versions allowed to install.
     # Optional, default None
     # min install (>=) will install this and higher
-    updater.version_min_update = (1, 1, 0)
+    updater.version_min_update = (4, 0, 0)
     # updater.version_min_update = None  # None or default for no minimum.
 
     # Max install (<) will install strictly anything lower than this version
@@ -1505,7 +1505,7 @@ def register(bl_info):
     # if support for a future version of blender is going away, and you don't
     # want users to be prompted to install a non-functioning addon)
     # updater.version_max_update = (9,9,9)
-    updater.version_max_update = (4, 0, 0)  # None or default for no max.
+    updater.version_max_update = (5, 0, 0)  # None or default for no max.
 
     # Function defined above, customize as appropriate per repository
     updater.skip_tag = skip_tag_function  # min and max used in this function
