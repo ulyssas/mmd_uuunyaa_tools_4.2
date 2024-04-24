@@ -159,7 +159,7 @@ class MMDArmatureObject(ArmatureEditor):
         if obj.type != 'ARMATURE':
             return False
 
-        if import_mmd_tools().core.model.Model.findRoot(obj) is None:
+        if import_mmd_tools().core.model.FnModel.find_root_object(obj) is None:
             return False
 
         return True
@@ -167,7 +167,7 @@ class MMDArmatureObject(ArmatureEditor):
     def __init__(self, mmd_armature_object: bpy.types.Object):
         super().__init__(mmd_armature_object)
 
-        self.mmd_model_name = import_mmd_tools().core.model.Model.findRoot(mmd_armature_object).mmd_root.name
+        self.mmd_model_name = import_mmd_tools().core.model.FnModel.find_root_object(mmd_armature_object).mmd_root.name
 
         self.mmd_bone_names: Set[str] = set({b.mmd_bone_name for b in MMDBoneInfo})
         self.exist_strict_bone_names: Set[str] = {

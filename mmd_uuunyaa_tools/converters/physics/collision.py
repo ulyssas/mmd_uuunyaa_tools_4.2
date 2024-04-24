@@ -137,11 +137,11 @@ class SelectCollisionMesh(bpy.types.Operator):
     @staticmethod
     def filter_only_in_mmd_model(key_object: bpy.types.Object) -> Iterable[bpy.types.Object]:
         mmd_tools = import_mmd_tools()
-        mmd_root = mmd_tools.core.model.Model.findRoot(key_object)
+        mmd_root = mmd_tools.core.model.FnModel.find_root_object(key_object)
         if mmd_root is None:
             return
 
-        return mmd_tools.core.model.Model(mmd_root).allObjects()
+        return mmd_tools.core.model.FnModel.iterate_child_objects(mmd_root)
 
     def execute(self, context: bpy.types.Context):
         key_object = context.active_object

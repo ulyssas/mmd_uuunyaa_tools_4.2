@@ -107,7 +107,7 @@ class MMDRigifyOperatorABC:
                 rigify_object = obj
                 continue
 
-            mmd_root = mmd_tools.core.model.Model.findRoot(obj)
+            mmd_root = mmd_tools.core.model.FnModel.find_root_object(obj)
             if mmd_root is not None:
                 mmd_object = obj
                 continue

@@ -99,7 +99,7 @@ class UuuNyaaPhysicsPanel(bpy.types.Panel):
         row.operator(SelectCollisionMesh.bl_idname, text=_(''), icon='RESTRICT_SELECT_OFF')
         row.operator(RemoveMeshCollision.bl_idname, text=_(''), icon='TRASH')
 
-        mmd_root_object = mmd_tools.core.model.Model.findRoot(context.active_object)
+        mmd_root_object = mmd_tools.core.model.FnModel.find_root_object(context.active_object)
         if mmd_root_object is None:
             col = layout.column(align=True)
             col.label(text=_('MMD Model is not selected.'), icon='ERROR')
@@ -145,7 +145,7 @@ class UuuNyaaPhysicsPanel(bpy.types.Panel):
 
     @staticmethod
     def _toggle_visibility_of_cloths(obj, context):
-        mmd_root_object = mmd_tools.core.model.Model.findRoot(obj)
+        mmd_root_object = mmd_tools.core.model.FnModel.find_root_object(obj)
         mmd_model = mmd_tools.core.model.Model(mmd_root_object)
         hide = not mmd_root_object.mmd_uuunyaa_tools_show_cloths
 

@@ -2,7 +2,7 @@
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD UuuNyaa Tools.
 
-from typing import Iterable, List
+from typing import Iterable, Iterator, List
 
 import bpy
 from mmd_uuunyaa_tools.editors.meshes import MeshEditor
@@ -42,6 +42,9 @@ if not hasattr(mmd_tools.core.model.Model, 'clothGroupObject'):
             if MeshEditor(obj).find_cloth_modifier() is None:
                 continue
             yield obj
+
+    def iterate_joint_objects(root_object: bpy.types.Object) -> Iterator[bpy.types.Object]:
+        return mmd_tools.core.model.FnModel.iterate_filtered_child_objects(mmd_tools.core.model.FnModel.is_joint_object, mmd_tools.core.model.FnModel.find_joint_group_object(root_object))
 
     mmd_tools.core.model.Model.cloths = mmd_model_cloths_method
 
@@ -247,7 +250,7 @@ class SelectClothMesh(bpy.types.Operator):
 
     @staticmethod
     def filter_only_in_mmd_model(key_object: bpy.types.Object) -> Iterable[bpy.types.Object]:
-        mmd_root = mmd_tools.core.model.Model.findRoot(key_object)
+        mmd_root = mmd_tools.core.model.FnModel.find_root_object(key_object)
         if mmd_root is None:
             return
 
@@ -344,7 +347,7 @@ class ConvertRigidBodyToClothOperator(bpy.types.Operator):
         selected_mesh_mmd_root = None
         selected_rigid_body_mmd_root = None
 
-        mmd_find_root = import_mmd_tools().core.model.Model.findRoot
+        mmd_find_root = mmd_tools.core.model.FnModel.find_root_object
         for obj in context.selected_objects:
             if obj.type != 'MESH':
                 return False
@@ -364,7 +367,7 @@ class ConvertRigidBodyToClothOperator(bpy.types.Operator):
 
     def execute(self, context: bpy.types.Context):
         try:
-            mmd_find_root = import_mmd_tools().core.model.Model.findRoot
+            mmd_find_root = mmd_tools.core.model.FnModel.find_root_object
 
             target_mmd_root_object = None
             rigid_body_objects: List[bpy.types.Object] = []
