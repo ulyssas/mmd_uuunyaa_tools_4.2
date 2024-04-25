@@ -9,6 +9,7 @@ from typing import Iterable, List, Tuple
 import bpy
 import bpy_extras
 from mathutils import Quaternion, Vector
+
 from mmd_uuunyaa_tools.m17n import _
 
 
@@ -33,11 +34,10 @@ def create_skin_hair(  # pylint: disable=too-many-arguments
         quaternion = Quaternion()
         vertices.extend(calc_edge_vertices(position, quaternion, thickness, 0))
 
-        for cut_count in range(1, number_of_cuts+1):
+        for cut_count in range(1, number_of_cuts + 1):
             theta = random.random() * math.pi * 2
             quaternion @= Quaternion(  # pylint: disable=too-many-function-args
-                [math.cos(theta), 0, math.sin(theta)],
-                random.random() * max_bend_angle
+                [math.cos(theta), 0, math.sin(theta)], random.random() * max_bend_angle
             )
 
             cut_radius = thickness * (1 - cut_count / number_of_cuts)
@@ -46,20 +46,21 @@ def create_skin_hair(  # pylint: disable=too-many-arguments
             vertices.extend(calc_edge_vertices(position, quaternion, cut_radius, cut_length))
             vertex_count = len(vertices)
 
-            faces.extend([
-                (v1, v2, v4, v3)
-                for (v1, v2), (v3, v4)
-                in zip(
-                    sliding(range(vertex_count-2*segments, vertex_count-1*segments)),
-                    sliding(range(vertex_count-1*segments, vertex_count-0*segments))
-                )
-            ])
+            faces.extend(
+                [
+                    (v1, v2, v4, v3)
+                    for (v1, v2), (v3, v4) in zip(
+                        sliding(range(vertex_count - 2 * segments, vertex_count - 1 * segments)),
+                        sliding(range(vertex_count - 1 * segments, vertex_count - 0 * segments)),
+                    )
+                ]
+            )
 
             position += quaternion @ Vector([0, length / number_of_cuts, 0])
 
     def sliding(target: List[int]) -> Iterable[Tuple[int, int]]:
-        for i in range(len(target)-1):
-            yield (target[i], target[i+1])
+        for i in range(len(target) - 1):
+            yield (target[i], target[i + 1])
 
         yield (target[-1], target[0])
 
@@ -67,10 +68,7 @@ def create_skin_hair(  # pylint: disable=too-many-arguments
     segment_sin = [math.sin(i * math.pi * 2 / segments) for i in range(segments)]
 
     def calc_edge_vertices(origin: Vector, rotation: Quaternion, radius: float, length: float) -> List[Vector]:
-        return [
-            origin + rotation @ Vector([radius * segment_cos[i], length, radius * segment_sin[i]])
-            for i in range(segments)
-        ]
+        return [origin + rotation @ Vector([radius * segment_cos[i], length, radius * segment_sin[i]]) for i in range(segments)]
 
     def frange(start: float, stop: float, step: float = 1.0) -> Iterable[float]:
         if step == 0:
@@ -86,10 +84,10 @@ def create_skin_hair(  # pylint: disable=too-many-arguments
     fluctuation = pitch * fluctuation_factor
     min_number_of_cuts = min(number_of_cuts, 2)
 
-    for xpos in frange(-width/2, +width/2, pitch):
-        xpos_factor = 1-(2*xpos/width)**2 * (1-length_around_factor)
-        for zpos in frange(-height/2, +height/2, pitch):
-            zpos_factor = 1-(2*zpos/height)**2 * (1-length_around_factor)
+    for xpos in frange(-width / 2, +width / 2, pitch):
+        xpos_factor = 1 - (2 * xpos / width) ** 2 * (1 - length_around_factor)
+        for zpos in frange(-height / 2, +height / 2, pitch):
+            zpos_factor = 1 - (2 * zpos / height) ** 2 * (1 - length_around_factor)
 
             target_length = length * xpos_factor * zpos_factor
             if target_length < length_threshold:
@@ -101,58 +99,52 @@ def create_skin_hair(  # pylint: disable=too-many-arguments
             band = random.random() * fluctuation
 
             sprout(
-                Vector([
-                    xpos + band * math.cos(theta),
-                    0,
-                    zpos + band * math.sin(theta)
-                ]),
-                target_length,
-                target_number_of_cuts
+                Vector([xpos + band * math.cos(theta), 0, zpos + band * math.sin(theta)]), target_length, target_number_of_cuts
             )
     return vertices, faces
 
 
 class AddSkinHairMesh(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.add_skin_hair_mesh'
-    bl_label = _('Add Skin Hair Mesh')
-    bl_description = _('Construct a skin hair mesh')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.add_skin_hair_mesh"
+    bl_label = _("Add Skin Hair Mesh")
+    bl_description = _("Construct a skin hair mesh")
+    bl_options = {"REGISTER", "UNDO"}
 
-    width: bpy.props.FloatProperty(default=0.006, min=0.0, precision=4, unit='LENGTH')
-    height: bpy.props.FloatProperty(default=0.025, min=0.0, precision=4, unit='LENGTH')
-    pitch: bpy.props.FloatProperty(default=0.001, min=0.0, precision=5, unit='LENGTH')
-    length: bpy.props.FloatProperty(default=0.04, min=0.0, precision=2, unit='LENGTH')
-    max_bend_angle: bpy.props.FloatProperty(default=math.pi / 4, min=-math.pi, max=+math.pi, unit='ROTATION')
+    width: bpy.props.FloatProperty(default=0.006, min=0.0, precision=4, unit="LENGTH")
+    height: bpy.props.FloatProperty(default=0.025, min=0.0, precision=4, unit="LENGTH")
+    pitch: bpy.props.FloatProperty(default=0.001, min=0.0, precision=5, unit="LENGTH")
+    length: bpy.props.FloatProperty(default=0.04, min=0.0, precision=2, unit="LENGTH")
+    max_bend_angle: bpy.props.FloatProperty(default=math.pi / 4, min=-math.pi, max=+math.pi, unit="ROTATION")
     number_of_cuts: bpy.props.IntProperty(default=20, min=1)
     fluctuation_factor: bpy.props.FloatProperty(default=0.5, min=0.0, precision=1)
     length_around_factor: bpy.props.FloatProperty(default=1.0, min=0.0, precision=2)
-    length_threshold: bpy.props.FloatProperty(default=0.001, min=0.0, precision=3, unit='LENGTH')
-    thickness: bpy.props.FloatProperty(default=0.00004, min=0.0, precision=5, unit='LENGTH')
+    length_threshold: bpy.props.FloatProperty(default=0.001, min=0.0, precision=3, unit="LENGTH")
+    thickness: bpy.props.FloatProperty(default=0.00004, min=0.0, precision=5, unit="LENGTH")
     segments: bpy.props.IntProperty(default=3, min=3)
 
     align: bpy.props.EnumProperty(
-        name=_('Align'),
+        name=_("Align"),
         items=(
-            ('WORLD', _('World'), _('Align the new object to the world')),
-            ('VIEW', _('View'), _('Align the new object to the view')),
-            ('CURSOR', _('3D Cursor'), _('Use the 3D cursor orientation for the new object')),
+            ("WORLD", _("World"), _("Align the new object to the world")),
+            ("VIEW", _("View"), _("Align the new object to the view")),
+            ("CURSOR", _("3D Cursor"), _("Use the 3D cursor orientation for the new object")),
         ),
-        default='WORLD',
-        update=lambda p, _: p.rotation.zero() if p.align == 'WORLD' else None,
+        default="WORLD",
+        update=lambda p, _: p.rotation.zero() if p.align == "WORLD" else None,
     )
 
     location: bpy.props.FloatVectorProperty(
-        name=_('Location'),
-        subtype='TRANSLATION',
+        name=_("Location"),
+        subtype="TRANSLATION",
     )
     rotation: bpy.props.FloatVectorProperty(
-        name=_('Rotation'),
-        subtype='EULER',
+        name=_("Rotation"),
+        subtype="EULER",
     )
 
     @classmethod
     def poll(cls, context):
-        return context.mode == 'OBJECT'
+        return context.mode == "OBJECT"
 
     def execute(self, context: bpy.types.Context):
         verts, faces = create_skin_hair(
@@ -168,24 +160,24 @@ class AddSkinHairMesh(bpy.types.Operator):
             self.thickness,
             self.segments,
         )
-        mesh = bpy.data.meshes.new('Skin Hair')
+        mesh = bpy.data.meshes.new("Skin Hair")
         mesh.from_pydata(verts, [], faces)
         bpy_extras.object_utils.object_data_add(context, mesh, operator=self)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class UuuNyaaMeshExtrasMenu(bpy.types.Menu):
-    bl_idname = 'VIEW3D_MT_uuunyaa_mesh_extras'
-    bl_label = _('UuuNyaa')
+    bl_idname = "VIEW3D_MT_uuunyaa_mesh_extras"
+    bl_label = _("UuuNyaa")
 
     def draw(self, _context):
-        self.layout.operator_context = 'INVOKE_REGION_WIN'
-        self.layout.operator(AddSkinHairMesh.bl_idname, text=_('Skin Hair'))
+        self.layout.operator_context = "INVOKE_REGION_WIN"
+        self.layout.operator(AddSkinHairMesh.bl_idname, text=_("Skin Hair"))
 
     @staticmethod
     def draw_menu(this, _context):
-        this.layout.menu(UuuNyaaMeshExtrasMenu.bl_idname, text=_('UuuNyaa Extras'))
+        this.layout.menu(UuuNyaaMeshExtrasMenu.bl_idname, text=_("UuuNyaa Extras"))
 
     @staticmethod
     def register():

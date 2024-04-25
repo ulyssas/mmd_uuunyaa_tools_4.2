@@ -23,6 +23,7 @@ def _to_blender_color(uint8_color: int) -> float:
 
 
 RGBA = Tuple[float, float, float, float]
+# fmt: off
 SEGMANTATION_COLORS: List[RGBA] = [
     (
         _to_blender_color(0xff & (rgb >> 16)),  # Red
@@ -53,13 +54,14 @@ SEGMANTATION_COLORS: List[RGBA] = [
         0xb8ff00, 0x0085ff, 0xffd600, 0x19c2c2, 0x66ff00, 0x5c00ff,
     ]
 ]
+# fmt: on
 
 
 SQRT_PI = math.sqrt(math.pi)
 
 
 def _area_to_circumference(area: float) -> float:
-    return math.sqrt(area)/SQRT_PI
+    return math.sqrt(area) / SQRT_PI
 
 
 TriLoopIndex = int
@@ -125,12 +127,9 @@ class SegmentContact:
         segment1_perimeter = segment1.perimeter
         segment1_area = segment1.area
 
-        mean_ratio = (
-            (segment0_area+segment1_area)
-            / (
-                segment0_area/(segment0_perimeter/_area_to_circumference(segment0_area))
-                + segment1_area/(segment1_perimeter/_area_to_circumference(segment1_area))
-            )
+        mean_ratio = (segment0_area + segment1_area) / (
+            segment0_area / (segment0_perimeter / _area_to_circumference(segment0_area))
+            + segment1_area / (segment1_perimeter / _area_to_circumference(segment1_area))
         )
         # Code with the same meaning as below.
         # mean_ratio = statistics.harmonic_mean(
@@ -144,13 +143,15 @@ class SegmentContact:
         #     )
         # )
 
-        merged_ratio = (segment0_perimeter+segment1_perimeter-2*self.length)/_area_to_circumference(segment0_area+segment1_area)
-        result = max(merged_ratio/mean_ratio - 1, 0)
+        merged_ratio = (segment0_perimeter + segment1_perimeter - 2 * self.length) / _area_to_circumference(
+            segment0_area + segment1_area
+        )
+        result = max(merged_ratio / mean_ratio - 1, 0)
 
         return result
 
 
-@ dataclasses.dataclass
+@dataclasses.dataclass
 class SegmentResult:
     segments: Set[Segment]
     remain_segment_contacts: List[SegmentContact]
@@ -203,22 +204,21 @@ def _get_cost_normalized(segment_contact: SegmentContact) -> float:
 
 def _setup_output_aov(node_tree: bpy.types.NodeTree, segmentation_output_aov_name: str):
     nodes = node_tree.nodes
-    segmentation_output_aov_node: Optional[bpy.types.ShaderNodeOutputAOV] = next((n for n in nodes if n.type == 'OUTPUT_AOV' and n.name == segmentation_output_aov_name), None)
+    segmentation_output_aov_node: Optional[bpy.types.ShaderNodeOutputAOV] = next(
+        (n for n in nodes if n.type == "OUTPUT_AOV" and n.name == segmentation_output_aov_name), None
+    )
     if segmentation_output_aov_node is None:
         segmentation_output_aov_node = nodes.new(type=bpy.types.ShaderNodeOutputAOV.__name__)
         segmentation_output_aov_node.name = segmentation_output_aov_name
         segmentation_output_aov_node.location = (300, 600)
 
-    if len(segmentation_output_aov_node.inputs['Color'].links) > 0:
+    if len(segmentation_output_aov_node.inputs["Color"].links) > 0:
         return
 
     segmentation_vertex_color_node: bpy.types.ShaderNodeVertexColor = nodes.new(type=bpy.types.ShaderNodeVertexColor.__name__)
     segmentation_vertex_color_node.layer_name = segmentation_output_aov_name
     segmentation_vertex_color_node.location = (0, 600)
-    node_tree.links.new(
-        segmentation_vertex_color_node.outputs[0],
-        segmentation_output_aov_node.inputs[0]
-    )
+    node_tree.links.new(segmentation_vertex_color_node.outputs[0], segmentation_output_aov_node.inputs[0])
 
 
 def auto_segment(
@@ -248,7 +248,7 @@ def auto_segment(
         edge_seam_cost_factor,
         _calc_vi2vgi2weights(target_bmesh, ignore_vertex_group_indices),
         target_bmesh,
-        tri_loops
+        tri_loops,
     )
 
     if segment_count == 0:
@@ -262,7 +262,10 @@ def auto_segment(
         sc = sci2segment_contacts.pop(sci)
         sc.segment0.segment_contact_ids.discard(sci)
         sc.segment1.segment_contact_ids.discard(sci)
-        for i in range(bisect.bisect_left(cost_sorted_segment_contacts, sc.cost_normalized, key=_get_cost_normalized), len(cost_sorted_segment_contacts)):
+        for i in range(
+            bisect.bisect_left(cost_sorted_segment_contacts, sc.cost_normalized, key=_get_cost_normalized),
+            len(cost_sorted_segment_contacts),
+        ):
             if sc != cost_sorted_segment_contacts[i]:
                 continue
             del cost_sorted_segment_contacts[i]
@@ -277,7 +280,6 @@ def auto_segment(
 
     merging = True
     while merging:
-
         merging = False
 
         for segment_contact in cost_sorted_segment_contacts:
@@ -319,7 +321,9 @@ def auto_segment(
                 continue
 
             if is_not_perimeter_cost_factor_0:
-                dst_segment.perimeter = dst_segment.non_contact_perimeter + sum(sci2segment_contacts[sci].length for sci in dst_segment_contact_ids)
+                dst_segment.perimeter = dst_segment.non_contact_perimeter + sum(
+                    sci2segment_contacts[sci].length for sci in dst_segment_contact_ids
+                )
 
             # collect mergable segment contacts
             spi2mergable_segment_contacts: Dict[SegmentPairId, Set[SegmentContact]] = collections.defaultdict(set)
@@ -340,27 +344,24 @@ def auto_segment(
                     merged_sc.length += sc.length
                     _remove_segment_contact(sc.index)
 
-                for i in range(bisect.bisect_left(cost_sorted_segment_contacts, merged_sc.cost_normalized, key=_get_cost_normalized), len(cost_sorted_segment_contacts)):
+                for i in range(
+                    bisect.bisect_left(cost_sorted_segment_contacts, merged_sc.cost_normalized, key=_get_cost_normalized),
+                    len(cost_sorted_segment_contacts),
+                ):
                     if merged_sc != cost_sorted_segment_contacts[i]:
                         continue
                     break
 
                 # update the cost and then sort cost_sorted_segment_contacts
-                merged_sc.cost_normalized = (perimeter_cost_factor * merged_sc.calc_perimeter_cost() if is_not_perimeter_cost_factor_0 else 0) + (merged_sc.cost / (merged_sc.length * contact_length_factor if contact_length_factor > 0 else 1))
-                bisect.insort_left(
-                    cost_sorted_segment_contacts,
-                    cost_sorted_segment_contacts.pop(i),
-                    key=_get_cost_normalized
-                )
+                merged_sc.cost_normalized = (
+                    perimeter_cost_factor * merged_sc.calc_perimeter_cost() if is_not_perimeter_cost_factor_0 else 0
+                ) + (merged_sc.cost / (merged_sc.length * contact_length_factor if contact_length_factor > 0 else 1))
+                bisect.insort_left(cost_sorted_segment_contacts, cost_sorted_segment_contacts.pop(i), key=_get_cost_normalized)
 
             # since the cost has been updated, it must enter a new loop to follow the sort results.
             break
 
-    result_segments.update({
-        s
-        for sc in cost_sorted_segment_contacts
-        for s in (sc.segment0, sc.segment1)
-    })
+    result_segments.update({s for sc in cost_sorted_segment_contacts for s in (sc.segment0, sc.segment1)})
 
     return SegmentResult(result_segments, cost_sorted_segment_contacts, last_merged_cost, tri_loops)
 
@@ -374,9 +375,9 @@ def get_color_layer(target_bmesh: bmesh.types.BMesh, segmentation_vertex_color_a
 
 
 def assign_vertex_colors(
-        segments: Set[Segment],
-        color_layer: bmesh.types.BMLayerItem,
-        segmentation_vertex_color_random_seed: int,
+    segments: Set[Segment],
+    color_layer: bmesh.types.BMLayerItem,
+    segmentation_vertex_color_random_seed: int,
 ):
     segmantation_colors = SEGMANTATION_COLORS.copy()
     segmantation_color_count = len(segmantation_colors)
@@ -394,9 +395,7 @@ def assign_vertex_colors(
 
 
 def paint_selected_face_colors(
-        mesh_object: bpy.types.Object,
-        color: Optional[RGBA],
-        segmentation_vertex_color_attribute_name: str
+    mesh_object: bpy.types.Object, color: Optional[RGBA], segmentation_vertex_color_attribute_name: str
 ):
     target_bmesh: bmesh.types.BMesh = bmesh.new()
     mesh: bpy.types.Mesh = mesh_object.data
@@ -478,7 +477,7 @@ def _calc_segment_contacts(
         for vgi, weight in itertools.chain(
             vi2vgi2weights[loop.vert.index].items(),
             vi2vgi2weights[loop.link_loop_next.vert.index].items(),
-            vi2vgi2weights[loop.link_loop_prev.vert.index].items()
+            vi2vgi2weights[loop.link_loop_prev.vert.index].items(),
         ):
             weight += vgi2weights.get(vgi, 0)
             if weight > max_weight:
@@ -526,7 +525,7 @@ def _calc_segment_contacts(
         v1: mathutils.Vector = tri_loop[1].vert.co
         v2: mathutils.Vector = tri_loop[2].vert.co
         this_segment.area = mathutils.geometry.area_tri(v0, v1, v2)  # pylint: disable=assignment-from-no-return
-        this_segment.perimeter = (v0-v1).length + (v1-v2).length + (v2-v0).length
+        this_segment.perimeter = (v0 - v1).length + (v1 - v2).length + (v2 - v0).length
         this_segment.tri_loop0s.add(tri_loop0)
 
         this_segment_contact_perimeter = 0.0
@@ -552,9 +551,11 @@ def _calc_segment_contacts(
                     vert1 = this_verts[1]
                     this_vert2 = this_loop.link_loop_prev.vert
 
-                    this_loop_vertex_group_weight_cost = _calc_vertex_group_weight_cost(vert0, this_vert2) + _calc_vertex_group_weight_cost(vert1, this_vert2)
-                    this_loop_edge_sharp_cost = (0 if this_edge.smooth else 1)
-                    this_loop_edge_seam_cost = (1 if this_edge.seam else 0)
+                    this_loop_vertex_group_weight_cost = _calc_vertex_group_weight_cost(
+                        vert0, this_vert2
+                    ) + _calc_vertex_group_weight_cost(vert1, this_vert2)
+                    this_loop_edge_sharp_cost = 0 if this_edge.smooth else 1
+                    this_loop_edge_seam_cost = 1 if this_edge.seam else 0
 
                     # cost:sharp = 1:1
                     cost_edge_sharp = edge_length * this_loop_edge_sharp_cost
@@ -568,10 +569,20 @@ def _calc_segment_contacts(
                 that_segment = tli2segment[that_tli]
 
                 # cost:vertex weight = 1:1
-                cost_vertex_group_weight = edge_length * 0.25 * (this_loop_vertex_group_weight_cost + _calc_vertex_group_weight_cost(vert0, that_vert2) + _calc_vertex_group_weight_cost(vert1, that_vert2))
+                cost_vertex_group_weight = (
+                    edge_length
+                    * 0.25
+                    * (
+                        this_loop_vertex_group_weight_cost
+                        + _calc_vertex_group_weight_cost(vert0, that_vert2)
+                        + _calc_vertex_group_weight_cost(vert1, that_vert2)
+                    )
+                )
 
                 # cost:vertex group change = 1:1
-                cost_vertex_group_change = edge_length * (0 if this_heaviest_vertex_group_index == that_heaviest_vertex_group_index else 1)
+                cost_vertex_group_change = edge_length * (
+                    0 if this_heaviest_vertex_group_index == that_heaviest_vertex_group_index else 1
+                )
 
                 # cost:angle = 1:90 degrees
                 cost_face_angle = edge_length * half_pi_inverse * this_loop.calc_normal().angle(that_loop.calc_normal())
@@ -579,22 +590,24 @@ def _calc_segment_contacts(
                 # cost:material = 1:1
                 cost_material_change = edge_length * (0 if this_face.material_index == that_face.material_index else 1)
 
-                cost_total = sum((
-                    vertex_group_weight_cost_factor * cost_vertex_group_weight,
-                    vertex_group_change_cost_factor * cost_vertex_group_change,
-                    face_angle_cost_factor * cost_face_angle,
-                    material_change_cost_factor * cost_material_change,
-                    edge_sharp_cost_factor * cost_edge_sharp,
-                    edge_seam_cost_factor * cost_edge_seam,
-                ))
+                cost_total = sum(
+                    (
+                        vertex_group_weight_cost_factor * cost_vertex_group_weight,
+                        vertex_group_change_cost_factor * cost_vertex_group_change,
+                        face_angle_cost_factor * cost_face_angle,
+                        material_change_cost_factor * cost_material_change,
+                        edge_sharp_cost_factor * cost_edge_sharp,
+                        edge_seam_cost_factor * cost_edge_seam,
+                    )
+                )
 
                 segment_contact = SegmentContact(
-                    next_segment_contact_id := next_segment_contact_id+1,
+                    next_segment_contact_id := next_segment_contact_id + 1,
                     cost_total,
-                    cost_total/(edge_length * contact_length_factor if contact_length_factor > 0 else 1),
+                    cost_total / (edge_length * contact_length_factor if contact_length_factor > 0 else 1),
                     edge_length,
                     this_segment,
-                    that_segment
+                    that_segment,
                 )
                 this_segment_contact_perimeter += edge_length
                 sci2segment_contacts[segment_contact.index] = segment_contact
@@ -613,27 +626,15 @@ def _calc_segment_contacts(
 def _calc_vi2vgi2weights(target_bmesh: bmesh.types.BMesh, ignore_vertex_group_indices: Set[int]) -> Dict[int, Dict[int, float]]:
     deform_layer = target_bmesh.verts.layers.deform.verify()
     return {
-        v.index: {
-            vgi: weight
-            for vgi, weight in v[deform_layer].items()
-            if vgi not in ignore_vertex_group_indices
-        }
+        v.index: {vgi: weight for vgi, weight in v[deform_layer].items() if vgi not in ignore_vertex_group_indices}
         for v in target_bmesh.verts
     }
 
 
 def get_ignore_vertex_group_indices(mesh_object: bpy.types.Object) -> Set[int]:
     deform_bone_names = {
-        b.name
-        for m in mesh_object.modifiers
-        if m.is_active and m.type == 'ARMATURE'
-        for b in m.object.data.bones
-        if b.use_deform
+        b.name for m in mesh_object.modifiers if m.is_active and m.type == "ARMATURE" for b in m.object.data.bones if b.use_deform
     }
 
-    ignore_vertex_group_indices = {
-        vg.index
-        for vg in mesh_object.vertex_groups
-        if vg.name not in deform_bone_names
-    }
+    ignore_vertex_group_indices = {vg.index for vg in mesh_object.vertex_groups if vg.name not in deform_bone_names}
     return ignore_vertex_group_indices

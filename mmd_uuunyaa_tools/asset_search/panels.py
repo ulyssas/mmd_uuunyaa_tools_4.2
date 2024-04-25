@@ -10,6 +10,7 @@ from typing import List, Optional, Tuple
 
 import bpy
 import bpy.utils.previews
+
 from mmd_uuunyaa_tools import PACKAGE_PATH
 from mmd_uuunyaa_tools.asset_search.actions import ImportActionExecutor, MessageException
 from mmd_uuunyaa_tools.asset_search.assets import ASSETS, AssetDescription, AssetType
@@ -33,11 +34,7 @@ class AssetState(Enum):
 class Utilities:
     @staticmethod
     def is_importable(asset: AssetDescription) -> bool:
-        return (
-            ASSETS.is_extracted(asset.id)
-            or
-            CONTENT_CACHE.try_get_content(asset.download_action) is not None
-        )
+        return ASSETS.is_extracted(asset.id) or CONTENT_CACHE.try_get_content(asset.download_action) is not None
 
     @staticmethod
     def get_asset_state(asset: AssetDescription) -> Tuple[AssetState, Optional[Content], Optional[Task]]:
@@ -68,9 +65,9 @@ class Utilities:
 
 
 class AssetSearch(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.asset_search'
-    bl_label = 'Search Asset'
-    bl_options = {'INTERNAL'}
+    bl_idname = "mmd_uuunyaa_tools.asset_search"
+    bl_label = "Search Asset"
+    bl_options = {"INTERNAL"}
 
     @staticmethod
     def _on_thumbnail_fetched(search_result, region, update_time, asset, content):
@@ -83,8 +80,8 @@ class AssetSearch(bpy.types.Operator):
         global PREVIEWS  # pylint: disable=global-statement
         if asset.thumbnail_url not in PREVIEWS:
             if content.filepath is None:
-                content.filepath = os.path.join(PACKAGE_PATH, 'thumbnails', 'ASSET_THUMBNAIL_EMPTY.png')
-            PREVIEWS.load(asset.thumbnail_url, content.filepath, 'IMAGE')
+                content.filepath = os.path.join(PACKAGE_PATH, "thumbnails", "ASSET_THUMBNAIL_EMPTY.png")
+            PREVIEWS.load(asset.thumbnail_url, content.filepath, "IMAGE")
 
         region.tag_redraw()
 
@@ -106,7 +103,9 @@ class AssetSearch(bpy.types.Operator):
 
         search_results: List[AssetDescription] = []
         search_results = [
-            asset for asset in ASSETS.values() if (
+            asset
+            for asset in ASSETS.values()
+            if (
                 query_type in {AssetType.ALL.name, asset.type.name}
                 and enabled_tag_count == len(asset.tag_names & enabled_tag_names)
                 and query_text in asset.keywords
@@ -124,8 +123,7 @@ class AssetSearch(bpy.types.Operator):
 
         for asset in search_results[:max_search_result_count]:
             CONTENT_CACHE.async_get_content(
-                asset.thumbnail_url,
-                functools.partial(self._on_thumbnail_fetched, result, context.region, update_time, asset)
+                asset.thumbnail_url, functools.partial(self._on_thumbnail_fetched, result, context.region, update_time, asset)
             )
 
         tag_names = set()
@@ -143,31 +141,31 @@ class AssetSearch(bpy.types.Operator):
         finally:
             query.is_updating = False
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class AssetDownload(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.asset_download'
-    bl_label = 'Download Asset'
-    bl_options = {'INTERNAL'}
+    bl_idname = "mmd_uuunyaa_tools.asset_download"
+    bl_label = "Download Asset"
+    bl_options = {"INTERNAL"}
 
     asset_id: bpy.props.StringProperty()
 
     @staticmethod
     def __on_fetched(_, asset, content):
-        print(f'done: {asset.name}, {asset.id}, {content.state}, {content.id}')
+        print(f"done: {asset.name}, {asset.id}, {content.state}, {content.id}")
 
     def execute(self, context):
-        print(f'do: {self.bl_idname}, {self.asset_id}')
+        print(f"do: {self.bl_idname}, {self.asset_id}")
         asset = ASSETS[self.asset_id]
         CONTENT_CACHE.async_get_content(asset.download_action, functools.partial(self.__on_fetched, context, asset))
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class AssetDownloadCancel(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.asset_download_cancel'
-    bl_label = 'Cancel Asset Download'
-    bl_options = {'INTERNAL'}
+    bl_idname = "mmd_uuunyaa_tools.asset_download_cancel"
+    bl_label = "Cancel Asset Download"
+    bl_options = {"INTERNAL"}
 
     asset_id: bpy.props.StringProperty()
 
@@ -176,18 +174,18 @@ class AssetDownloadCancel(bpy.types.Operator):
         return True
 
     def execute(self, context):
-        print(f'do: {self.bl_idname}')
+        print(f"do: {self.bl_idname}")
 
         asset = ASSETS[self.asset_id]
         CONTENT_CACHE.cancel_fetch(asset.download_action)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class AssetCacheRemove(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.asset_cache_remove'
-    bl_label = 'Remove Cached Asset'
-    bl_options = {'INTERNAL'}
+    bl_idname = "mmd_uuunyaa_tools.asset_cache_remove"
+    bl_label = "Remove Cached Asset"
+    bl_options = {"INTERNAL"}
 
     asset_id: bpy.props.StringProperty()
 
@@ -196,27 +194,27 @@ class AssetCacheRemove(bpy.types.Operator):
         return True
 
     def execute(self, context):
-        print(f'do: {self.bl_idname}')
+        print(f"do: {self.bl_idname}")
 
         asset = ASSETS[self.asset_id]
         CONTENT_CACHE.remove_content(asset.download_action)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class AssetImport(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.asset_import'
-    bl_label = 'Import Asset'
-    bl_options = {'INTERNAL'}
+    bl_idname = "mmd_uuunyaa_tools.asset_import"
+    bl_label = "Import Asset"
+    bl_options = {"INTERNAL"}
 
     asset_id: bpy.props.StringProperty()
 
     @classmethod
     def poll(cls, context):
-        return bpy.context.mode == 'OBJECT'
+        return bpy.context.mode == "OBJECT"
 
     def execute(self, context):
-        print(f'do: {self.bl_idname}')
+        print(f"do: {self.bl_idname}")
 
         asset = ASSETS[self.asset_id]
         content = CONTENT_CACHE.try_get_content(asset.download_action)
@@ -224,15 +222,15 @@ class AssetImport(bpy.types.Operator):
         try:
             ImportActionExecutor.execute_import_action(asset, content.filepath if content is not None else None)
         except MessageException as ex:
-            self.report(type={'ERROR'}, message=str(ex))
+            self.report(type={"ERROR"}, message=str(ex))
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class AssetDetailPopup(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.asset_detail_popup'
-    bl_label = 'Popup Asset Detail'
-    bl_options = {'INTERNAL'}
+    bl_idname = "mmd_uuunyaa_tools.asset_detail_popup"
+    bl_label = "Popup Asset Detail"
+    bl_options = {"INTERNAL"}
 
     asset_id: bpy.props.StringProperty()
 
@@ -241,8 +239,8 @@ class AssetDetailPopup(bpy.types.Operator):
         return True
 
     def execute(self, context):
-        print(f'do: {self.bl_idname}')
-        return {'FINISHED'}
+        print(f"do: {self.bl_idname}")
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_popup(self, width=600)
@@ -254,88 +252,79 @@ class AssetDetailPopup(bpy.types.Operator):
 
         def draw_title(layout, title, factor=0.11):
             split = layout.split(factor=factor)
-            split.alignment = 'RIGHT'
+            split.alignment = "RIGHT"
             split.label(text=title)
             return split.row()
 
         def draw_titled_label(layout, title, text, split_factor=0.11):
             split = layout.split(factor=split_factor)
-            split.alignment = 'RIGHT'
+            split.alignment = "RIGHT"
             split.label(text=title)
-            label_multiline(split.column(align=True), text=text, width=int(600*(1-split_factor)))
+            label_multiline(split.column(align=True), text=text, width=int(600 * (1 - split_factor)))
 
         col = layout.column(align=True)
 
         grid = col.split(factor=0.5)
-        draw_title(grid, _('Type:'), factor=0.11*2).label(text=asset.type.value)
-        draw_title(grid, _('ID:'), factor=0.11*2).operator('wm.url_open', text=asset.id, icon='URL').url = asset.url
+        draw_title(grid, _("Type:"), factor=0.11 * 2).label(text=asset.type.value)
+        draw_title(grid, _("ID:"), factor=0.11 * 2).operator("wm.url_open", text=asset.id, icon="URL").url = asset.url
 
-        draw_titled_label(col, title=_('Name:'), text=asset.name)
-        draw_titled_label(col, title=_('Aliases:'), text=', '.join(list(asset.aliases.values())))
-        draw_titled_label(col, title=_('Tags:'), text=asset.tags_text())
-        draw_titled_label(col, title=_('Updated at:'), text=asset.updated_at.strftime('%Y-%m-%d %H:%M:%S %Z'))
-        draw_titled_label(col, title=_('Note:'), text=asset.note)
+        draw_titled_label(col, title=_("Name:"), text=asset.name)
+        draw_titled_label(col, title=_("Aliases:"), text=", ".join(list(asset.aliases.values())))
+        draw_titled_label(col, title=_("Tags:"), text=asset.tags_text())
+        draw_titled_label(col, title=_("Updated at:"), text=asset.updated_at.strftime("%Y-%m-%d %H:%M:%S %Z"))
+        draw_titled_label(col, title=_("Note:"), text=asset.note)
 
-        draw_title(col, _('Source:')).operator('wm.url_open', text=asset.source_url, icon='URL').url = asset.source_url
+        draw_title(col, _("Source:")).operator("wm.url_open", text=asset.source_url, icon="URL").url = asset.source_url
 
         (asset_state, content, task) = Utilities.get_asset_state(asset)
 
         if asset_state is AssetState.INITIALIZED:
-            layout.operator(AssetDownload.bl_idname, text=_('Download'), icon='TRIA_DOWN_BAR').asset_id = asset.id
+            layout.operator(AssetDownload.bl_idname, text=_("Download"), icon="TRIA_DOWN_BAR").asset_id = asset.id
 
         elif asset_state is AssetState.DOWNLOADING:
-            draw_titled_label(layout, title=_('Cache:'), text=f'{iface_("Downloading")} {to_human_friendly_text(task.fetched_size)}B / {to_human_friendly_text(task.content_length)}B')
-            layout.operator(AssetDownloadCancel.bl_idname, text=_('Cancel'), icon='CANCEL').asset_id = asset.id
+            draw_titled_label(
+                layout,
+                title=_("Cache:"),
+                text=f'{iface_("Downloading")} {to_human_friendly_text(task.fetched_size)}B / {to_human_friendly_text(task.content_length)}B',
+            )
+            layout.operator(AssetDownloadCancel.bl_idname, text=_("Cancel"), icon="CANCEL").asset_id = asset.id
 
         elif asset_state is AssetState.CACHED:
-            draw_title(layout, _('Cache:')).label(text=f'{to_human_friendly_text(content.length)}B   ({content.type})')
-            draw_title(layout, _('Path:')).operator(
-                'wm.path_open',
-                text=content.filepath,
-                icon='FILEBROWSER'
+            draw_title(layout, _("Cache:")).label(text=f"{to_human_friendly_text(content.length)}B   ({content.type})")
+            draw_title(layout, _("Path:")).operator(
+                "wm.path_open", text=content.filepath, icon="FILEBROWSER"
             ).filepath = content.filepath
 
             row = layout.split(factor=0.9, align=True)
-            row.operator(AssetImport.bl_idname, text=_('Import'), icon='IMPORT').asset_id = asset.id
-            row.operator(AssetCacheRemove.bl_idname, text='', icon='TRASH').asset_id = asset.id
+            row.operator(AssetImport.bl_idname, text=_("Import"), icon="IMPORT").asset_id = asset.id
+            row.operator(AssetCacheRemove.bl_idname, text="", icon="TRASH").asset_id = asset.id
 
         elif asset_state is AssetState.EXTRACTED:
             asset_path = Utilities.resolve_path(asset)
-            draw_title(layout, _('Path:')).operator('wm.path_open', text=asset_path, icon='FILEBROWSER').filepath = asset_path
-            layout.operator(AssetImport.bl_idname, text=_('Import'), icon='IMPORT').asset_id = asset.id
+            draw_title(layout, _("Path:")).operator("wm.path_open", text=asset_path, icon="FILEBROWSER").filepath = asset_path
+            layout.operator(AssetImport.bl_idname, text=_("Import"), icon="IMPORT").asset_id = asset.id
 
         elif asset_state is AssetState.FAILED:
-            layout.operator(AssetDownload.bl_idname, text=_('Retry'), icon='FILE_REFRESH').asset_id = asset.id
+            layout.operator(AssetDownload.bl_idname, text=_("Retry"), icon="FILE_REFRESH").asset_id = asset.id
 
         else:
-            layout.operator(AssetDownload.bl_idname, text=_('Retry'), icon='FILE_REFRESH').asset_id = asset.id
+            layout.operator(AssetDownload.bl_idname, text=_("Retry"), icon="FILE_REFRESH").asset_id = asset.id
 
 
 class AssetSearchQueryTags(bpy.types.UIList):
-    bl_idname = 'UUUNYAA_UL_mmd_uuunyaa_tools_asset_search_query_tags'
+    bl_idname = "UUUNYAA_UL_mmd_uuunyaa_tools_asset_search_query_tags"
 
-    def draw_item(
-        self,
-        context,
-        layout,
-        data,
-        item,
-        icon,
-        active_data,
-        active_property,
-        index: int = 0,
-        flt_flag: int = 0
-    ):
+    def draw_item(self, context, layout, data, item, icon, active_data, active_property, index: int = 0, flt_flag: int = 0):
         # pylint: disable=too-many-arguments
-        layout.prop(item, 'enabled', text=item.name, index=index)
+        layout.prop(item, "enabled", text=item.name, index=index)
 
 
 class AssetSearchPanel(bpy.types.Panel):
-    bl_idname = 'UUUNYAA_PT_mmd_uuunyaa_tools_asset_search'
-    bl_label = _('UuuNyaa Asset Search')
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_category = 'Assets'
+    bl_idname = "UUUNYAA_PT_mmd_uuunyaa_tools_asset_search"
+    bl_label = _("UuuNyaa Asset Search")
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "Assets"
 
     def draw(self, context):
         # pylint: disable=too-many-locals
@@ -344,31 +333,36 @@ class AssetSearchPanel(bpy.types.Panel):
         query = search.query
         layout = self.layout
 
-        layout.prop(query, 'type', text=_('Asset type'))
-        layout.prop(query, 'text', text=_('Query'), icon='VIEWZOOM')
+        layout.prop(query, "type", text=_("Asset type"))
+        layout.prop(query, "text", text=_("Query"), icon="VIEWZOOM")
         if query.tags is not None:
             col = layout.column()
             row = col.row()
-            row.label(text=_('Tags:'))
+            row.label(text=_("Tags:"))
             row = row.row()
-            row.alignment = 'RIGHT'
-            row.prop(query, 'is_cached', text=_('Cached'))
+            row.alignment = "RIGHT"
+            row.prop(query, "is_cached", text=_("Cached"))
             col.template_list(
-                AssetSearchQueryTags.bl_idname, '',
-                query, 'tags',
-                query, 'tags_index',
-                type='GRID',
+                AssetSearchQueryTags.bl_idname,
+                "",
+                query,
+                "tags",
+                query,
+                "tags_index",
+                type="GRID",
                 columns=max(1, int(context.region.width / 250)),
-                rows=2
+                rows=2,
             )
             row = col.row()
 
         row = layout.row()
-        row.alignment = 'RIGHT'
-        row.label(text=iface_('{search_result_count} of {search_result_hit_count} results').format(
-            search_result_count=search.result.count,
-            search_result_hit_count=search.result.hit_count,
-        ))
+        row.alignment = "RIGHT"
+        row.label(
+            text=iface_("{search_result_count} of {search_result_hit_count} results").format(
+                search_result_count=search.result.count,
+                search_result_hit_count=search.result.hit_count,
+            )
+        )
 
         asset_items = context.scene.mmd_uuunyaa_tools_asset_search.result.asset_items
 
@@ -389,17 +383,17 @@ class AssetSearchPanel(bpy.types.Panel):
             (asset_state, _content, _task) = Utilities.get_asset_state(asset)
 
             if asset_state is AssetState.INITIALIZED:
-                icon = 'NONE'
+                icon = "NONE"
             elif asset_state is AssetState.DOWNLOADING:
-                icon = 'SORTTIME'
+                icon = "SORTTIME"
             elif asset_state is AssetState.CACHED:
-                icon = 'SOLO_OFF'
+                icon = "SOLO_OFF"
             elif asset_state is AssetState.EXTRACTED:
-                icon = 'SOLO_ON'
+                icon = "SOLO_ON"
             elif asset_state is AssetState.FAILED:
-                icon = 'ERROR'
+                icon = "ERROR"
             else:
-                icon = 'ERROR'
+                icon = "ERROR"
 
             box = grid.box().column(align=True)
             box.template_icon(PREVIEWS[asset.thumbnail_url].icon_id, scale=6.0)
@@ -410,18 +404,19 @@ class AssetSearchPanel(bpy.types.Panel):
 
         if display_count != asset_item_count:
             row = layout.row()
-            row.alignment = 'CENTER'
-            row.label(text=_('Invalid search result, Please search again.'))
+            row.alignment = "CENTER"
+            row.label(text=_("Invalid search result, Please search again."))
             return
 
         loading_count = search.result.count - asset_item_count
         if loading_count > 0:
             row = layout.row()
-            row.alignment = 'CENTER'
-            row.label(text=iface_('Loading {loading_count} item{plural_form_suffix}...').format(
-                loading_count=loading_count,
-                plural_form_suffix='s' if loading_count > 1 else ''
-            ))
+            row.alignment = "CENTER"
+            row.label(
+                text=iface_("Loading {loading_count} item{plural_form_suffix}...").format(
+                    loading_count=loading_count, plural_form_suffix="s" if loading_count > 1 else ""
+                )
+            )
             return
 
     @staticmethod
@@ -437,26 +432,26 @@ class AssetSearchPanel(bpy.types.Panel):
 
 
 class AssetsOperatorPanel(bpy.types.Panel):
-    bl_idname = 'UUUNYAA_PT_assets_operator_panel'
-    bl_label = _('UuuNyaa Assets Operator')
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_category = 'Assets'
-    bl_options = {'DEFAULT_CLOSED'}
+    bl_idname = "UUUNYAA_PT_assets_operator_panel"
+    bl_label = _("UuuNyaa Assets Operator")
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "Assets"
+    bl_options = {"DEFAULT_CLOSED"}
 
     def draw(self, context):
         layout = self.layout
 
         col = layout.column()
         box = col.box().column(align=True)
-        box.label(text=_('Reload local asset JSON files'))
-        box.operator(ReloadAssetJsons.bl_idname, icon='FILE_REFRESH')
+        box.label(text=_("Reload local asset JSON files"))
+        box.operator(ReloadAssetJsons.bl_idname, icon="FILE_REFRESH")
 
         preferences = get_preferences()
 
         box = col.box().column(align=True)
-        box.label(text=_('Download and Update to the latest assets'))
-        operator = box.operator(UpdateAssetJson.bl_idname, icon='TRIA_DOWN_BAR')
+        box.label(text=_("Download and Update to the latest assets"))
+        operator = box.operator(UpdateAssetJson.bl_idname, icon="TRIA_DOWN_BAR")
         operator.repo = preferences.asset_json_update_repo
         operator.query = preferences.asset_json_update_query
 
@@ -464,32 +459,33 @@ class AssetsOperatorPanel(bpy.types.Panel):
 
         row = col.row(align=True)
         row.prop(
-            props, 'debug_expanded',
-            icon='TRIA_DOWN' if props.debug_expanded else 'TRIA_RIGHT',
+            props,
+            "debug_expanded",
+            icon="TRIA_DOWN" if props.debug_expanded else "TRIA_RIGHT",
             icon_only=True,
             emboss=False,
         )
-        row.label(text=_('Debug'))
+        row.label(text=_("Debug"))
 
         if not props.debug_expanded:
             return
 
         box = col.box().column()
-        box.label(text=_('Fetch an asset for debug'), icon='MODIFIER')
-        box.column(align=True).prop(props, 'debug_issue_number', text=_('issue #'))
+        box.label(text=_("Fetch an asset for debug"), icon="MODIFIER")
+        box.column(align=True).prop(props, "debug_issue_number", text=_("issue #"))
 
         row = box.row(align=True)
-        row.operator(DeleteDebugAssetJson.bl_idname, icon='CANCEL')
-        row.operator(UpdateDebugAssetJson.bl_idname, icon='TRIA_DOWN_BAR').issue_number = props.debug_issue_number
+        row.operator(DeleteDebugAssetJson.bl_idname, icon="CANCEL")
+        row.operator(UpdateDebugAssetJson.bl_idname, icon="TRIA_DOWN_BAR").issue_number = props.debug_issue_number
 
         box = col.box().column()
-        box.label(text=_('Download and Update to the latest filtered assets for debug'), icon='FILTER')
+        box.label(text=_("Download and Update to the latest filtered assets for debug"), icon="FILTER")
 
-        box.prop(props, 'repo', text=_('Repository'))
-        box.prop(props, 'query', text=_('Query'))
-        box.prop(props, 'output_json', text=_('Write to'))
+        box.prop(props, "repo", text=_("Repository"))
+        box.prop(props, "query", text=_("Query"))
+        box.prop(props, "output_json", text=_("Write to"))
 
-        operator = box.operator(UpdateAssetJson.bl_idname, text=_('Update Assets JSON by query'), icon='TRIA_DOWN_BAR')
+        operator = box.operator(UpdateAssetJson.bl_idname, text=_("Update Assets JSON by query"), icon="TRIA_DOWN_BAR")
         operator.repo = props.repo
         operator.query = props.query
         operator.output_json = props.output_json

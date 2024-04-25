@@ -8,18 +8,19 @@ from enum import Enum
 from typing import Dict, List, Optional
 
 import bpy
+
 from mmd_uuunyaa_tools.converters.armatures.mmd import MMDBoneInfo
 from mmd_uuunyaa_tools.editors.armatures import ArmatureEditor, PoseBoneEditor
 
 
 class GroupType(Enum):
-    NONE = 'none'
-    FACE = 'face'
-    TORSO = 'torso'
-    ARM_L = 'arm_l'
-    ARM_R = 'arm_R'
-    LEG_L = 'leg_l'
-    LEG_R = 'leg_R'
+    NONE = "none"
+    FACE = "face"
+    TORSO = "torso"
+    ARM_L = "arm_l"
+    ARM_R = "arm_R"
+    LEG_L = "leg_l"
+    LEG_R = "leg_R"
 
 
 class MMDBindType(Enum):
@@ -64,32 +65,32 @@ class DataPath:
 
 
 class ControlType(Enum):
-    EYE_MMD_UUUNYAA = 'eye_mmd_uuunyaa'
-    BIND_MMD_UUUNYAA = 'bind_mmd_uuunyaa'
-    LEG_L_MMD_UUUNYAA = 'leg_l_mmd_uuunyaa'
-    LEG_R_MMD_UUUNYAA = 'leg_r_mmd_uuunyaa'
-    TOE_L_MMD_UUUNYAA = 'toe_l_mmd_uuunyaa'
-    TOE_R_MMD_UUUNYAA = 'toe_r_mmd_uuunyaa'
-    TORSO_NECK_FOLLOW = 'torso_neck_follow'
-    TORSO_HEAD_FOLLOW = 'torso_head_follow'
-    ARM_L_IK_FK = 'arm_l_ik_fk'
-    ARM_R_IK_FK = 'arm_r_ik_fk'
-    ARM_L_IK_STRETCH = 'arm_l_ik_stretch'
-    ARM_R_IK_STRETCH = 'arm_r_ik_stretch'
-    ARM_L_IK_PARENT = 'arm_l_ik_parent'
-    ARM_R_IK_PARENT = 'arm_r_ik_parent'
-    ARM_L_POLE_VECTOR = 'arm_l_pole_vector'
-    ARM_R_POLE_VECTOR = 'arm_r_pole_vector'
-    LEG_L_IK_FK = 'leg_l_ik_fk'
-    LEG_R_IK_FK = 'leg_r_ik_fk'
-    LEG_L_IK_STRETCH = 'leg_l_ik_stretch'
-    LEG_R_IK_STRETCH = 'leg_r_ik_stretch'
-    LEG_L_IK_PARENT = 'leg_l_ik_parent'
-    LEG_R_IK_PARENT = 'leg_r_ik_parent'
-    LEG_L_POLE_VECTOR = 'leg_l_pole_vector'
-    LEG_R_POLE_VECTOR = 'leg_r_pole_vector'
-    LEG_L_POLE_PARENT = 'leg_l_pole_parent'
-    LEG_R_POLE_PARENT = 'leg_r_pole_parent'
+    EYE_MMD_UUUNYAA = "eye_mmd_uuunyaa"
+    BIND_MMD_UUUNYAA = "bind_mmd_uuunyaa"
+    LEG_L_MMD_UUUNYAA = "leg_l_mmd_uuunyaa"
+    LEG_R_MMD_UUUNYAA = "leg_r_mmd_uuunyaa"
+    TOE_L_MMD_UUUNYAA = "toe_l_mmd_uuunyaa"
+    TOE_R_MMD_UUUNYAA = "toe_r_mmd_uuunyaa"
+    TORSO_NECK_FOLLOW = "torso_neck_follow"
+    TORSO_HEAD_FOLLOW = "torso_head_follow"
+    ARM_L_IK_FK = "arm_l_ik_fk"
+    ARM_R_IK_FK = "arm_r_ik_fk"
+    ARM_L_IK_STRETCH = "arm_l_ik_stretch"
+    ARM_R_IK_STRETCH = "arm_r_ik_stretch"
+    ARM_L_IK_PARENT = "arm_l_ik_parent"
+    ARM_R_IK_PARENT = "arm_r_ik_parent"
+    ARM_L_POLE_VECTOR = "arm_l_pole_vector"
+    ARM_R_POLE_VECTOR = "arm_r_pole_vector"
+    LEG_L_IK_FK = "leg_l_ik_fk"
+    LEG_R_IK_FK = "leg_r_ik_fk"
+    LEG_L_IK_STRETCH = "leg_l_ik_stretch"
+    LEG_R_IK_STRETCH = "leg_r_ik_stretch"
+    LEG_L_IK_PARENT = "leg_l_ik_parent"
+    LEG_R_IK_PARENT = "leg_r_ik_parent"
+    LEG_L_POLE_VECTOR = "leg_l_pole_vector"
+    LEG_R_POLE_VECTOR = "leg_r_pole_vector"
+    LEG_L_POLE_PARENT = "leg_l_pole_parent"
+    LEG_R_POLE_PARENT = "leg_r_pole_parent"
 
 
 class MMDBindArmatureObjectABC(ArmatureEditor, PoseBoneEditor):
@@ -99,9 +100,12 @@ class MMDBindArmatureObjectABC(ArmatureEditor, PoseBoneEditor):
 
     def create_props(self, prop_storage_bone: bpy.types.PoseBone):
         for control_type in [
-            ControlType.BIND_MMD_UUUNYAA, ControlType.EYE_MMD_UUUNYAA,
-            ControlType.LEG_L_MMD_UUUNYAA, ControlType.LEG_R_MMD_UUUNYAA,
-            ControlType.TOE_L_MMD_UUUNYAA, ControlType.TOE_R_MMD_UUUNYAA
+            ControlType.BIND_MMD_UUUNYAA,
+            ControlType.EYE_MMD_UUUNYAA,
+            ControlType.LEG_L_MMD_UUUNYAA,
+            ControlType.LEG_R_MMD_UUUNYAA,
+            ControlType.TOE_L_MMD_UUUNYAA,
+            ControlType.TOE_R_MMD_UUUNYAA,
         ]:
             data_path = self.datapaths.get(control_type)
             if data_path is None:
@@ -120,7 +124,7 @@ class MMDBindArmatureObjectABC(ArmatureEditor, PoseBoneEditor):
         for pose_bone in pose_bones:
             if pose_bone.mmd_bone.name_j not in mmd_bone_name2pose_bone_names:
                 continue
-            pose_bone.mmd_bone.name_j = ''
+            pose_bone.mmd_bone.name_j = ""
 
         for mmd_bone_name, pose_bone_name in mmd_bone_name2pose_bone_names.items():
             if pose_bone_name is None:
@@ -137,15 +141,37 @@ class MMDBindArmatureObjectABC(ArmatureEditor, PoseBoneEditor):
 
     def _add_eye_constraints(
         self,
-        target_eye_l_bone: bpy.types.PoseBone, target_eye_r_bone: bpy.types.PoseBone,
-        control_eye_l_bone: bpy.types.PoseBone, control_eye_r_bone: bpy.types.PoseBone,
-        control_eyes_bone: bpy.types.PoseBone
+        target_eye_l_bone: bpy.types.PoseBone,
+        target_eye_r_bone: bpy.types.PoseBone,
+        control_eye_l_bone: bpy.types.PoseBone,
+        control_eye_r_bone: bpy.types.PoseBone,
+        control_eyes_bone: bpy.types.PoseBone,
     ):
-        eye_mmd_uuunyaa_data_path = f'pose.bones{self.datapaths[ControlType.EYE_MMD_UUUNYAA].data_path}'
-        self.add_copy_rotation_constraint(target_eye_l_bone, self.raw_object, control_eye_l_bone.name, 'LOCAL', eye_mmd_uuunyaa_data_path, invert_influence=True)
-        self.add_copy_rotation_constraint(target_eye_r_bone, self.raw_object, control_eye_r_bone.name, 'LOCAL', eye_mmd_uuunyaa_data_path, invert_influence=True)
-        self.add_copy_rotation_constraint(control_eye_l_bone, self.raw_object, control_eyes_bone.name, 'LOCAL', eye_mmd_uuunyaa_data_path, invert_influence=True, mix_mode='ADD')
-        self.add_copy_rotation_constraint(control_eye_r_bone, self.raw_object, control_eyes_bone.name, 'LOCAL', eye_mmd_uuunyaa_data_path, invert_influence=True, mix_mode='ADD')
+        eye_mmd_uuunyaa_data_path = f"pose.bones{self.datapaths[ControlType.EYE_MMD_UUUNYAA].data_path}"
+        self.add_copy_rotation_constraint(
+            target_eye_l_bone, self.raw_object, control_eye_l_bone.name, "LOCAL", eye_mmd_uuunyaa_data_path, invert_influence=True
+        )
+        self.add_copy_rotation_constraint(
+            target_eye_r_bone, self.raw_object, control_eye_r_bone.name, "LOCAL", eye_mmd_uuunyaa_data_path, invert_influence=True
+        )
+        self.add_copy_rotation_constraint(
+            control_eye_l_bone,
+            self.raw_object,
+            control_eyes_bone.name,
+            "LOCAL",
+            eye_mmd_uuunyaa_data_path,
+            invert_influence=True,
+            mix_mode="ADD",
+        )
+        self.add_copy_rotation_constraint(
+            control_eye_r_bone,
+            self.raw_object,
+            control_eyes_bone.name,
+            "LOCAL",
+            eye_mmd_uuunyaa_data_path,
+            invert_influence=True,
+            mix_mode="ADD",
+        )
 
     def _get_property(self, control_type: ControlType):
         datapath = self.datapaths.get(control_type)

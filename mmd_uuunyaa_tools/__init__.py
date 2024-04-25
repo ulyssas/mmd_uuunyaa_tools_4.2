@@ -24,22 +24,22 @@ from mmd_uuunyaa_tools import auto_load
 from mmd_uuunyaa_tools.m17n import _
 
 bl_info = {
-    'name': 'mmd_uuunyaa_tools',
-    'description': 'Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!.',
-    'author': 'UuuNyaa',
-    'version': (4, 0, 0),
-    'blender': (4, 1, 0),
-    'warning': '',
-    'location': 'View3D > Sidebar > MMD Tools Panel',
-    'wiki_url': 'https://github.com/UuuNyaa/blender_mmd_uuunyaa_tools/wiki',
-    'tracker_url': 'https://github.com/UuuNyaa/blender_mmd_uuunyaa_tools/issues',
-    'support': 'COMMUNITY',
-    'category': 'Object'
+    "name": "mmd_uuunyaa_tools",
+    "description": "Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!.",
+    "author": "UuuNyaa",
+    "version": (4, 0, 0),
+    "blender": (4, 1, 0),
+    "warning": "",
+    "location": "View3D > Sidebar > MMD Tools Panel",
+    "wiki_url": "https://github.com/UuuNyaa/blender_mmd_uuunyaa_tools/wiki",
+    "tracker_url": "https://github.com/UuuNyaa/blender_mmd_uuunyaa_tools/issues",
+    "support": "COMMUNITY",
+    "category": "Object",
 }
 
 _translation_texts = [
-    _('Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!.'),
-    _('View3D > Sidebar > MMD Tools Panel'),
+    _("Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!."),
+    _("View3D > Sidebar > MMD Tools Panel"),
 ]
 
 PACKAGE_PATH = os.path.dirname(__file__)
@@ -49,11 +49,10 @@ REGISTER_HOOKS = []
 UNREGISTER_HOOKS = []
 
 addon_updater_ops_spec = importlib.util.spec_from_file_location(
-    f'{PACKAGE_NAME}.addon_updater_ops',
-    os.path.join(PACKAGE_PATH, 'externals', 'addon_updater', 'addon_updater_ops.py')
+    f"{PACKAGE_NAME}.addon_updater_ops", os.path.join(PACKAGE_PATH, "externals", "addon_updater", "addon_updater_ops.py")
 )
 addon_updater_ops = importlib.util.module_from_spec(addon_updater_ops_spec)
-sys.modules[f'{PACKAGE_NAME}.addon_updater_ops'] = addon_updater_ops
+sys.modules[f"{PACKAGE_NAME}.addon_updater_ops"] = addon_updater_ops
 addon_updater_ops_spec.loader.exec_module(addon_updater_ops)
 
 

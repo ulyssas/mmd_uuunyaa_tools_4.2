@@ -5,6 +5,7 @@
 from typing import Optional
 
 import bpy
+
 from mmd_uuunyaa_tools.m17n import _
 from mmd_uuunyaa_tools.tuners import TunerABC, TunerRegistry
 
@@ -25,7 +26,7 @@ try:
             for modifier in obj.modifiers:
                 if not modifier.is_active:
                     continue
-                if modifier.type == 'NODES':
+                if modifier.type == "NODES":
                     return modifier
                 return None
             return None
@@ -36,26 +37,30 @@ try:
     class ResetGeometryTuner(GeometryTunerABC):
         @classmethod
         def get_id(cls) -> str:
-            return 'GEOMETRY_RESET'
+            return "GEOMETRY_RESET"
 
         @classmethod
         def get_name(cls) -> str:
-            return _('Reset')
+            return _("Reset")
 
         def execute(self):
             self.reset()
-            self.edit(self.get_output_node(), {
-                'Geometry': self.get_input_node().outputs['Geometry'],
-            }, force=True)
+            self.edit(
+                self.get_output_node(),
+                {
+                    "Geometry": self.get_input_node().outputs["Geometry"],
+                },
+                force=True,
+            )
 
     class SequinsGeometryTuner(GeometryTunerABC):
         @classmethod
         def get_id(cls) -> str:
-            return 'GEOMETRY_SEQUINS'
+            return "GEOMETRY_SEQUINS"
 
         @classmethod
         def get_name(cls) -> str:
-            return _('Sequins')
+            return _("Sequins")
 
         def execute(self):
             self.reset()
@@ -63,22 +68,31 @@ try:
 
             node_random_rotation_point_instance = self.get_random_rotation_point_instance_node()
             target_collection = bpy.context.view_layer.active_layer_collection.collection
-            if 'Sequin Piece' not in target_collection.objects:
-                object_sequin_piece = bpy.data.objects['Sequin Piece']
+            if "Sequin Piece" not in target_collection.objects:
+                object_sequin_piece = bpy.data.objects["Sequin Piece"]
                 target_collection.objects.link(object_sequin_piece)
                 object_sequin_piece.hide_set(True)
                 object_sequin_piece.hide_viewport = False
                 object_sequin_piece.hide_render = True
 
-            self.edit(self.get_output_node(), {
-                'Geometry': self.edit(node_random_rotation_point_instance, {
-                    'Geometry': self.get_input_node().outputs['Geometry'],
-                }, {'location': self.grid_to_position(+1, +0), 'parent': node_frame}).outputs['Geometry'],
-            }, {'location': self.grid_to_position(+3, +0)}, force=True)
+            self.edit(
+                self.get_output_node(),
+                {
+                    "Geometry": self.edit(
+                        node_random_rotation_point_instance,
+                        {
+                            "Geometry": self.get_input_node().outputs["Geometry"],
+                        },
+                        {"location": self.grid_to_position(+1, +0), "parent": node_frame},
+                    ).outputs["Geometry"],
+                },
+                {"location": self.grid_to_position(+3, +0)},
+                force=True,
+            )
 
     TUNERS = TunerRegistry(
         (0, ResetGeometryTuner),
         (1, SequinsGeometryTuner),
     )
 except ImportError:
-    print('[WARN] Geometry Nodes do not exist. Ignore it.')
+    print("[WARN] Geometry Nodes do not exist. Ignore it.")

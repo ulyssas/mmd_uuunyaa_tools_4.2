@@ -5,6 +5,7 @@
 import os
 
 import bpy
+
 from mmd_uuunyaa_tools.utilities import raise_installation_error
 
 
@@ -19,7 +20,7 @@ class ObjectMarker:
             return
 
         for child in obj.children:
-            self.mark(child, depth=depth-1)
+            self.mark(child, depth=depth - 1)
 
     def unmark(self, obj, depth=0):
         if self.is_marked(obj):
@@ -29,7 +30,7 @@ class ObjectMarker:
             return
 
         for child in obj.children:
-            self.unmark(child, depth=depth-1)
+            self.unmark(child, depth=depth - 1)
 
     def is_marked(self, obj) -> bool:
         return self.mark_id in obj

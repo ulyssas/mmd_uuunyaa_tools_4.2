@@ -12,10 +12,11 @@ from typing import Dict, Iterable, List, Optional
 import bpy
 import rna_prop_ui
 from mathutils import Matrix, Vector
+
 from mmd_uuunyaa_tools import PACKAGE_PATH
 from mmd_uuunyaa_tools.utilities import raise_installation_error
 
-PATH_BLENDS_RIGSHAPELIBRARY = os.path.join(PACKAGE_PATH, 'blends', 'RigShapeLibrary.blend')
+PATH_BLENDS_RIGSHAPELIBRARY = os.path.join(PACKAGE_PATH, "blends", "RigShapeLibrary.blend")
 
 
 @dataclass
@@ -37,13 +38,17 @@ class PoseBoneEditor(ABC):
         driver.expression = driver_expression
 
     @classmethod
-    def add_influence_driver(cls, constraint: bpy.types.Constraint, target: bpy.types.Object, data_path: str, invert_influence=False):
-        variable = DriverVariable('mmd_uuunyaa_influence', target, data_path)
-        cls.add_driver(constraint, 'influence', ('1-' if invert_influence else '+') + variable.name, variable)
+    def add_influence_driver(
+        cls, constraint: bpy.types.Constraint, target: bpy.types.Object, data_path: str, invert_influence=False
+    ):
+        variable = DriverVariable("mmd_uuunyaa_influence", target, data_path)
+        cls.add_driver(constraint, "influence", ("1-" if invert_influence else "+") + variable.name, variable)
 
     @classmethod
-    def update_influence_driver(cls, constraint: bpy.types.Constraint, target: bpy.types.Object, data_path: str, invert_influence=False):
-        constraint.driver_remove('influence')
+    def update_influence_driver(
+        cls, constraint: bpy.types.Constraint, target: bpy.types.Object, data_path: str, invert_influence=False
+    ):
+        constraint.driver_remove("influence")
         cls.add_influence_driver(constraint, target, data_path, invert_influence=invert_influence)
 
     @staticmethod
@@ -51,21 +56,26 @@ class PoseBoneEditor(ABC):
         pose_bone: bpy.types.PoseBone,
         prop_name: str,
         default=0.000,
-        min=0.000, max=1.000,
-        soft_min=None, soft_max=None,
+        min=0.000,
+        max=1.000,
+        soft_min=None,
+        soft_max=None,
         description=None,
         overridable=True,
-        subtype=None
+        subtype=None,
     ):
         # pylint: disable=redefined-builtin,too-many-arguments
         rna_prop_ui.rna_idprop_ui_create(
-            pose_bone, prop_name,
+            pose_bone,
+            prop_name,
             default=default,
-            min=min, max=max,
-            soft_min=soft_min, soft_max=soft_max,
+            min=min,
+            max=max,
+            soft_min=soft_min,
+            soft_max=soft_max,
             description=description,
             overridable=overridable,
-            subtype=subtype
+            subtype=subtype,
         )
 
     @staticmethod
@@ -93,7 +103,7 @@ class PoseBoneEditor(ABC):
             for key, value in kwargs.items():
                 setattr(constraint, key, value)
         else:
-            raise AttributeError('too many constraints')
+            raise AttributeError("too many constraints")
 
     @classmethod
     def edit_constraints(cls, pose_bone: bpy.types.PoseBone, constraint_type: str, **kwargs):
@@ -110,16 +120,18 @@ class PoseBoneEditor(ABC):
         space: str,
         influence_data_path: Optional[str] = None,
         invert_influence: bool = False,
-        **kwargs
+        **kwargs,
     ) -> bpy.types.Constraint:
         # pylint: disable=too-many-arguments
         constraint = cls.add_constraint(
-            pose_bone, 'COPY_TRANSFORMS', 'mmd_uuunyaa_copy_transforms',
+            pose_bone,
+            "COPY_TRANSFORMS",
+            "mmd_uuunyaa_copy_transforms",
             target=target_object,
             subtarget=subtarget,
             target_space=space,
             owner_space=space,
-            **kwargs
+            **kwargs,
         )
         if influence_data_path:
             cls.add_influence_driver(constraint, target_object, influence_data_path, invert_influence=invert_influence)
@@ -134,16 +146,18 @@ class PoseBoneEditor(ABC):
         space: str,
         influence_data_path: Optional[str] = None,
         invert_influence: bool = False,
-        **kwargs
+        **kwargs,
     ) -> bpy.types.Constraint:
         # pylint: disable=too-many-arguments
         constraint = cls.add_constraint(
-            pose_bone, 'COPY_ROTATION', 'mmd_uuunyaa_copy_rotation',
+            pose_bone,
+            "COPY_ROTATION",
+            "mmd_uuunyaa_copy_rotation",
             target=target_object,
             subtarget=subtarget,
             target_space=space,
             owner_space=space,
-            **kwargs
+            **kwargs,
         )
         if influence_data_path:
             cls.add_influence_driver(constraint, target_object, influence_data_path, invert_influence=invert_influence)
@@ -158,16 +172,18 @@ class PoseBoneEditor(ABC):
         space: str,
         influence_data_path: Optional[str] = None,
         invert_influence: bool = False,
-        **kwargs
+        **kwargs,
     ) -> bpy.types.Constraint:
         # pylint: disable=too-many-arguments
         constraint = cls.add_constraint(
-            pose_bone, 'COPY_LOCATION', 'mmd_uuunyaa_copy_location',
+            pose_bone,
+            "COPY_LOCATION",
+            "mmd_uuunyaa_copy_location",
             target=target_object,
             subtarget=subtarget,
             target_space=space,
             owner_space=space,
-            **kwargs
+            **kwargs,
         )
         if influence_data_path:
             cls.add_influence_driver(constraint, target_object, influence_data_path, invert_influence=invert_influence)
@@ -182,16 +198,18 @@ class PoseBoneEditor(ABC):
         space: str,
         influence_data_path: Optional[str] = None,
         invert_influence: bool = False,
-        **kwargs
+        **kwargs,
     ) -> bpy.types.Constraint:
         # pylint: disable=too-many-arguments
         constraint = cls.add_constraint(
-            pose_bone, 'COPY_SCALE', 'mmd_uuunyaa_copy_scale',
+            pose_bone,
+            "COPY_SCALE",
+            "mmd_uuunyaa_copy_scale",
             target=target_object,
             subtarget=subtarget,
             target_space=space,
             owner_space=space,
-            **kwargs
+            **kwargs,
         )
         if influence_data_path:
             cls.add_influence_driver(constraint, target_object, influence_data_path, invert_influence=invert_influence)
@@ -207,16 +225,18 @@ class PoseBoneEditor(ABC):
         iterations: int,
         influence_data_path: Optional[str] = None,
         invert_influence: bool = False,
-        **kwargs
+        **kwargs,
     ) -> bpy.types.Constraint:
         # pylint: disable=too-many-arguments
         constraint = cls.add_constraint(
-            pose_bone, 'IK', 'mmd_uuunyaa_ik_mmd',
+            pose_bone,
+            "IK",
+            "mmd_uuunyaa_ik_mmd",
             target=target_object,
             subtarget=subtarget,
             chain_count=chain_count,
             iterations=iterations,
-            **kwargs
+            **kwargs,
         )
         if influence_data_path:
             cls.add_influence_driver(constraint, target_object, influence_data_path, invert_influence=invert_influence)
@@ -226,13 +246,12 @@ class PoseBoneEditor(ABC):
     def remove_constraints(pose_bones: Dict[str, bpy.types.PoseBone]):
         for pose_bone in pose_bones.values():
             for constraint in pose_bone.constraints:
-                if not constraint.name.startswith('mmd_uuunyaa_'):
+                if not constraint.name.startswith("mmd_uuunyaa_"):
                     continue
                 pose_bone.constraints.remove(constraint)
 
 
 class EditBoneEditor(ABC):
-
     @staticmethod
     def to_center(left: Vector, right: Vector) -> Vector:
         return (left + right) / 2
@@ -251,24 +270,24 @@ class EditBoneEditor(ABC):
 
     @staticmethod
     def to_bone_suffix(bone_name: str) -> Optional[str]:
-        match = re.search(r'[_\.]([lLrR])$', bone_name)
+        match = re.search(r"[_\.]([lLrR])$", bone_name)
         if not match:
             return None
 
         raw_suffix = match.group(1)
-        if raw_suffix in {'l', 'L'}:
-            return 'L'
-        return 'R'
+        if raw_suffix in {"l", "L"}:
+            return "L"
+        return "R"
 
     @staticmethod
     def to_angle(vector: Vector, plane: str) -> float:
-        if plane == 'XZ':
+        if plane == "XZ":
             return math.atan2(vector.z, vector.x)
 
-        if plane == 'XY':
+        if plane == "XY":
             return math.atan2(vector.y, vector.x)
 
-        if plane == 'YZ':
+        if plane == "YZ":
             return math.atan2(vector.z, vector.y)
 
         raise ValueError(f"unknown plane, expected: XY, XZ, YZ, not '{plane}'")

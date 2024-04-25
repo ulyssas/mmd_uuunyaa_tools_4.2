@@ -43,25 +43,22 @@ class MeshEditor:
         return modifier
 
     def add_modifier(self, modifier_type: str, name: str, settings: SettingsOrNone = None, **kwargs) -> bpy.types.Modifier:
-        return self.edit_modifier(
-            self.mesh_object.modifiers.new(name, modifier_type),
-            settings=settings,
-            **kwargs
-        )
+        return self.edit_modifier(self.mesh_object.modifiers.new(name, modifier_type), settings=settings, **kwargs)
 
     def add_subsurface_modifier(self, name: str, levels: int, render_levels: int, **kwargs) -> bpy.types.SubsurfModifier:
         return self.add_modifier(
-            'SUBSURF', name,
+            "SUBSURF",
+            name,
             levels=levels,
             render_levels=render_levels,
-            boundary_smooth='PRESERVE_CORNERS',
+            boundary_smooth="PRESERVE_CORNERS",
             show_only_control_edges=False,
-            **kwargs
+            **kwargs,
         )
 
     def find_subsurface_modifier(self, name: str) -> Optional[bpy.types.SubsurfModifier]:
         for modifier in self.mesh_object.modifiers:
-            if modifier.type == 'SUBSURF' and modifier.name == name:
+            if modifier.type == "SUBSURF" and modifier.name == name:
                 return modifier
         return None
 
@@ -72,15 +69,11 @@ class MeshEditor:
         return modifier
 
     def add_armature_modifier(self, name: str, armature_object: bpy.types.Object, **kwargs) -> bpy.types.Modifier:
-        return self.add_modifier(
-            'ARMATURE', name,
-            object=armature_object,
-            **kwargs
-        )
+        return self.add_modifier("ARMATURE", name, object=armature_object, **kwargs)
 
     def find_armature_modifier(self, name: Optional[str]) -> Optional[bpy.types.ArmatureModifier]:
         for modifier in self.mesh_object.modifiers:
-            if modifier.type != 'ARMATURE':
+            if modifier.type != "ARMATURE":
                 continue
 
             if name is None or modifier.name == name:
@@ -89,23 +82,17 @@ class MeshEditor:
         return None
 
     def add_corrective_smooth_modifier(self, name: str, **kwargs) -> bpy.types.CorrectiveSmoothModifier:
-        return self.add_modifier(
-            'CORRECTIVE_SMOOTH', name,
-            **kwargs
-        )
+        return self.add_modifier("CORRECTIVE_SMOOTH", name, **kwargs)
 
     def find_corrective_smooth_modifier(self) -> Optional[bpy.types.CorrectiveSmoothModifier]:
-        return self.find_singleton_modifier('CORRECTIVE_SMOOTH')
+        return self.find_singleton_modifier("CORRECTIVE_SMOOTH")
 
     def add_surface_deform_modifier(self, name: str, **kwargs) -> bpy.types.SurfaceDeformModifier:
-        return self.add_modifier(
-            'SURFACE_DEFORM', name,
-            **kwargs
-        )
+        return self.add_modifier("SURFACE_DEFORM", name, **kwargs)
 
     def find_singleton_modifier(self, modifier_type: str) -> Optional[bpy.types.Modifier]:
-        if modifier_type not in {'CLOTH', 'COLLISION', 'CORRECTIVE_SMOOTH', 'DYNAMIC_PAINT'}:
-            raise NotImplementedError(f'{modifier_type} is not supported.')
+        if modifier_type not in {"CLOTH", "COLLISION", "CORRECTIVE_SMOOTH", "DYNAMIC_PAINT"}:
+            raise NotImplementedError(f"{modifier_type} is not supported.")
 
         for modifier in self.mesh_object.modifiers:
             if modifier.type == modifier_type:
@@ -130,10 +117,10 @@ class MeshEditor:
         self.mesh_object.modifiers.remove(modifier)
 
     def find_cloth_modifier(self) -> Optional[bpy.types.ClothModifier]:
-        return self.find_singleton_modifier('CLOTH')
+        return self.find_singleton_modifier("CLOTH")
 
-    def get_cloth_modifier(self, name: str = 'Cloth') -> bpy.types.ClothModifier:
-        return self.get_singleton_modifier('CLOTH', name)
+    def get_cloth_modifier(self, name: str = "Cloth") -> bpy.types.ClothModifier:
+        return self.get_singleton_modifier("CLOTH", name)
 
     def edit_cloth_modifier(self, name: str, **kwargs) -> bpy.types.ClothModifier:
         return self.edit_singleton_modifier(self.get_cloth_modifier(name), **kwargs)
@@ -151,10 +138,10 @@ class MeshEditor:
         return modifier.collision_settings
 
     def remove_cloth_modifier(self):
-        self.remove_singleton_modifier('CLOTH')
+        self.remove_singleton_modifier("CLOTH")
 
     def find_collision_modifier(self) -> Optional[bpy.types.CollisionModifier]:
-        return self.find_singleton_modifier('COLLISION')
+        return self.find_singleton_modifier("COLLISION")
 
     def find_collision_settings(self) -> Optional[bpy.types.CollisionSettings]:
         modifier = self.find_collision_modifier()
@@ -162,17 +149,17 @@ class MeshEditor:
             return None
         return modifier.settings
 
-    def get_collision_modifier(self, name: str = 'Collision') -> bpy.types.CollisionModifier:
-        return self.get_singleton_modifier('COLLISION', name)
+    def get_collision_modifier(self, name: str = "Collision") -> bpy.types.CollisionModifier:
+        return self.get_singleton_modifier("COLLISION", name)
 
     def edit_collision_modifier(
-            self,
-            name: str,
-            damping: float = 0.1,
-            thickness_outer: float = 0.001,
-            thickness_inner: float = 0.200,
-            cloth_friction: float = 5,
-            **kwargs
+        self,
+        name: str,
+        damping: float = 0.1,
+        thickness_outer: float = 0.001,
+        thickness_inner: float = 0.200,
+        cloth_friction: float = 5,
+        **kwargs,
     ) -> bpy.types.CollisionModifier:
         # pylint: disable=too-many-arguments
         return self.edit_singleton_modifier(
@@ -181,17 +168,17 @@ class MeshEditor:
             thickness_outer=thickness_outer,
             thickness_inner=thickness_inner,
             cloth_friction=cloth_friction,
-            **kwargs
+            **kwargs,
         )
 
     def remove_collision_modifier(self):
-        self.remove_singleton_modifier('COLLISION')
+        self.remove_singleton_modifier("COLLISION")
 
     def find_dynamic_paint_modifier(self) -> Optional[bpy.types.DynamicPaintModifier]:
-        return self.find_singleton_modifier('DYNAMIC_PAINT')
+        return self.find_singleton_modifier("DYNAMIC_PAINT")
 
-    def get_dynamic_paint_modifier(self, name: str = 'Dynamic Paint') -> bpy.types.DynamicPaintModifier:
-        return self.get_singleton_modifier('DYNAMIC_PAINT', name)
+    def get_dynamic_paint_modifier(self, name: str = "Dynamic Paint") -> bpy.types.DynamicPaintModifier:
+        return self.get_singleton_modifier("DYNAMIC_PAINT", name)
 
     def find_dynamic_paint_brush_settings(self) -> Optional[bpy.types.DynamicPaintBrushSettings]:
         modifier = self.find_dynamic_paint_modifier()
@@ -235,7 +222,7 @@ class MeshEditor:
     @staticmethod
     def mesh_object_is_contained_in(objects: Iterable[bpy.types.Object]):
         for obj in objects:
-            if obj.type == 'MESH':
+            if obj.type == "MESH":
                 return True
 
         return False
@@ -258,7 +245,7 @@ class MeshEditor:
             vertex_group.add(
                 vertex_weight_operation[0],
                 vertex_weight_operation[1],
-                vertex_weight_operation[2] if len(vertex_weight_operation) >= 3 else 'REPLACE'
+                vertex_weight_operation[2] if len(vertex_weight_operation) >= 3 else "REPLACE",
             )
         return vertex_group
 
@@ -270,7 +257,7 @@ class RigidBodyEditor(MeshEditor):
     @staticmethod
     def rigid_body_object_is_contained_in(objects: Iterable[bpy.types.Object]):
         for obj in objects:
-            if obj.type != 'MESH':
+            if obj.type != "MESH":
                 return False
 
             if obj.rigid_body:

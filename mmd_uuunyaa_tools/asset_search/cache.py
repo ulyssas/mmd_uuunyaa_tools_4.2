@@ -15,12 +15,11 @@ from enum import Enum
 from typing import Callable, Dict, List, Optional, OrderedDict
 
 from mmd_uuunyaa_tools import REGISTER_HOOKS
-from mmd_uuunyaa_tools.asset_search.url_resolvers import (URLResolver,
-                                                          URLResolverABC)
+from mmd_uuunyaa_tools.asset_search.url_resolvers import URLResolver, URLResolverABC
 from mmd_uuunyaa_tools.utilities import get_preferences
 
 URL = str
-Callback = Callable[['Content'], None]
+Callback = Callable[["Content"], None]
 
 
 class Content:
@@ -54,7 +53,7 @@ class Content:
 
     @staticmethod
     def to_content_id(url: URL) -> str:
-        return hashlib.sha1(url.encode('utf-8')).hexdigest()
+        return hashlib.sha1(url.encode("utf-8")).hexdigest()
 
 
 class Task:
@@ -119,13 +118,13 @@ class ContentCache(CacheABC):
         self,
         cache_folder: str,
         temporary_dir: str,
-        max_cache_size_bytes: int = 1024*1024*1024,
+        max_cache_size_bytes: int = 1024 * 1024 * 1024,
         max_workers: int = 10,
         contents_load: bool = True,
         contents_save_interval_secs: float = 5.0,
-        url_resolver: URLResolverABC = URLResolver()
+        url_resolver: URLResolverABC = URLResolver(),
     ):
-        print(f'ContentCache.__init__: cache_folder={cache_folder}, temporary_dir={temporary_dir}')
+        print(f"ContentCache.__init__: cache_folder={cache_folder}, temporary_dir={temporary_dir}")
         self.cache_folder: str = cache_folder
         self.max_cache_size_bytes: int = max_cache_size_bytes
         self.temporary_dir = temporary_dir
@@ -150,41 +149,45 @@ class ContentCache(CacheABC):
         self._executor.shutdown()
 
     def _load_contents(self):
-        contents_json_path = os.path.join(self.cache_folder, 'contents.json')
+        contents_json_path = os.path.join(self.cache_folder, "contents.json")
         if not os.path.exists(contents_json_path):
             return
 
         with self._lock:
-            with open(contents_json_path, 'r') as file:
+            with open(contents_json_path, "r") as file:
                 content_json = json.load(file, object_pairs_hook=OrderedDict)
 
-            self._contents = OrderedDict({
-                key: Content(
-                    id=value['id'],
-                    state=Content.State[value['state']],
-                    filepath=os.path.join(self.cache_folder, value['filepath']),
-                    type=value['type'],
-                    length=value['length']
-                ) for key, value in content_json.items()
-            })
+            self._contents = OrderedDict(
+                {
+                    key: Content(
+                        id=value["id"],
+                        state=Content.State[value["state"]],
+                        filepath=os.path.join(self.cache_folder, value["filepath"]),
+                        type=value["type"],
+                        length=value["length"],
+                    )
+                    for key, value in content_json.items()
+                }
+            )
             self._contents_size = sum([c.length for c in self._contents.values()])
 
-            print(f'_load_contents: {len(self._contents)} from {contents_json_path}')
+            print(f"_load_contents: {len(self._contents)} from {contents_json_path}")
 
     def _save_contents(self):
-        contents_json_path = os.path.join(self.cache_folder, 'contents.json')
+        contents_json_path = os.path.join(self.cache_folder, "contents.json")
         with self._lock:
-            print(f'_save_contents: {len(self._contents)} to {contents_json_path}')
+            print(f"_save_contents: {len(self._contents)} to {contents_json_path}")
             content_json = {
                 key: {
-                    'id': value.id,
-                    'state': value.state.name,
-                    'filepath': os.path.basename(value.filepath) if value.filepath else '',
-                    'type': value.type,
-                    'length': value.length
-                } for key, value in self._contents.items()
+                    "id": value.id,
+                    "state": value.state.name,
+                    "filepath": os.path.basename(value.filepath) if value.filepath else "",
+                    "type": value.type,
+                    "length": value.length,
+                }
+                for key, value in self._contents.items()
             }
-            with open(contents_json_path, 'w') as file:
+            with open(contents_json_path, "w") as file:
                 json.dump(content_json, file)
 
     def _schedule_save_contents(self):
@@ -201,7 +204,7 @@ class ContentCache(CacheABC):
         # pylint: disable=too-many-statements
         with self._lock:
             if task.state is not Task.State.QUEUING:
-                raise ValueError(f'task (={task.url}) is invalid state (={task.state})')
+                raise ValueError(f"task (={task.url}) is invalid state (={task.state})")
 
             task.state = Task.State.RUNNING
             content_id = task.content_id
@@ -211,12 +214,12 @@ class ContentCache(CacheABC):
 
         try:
             temp_fd, temp_path = tempfile.mkstemp(dir=self.temporary_dir)
-            with os.fdopen(temp_fd, 'bw') as temp_file:
+            with os.fdopen(temp_fd, "bw") as temp_file:
                 response = self.url_resolver.resolve(task.url)
                 response.raise_for_status()
 
-                content_type = response.headers.get('Content-Type')
-                content_length_text = response.headers.get('Content-Length')
+                content_type = response.headers.get("Content-Type")
+                content_length_text = response.headers.get("Content-Length")
                 content_length = int(content_length_text) if content_length_text else 0
                 fetch_size = 0
 
@@ -229,7 +232,7 @@ class ContentCache(CacheABC):
                     with self._lock:
                         task.fetched_size = fetch_size
                         if task.state is not Task.State.RUNNING:
-                            raise InterruptedError(f'task (={task.url}) fetch was interrupted')
+                            raise InterruptedError(f"task (={task.url}) fetch was interrupted")
                     temp_file.write(chunk)
 
             os.rename(temp_path, content_filepath)
@@ -349,7 +352,7 @@ class ContentCache(CacheABC):
         def queue_callback():
             task = self._tasks[url]
             if task.state not in {Task.State.QUEUING, Task.State.RUNNING}:
-                raise ValueError(f'task (={task.url}) is invalid state (={task.state})')
+                raise ValueError(f"task (={task.url}) is invalid state (={task.state})")
             task.callbacks.append(callback)
             return task.future
 
@@ -364,7 +367,7 @@ class ContentCache(CacheABC):
                         return self._executor.submit(self._invoke_callback, callback, content)
                     case Content.State.FETCHING:
                         return queue_callback()
-                    case _: # maybe failed
+                    case _:  # maybe failed
                         self.remove_content(url)
 
             task = Task(url, Task.State.QUEUING, [callback])
@@ -398,8 +401,8 @@ class ReloadableContentCache(CacheABC):
 
         self._cache = ContentCache(
             cache_folder=asset_cache_folder,
-            max_cache_size_bytes=preferences.asset_max_cache_size*1024*1024,
-            temporary_dir=tempfile.mkdtemp()
+            max_cache_size_bytes=preferences.asset_max_cache_size * 1024 * 1024,
+            temporary_dir=tempfile.mkdtemp(),
         )
 
     def cancel_fetch(self, url: URL):

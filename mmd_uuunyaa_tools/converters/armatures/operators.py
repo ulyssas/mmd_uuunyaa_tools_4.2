@@ -5,26 +5,29 @@
 from typing import Iterable, Optional, Tuple
 
 import bpy
-from mmd_uuunyaa_tools.converters.armatures import (AutoRigArmatureObject,
-                                                    MetarigArmatureObject,
-                                                    MMDArmatureObject,
-                                                    MMDRigifyArmatureObject,
-                                                    RigifyArmatureObject)
+
+from mmd_uuunyaa_tools.converters.armatures import (
+    AutoRigArmatureObject,
+    MetarigArmatureObject,
+    MMDArmatureObject,
+    MMDRigifyArmatureObject,
+    RigifyArmatureObject,
+)
 from mmd_uuunyaa_tools.m17n import _
 from mmd_uuunyaa_tools.utilities import MessageException, import_mmd_tools
 
 
 class MMDArmatureAddMetarig(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.mmd_armature_add_metarig'
-    bl_label = _('Add Human (metarig) from MMD Armature')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.mmd_armature_add_metarig"
+    bl_label = _("Add Human (metarig) from MMD Armature")
+    bl_options = {"REGISTER", "UNDO"}
 
-    is_clean_armature: bpy.props.BoolProperty(name=_('Clean Armature'), default=True)
-    is_clean_koikatsu_armature: bpy.props.BoolProperty(name=_('Clean Koikatsu Armature'), default=False)
+    is_clean_armature: bpy.props.BoolProperty(name=_("Clean Armature"), default=True)
+    is_clean_koikatsu_armature: bpy.props.BoolProperty(name=_("Clean Koikatsu Armature"), default=False)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
-        if context.mode != 'OBJECT':
+        if context.mode != "OBJECT":
             return False
 
         if len(context.selected_objects) != 1:
@@ -44,7 +47,7 @@ class MMDArmatureAddMetarig(bpy.types.Operator):
         except AttributeError as ex:
             if str(ex) != 'Calling operator "bpy.ops.object.armature_human_metarig_add" error, could not be found':
                 raise
-            raise MessageException(_('Failed to invoke Rigify\nPlease enable Rigify add-on.')) from None
+            raise MessageException(_("Failed to invoke Rigify\nPlease enable Rigify add-on.")) from None
         finally:
             bpy.context.scene.cursor.location = original_cursor_location
 
@@ -57,8 +60,8 @@ class MMDArmatureAddMetarig(bpy.types.Operator):
         try:
             metarig_object = MetarigArmatureObject(self._create_metarig_object())
         except MessageException as ex:
-            self.report(type={'ERROR'}, message=str(ex))
-            return {'CANCELLED'}
+            self.report(type={"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
 
         mmd_armature_object = MMDArmatureObject(mmd_object)
         metarig_object.fit_scale(mmd_armature_object)
@@ -70,40 +73,42 @@ class MMDArmatureAddMetarig(bpy.types.Operator):
             mmd_armature_object.clean_koikatsu_armature_prepare()
             mmd_armature_object = MMDArmatureObject(mmd_object)
 
-        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.object.mode_set(mode="EDIT")
 
         if self.is_clean_koikatsu_armature:
             mmd_armature_object.clean_koikatsu_armature()
 
         if self.is_clean_armature:
             mmd_armature_object.clean_armature()
-        
+
         if not mmd_armature_object.has_face_bones():
             metarig_object.remove_face_bones()
 
         metarig_object.fit_bones(mmd_armature_object)
 
-        bpy.ops.object.mode_set(mode='POSE')
+        bpy.ops.object.mode_set(mode="POSE")
         metarig_object.set_rigify_parameters(mmd_armature_object)
 
-        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.mode_set(mode="OBJECT")
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class MMDRigifyOperatorABC:
     @classmethod
-    def find_armature_objects(cls, objects: Iterable[bpy.types.Object]) -> Tuple[Optional[bpy.types.Object], Optional[bpy.types.Object]]:
+    def find_armature_objects(
+        cls, objects: Iterable[bpy.types.Object]
+    ) -> Tuple[Optional[bpy.types.Object], Optional[bpy.types.Object]]:
         mmd_tools = import_mmd_tools()
 
         rigify_object: Optional[bpy.types.Object] = None
         mmd_object: Optional[bpy.types.Object] = None
 
         for obj in objects:
-            if obj.type != 'ARMATURE':
+            if obj.type != "ARMATURE":
                 continue
 
-            if 'rig_id' in obj.data:
+            if "rig_id" in obj.data:
                 rigify_object = obj
                 continue
 
@@ -116,7 +121,7 @@ class MMDRigifyOperatorABC:
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
-        if context.mode != 'OBJECT':
+        if context.mode != "OBJECT":
             return False
 
         selected_objects = bpy.context.selected_objects
@@ -144,7 +149,7 @@ class MMDRigifyOperatorABC:
             if rig_bone_group_name in mmd_bone_groups:
                 continue
             mmd_bone_group = mmd_bone_groups.new(name=rig_bone_group_name)
-            mmd_bone_group.color_set = 'CUSTOM'
+            mmd_bone_group.color_set = "CUSTOM"
             mmd_bone_group.colors.normal = rig_bone_group.colors.normal
             mmd_bone_group.colors.select = rig_bone_group.colors.select
             mmd_bone_group.colors.active = rig_bone_group.colors.active
@@ -181,7 +186,10 @@ class MMDRigifyOperatorABC:
         mmd_dummy_bone_layer: int,
     ):
         mmd_armature = mmd_armature_object.raw_armature
-        mmd_armature.layers = [i in {0, 8, 9, 23, mmd_main_bone_layer, mmd_others_bone_layer, mmd_shadow_bone_layer, mmd_dummy_bone_layer} for i in range(32)]
+        mmd_armature.layers = [
+            i in {0, 8, 9, 23, mmd_main_bone_layer, mmd_others_bone_layer, mmd_shadow_bone_layer, mmd_dummy_bone_layer}
+            for i in range(32)
+        ]
 
         mmd_bind_bones = mmd_armature_object.exist_actual_bone_names
 
@@ -203,13 +211,13 @@ class MMDRigifyOperatorABC:
         # join armatures
         rigify_armature: bpy.types.Armature = rigify_armature_object.raw_armature
         layers = rigify_armature.layers
-        rig_id = rigify_armature['rig_id']
+        rig_id = rigify_armature["rig_id"]
 
         bpy.context.view_layer.objects.active = mmd_armature_object.raw_object
         bpy.ops.object.join()
         mmd_armature.layers = layers
-        mmd_armature['rig_id'] = rig_id
-        mmd_armature_object.raw_object.display_type = 'WIRE'
+        mmd_armature["rig_id"] = rig_id
+        mmd_armature_object.raw_object.display_type = "WIRE"
 
         mmd_armature.layers[mmd_main_bone_layer] = False
         mmd_armature.layers[mmd_others_bone_layer] = True
@@ -223,15 +231,17 @@ class MMDRigifyOperatorABC:
 
 
 class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.mmd_rigify_mmd_focused_integrate'
-    bl_label = _('MMD compatibility focused Integrate')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.mmd_rigify_mmd_focused_integrate"
+    bl_label = _("MMD compatibility focused Integrate")
+    bl_options = {"REGISTER", "UNDO"}
 
-    is_join_armatures: bpy.props.BoolProperty(name=_('Join Armatures'), description=_('Join MMD and Rigify armatures'), default=True)
-    mmd_main_bone_layer: bpy.props.IntProperty(name=_('MMD main bone layer'), default=24, min=0, max=31)
-    mmd_others_bone_layer: bpy.props.IntProperty(name=_('MMD others bone layer'), default=25, min=0, max=31)
-    mmd_shadow_bone_layer: bpy.props.IntProperty(name=_('MMD shadow bone layer'), default=26, min=0, max=31)
-    mmd_dummy_bone_layer: bpy.props.IntProperty(name=_('MMD dummy bone layer'), default=27, min=0, max=31)
+    is_join_armatures: bpy.props.BoolProperty(
+        name=_("Join Armatures"), description=_("Join MMD and Rigify armatures"), default=True
+    )
+    mmd_main_bone_layer: bpy.props.IntProperty(name=_("MMD main bone layer"), default=24, min=0, max=31)
+    mmd_others_bone_layer: bpy.props.IntProperty(name=_("MMD others bone layer"), default=25, min=0, max=31)
+    mmd_shadow_bone_layer: bpy.props.IntProperty(name=_("MMD shadow bone layer"), default=26, min=0, max=31)
+    mmd_dummy_bone_layer: bpy.props.IntProperty(name=_("MMD dummy bone layer"), default=27, min=0, max=31)
 
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):
@@ -246,22 +256,23 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
 
         self.change_mmd_bone_layer(mmd_armature_object)
 
-        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.object.mode_set(mode="EDIT")
         rigify_armature_object.remove_unused_face_bones()
         rigify_armature_object.fit_bone_rotations(mmd_armature_object)
         rigify_armature_object.imitate_mmd_bone_structure_focus_on_mmd(mmd_armature_object)
 
-        bpy.ops.object.mode_set(mode='POSE')
+        bpy.ops.object.mode_set(mode="POSE")
         rigify_armature_object.imitate_mmd_pose_behavior_focus_on_mmd()
         rigify_armature_object.bind_bones(mmd_armature_object)
 
-        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.mode_set(mode="OBJECT")
         self.set_view_layers(rigify_armature_object)
 
         if self.is_join_armatures:
             self.adjust_bone_groups(rigify_armature_object, mmd_armature_object)
             self.join_armatures(
-                rigify_armature_object, mmd_armature_object,
+                rigify_armature_object,
+                mmd_armature_object,
                 self.mmd_main_bone_layer,
                 self.mmd_others_bone_layer,
                 self.mmd_shadow_bone_layer,
@@ -271,20 +282,22 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
 
         rigify_armature_object.assign_mmd_bone_names()
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class MMDRigifyIntegrateFocusOnRigify(bpy.types.Operator, MMDRigifyOperatorABC):
-    bl_idname = 'mmd_uuunyaa_tools.mmd_rigify_rigify_focused_integrate'
-    bl_label = _('Rigify operability focused Integrate')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.mmd_rigify_rigify_focused_integrate"
+    bl_label = _("Rigify operability focused Integrate")
+    bl_options = {"REGISTER", "UNDO"}
 
-    is_join_armatures: bpy.props.BoolProperty(name=_('Join Armatures'), description=_('Join MMD and Rigify armatures'), default=True)
-    mmd_main_bone_layer: bpy.props.IntProperty(name=_('MMD main bone layer'), default=24, min=0, max=31)
-    mmd_others_bone_layer: bpy.props.IntProperty(name=_('MMD others bone layer'), default=25, min=0, max=31)
-    mmd_shadow_bone_layer: bpy.props.IntProperty(name=_('MMD shadow bone layer'), default=26, min=0, max=31)
-    mmd_dummy_bone_layer: bpy.props.IntProperty(name=_('MMD dummy bone layer'), default=27, min=0, max=31)
-    rename_mmd_bones: bpy.props.BoolProperty(name=_('Rename MMD bones'), default=False)
+    is_join_armatures: bpy.props.BoolProperty(
+        name=_("Join Armatures"), description=_("Join MMD and Rigify armatures"), default=True
+    )
+    mmd_main_bone_layer: bpy.props.IntProperty(name=_("MMD main bone layer"), default=24, min=0, max=31)
+    mmd_others_bone_layer: bpy.props.IntProperty(name=_("MMD others bone layer"), default=25, min=0, max=31)
+    mmd_shadow_bone_layer: bpy.props.IntProperty(name=_("MMD shadow bone layer"), default=26, min=0, max=31)
+    mmd_dummy_bone_layer: bpy.props.IntProperty(name=_("MMD dummy bone layer"), default=27, min=0, max=31)
+    rename_mmd_bones: bpy.props.BoolProperty(name=_("Rename MMD bones"), default=False)
 
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):
@@ -299,22 +312,23 @@ class MMDRigifyIntegrateFocusOnRigify(bpy.types.Operator, MMDRigifyOperatorABC):
 
         self.change_mmd_bone_layer(mmd_armature_object)
 
-        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.object.mode_set(mode="EDIT")
         rigify_armature_object.remove_unused_face_bones()
         rigify_armature_object.fit_bone_rotations(mmd_armature_object)
         rigify_armature_object.imitate_mmd_bone_structure_focus_on_rigify(mmd_armature_object)
 
-        bpy.ops.object.mode_set(mode='POSE')
+        bpy.ops.object.mode_set(mode="POSE")
         rigify_armature_object.imitate_mmd_pose_behavior_focus_on_rigify()
         rigify_armature_object.bind_bones(mmd_armature_object)
 
-        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.mode_set(mode="OBJECT")
         self.set_view_layers(rigify_armature_object)
 
         if self.is_join_armatures:
             self.adjust_bone_groups(rigify_armature_object, mmd_armature_object)
             self.join_armatures(
-                rigify_armature_object, mmd_armature_object,
+                rigify_armature_object,
+                mmd_armature_object,
                 self.mmd_main_bone_layer,
                 self.mmd_others_bone_layer,
                 self.mmd_shadow_bone_layer,
@@ -325,72 +339,78 @@ class MMDRigifyIntegrateFocusOnRigify(bpy.types.Operator, MMDRigifyOperatorABC):
         if self.rename_mmd_bones:
             rigify_armature_object.assign_mmd_bone_names()
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class MMDRigifyConvert(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.rigify_to_mmd_compatible'
-    bl_label = _('Convert Rigify Armature to MMD compatible')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.rigify_to_mmd_compatible"
+    bl_label = _("Convert Rigify Armature to MMD compatible")
+    bl_options = {"REGISTER", "UNDO"}
 
     upper_body2_bind_bone: bpy.props.EnumProperty(
-        name=_('Upper Body2 as'),
+        name=_("Upper Body2 as"),
         items=[
-            ('spine_fk.002', 'spine_fk.002', ''),
-            ('spine_fk.003', 'spine_fk.003', ''),
-            ('chest', 'chest', ''),
+            ("spine_fk.002", "spine_fk.002", ""),
+            ("spine_fk.003", "spine_fk.003", ""),
+            ("chest", "chest", ""),
         ],
-        default='spine_fk.002'
+        default="spine_fk.002",
     )
 
     lower_body_bind_bone: bpy.props.EnumProperty(
-        name=_('Lower Body as'),
+        name=_("Lower Body as"),
         items=[
-            ('spine_fk', 'spine_fk', ''),
-            ('hips', 'hips', ''),
+            ("spine_fk", "spine_fk", ""),
+            ("hips", "hips", ""),
         ],
-        default='spine_fk'
+        default="spine_fk",
     )
 
     @classmethod
     def poll(cls, context):
-        if context.mode != 'OBJECT':
+        if context.mode != "OBJECT":
             return False
 
         active_object = context.active_object
 
-        return RigifyArmatureObject.is_rigify_armature_object(active_object) and not MMDRigifyArmatureObject.is_mmd_integrated_object(active_object)
+        return RigifyArmatureObject.is_rigify_armature_object(
+            active_object
+        ) and not MMDRigifyArmatureObject.is_mmd_integrated_object(active_object)
 
     def execute(self, context: bpy.types.Context):
         rigify_armature_object = RigifyArmatureObject(context.active_object)
 
-        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.object.mode_set(mode="EDIT")
         rigify_armature_object.imitate_mmd_bone_structure()
 
-        bpy.ops.object.mode_set(mode='POSE')
+        bpy.ops.object.mode_set(mode="POSE")
         rigify_armature_object.imitate_mmd_pose_behavior()
 
-        bpy.ops.object.mode_set(mode='OBJECT')
-        rigify_armature_object.assign_mmd_bone_names(mmd2pose_bone_name_overrides={
-            '上半身2': self.upper_body2_bind_bone,
-            '下半身': self.lower_body_bind_bone,
-        })
-        return {'FINISHED'}
+        bpy.ops.object.mode_set(mode="OBJECT")
+        rigify_armature_object.assign_mmd_bone_names(
+            mmd2pose_bone_name_overrides={
+                "上半身2": self.upper_body2_bind_bone,
+                "下半身": self.lower_body_bind_bone,
+            }
+        )
+        return {"FINISHED"}
 
 
 class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.rigify_apply_mmd_rest_pose'
-    bl_label = _('Apply MMD Rest Pose')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.rigify_apply_mmd_rest_pose"
+    bl_label = _("Apply MMD Rest Pose")
+    bl_options = {"REGISTER", "UNDO"}
 
-    iterations: bpy.props.IntProperty(name=_('Iterations'), description=_('Number of solving iterations'), default=7, min=1, max=100)
-    pose_arms: bpy.props.BoolProperty(name=_('Pose arms'), default=True)
-    pose_legs: bpy.props.BoolProperty(name=_('Pose legs'), default=True)
-    pose_fingers: bpy.props.BoolProperty(name=_('Pose fingers'), default=False)
+    iterations: bpy.props.IntProperty(
+        name=_("Iterations"), description=_("Number of solving iterations"), default=7, min=1, max=100
+    )
+    pose_arms: bpy.props.BoolProperty(name=_("Pose arms"), default=True)
+    pose_legs: bpy.props.BoolProperty(name=_("Pose legs"), default=True)
+    pose_fingers: bpy.props.BoolProperty(name=_("Pose fingers"), default=False)
 
     @classmethod
     def poll(cls, context):
-        if context.mode not in {'OBJECT', 'POSE'}:
+        if context.mode not in {"OBJECT", "POSE"}:
             return False
 
         active_object = context.active_object
@@ -404,29 +424,29 @@ class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
             rigify_armature_object = RigifyArmatureObject(context.active_object)
             dependency_graph = context.evaluated_depsgraph_get()
 
-            bpy.ops.object.mode_set(mode='POSE')
+            bpy.ops.object.mode_set(mode="POSE")
             rigify_armature_object.pose_mmd_rest(
                 dependency_graph,
                 self.iterations,
                 pose_arms=self.pose_arms,
                 pose_legs=self.pose_legs,
-                pose_fingers=self.pose_fingers
+                pose_fingers=self.pose_fingers,
             )
 
         finally:
             bpy.ops.object.mode_set(mode=previous_mode)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class MMDAutoRigConvert(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.autorig_to_mmd_compatible'
-    bl_label = _('Convert AutoRig Armature to MMD compatible')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.autorig_to_mmd_compatible"
+    bl_label = _("Convert AutoRig Armature to MMD compatible")
+    bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
     def poll(cls, context):
-        if context.mode != 'OBJECT':
+        if context.mode != "OBJECT":
             return False
 
         active_object = context.active_object
@@ -436,30 +456,32 @@ class MMDAutoRigConvert(bpy.types.Operator):
     def execute(self, context: bpy.types.Context):
         autorig_armature_object = AutoRigArmatureObject(context.active_object)
 
-        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.object.mode_set(mode="EDIT")
         autorig_armature_object.imitate_mmd_bone_structure()
 
-        bpy.ops.object.mode_set(mode='POSE')
+        bpy.ops.object.mode_set(mode="POSE")
         autorig_armature_object.imitate_mmd_pose_behavior()
 
-        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.mode_set(mode="OBJECT")
         autorig_armature_object.assign_mmd_bone_names()
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class MMDAutoRigApplyMMDRestPose(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.autorig_apply_mmd_rest_pose'
-    bl_label = _('Apply MMD Rest Pose')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.autorig_apply_mmd_rest_pose"
+    bl_label = _("Apply MMD Rest Pose")
+    bl_options = {"REGISTER", "UNDO"}
 
-    iterations: bpy.props.IntProperty(name=_('Iterations'), description=_('Number of solving iterations'), default=7, min=1, max=100)
-    pose_arms: bpy.props.BoolProperty(name=_('Pose arms'), default=True)
-    pose_legs: bpy.props.BoolProperty(name=_('Pose legs'), default=True)
-    pose_fingers: bpy.props.BoolProperty(name=_('Pose fingers'), default=False)
+    iterations: bpy.props.IntProperty(
+        name=_("Iterations"), description=_("Number of solving iterations"), default=7, min=1, max=100
+    )
+    pose_arms: bpy.props.BoolProperty(name=_("Pose arms"), default=True)
+    pose_legs: bpy.props.BoolProperty(name=_("Pose legs"), default=True)
+    pose_fingers: bpy.props.BoolProperty(name=_("Pose fingers"), default=False)
 
     @classmethod
     def poll(cls, context):
-        if context.mode not in {'OBJECT', 'POSE'}:
+        if context.mode not in {"OBJECT", "POSE"}:
             return False
 
         active_object = context.active_object
@@ -473,16 +495,16 @@ class MMDAutoRigApplyMMDRestPose(bpy.types.Operator):
             rigify_armature_object = AutoRigArmatureObject(context.active_object)
             dependency_graph = context.evaluated_depsgraph_get()
 
-            bpy.ops.object.mode_set(mode='POSE')
+            bpy.ops.object.mode_set(mode="POSE")
             rigify_armature_object.pose_mmd_rest(
                 dependency_graph,
                 self.iterations,
                 pose_arms=self.pose_arms,
                 pose_legs=self.pose_legs,
-                pose_fingers=self.pose_fingers
+                pose_fingers=self.pose_fingers,
             )
 
         finally:
             bpy.ops.object.mode_set(mode=previous_mode)
 
-        return {'FINISHED'}
+        return {"FINISHED"}

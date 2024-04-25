@@ -5,6 +5,7 @@
 from abc import ABC, abstractmethod
 
 import requests
+
 from mmd_uuunyaa_tools.asset_search.actions import DownloadActionExecutor
 
 
@@ -16,6 +17,6 @@ class URLResolverABC(ABC):
 
 class URLResolver(URLResolverABC):
     def resolve(self, url: str) -> requests.models.Response:
-        if url.startswith('http://') or url.startswith('https://'):
+        if url.startswith("http://") or url.startswith("https://"):
             return requests.get(url, stream=True)
         return DownloadActionExecutor.execute_action(url)

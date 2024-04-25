@@ -3,6 +3,7 @@
 # This file is part of MMD UuuNyaa Tools.
 
 import bpy
+
 from mmd_uuunyaa_tools.asset_search.assets import AssetType, AssetUpdater
 
 
@@ -14,8 +15,8 @@ def update_search_query(_, context):
 
 
 class TagItem(bpy.types.PropertyGroup):
-    name: bpy.props.StringProperty(options={'SKIP_SAVE'})
-    enabled: bpy.props.BoolProperty(update=update_search_query, options={'SKIP_SAVE'})
+    name: bpy.props.StringProperty(options={"SKIP_SAVE"})
+    enabled: bpy.props.BoolProperty(update=update_search_query, options={"SKIP_SAVE"})
 
 
 class AssetItem(bpy.types.PropertyGroup):
@@ -24,29 +25,29 @@ class AssetItem(bpy.types.PropertyGroup):
 
 
 class AssetSearchResult(bpy.types.PropertyGroup):
-    count: bpy.props.IntProperty(options={'SKIP_SAVE'})
-    hit_count: bpy.props.IntProperty(options={'SKIP_SAVE'})
-    asset_items: bpy.props.CollectionProperty(type=AssetItem, options={'SKIP_SAVE'})
-    update_time: bpy.props.IntProperty(options={'SKIP_SAVE'})
+    count: bpy.props.IntProperty(options={"SKIP_SAVE"})
+    hit_count: bpy.props.IntProperty(options={"SKIP_SAVE"})
+    asset_items: bpy.props.CollectionProperty(type=AssetItem, options={"SKIP_SAVE"})
+    update_time: bpy.props.IntProperty(options={"SKIP_SAVE"})
 
 
 class AssetSearchQuery(bpy.types.PropertyGroup):
     type: bpy.props.EnumProperty(
         update=update_search_query,
-        options={'SKIP_SAVE'},
-        items=[(t.name, t.value, '') for t in AssetType],
-        default=AssetType.ALL.name
+        options={"SKIP_SAVE"},
+        items=[(t.name, t.value, "") for t in AssetType],
+        default=AssetType.ALL.name,
     )
-    text: bpy.props.StringProperty(update=update_search_query, options={'SKIP_SAVE'})
-    is_cached: bpy.props.BoolProperty(update=update_search_query, options={'SKIP_SAVE'})
-    tags: bpy.props.CollectionProperty(type=TagItem, options={'SKIP_SAVE'})
-    tags_index: bpy.props.IntProperty(options={'SKIP_SAVE'})
-    is_updating: bpy.props.BoolProperty(options={'SKIP_SAVE'})
+    text: bpy.props.StringProperty(update=update_search_query, options={"SKIP_SAVE"})
+    is_cached: bpy.props.BoolProperty(update=update_search_query, options={"SKIP_SAVE"})
+    tags: bpy.props.CollectionProperty(type=TagItem, options={"SKIP_SAVE"})
+    tags_index: bpy.props.IntProperty(options={"SKIP_SAVE"})
+    is_updating: bpy.props.BoolProperty(options={"SKIP_SAVE"})
 
 
 class AssetSearchProperties(bpy.types.PropertyGroup):
-    query: bpy.props.PointerProperty(type=AssetSearchQuery, options={'SKIP_SAVE'})
-    result: bpy.props.PointerProperty(type=AssetSearchResult, options={'SKIP_SAVE'})
+    query: bpy.props.PointerProperty(type=AssetSearchQuery, options={"SKIP_SAVE"})
+    result: bpy.props.PointerProperty(type=AssetSearchResult, options={"SKIP_SAVE"})
 
     @staticmethod
     def register():

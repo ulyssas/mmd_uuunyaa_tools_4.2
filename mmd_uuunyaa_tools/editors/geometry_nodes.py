@@ -6,17 +6,25 @@ import os
 from typing import Iterable
 
 import bpy
+
 from mmd_uuunyaa_tools import PACKAGE_PATH
 from mmd_uuunyaa_tools.editors.nodes import NodeEditor
 from mmd_uuunyaa_tools.m17n import _
 
 try:
-    from bpy.types import (GeometryNode, GeometryNodeAlignRotationToVector,
-                           GeometryNodeGroup, GeometryNodePointInstance,
-                           NodeGroupInput, NodeGroupOutput, NodeSocketGeometry,
-                           ShaderNodeGroup, ShaderNodeValue)
+    from bpy.types import (
+        GeometryNode,
+        GeometryNodeAlignRotationToVector,
+        GeometryNodeGroup,
+        GeometryNodePointInstance,
+        NodeGroupInput,
+        NodeGroupOutput,
+        NodeSocketGeometry,
+        ShaderNodeGroup,
+        ShaderNodeValue,
+    )
 
-    PATH_BLENDS_UUUNYAA_GEOMETRIES = os.path.join(PACKAGE_PATH, 'blends', 'UuuNyaa_Geometries.blend')
+    PATH_BLENDS_UUUNYAA_GEOMETRIES = os.path.join(PACKAGE_PATH, "blends", "UuuNyaa_Geometries.blend")
 
     class GeometryEditor(NodeEditor):
         # pylint: disable=too-many-public-methods
@@ -28,7 +36,9 @@ try:
             super().__init__(geometry)
 
         def get_output_node(self) -> NodeGroupOutput:
-            node_output: NodeGroupOutput = next((n for n in self.nodes if isinstance(n, NodeGroupOutput) and n.is_active_output), None)
+            node_output: NodeGroupOutput = next(
+                (n for n in self.nodes if isinstance(n, NodeGroupOutput) and n.is_active_output), None
+            )
             if node_output is None:
                 node_output = self.nodes.new(NodeGroupOutput.__name__)
                 node_output.is_active_output = True
@@ -41,16 +51,16 @@ try:
             return node_input
 
         def new_align_rotation_to_vector_node(self) -> GeometryNodeAlignRotationToVector:
-            return self.new_node(GeometryNodeAlignRotationToVector, label='Align Rotation to Vector')
+            return self.new_node(GeometryNodeAlignRotationToVector, label="Align Rotation to Vector")
 
         def new_point_instance_node(self) -> GeometryNodePointInstance:
-            return self.new_node(GeometryNodePointInstance, label='Point Instance')
+            return self.new_node(GeometryNodePointInstance, label="Point Instance")
 
         def get_point_random_rotation_node(self) -> ShaderNodeGroup:
-            return self.get_node_group(_('Point Random Rotation'), label='Point Random Rotation')
+            return self.get_node_group(_("Point Random Rotation"), label="Point Random Rotation")
 
         def get_random_rotation_point_instance_node(self) -> ShaderNodeGroup:
-            return self.get_node_group(_('Random Rotation Point Instance'), label='Random Rotation Point Instance')
+            return self.get_node_group(_("Random Rotation Point Instance"), label="Random Rotation Point Instance")
 
         def reset(self):
             node_frame = self.find_adjusters_node_frame()
@@ -75,13 +85,13 @@ try:
                 col.label(text=node.label)
                 if isinstance(node, ShaderNodeValue):
                     for node_output in node.outputs:
-                        col.prop(node_output, 'default_value', text=node_output.name)
+                        col.prop(node_output, "default_value", text=node_output.name)
                 else:
                     for node_input in node.inputs:
                         if node_input.is_linked:
                             continue
                         if isinstance(node_input, NodeSocketGeometry):
                             continue
-                        col.prop(node_input, 'default_value', text=node_input.name)
+                        col.prop(node_input, "default_value", text=node_input.name)
 except ImportError:
-    print('[WARN] Geometry Nodes do not exist. Ignore it.')
+    print("[WARN] Geometry Nodes do not exist. Ignore it.")

@@ -8,6 +8,7 @@ from typing import Dict, NamedTuple, Tuple
 
 import bpy
 import bpy.utils.previews
+
 from mmd_uuunyaa_tools import PACKAGE_PATH
 
 
@@ -47,11 +48,11 @@ class TunerRegistry:
 
     def add(self, tuner_index: int, tuner: TunerABC, icon_filename: str = None):
         if icon_filename is None:
-            icon_filename = tuner.get_id() + '.png'
+            icon_filename = tuner.get_id() + ".png"
 
-        icon_path = os.path.join(PACKAGE_PATH, 'thumbnails', icon_filename)
-        icon_id = self.previews.load(icon_filename, icon_path, 'IMAGE').icon_id
+        icon_path = os.path.join(PACKAGE_PATH, "thumbnails", icon_filename)
+        icon_id = self.previews.load(icon_filename, icon_path, "IMAGE").icon_id
         self.tuners[tuner.get_id()] = TunerDescription(tuner_index, tuner, icon_filename, icon_id)
 
     def to_enum_property_items(self):
-        return [(id, t.tuner.get_name(), '', t.icon_id, t.tuner_index) for id, t in self.tuners.items()]
+        return [(id, t.tuner.get_name(), "", t.icon_id, t.tuner_index) for id, t in self.tuners.items()]

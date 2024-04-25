@@ -5,18 +5,19 @@
 from typing import Iterable
 
 import bpy
+
 from mmd_uuunyaa_tools.editors.meshes import MeshEditor
 from mmd_uuunyaa_tools.m17n import _
 from mmd_uuunyaa_tools.utilities import import_mmd_tools
 
 
 class UuuNyaaRigidBodyAdjusterPanel(bpy.types.Panel):
-    bl_idname = 'UUUNYAA_PT_rigid_body_adjuster'
-    bl_label = _('UuuNyaa Rigid Body Adjuster')
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = 'physics'
-    bl_options = {'DEFAULT_CLOSED'}
+    bl_idname = "UUUNYAA_PT_rigid_body_adjuster"
+    bl_label = _("UuuNyaa Rigid Body Adjuster")
+    bl_space_type = "PROPERTIES"
+    bl_region_type = "WINDOW"
+    bl_context = "physics"
+    bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -26,28 +27,28 @@ class UuuNyaaRigidBodyAdjusterPanel(bpy.types.Panel):
         layout = self.layout
 
         col = layout.column()
-        col.label(text=_('Batch Operation:'))
-        col.operator('rigidbody.object_settings_copy', text=_('Copy to Selected'), icon='DUPLICATE')
+        col.label(text=_("Batch Operation:"))
+        col.operator("rigidbody.object_settings_copy", text=_("Copy to Selected"), icon="DUPLICATE")
 
 
 class SelectMeshRigidBody(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.select_rigid_body_mesh'
-    bl_label = _('Select Rigid Body Mesh')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.select_rigid_body_mesh"
+    bl_label = _("Select Rigid Body Mesh")
+    bl_options = {"REGISTER", "UNDO"}
 
-    only_in_mmd_model: bpy.props.BoolProperty(name=_('Only in the MMD Model'))
-    only_same_settings: bpy.props.BoolProperty(name=_('Only the same Settings'))
+    only_in_mmd_model: bpy.props.BoolProperty(name=_("Only in the MMD Model"))
+    only_same_settings: bpy.props.BoolProperty(name=_("Only the same Settings"))
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
-        if context.mode != 'OBJECT':
+        if context.mode != "OBJECT":
             return False
 
         active_object = context.active_object
         if active_object is None:
             return False
 
-        if active_object.type != 'MESH':
+        if active_object.type != "MESH":
             return False
 
         return MeshEditor(active_object).find_rigid_body_object() is not None
@@ -67,7 +68,7 @@ class SelectMeshRigidBody(bpy.types.Operator):
 
         obj: bpy.types.Object
         for obj in self.filter_only_in_mmd_model(key_object) if self.only_in_mmd_model else bpy.data.objects:
-            if obj.type != 'MESH':
+            if obj.type != "MESH":
                 continue
 
             rigid_body_object = MeshEditor(obj).find_rigid_body_object()
@@ -79,4 +80,4 @@ class SelectMeshRigidBody(bpy.types.Operator):
 
             obj.select_set(True)
 
-        return {'FINISHED'}
+        return {"FINISHED"}

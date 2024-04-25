@@ -13,31 +13,32 @@ from enum import Enum
 from typing import Any, Dict, ItemsView, Tuple, ValuesView
 
 import requests
+
 from mmd_uuunyaa_tools import PACKAGE_PATH, REGISTER_HOOKS
 from mmd_uuunyaa_tools.m17n import _
 from mmd_uuunyaa_tools.utilities import get_preferences
 
 
 class AssetType(Enum):
-    ALL = 'All'
-    MODEL_MMD = 'Model (.pmx)'
-    MODEL_BLENDER = 'Model (.blend)'
-    MOTION_MMD = 'Motion (.vmd)'
-    POSE_MMD = 'Pose (.vpd)'
-    LIGHTING = 'Lighting'
-    MATERIAL = 'Material'
-    WORLD_BLENDER = 'World (.blend)'
+    ALL = "All"
+    MODEL_MMD = "Model (.pmx)"
+    MODEL_BLENDER = "Model (.blend)"
+    MOTION_MMD = "Motion (.vmd)"
+    POSE_MMD = "Pose (.vpd)"
+    LIGHTING = "Lighting"
+    MATERIAL = "Material"
+    WORLD_BLENDER = "World (.blend)"
 
 
 translation_properties = [
-    _('All'),
-    _('Model (.pmx)'),
-    _('Model (.blend)'),
-    _('Motion (.vmd)'),
-    _('Pose (.vpd)'),
-    _('Lighting'),
-    _('Material'),
-    _('World (.blend)'),
+    _("All"),
+    _("Model (.pmx)"),
+    _("Model (.blend)"),
+    _("Motion (.vmd)"),
+    _("Pose (.vpd)"),
+    _("Lighting"),
+    _("Material"),
+    _("World (.blend)"),
 ]
 
 
@@ -70,53 +71,54 @@ class AssetDescription:
         self.aliases = aliases
         self.note = note
         self.tag_names = set(tags.values())
-        self.keywords = '^'.join(['', name, note, *self.tag_names, *aliases.values()]).lower()
+        self.keywords = "^".join(["", name, note, *self.tag_names, *aliases.values()]).lower()
 
     def tags_text(self) -> str:
-        return ', '.join(self.tag_names)
+        return ", ".join(self.tag_names)
 
 
 class _Utilities:
-
     @staticmethod
     def to_dict(asset: AssetDescription) -> Dict[str, Any]:
         return {
-            'id': asset.id,
-            'type': asset.type,
-            'url': asset.url,
-            'name': asset.name,
-            'tags': asset.tags,
-            'updated_at': asset.updated_at,
-            'thumbnail_url': asset.thumbnail_url,
-            'source_url': asset.source_url,
-            'download_action': asset.download_action,
-            'import_action': asset.import_action,
-            'aliases': asset.aliases,
-            'note': asset.note,
+            "id": asset.id,
+            "type": asset.type,
+            "url": asset.url,
+            "name": asset.name,
+            "tags": asset.tags,
+            "updated_at": asset.updated_at,
+            "thumbnail_url": asset.thumbnail_url,
+            "source_url": asset.source_url,
+            "download_action": asset.download_action,
+            "import_action": asset.import_action,
+            "aliases": asset.aliases,
+            "note": asset.note,
         }
 
     @staticmethod
     def from_dict(asset: Dict[str, Any]) -> AssetDescription:
         return AssetDescription(
-            id=asset['id'],
-            type=AssetType[asset['type']],
-            url=asset['url'],
-            name=asset['name'],
-            tags=asset['tags'],
-            updated_at=datetime.strptime(asset['updated_at'], '%Y-%m-%dT%H:%M:%S%z').replace(tzinfo=timezone.utc).astimezone(tz=None),
-            thumbnail_url=asset['thumbnail_url'],
-            source_url=asset['source_url'],
-            download_action=asset['download_action'],
-            import_action=asset['import_action'],
-            aliases=asset['aliases'],
-            note=asset['note'],
+            id=asset["id"],
+            type=AssetType[asset["type"]],
+            url=asset["url"],
+            name=asset["name"],
+            tags=asset["tags"],
+            updated_at=datetime.strptime(asset["updated_at"], "%Y-%m-%dT%H:%M:%S%z")
+            .replace(tzinfo=timezone.utc)
+            .astimezone(tz=None),
+            thumbnail_url=asset["thumbnail_url"],
+            source_url=asset["source_url"],
+            download_action=asset["download_action"],
+            import_action=asset["import_action"],
+            aliases=asset["aliases"],
+            note=asset["note"],
         )
 
     @staticmethod
     def to_json(asset: AssetDescription, **kwargs):
         def encoder(obj):
             if isinstance(obj, datetime):
-                return obj.astimezone(tz=timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+                return obj.astimezone(tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
             if isinstance(obj, Enum):
                 return obj.name
@@ -124,23 +126,27 @@ class _Utilities:
             if isinstance(obj, set):
                 return list(obj)
 
-            raise TypeError(repr(obj) + ' is not JSON serializable')
+            raise TypeError(repr(obj) + " is not JSON serializable")
 
-        return json.dumps({
-            'format': 'blender_mmd_assets:3',
-            'description': 'This file is a mmd_uuunyaa_tools marking',
-            'license': 'CC-BY-4.0 License',
-            'created_at': datetime.now(),
-            'assets': [_Utilities.to_dict(asset)]
-        }, default=encoder, **kwargs)
+        return json.dumps(
+            {
+                "format": "blender_mmd_assets:3",
+                "description": "This file is a mmd_uuunyaa_tools marking",
+                "license": "CC-BY-4.0 License",
+                "created_at": datetime.now(),
+                "assets": [_Utilities.to_dict(asset)],
+            },
+            default=encoder,
+            **kwargs,
+        )
 
     @staticmethod
     def to_context(asset: AssetDescription) -> Dict[str, str]:
         return {
-            'id': asset.id,
-            'type': asset.type.name,
-            'name': asset.name,
-            'aliases': asset.aliases,
+            "id": asset.id,
+            "type": asset.type.name,
+            "name": asset.name,
+            "aliases": asset.aliases,
         }
 
     @staticmethod
@@ -151,15 +157,9 @@ class _Utilities:
         asset_extract_json = preferences.asset_extract_json
 
         context = _Utilities.to_context(asset)
-        asset_path = os.path.join(
-            asset_extract_root_folder,
-            asset_extract_folder.format(**context)
-        )
+        asset_path = os.path.join(asset_extract_root_folder, asset_extract_folder.format(**context))
 
-        asset_json = os.path.join(
-            asset_path,
-            asset_extract_json.format(**context)
-        )
+        asset_json = os.path.join(asset_path, asset_extract_json.format(**context))
 
         return (asset_path, asset_json)
 
@@ -172,7 +172,7 @@ class _Utilities:
     def write_json(asset: AssetDescription):
         _, asset_json = _Utilities.resolve_path(asset)
         try:
-            with open(asset_json, mode='wt', encoding='utf-8') as f:
+            with open(asset_json, mode="wt", encoding="utf-8") as f:
                 f.write(_Utilities.to_json(asset, indent=2, ensure_ascii=False))
         except:
             os.remove(asset_json)
@@ -180,7 +180,6 @@ class _Utilities:
 
 
 class AssetRegistry:
-
     def __init__(self, *assets: AssetDescription):
         self.assets: Dict[str, AssetDescription] = {}
         for asset in assets:
@@ -206,12 +205,12 @@ class AssetRegistry:
 
         self.assets.clear()
 
-        json_paths = glob.glob(os.path.join(preferences.asset_jsons_folder, '*.json'))
+        json_paths = glob.glob(os.path.join(preferences.asset_jsons_folder, "*.json"))
         json_paths.sort()
         for json_path in json_paths:
             try:
-                with open(json_path, encoding='utf-8') as file:
-                    for asset in json.load(file)['assets']:
+                with open(json_path, encoding="utf-8") as file:
+                    for asset in json.load(file)["assets"]:
                         try:
                             self.add(_Utilities.from_dict(asset))
                         except:  # pylint: disable=bare-except
@@ -228,23 +227,22 @@ class AssetRegistry:
 
 
 class AssetUpdater:
-    default_repo = 'UuuNyaa/blender_mmd_assets'
+    default_repo = "UuuNyaa/blender_mmd_assets"
     default_query = '{"state": "open", "milestone": 1, "labels": "Official"}'
-    default_assets_json = 'assets.json'
+    default_assets_json = "assets.json"
 
     @staticmethod
     def load_cat_asset_json():
-        namespace = 'cat_asset_json'
+        namespace = "cat_asset_json"
         loader = importlib.machinery.SourceFileLoader(
-            namespace,
-            os.path.join(PACKAGE_PATH, 'externals', 'blender_mmd_assets', 'cat_asset_json.py')
+            namespace, os.path.join(PACKAGE_PATH, "externals", "blender_mmd_assets", "cat_asset_json.py")
         )
         return loader.load_module(namespace)  # pylint: disable=deprecated-method
 
     @staticmethod
     def write_assets_json(assets_json_object, output_json: str):
         preferences = get_preferences()
-        with open(os.path.join(preferences.asset_jsons_folder, output_json), mode='wt', encoding='utf-8') as file:
+        with open(os.path.join(preferences.asset_jsons_folder, output_json), mode="wt", encoding="utf-8") as file:
             json.dump(assets_json_object, file, ensure_ascii=False, indent=2)
 
     @staticmethod
@@ -271,9 +269,7 @@ class AssetUpdater:
         cat_asset_json = AssetUpdater.load_cat_asset_json()
 
         session = requests.Session()
-        return cat_asset_json.wrap_assets([
-            cat_asset_json.fetch_asset(session, repo, issue_number)
-        ])
+        return cat_asset_json.wrap_assets([cat_asset_json.fetch_asset(session, repo, issue_number)])
 
 
 ASSETS = AssetRegistry()
@@ -284,10 +280,12 @@ def initialize_asset_registory():
 
     if preferences.asset_json_update_on_startup_enabled:
         try:
-            print(f"Asset Auto Update: repo='{preferences.asset_json_update_repo}', query='{preferences.asset_json_update_query}'")
+            print(
+                f"Asset Auto Update: repo='{preferences.asset_json_update_repo}', query='{preferences.asset_json_update_query}'"
+            )
             AssetUpdater.write_assets_json(
                 AssetUpdater.fetch_assets_json_by_query(preferences.asset_json_update_repo, preferences.asset_json_update_query),
-                AssetUpdater.default_assets_json
+                AssetUpdater.default_assets_json,
             )
         except:  # pylint: disable=bare-except
             traceback.print_exc()

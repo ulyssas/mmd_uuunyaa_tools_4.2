@@ -6,21 +6,19 @@ import os
 from typing import Optional
 
 import bpy
+
 from mmd_uuunyaa_tools import PACKAGE_PATH
 from mmd_uuunyaa_tools.m17n import _
 from mmd_uuunyaa_tools.tuners import TunerABC, TunerRegistry
 from mmd_uuunyaa_tools.tuners.utilities import ObjectAppender, ObjectMarker
 
-PATH_BLENDS_UUUNYAA_LIGHTINGS = os.path.join(PACKAGE_PATH, 'blends', 'UuuNyaa_Lightings.blend')
+PATH_BLENDS_UUUNYAA_LIGHTINGS = os.path.join(PACKAGE_PATH, "blends", "UuuNyaa_Lightings.blend")
 
 
 class LightingUtilities:
     def __init__(self, collection):
         self.collection = collection
-        self.object_appender = ObjectAppender(
-            'mmd_uuunyaa_tools_lighting_mark',
-            PATH_BLENDS_UUUNYAA_LIGHTINGS
-        )
+        self.object_appender = ObjectAppender("mmd_uuunyaa_tools_lighting_mark", PATH_BLENDS_UUUNYAA_LIGHTINGS)
 
     @property
     def object_marker(self) -> ObjectMarker:
@@ -28,7 +26,7 @@ class LightingUtilities:
 
     def find_active_lighting(self) -> Optional[bpy.types.Object]:
         for obj in self.collection.objects.values():
-            if obj.type != 'EMPTY' or obj.parent is not None or not self.object_marker.is_marked(obj):
+            if obj.type != "EMPTY" or obj.parent is not None or not self.object_marker.is_marked(obj):
                 continue
             return obj
 
@@ -46,11 +44,11 @@ class LightingTunerABC(TunerABC, LightingUtilities):
 class ResetLightingTuner(LightingTunerABC):
     @classmethod
     def get_id(cls) -> str:
-        return 'LIGHTING_RESET'
+        return "LIGHTING_RESET"
 
     @classmethod
     def get_name(cls) -> str:
-        return _('Reset')
+        return _("Reset")
 
     def execute(self):
         self.reset()
@@ -59,11 +57,11 @@ class ResetLightingTuner(LightingTunerABC):
 class LeftAccentLightingTuner(LightingTunerABC):
     @classmethod
     def get_id(cls) -> str:
-        return 'LIGHTING_LEFT_ACCENT'
+        return "LIGHTING_LEFT_ACCENT"
 
     @classmethod
     def get_name(cls) -> str:
-        return _('Left Accent')
+        return _("Left Accent")
 
     def execute(self):
         self.reset()
@@ -73,11 +71,11 @@ class LeftAccentLightingTuner(LightingTunerABC):
 class DoubleSideAccentLightingTuner(LightingTunerABC):
     @classmethod
     def get_id(cls) -> str:
-        return 'LIGHTING_DOUBLE_SIDE_ACCENT'
+        return "LIGHTING_DOUBLE_SIDE_ACCENT"
 
     @classmethod
     def get_name(cls) -> str:
-        return _('Double Side Accent')
+        return _("Double Side Accent")
 
     def execute(self):
         self.reset()
@@ -87,11 +85,11 @@ class DoubleSideAccentLightingTuner(LightingTunerABC):
 class GodRayLightingTuner(LightingTunerABC):
     @classmethod
     def get_id(cls) -> str:
-        return 'LIGHTING_GOD_RAY'
+        return "LIGHTING_GOD_RAY"
 
     @classmethod
     def get_name(cls) -> str:
-        return _('God Ray')
+        return _("God Ray")
 
     def execute(self):
         self.reset()
@@ -101,11 +99,11 @@ class GodRayLightingTuner(LightingTunerABC):
 class BacklightLightingTuner(LightingTunerABC):
     @classmethod
     def get_id(cls) -> str:
-        return 'LIGHTING_BACKLIGHT'
+        return "LIGHTING_BACKLIGHT"
 
     @classmethod
     def get_name(cls) -> str:
-        return _('Backlight')
+        return _("Backlight")
 
     def execute(self):
         self.reset()
@@ -115,11 +113,11 @@ class BacklightLightingTuner(LightingTunerABC):
 class LightProbeGridLightingTuner(LightingTunerABC):
     @classmethod
     def get_id(cls) -> str:
-        return 'LIGHTING_LIGHT_PROBE_GRID'
+        return "LIGHTING_LIGHT_PROBE_GRID"
 
     @classmethod
     def get_name(cls) -> str:
-        return _('Light Probe Grid')
+        return _("Light Probe Grid")
 
     def execute(self):
         self.reset()
@@ -129,11 +127,11 @@ class LightProbeGridLightingTuner(LightingTunerABC):
 class ShadowlessLightingTuner(LightingTunerABC):
     @classmethod
     def get_id(cls) -> str:
-        return 'LIGHTING_SHADOWLESS'
+        return "LIGHTING_SHADOWLESS"
 
     @classmethod
     def get_name(cls) -> str:
-        return _('Shadowless')
+        return _("Shadowless")
 
     def execute(self):
         self.reset()

@@ -5,6 +5,7 @@
 from typing import Iterable
 
 import bpy
+
 from mmd_uuunyaa_tools.editors.meshes import MeshEditor
 from mmd_uuunyaa_tools.m17n import _
 from mmd_uuunyaa_tools.tuners import TunerABC, TunerRegistry
@@ -18,11 +19,11 @@ class CollisionTunerABC(TunerABC, MeshEditor):
 class NothingCollisionTuner(CollisionTunerABC):
     @classmethod
     def get_id(cls) -> str:
-        return 'PHYSICS_COLLISION_NOTHING'
+        return "PHYSICS_COLLISION_NOTHING"
 
     @classmethod
     def get_name(cls) -> str:
-        return _('Nothing')
+        return _("Nothing")
 
     def execute(self):
         pass
@@ -31,11 +32,11 @@ class NothingCollisionTuner(CollisionTunerABC):
 class ThinSmoothCollisionTuner(CollisionTunerABC):
     @classmethod
     def get_id(cls) -> str:
-        return 'PHYSICS_COLLISION_THIN_SMOOTH'
+        return "PHYSICS_COLLISION_THIN_SMOOTH"
 
     @classmethod
     def get_name(cls) -> str:
-        return _('Thin Smooth')
+        return _("Thin Smooth")
 
     def execute(self):
         collision_settings: bpy.types.CollisionSettings = self.find_collision_settings()
@@ -52,11 +53,11 @@ TUNERS = TunerRegistry(
 
 
 class UuuNyaaCollisionAdjusterPanel(bpy.types.Panel):
-    bl_idname = 'UUUNYAA_PT_collision_adjuster'
-    bl_label = _('UuuNyaa Collision Adjuster')
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = 'physics'
+    bl_idname = "UUUNYAA_PT_collision_adjuster"
+    bl_label = _("UuuNyaa Collision Adjuster")
+    bl_space_type = "PROPERTIES"
+    bl_region_type = "WINDOW"
+    bl_context = "physics"
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -68,25 +69,25 @@ class UuuNyaaCollisionAdjusterPanel(bpy.types.Panel):
         collision_settings = mesh_object.mmd_uuunyaa_tools_collision_settings
 
         col = layout.column()
-        col.prop(collision_settings, 'presets')
-        col.prop(collision_settings, 'damping', slider=True)
-        col.prop(collision_settings, 'thickness_outer', slider=True)
-        col.prop(collision_settings, 'thickness_inner', slider=True)
-        col.prop(collision_settings, 'cloth_friction')
+        col.prop(collision_settings, "presets")
+        col.prop(collision_settings, "damping", slider=True)
+        col.prop(collision_settings, "thickness_outer", slider=True)
+        col.prop(collision_settings, "thickness_inner", slider=True)
+        col.prop(collision_settings, "cloth_friction")
 
         col = layout.column()
-        col.label(text=_('Batch Operation:'))
-        col.operator(CopyCollisionAdjusterSettings.bl_idname, text=_('Copy to Selected'), icon='DUPLICATE')
+        col.label(text=_("Batch Operation:"))
+        col.operator(CopyCollisionAdjusterSettings.bl_idname, text=_("Copy to Selected"), icon="DUPLICATE")
 
 
 class CopyCollisionAdjusterSettings(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.copy_collision_adjuster_settings'
-    bl_label = _('Copy Collision Adjuster Settings')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.copy_collision_adjuster_settings"
+    bl_label = _("Copy Collision Adjuster Settings")
+    bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
-        return len([o for o in context.selected_objects if o.type == 'MESH']) >= 2
+        return len([o for o in context.selected_objects if o.type == "MESH"]) >= 2
 
     def execute(self, context: bpy.types.Context):
         from_object = context.active_object
@@ -94,7 +95,7 @@ class CopyCollisionAdjusterSettings(bpy.types.Operator):
         from_modifier = MeshEditor(from_object).get_collision_modifier()
 
         for to_object in context.selected_objects:
-            if to_object.type != 'MESH':
+            if to_object.type != "MESH":
                 continue
 
             if from_object == to_object:
@@ -109,27 +110,27 @@ class CopyCollisionAdjusterSettings(bpy.types.Operator):
             to_settings.thickness_inner = from_settings.thickness_inner
             to_settings.cloth_friction = from_settings.cloth_friction
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class SelectCollisionMesh(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.select_collision_mesh'
-    bl_label = _('Select Collision Mesh')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.select_collision_mesh"
+    bl_label = _("Select Collision Mesh")
+    bl_options = {"REGISTER", "UNDO"}
 
-    same_mmd_model: bpy.props.BoolProperty(name=_('Same MMD Model'))
-    same_physics_settings: bpy.props.BoolProperty(name=_('Same Physics Settings'))
+    same_mmd_model: bpy.props.BoolProperty(name=_("Same MMD Model"))
+    same_physics_settings: bpy.props.BoolProperty(name=_("Same Physics Settings"))
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
-        if context.mode != 'OBJECT':
+        if context.mode != "OBJECT":
             return False
 
         active_object = context.active_object
         if active_object is None:
             return False
 
-        if active_object.type != 'MESH':
+        if active_object.type != "MESH":
             return False
 
         return MeshEditor(active_object).find_collision_modifier() is not None
@@ -149,7 +150,7 @@ class SelectCollisionMesh(bpy.types.Operator):
 
         obj: bpy.types.Object
         for obj in self.filter_only_in_mmd_model(key_object) if self.same_mmd_model else bpy.data.objects:
-            if obj.type != 'MESH':
+            if obj.type != "MESH":
                 continue
 
             if MeshEditor(obj).find_collision_modifier() is None:
@@ -160,24 +161,24 @@ class SelectCollisionMesh(bpy.types.Operator):
 
             obj.select_set(True)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class RemoveMeshCollision(bpy.types.Operator):
-    bl_idname = 'mmd_uuunyaa_tools.remove_mesh_collision'
-    bl_label = _('Remove Mesh Collision')
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_idname = "mmd_uuunyaa_tools.remove_mesh_collision"
+    bl_label = _("Remove Mesh Collision")
+    bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
-        if context.mode != 'OBJECT':
+        if context.mode != "OBJECT":
             return False
 
         active_object = context.active_object
         if active_object is None:
             return False
 
-        if active_object.type != 'MESH':
+        if active_object.type != "MESH":
             return False
 
         return MeshEditor(active_object).find_collision_modifier() is not None
@@ -188,16 +189,16 @@ class RemoveMeshCollision(bpy.types.Operator):
     def execute(self, context: bpy.types.Context):
         try:
             for obj in context.selected_objects:
-                if obj.type != 'MESH':
+                if obj.type != "MESH":
                     continue
 
                 MeshEditor(obj).remove_collision_modifier()
 
         except MessageException as ex:
-            self.report(type={'ERROR'}, message=str(ex))
-            return {'CANCELLED'}
+            self.report(type={"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
@@ -206,34 +207,44 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         TUNERS[prop.presets](prop.id_data).execute()
 
     presets: bpy.props.EnumProperty(
-        name=_('Presets'),
-        items=TUNERS.to_enum_property_items(),
-        update=_update_presets.__func__,
-        default=None
+        name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None
     )
 
     damping: bpy.props.FloatProperty(
-        name=_('Damping'), min=0.000, max=1.000, precision=3,
-        get=lambda p: getattr(MeshEditor(p.id_data).find_collision_settings(), 'damping', 0),
-        set=lambda p, v: setattr(MeshEditor(p.id_data).find_collision_settings(), 'damping', v),
+        name=_("Damping"),
+        min=0.000,
+        max=1.000,
+        precision=3,
+        get=lambda p: getattr(MeshEditor(p.id_data).find_collision_settings(), "damping", 0),
+        set=lambda p, v: setattr(MeshEditor(p.id_data).find_collision_settings(), "damping", v),
     )
 
     thickness_outer: bpy.props.FloatProperty(
-        name=_('Thickness Outer'), min=0.001, max=1.000, precision=3,
-        get=lambda p: getattr(MeshEditor(p.id_data).find_collision_settings(), 'thickness_outer', 0),
-        set=lambda p, v: setattr(MeshEditor(p.id_data).find_collision_settings(), 'thickness_outer', v),
+        name=_("Thickness Outer"),
+        min=0.001,
+        max=1.000,
+        precision=3,
+        get=lambda p: getattr(MeshEditor(p.id_data).find_collision_settings(), "thickness_outer", 0),
+        set=lambda p, v: setattr(MeshEditor(p.id_data).find_collision_settings(), "thickness_outer", v),
     )
 
     thickness_inner: bpy.props.FloatProperty(
-        name=_('Thickness Inner'), min=0.001, max=1.000, precision=3,
-        get=lambda p: getattr(MeshEditor(p.id_data).find_collision_settings(), 'thickness_inner', 0),
-        set=lambda p, v: setattr(MeshEditor(p.id_data).find_collision_settings(), 'thickness_inner', v),
+        name=_("Thickness Inner"),
+        min=0.001,
+        max=1.000,
+        precision=3,
+        get=lambda p: getattr(MeshEditor(p.id_data).find_collision_settings(), "thickness_inner", 0),
+        set=lambda p, v: setattr(MeshEditor(p.id_data).find_collision_settings(), "thickness_inner", v),
     )
 
     cloth_friction: bpy.props.FloatProperty(
-        name=_('Cloth Friction'), min=0.000, max=80.000, step=10, precision=3,
-        get=lambda p: getattr(MeshEditor(p.id_data).find_collision_settings(), 'cloth_friction', 0),
-        set=lambda p, v: setattr(MeshEditor(p.id_data).find_collision_settings(), 'cloth_friction', v),
+        name=_("Cloth Friction"),
+        min=0.000,
+        max=80.000,
+        step=10,
+        precision=3,
+        get=lambda p: getattr(MeshEditor(p.id_data).find_collision_settings(), "cloth_friction", 0),
+        set=lambda p, v: setattr(MeshEditor(p.id_data).find_collision_settings(), "cloth_friction", v),
     )
 
     def physics_equals(self, obj):
@@ -249,7 +260,9 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     @staticmethod
     def register():
         # pylint: disable=assignment-from-no-return
-        bpy.types.Object.mmd_uuunyaa_tools_collision_settings = bpy.props.PointerProperty(type=CollisionAdjusterSettingsPropertyGroup)
+        bpy.types.Object.mmd_uuunyaa_tools_collision_settings = bpy.props.PointerProperty(
+            type=CollisionAdjusterSettingsPropertyGroup
+        )
 
     @staticmethod
     def unregister():
