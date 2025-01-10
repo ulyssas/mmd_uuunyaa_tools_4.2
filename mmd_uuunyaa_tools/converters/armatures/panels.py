@@ -71,18 +71,18 @@ class MMDRigifyPanel(bpy.types.Panel):
         if not is_mmd_integrated_object:
             return
 
+        bone_collections = rigify_armature_object.bone_collections
+        bone_collection_category: dict[str, list[str]] = rigify_armature_object.MMDBColCategory
+
         col.label(text=_('MMD Layers:'))
-        row = col.row()
-        row.prop(active_object.data, 'layers', index=24, toggle=True, text=_('Main'))
+        for category, collection_names in bone_collection_category.items():
+            if not collection_names:  # if empty
+                continue
 
-        row = col.row()
-        row.prop(active_object.data, 'layers', index=25, toggle=True, text=_('Others'))
-
-        row = col.row()
-        row.prop(active_object.data, 'layers', index=26, toggle=True, text=_('Shadow'))
-
-        row = col.row()
-        row.prop(active_object.data, 'layers', index=27, toggle=True, text=_('Dummy'))
+            col.label(text=category)
+            row = col.grid_flow(row_major=True, columns=3, align=True)
+            for collection_name in collection_names:
+                row.prop(bone_collections[collection_name], 'is_visible', index=-1, toggle=1, text=collection_name)
 
 
 class AutoRigPanel(bpy.types.Panel):
