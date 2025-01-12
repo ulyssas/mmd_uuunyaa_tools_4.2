@@ -739,7 +739,7 @@ def to_targets(breast_bones: List[bpy.types.EditBone], deform_mesh_objects: List
 
         if breast_bone_direction_vector.z < -0.6:
             if not breast_bone.use_connect:
-                raise MessageException('Unsupported breast bone structure.') from None
+                raise MessageException('Unsupported breast bone structure. Make sure the bone is connected to parent bone. (Bone > Relations)') from None
 
             parent_bone_name = breast_bone.parent.parent.name
             direction = breast_bone.parent.vector.normalized()

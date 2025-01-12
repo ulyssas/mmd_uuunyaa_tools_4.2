@@ -34,8 +34,8 @@ class ConvertMaterialsForEevee(bpy.types.Operator):
         for obj in (x for x in context.selected_objects if x.type == 'MESH'):
             mmd_tools.cycles_converter.convertToCyclesShader(obj, use_principled=True, clean_nodes=True)
 
-        if context.scene.render.engine != 'BLENDER_EEVEE':
-            context.scene.render.engine = 'BLENDER_EEVEE'
+        if context.scene.render.engine != 'BLENDER_EEVEE_NEXT':
+            context.scene.render.engine = 'BLENDER_EEVEE_NEXT'
 
         return {'FINISHED'}
 
@@ -46,7 +46,6 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
     bl_description = _('Setup render engine properties for Eevee.')
     bl_options = {'REGISTER', 'UNDO'}
 
-    use_bloom: bpy.props.BoolProperty(name=_('Use Bloom'), default=True)
     use_motion_blur: bpy.props.BoolProperty(name=_('Use Motion Blur'), default=False)
     film_transparent: bpy.props.BoolProperty(name=_('Use Film Transparent'), default=False)
 
@@ -55,8 +54,9 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
         return True
 
     def execute(self, context):
-        if context.scene.render.engine != 'BLENDER_EEVEE':
-            context.scene.render.engine = 'BLENDER_EEVEE'
+        if context.scene.render.engine != 'BLENDER_EEVEE_NEXT':
+            print(context)
+            context.scene.render.engine = 'BLENDER_EEVEE_NEXT'
 
         eevee = context.scene.eevee
 
@@ -71,35 +71,18 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
         # > Distance: 0.1 m
         eevee.gtao_distance = 0.100
 
-        # Bloom: enable
-        eevee.use_bloom = self.use_bloom
-        if self.use_bloom:
-            # > Threshold: 1.000
-            eevee.bloom_threshold = 1.000
-            # > Intensity: 0.100
-            eevee.bloom_intensity = 0.100
-
         # Depth of Field
         # > Max Size: 16 px
         eevee.bokeh_max_size = 16.000
 
-        # Screen Space Reflections: enable
-        eevee.use_ssr = True
-        # > Refrection: enable
-        eevee.use_ssr_refraction = True
-        # > Edge Fading: 0.000
-        eevee.ssr_border_fade = 0.075
-
         # Motion Blur
-        eevee.use_motion_blur = self.use_motion_blur
+        context.scene.render.use_motion_blur = self.use_motion_blur
 
-        # Shadows
-        # > Cube Size 1024 px
-        eevee.shadow_cube_size = '1024'
-        # > Cascade Size 2048 px
-        eevee.shadow_cascade_size = '2048'
-        # > Soft Shadows: True
-        eevee.use_soft_shadows = True
+        # Shadows: True
+        eevee.use_shadows = True
+
+        # Ray-tracing: True
+        eevee.use_raytracing = True
 
         # Indirect lighting: enable
         # > Irradiance Smoothing: 0.50
@@ -110,9 +93,9 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
 
         # Color Management
         # > View Transform: Filmic
-        context.scene.view_settings.view_transform = 'Filmic'
+        context.scene.view_settings.view_transform = 'AgX'
         # > Look: High Contrast
-        context.scene.view_settings.look = 'High Contrast'
+        context.scene.view_settings.look = 'AgX - High Contrast'
 
         return {'FINISHED'}
 
@@ -123,9 +106,8 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
     bl_description = _('Setup render engine properties for Toon Eevee.')
     bl_options = {'REGISTER', 'UNDO'}
 
-    use_bloom: bpy.props.BoolProperty(name=_('Use Bloom'), default=True)
     use_motion_blur: bpy.props.BoolProperty(name=_('Use Motion Blur'), default=False)
-    use_soft_shadows: bpy.props.BoolProperty(name=_('Use Soft Shadows'), default=True)
+    use_shadows: bpy.props.BoolProperty(name=_('Use Shadows'), default=True)
     film_transparent: bpy.props.BoolProperty(name=_('Use Film Transparent'), default=False)
 
     @classmethod
@@ -133,8 +115,8 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
         return True
 
     def execute(self, context):
-        if context.scene.render.engine != 'BLENDER_EEVEE':
-            context.scene.render.engine = 'BLENDER_EEVEE'
+        if context.scene.render.engine != 'BLENDER_EEVEE_NEXT':
+            context.scene.render.engine = 'BLENDER_EEVEE_NEXT'
 
         eevee = context.scene.eevee
 
@@ -149,35 +131,18 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
         # > Distance: 0.1 m
         eevee.gtao_distance = 0.100
 
-        # Bloom: enable
-        eevee.use_bloom = self.use_bloom
-        if self.use_bloom:
-            # > Threshold: 1.000
-            eevee.bloom_threshold = 1.000
-            # > Intensity: 0.100
-            eevee.bloom_intensity = 0.100
-
         # Depth of Field
         # > Max Size: 16 px
         eevee.bokeh_max_size = 16.000
 
-        # Screen Space Reflections: enable
-        eevee.use_ssr = True
-        # > Refrection: enable
-        eevee.use_ssr_refraction = True
-        # > Edge Fading: 0.000
-        eevee.ssr_border_fade = 0.075
-
         # Motion Blur
-        eevee.use_motion_blur = self.use_motion_blur
+        context.scene.render.use_motion_blur = self.use_motion_blur
 
-        # Shadows
-        # > Cube Size 1024 px
-        eevee.shadow_cube_size = '1024'
-        # > Cascade Size 2048 px
-        eevee.shadow_cascade_size = '2048'
-        # > Soft Shadows
-        eevee.use_soft_shadows = self.use_soft_shadows
+        # Shadows: True
+        eevee.use_shadows = self.use_shadows
+
+        # Ray-tracing: False (old eevee look)
+        eevee.use_raytracing = False
 
         # Indirect lighting: enable
         # > Irradiance Smoothing: 0.50
