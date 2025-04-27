@@ -25,7 +25,7 @@ if not hasattr(mmd_tools.core.model.Model, 'clothGroupObject'):
 
             if self._cloth_grp is None:
                 cloths = bpy.data.objects.new(name='cloths', object_data=None)
-                mmd_tools.bpyutils.SceneOp(bpy.context).link_object(cloths)
+                mmd_tools.bpyutils.FnContext.link_object(bpy.context, cloths)
                 cloths.parent = self.rootObject()
                 cloths.hide = cloths.hide_select = True
                 cloths.lock_rotation = cloths.lock_location = cloths.lock_scale = [True, True, True]
