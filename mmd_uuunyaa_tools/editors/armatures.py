@@ -18,7 +18,6 @@ from mmd_uuunyaa_tools.utilities import raise_installation_error
 
 PATH_BLENDS_RIGSHAPELIBRARY = os.path.join(PACKAGE_PATH, "blends", "RigShapeLibrary.blend")
 
-
 @dataclass
 class DriverVariable:
     name: str
@@ -331,6 +330,7 @@ class EditBoneEditor(ABC):
 
         try:
             with bpy.data.libraries.load(PATH_BLENDS_RIGSHAPELIBRARY, link=False) as (_, data_to):
+                print("Made it into the try clause...")
                 data_to.objects = custom_shape_names
         except OSError as exception:
             raise_installation_error(exception)
@@ -353,8 +353,8 @@ class ArmatureEditor(EditBoneEditor, PoseBoneEditor):
         return self.raw_object.pose.bones
 
     @property
-    def pose_bone_groups(self) -> bpy.types.BoneGroups:
-        return self.raw_object.pose.bone_groups
+    def bone_collections(self) -> bpy.types.BoneCollections:
+        return self.raw_armature.collections
 
     @property
     def edit_bones(self) -> bpy.types.ArmatureEditBones:

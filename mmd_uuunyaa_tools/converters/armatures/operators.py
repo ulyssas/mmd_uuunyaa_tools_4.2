@@ -143,86 +143,64 @@ class MMDRigifyOperatorABC:
     @staticmethod
     def adjust_bone_groups(rigify_armature_object: RigifyArmatureObject, mmd_armature_object: MMDArmatureObject):
         # copy bone groups Rigify -> MMD
-        rig_bone_groups = rigify_armature_object.pose_bone_groups
-        mmd_bone_groups = mmd_armature_object.pose_bone_groups
-        for rig_bone_group_name, rig_bone_group in rig_bone_groups.items():
-            if rig_bone_group_name in mmd_bone_groups:
+        rig_bone_collections = rigify_armature_object.bone_collections
+        mmd_bone_collections = mmd_armature_object.bone_collections
+        for rig_bone_collection_name in rig_bone_collections.keys():
+            if rig_bone_collection_name in mmd_bone_collections:
                 continue
-            mmd_bone_group = mmd_bone_groups.new(name=rig_bone_group_name)
-            mmd_bone_group.color_set = "CUSTOM"
-            mmd_bone_group.colors.normal = rig_bone_group.colors.normal
-            mmd_bone_group.colors.select = rig_bone_group.colors.select
-            mmd_bone_group.colors.active = rig_bone_group.colors.active
+            mmd_bone_collections.new(name=rig_bone_collection_name)
 
         # copy bone groups MMD -> Rigify
-        diff_bone_group_names = set(mmd_bone_groups.keys()) - set(rig_bone_groups.keys())
+        diff_bone_group_names = set(mmd_bone_collections.keys()) - set(rig_bone_collections.keys())
         for mmd_bone_group_name in diff_bone_group_names:
-            mmd_bone_group = mmd_bone_groups[mmd_bone_group_name]
-            rig_bone_group = rig_bone_groups.new(name=mmd_bone_group_name)
-            rig_bone_group.color_set = mmd_bone_group.color_set
-            rig_bone_group.colors.normal = mmd_bone_group.colors.normal
-            rig_bone_group.colors.select = mmd_bone_group.colors.select
-            rig_bone_group.colors.active = mmd_bone_group.colors.active
-
-        # adjust Rigify bone group indices
-        bone_group_mapping = {
-            rig_bone_group_index: mmd_bone_group_index
-            for rig_bone_group_index, rig_bone_group_name in enumerate(rig_bone_groups.keys())
-            for mmd_bone_group_index, mmd_bone_group_name in enumerate(mmd_bone_groups.keys())
-            if rig_bone_group_name == mmd_bone_group_name
-        }
-        for pose_bones in rigify_armature_object.pose_bones:
-            if pose_bones.bone_group is None:
-                continue
-            pose_bones.bone_group_index = bone_group_mapping[pose_bones.bone_group_index]
+            mmd_bone_collections[mmd_bone_group_name]
+            rig_bone_collections.new(name=mmd_bone_group_name)
+            
 
     @staticmethod
     def join_armatures(
         rigify_armature_object: RigifyArmatureObject,
-        mmd_armature_object: MMDArmatureObject,
-        mmd_main_bone_layer: int,
-        mmd_others_bone_layer: int,
-        mmd_shadow_bone_layer: int,
-        mmd_dummy_bone_layer: int,
+        mmd_armature_object: MMDArmatureObject
     ):
         mmd_armature = mmd_armature_object.raw_armature
-        mmd_armature.layers = [
-            i in {0, 8, 9, 23, mmd_main_bone_layer, mmd_others_bone_layer, mmd_shadow_bone_layer, mmd_dummy_bone_layer}
-            for i in range(32)
-        ]
+    #    mmd_armature.layers = [
+    #        i in {0, 8, 9, 23, mmd_main_bone_layer, mmd_others_bone_layer, mmd_shadow_bone_layer, mmd_dummy_bone_layer}
+    #        for i in range(32)
+    #    ]
 
         mmd_bind_bones = mmd_armature_object.exist_actual_bone_names
 
-        for bone in mmd_armature.bones.values():
-            if bone.layers[0]:
-                bone.layers = [i in {mmd_main_bone_layer} for i in range(32)]
-                if bone.name not in mmd_bind_bones:
-                    bone.layers[mmd_others_bone_layer] = True
+        for bone in mmd_armature.bones:
+            if "mmd_shadow" in bone.collections.keys():
+                for coll in bone.collections:
+                    if coll.name != "mmd_shadow":
+                        coll.unassign(bone)
 
-            elif bone.layers[8]:
-                bone.layers = [i in {mmd_shadow_bone_layer} for i in range(32)]
-
-            elif bone.layers[9]:
-                bone.layers = [i in {mmd_dummy_bone_layer} for i in range(32)]
-
-            elif bone.layers[23]:
-                bone.layers[23] = False
+            elif "mmd_dummy" in bone.collections.keys():
+                for coll in bone.collections:
+                    if coll.name != "mmd_dummy":
+                        coll.unassign(bone)
+            #At this point, either a "Main" or "Other" bone. Only add to collection if "Other", since there is no "Main" collection.
+            elif bone.name not in mmd_bind_bones:
+                mmd_armature.collections["その他"].assign(bone)
 
         # join armatures
         rigify_armature: bpy.types.Armature = rigify_armature_object.raw_armature
-        layers = rigify_armature.layers
+        rig_collection_names = rigify_armature.collections.keys()
         rig_id = rigify_armature["rig_id"]
 
         bpy.context.view_layer.objects.active = mmd_armature_object.raw_object
         bpy.ops.object.join()
-        mmd_armature.layers = layers
-        mmd_armature["rig_id"] = rig_id
+        #Verify collections in MMD_Armature and Rigify_Armature correspond...
+        #for name in rig_collection_names not in mmd_armature.collections.keys():
+        #    mmd_armature.collections.new(name)
+        #mmd_armature["rig_id"] = rig_id
         mmd_armature_object.raw_object.display_type = "WIRE"
 
-        mmd_armature.layers[mmd_main_bone_layer] = False
-        mmd_armature.layers[mmd_others_bone_layer] = True
-        mmd_armature.layers[mmd_shadow_bone_layer] = False
-        mmd_armature.layers[mmd_dummy_bone_layer] = False
+        #Hide all bones not in the MMD Other collection
+        for collection in mmd_armature.collections:
+            collection.is_visible = False
+        mmd_armature.collections["その他"].is_visible = True
 
         mmd_armature_object.raw_object.show_in_front = True
 
@@ -246,7 +224,11 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):
         rig_armature: bpy.types.Armature = rigify_armature_object.raw_armature
-        rig_armature.layers = [i in {0, 3, 4, 5, 8, 11, 13, 16, 28} for i in range(32)]
+        #rig_armature.layers = [i in {0, 3, 4, 5, 8, 11, 13, 16, 28} for i in range(32)]
+        for bone_col in rig_armature.collections:
+            if bone_col.name not in {"mmd_shadow", "mmd_dummy"}:
+                bone_col.is_visible = True
+        
 
     def execute(self, context: bpy.types.Context):
         rigify_armature_raw_object, mmd_armature_raw_object = self.find_armature_objects(context.selected_objects)
@@ -254,7 +236,7 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
         rigify_armature_object = MMDRigifyArmatureObject(rigify_armature_raw_object)
         mmd_armature_object = MMDArmatureObject(mmd_armature_raw_object)
 
-        self.change_mmd_bone_layer(mmd_armature_object)
+        #self.change_mmd_bone_layer(mmd_armature_object)
 
         bpy.ops.object.mode_set(mode="EDIT")
         rigify_armature_object.remove_unused_face_bones()
@@ -272,11 +254,7 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
             self.adjust_bone_groups(rigify_armature_object, mmd_armature_object)
             self.join_armatures(
                 rigify_armature_object,
-                mmd_armature_object,
-                self.mmd_main_bone_layer,
-                self.mmd_others_bone_layer,
-                self.mmd_shadow_bone_layer,
-                self.mmd_dummy_bone_layer,
+                mmd_armature_object
             )
             rigify_armature_object = MMDRigifyArmatureObject(mmd_armature_raw_object)
 
@@ -302,7 +280,12 @@ class MMDRigifyIntegrateFocusOnRigify(bpy.types.Operator, MMDRigifyOperatorABC):
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):
         rig_armature: bpy.types.Armature = rigify_armature_object.raw_armature
-        rig_armature.layers = [i in {0, 3, 5, 7, 10, 13, 16, 28} for i in range(32)]
+        #rig_armature.layers = [i in {0, 3, 5, 7, 10, 13, 16, 28} for i in range(32)]
+        for collection in rig_armature.collections:
+            if collection.name in {"Face", "Torso", "Fingers", "Arm.L (IK)", "Arm.R (IK)", "Leg.L (IK)", "Leg.R (IK)", "Root"}:
+                collection.is_visible = True
+            else:
+                collection.is_visible = False
 
     def execute(self, context: bpy.types.Context):
         rigify_armature_raw_object, mmd_armature_raw_object = self.find_armature_objects(context.selected_objects)
@@ -310,7 +293,7 @@ class MMDRigifyIntegrateFocusOnRigify(bpy.types.Operator, MMDRigifyOperatorABC):
         rigify_armature_object = MMDRigifyArmatureObject(rigify_armature_raw_object)
         mmd_armature_object = MMDArmatureObject(mmd_armature_raw_object)
 
-        self.change_mmd_bone_layer(mmd_armature_object)
+        #self.change_mmd_bone_layer(mmd_armature_object)
 
         bpy.ops.object.mode_set(mode="EDIT")
         rigify_armature_object.remove_unused_face_bones()
@@ -329,10 +312,10 @@ class MMDRigifyIntegrateFocusOnRigify(bpy.types.Operator, MMDRigifyOperatorABC):
             self.join_armatures(
                 rigify_armature_object,
                 mmd_armature_object,
-                self.mmd_main_bone_layer,
-                self.mmd_others_bone_layer,
-                self.mmd_shadow_bone_layer,
-                self.mmd_dummy_bone_layer,
+            #    self.mmd_main_bone_layer,
+            #    self.mmd_others_bone_layer,
+            #    self.mmd_shadow_bone_layer,
+            #    self.mmd_dummy_bone_layer,
             )
             rigify_armature_object = MMDRigifyArmatureObject(mmd_armature_raw_object)
 

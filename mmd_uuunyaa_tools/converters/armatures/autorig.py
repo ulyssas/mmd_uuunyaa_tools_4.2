@@ -755,7 +755,7 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
             ("mmd_uuunyaa_toe_ik.r", "WGT-Visor.Wide", 1.0, "body.r"),
         ]
 
-        rig_bone_groups = self.pose_bone_groups
+        rig_bone_groups = self.bone_collections
 
         insufficient_custom_shapes = list(
             {custom_shape_name for _, custom_shape_name, _, _ in bone_widgets} - set(bpy.data.objects.keys())

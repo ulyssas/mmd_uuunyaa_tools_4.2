@@ -55,7 +55,7 @@ def is_mmd_tools_installed() -> bool:
 
 def import_mmd_tools():
     try:
-        return importlib.import_module("mmd_tools")
+        return importlib.import_module("bl_ext.blender_org.mmd_tools")
     except ImportError as exception:
         raise RuntimeError(
             _(
