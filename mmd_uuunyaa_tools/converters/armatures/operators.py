@@ -133,14 +133,6 @@ class MMDRigifyOperatorABC:
         return rigify_armature_object is not None and mmd_armature_object is not None
 
     @staticmethod
-    def change_mmd_bone_layer(mmd_armature_object: MMDArmatureObject):
-        mmd_bones = mmd_armature_object.strict_bones
-        for mmd_bone_name in mmd_armature_object.mmd_bone_names:
-            if mmd_bone_name not in mmd_bones:
-                continue
-            mmd_bones[mmd_bone_name].layers[23] = True
-
-    @staticmethod
     def adjust_bone_groups(rigify_armature_object: RigifyArmatureObject, mmd_armature_object: MMDArmatureObject):
         # copy bone groups Rigify -> MMD
         rig_bone_collections = rigify_armature_object.bone_collections

@@ -330,7 +330,6 @@ class EditBoneEditor(ABC):
 
         try:
             with bpy.data.libraries.load(PATH_BLENDS_RIGSHAPELIBRARY, link=False) as (_, data_to):
-                print("Made it into the try clause...")
                 data_to.objects = custom_shape_names
         except OSError as exception:
             raise_installation_error(exception)
