@@ -12,7 +12,11 @@ import bpy
 
 from mmd_uuunyaa_tools.editors import segmentation
 from mmd_uuunyaa_tools.m17n import _
-from mmd_uuunyaa_tools.utilities import import_mmd_tools, is_mmd_tools_installed, label_multiline
+from mmd_uuunyaa_tools.utilities import (
+    import_mmd_tools,
+    is_mmd_tools_installed,
+    label_multiline,
+)
 
 
 class ConvertMaterialsForEevee(bpy.types.Operator):
@@ -23,15 +27,20 @@ class ConvertMaterialsForEevee(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return next((x for x in context.selected_objects if x.type == "MESH"), None) and is_mmd_tools_installed()
+        return (
+            next((x for x in context.selected_objects if x.type == "MESH"), None)
+            and is_mmd_tools_installed()
+        )
 
     def execute(self, context):
         mmd_tools = import_mmd_tools()
         for obj in (x for x in context.selected_objects if x.type == "MESH"):
-            mmd_tools.cycles_converter.convertToCyclesShader(obj, use_principled=True, clean_nodes=True)
+            mmd_tools.cycles_converter.convertToCyclesShader(
+                obj, use_principled=True, clean_nodes=True
+            )
 
-        if context.scene.render.engine != "BLENDER_EEVEE":
-            context.scene.render.engine = "BLENDER_EEVEE"
+        if context.scene.render.engine != "BLENDER_EEVEE_NEXT":
+            context.scene.render.engine = "BLENDER_EEVEE_NEXT"
 
         return {"FINISHED"}
 
@@ -42,17 +51,18 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
     bl_description = _("Setup render engine properties for Eevee.")
     bl_options = {"REGISTER", "UNDO"}
 
-    use_bloom: bpy.props.BoolProperty(name=_("Use Bloom"), default=True)
     use_motion_blur: bpy.props.BoolProperty(name=_("Use Motion Blur"), default=False)
-    film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
+    film_transparent: bpy.props.BoolProperty(
+        name=_("Use Film Transparent"), default=False
+    )
 
     @classmethod
     def poll(cls, context):
         return True
 
     def execute(self, context):
-        if context.scene.render.engine != "BLENDER_EEVEE":
-            context.scene.render.engine = "BLENDER_EEVEE"
+        if context.scene.render.engine != "BLENDER_EEVEE_NEXT":
+            context.scene.render.engine = "BLENDER_EEVEE_NEXT"
 
         eevee = context.scene.eevee
 
@@ -67,48 +77,27 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
         # > Distance: 0.1 m
         eevee.gtao_distance = 0.100
 
-        # Bloom: enable
-        eevee.use_bloom = self.use_bloom
-        if self.use_bloom:
-            # > Threshold: 1.000
-            eevee.bloom_threshold = 1.000
-            # > Intensity: 0.100
-            eevee.bloom_intensity = 0.100
-
         # Depth of Field
         # > Max Size: 16 px
         eevee.bokeh_max_size = 16.000
 
-        # Screen Space Reflections: enable
-        eevee.use_ssr = True
-        # > Refrection: enable
-        eevee.use_ssr_refraction = True
-        # > Edge Fading: 0.000
-        eevee.ssr_border_fade = 0.075
-
         # Motion Blur
-        eevee.use_motion_blur = self.use_motion_blur
+        context.scene.render.use_motion_blur = self.use_motion_blur
 
-        # Shadows
-        # > Cube Size 1024 px
-        eevee.shadow_cube_size = "1024"
-        # > Cascade Size 2048 px
-        eevee.shadow_cascade_size = "2048"
-        # > Soft Shadows: True
-        eevee.use_soft_shadows = True
+        # Shadows: True
+        eevee.use_shadows = True
 
-        # Indirect lighting: enable
-        # > Irradiance Smoothing: 0.50
-        eevee.gi_irradiance_smoothing = 0.50
+        # Ray-tracing: True
+        eevee.use_raytracing = True
 
         # Film > Transparent
         context.scene.render.film_transparent = self.film_transparent
 
         # Color Management
         # > View Transform: Filmic
-        context.scene.view_settings.view_transform = "Filmic"
+        context.scene.view_settings.view_transform = "AgX"
         # > Look: High Contrast
-        context.scene.view_settings.look = "High Contrast"
+        context.scene.view_settings.look = "AgX - High Contrast"
 
         return {"FINISHED"}
 
@@ -119,18 +108,19 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
     bl_description = _("Setup render engine properties for Toon Eevee.")
     bl_options = {"REGISTER", "UNDO"}
 
-    use_bloom: bpy.props.BoolProperty(name=_("Use Bloom"), default=True)
     use_motion_blur: bpy.props.BoolProperty(name=_("Use Motion Blur"), default=False)
-    use_soft_shadows: bpy.props.BoolProperty(name=_("Use Soft Shadows"), default=True)
-    film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
+    use_shadows: bpy.props.BoolProperty(name=_("Use Shadows"), default=True)
+    film_transparent: bpy.props.BoolProperty(
+        name=_("Use Film Transparent"), default=False
+    )
 
     @classmethod
     def poll(cls, context):
         return True
 
     def execute(self, context):
-        if context.scene.render.engine != "BLENDER_EEVEE":
-            context.scene.render.engine = "BLENDER_EEVEE"
+        if context.scene.render.engine != "BLENDER_EEVEE_NEXT":
+            context.scene.render.engine = "BLENDER_EEVEE_NEXT"
 
         eevee = context.scene.eevee
 
@@ -145,39 +135,18 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
         # > Distance: 0.1 m
         eevee.gtao_distance = 0.100
 
-        # Bloom: enable
-        eevee.use_bloom = self.use_bloom
-        if self.use_bloom:
-            # > Threshold: 1.000
-            eevee.bloom_threshold = 1.000
-            # > Intensity: 0.100
-            eevee.bloom_intensity = 0.100
-
         # Depth of Field
         # > Max Size: 16 px
         eevee.bokeh_max_size = 16.000
 
-        # Screen Space Reflections: enable
-        eevee.use_ssr = True
-        # > Refrection: enable
-        eevee.use_ssr_refraction = True
-        # > Edge Fading: 0.000
-        eevee.ssr_border_fade = 0.075
-
         # Motion Blur
-        eevee.use_motion_blur = self.use_motion_blur
+        context.scene.render.use_motion_blur = self.use_motion_blur
 
-        # Shadows
-        # > Cube Size 1024 px
-        eevee.shadow_cube_size = "1024"
-        # > Cascade Size 2048 px
-        eevee.shadow_cascade_size = "2048"
-        # > Soft Shadows
-        eevee.use_soft_shadows = self.use_soft_shadows
+        # Shadows: True
+        eevee.use_shadows = self.use_shadows
 
-        # Indirect lighting: enable
-        # > Irradiance Smoothing: 0.50
-        eevee.gi_irradiance_smoothing = 0.50
+        # Ray-tracing: False (old eevee look)
+        eevee.use_raytracing = False
 
         # Film > Transparent
         context.scene.render.film_transparent = self.film_transparent
@@ -199,7 +168,9 @@ class SetupRenderEngineForWorkbench(bpy.types.Operator):
 
     use_shadow: bpy.props.BoolProperty(name=_("Use Shadow"), default=True)
     use_dof: bpy.props.BoolProperty(name=_("Use Depth of Field"), default=True)
-    film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
+    film_transparent: bpy.props.BoolProperty(
+        name=_("Use Film Transparent"), default=False
+    )
 
     @classmethod
     def poll(cls, _context):
@@ -268,7 +239,9 @@ class RemoveUnusedVertexGroups(bpy.types.Operator):
     bl_description = _("Remove unused vertex groups from the active meshes")
     bl_options = {"REGISTER", "UNDO"}
 
-    weight_threshold: bpy.props.FloatProperty(name=_("Weight Threshold"), default=0.0, min=0.0, max=1.0)
+    weight_threshold: bpy.props.FloatProperty(
+        name=_("Weight Threshold"), default=0.0, min=0.0, max=1.0
+    )
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -336,7 +309,9 @@ class SelectShapeKeyTargetVertices(bpy.types.Operator):
     bl_description = _("Select shape key target vertices from the active meshes")
     bl_options = {"REGISTER", "UNDO"}
 
-    distance_threshold: bpy.props.FloatProperty(name=_("Distance Threshold"), default=0.0, min=0.0)
+    distance_threshold: bpy.props.FloatProperty(
+        name=_("Distance Threshold"), default=0.0, min=0.0
+    )
 
     @classmethod
     def poll(cls, context):
@@ -366,7 +341,9 @@ class SelectShapeKeyTargetVertices(bpy.types.Operator):
         mesh = bmesh.from_edit_mesh(obj_mesh)  # pylint: disable=assignment-from-no-return
         mesh.select_mode |= {"VERT"}
         bmesh_vertices = mesh.verts
-        for i, (origin, morph) in enumerate(zip(relative_key_block.data, key_block.data)):
+        for i, (origin, morph) in enumerate(
+            zip(relative_key_block.data, key_block.data)
+        ):
             if (origin.co - morph.co).length > distance_threshold:
                 bmesh_vertices[i].select_set(True)
 
@@ -383,7 +360,9 @@ class RemoveUnusedShapeKeys(bpy.types.Operator):
     bl_description = _("Remove unused shape keys from the active meshes")
     bl_options = {"REGISTER", "UNDO"}
 
-    distance_threshold: bpy.props.FloatProperty(name=_("Distance Threshold"), default=0.0, min=0.0)
+    distance_threshold: bpy.props.FloatProperty(
+        name=_("Distance Threshold"), default=0.0, min=0.0
+    )
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -470,7 +449,9 @@ class SelectMovedPoseBones(bpy.types.Operator):
                     is_not_translated = True
                 else:
                     is_not_translated = (
-                        isclose(pose_bone.location.x, 0) and isclose(pose_bone.location.y, 0) and isclose(pose_bone.location.z, 0)
+                        isclose(pose_bone.location.x, 0)
+                        and isclose(pose_bone.location.y, 0)
+                        and isclose(pose_bone.location.z, 0)
                     )
 
                 if not self.select_rotated:
@@ -495,7 +476,9 @@ class SelectMovedPoseBones(bpy.types.Operator):
                     is_not_scaled = True
                 else:
                     is_not_scaled = (
-                        isclose(pose_bone.scale.x, 1) and isclose(pose_bone.scale.y, 1) and isclose(pose_bone.scale.z, 1)
+                        isclose(pose_bone.scale.x, 1)
+                        and isclose(pose_bone.scale.y, 1)
+                        and isclose(pose_bone.scale.z, 1)
                     )
 
                 if is_not_rotated and is_not_translated and is_not_scaled:
@@ -511,30 +494,60 @@ class AutoSegmentationOperator(bpy.types.Operator):
     bl_label = _("Auto Segmentation")
     bl_options = {"REGISTER", "UNDO"}
 
-    cost_threshold: bpy.props.FloatProperty(name=_("Cost Threshold"), default=2.5, min=0, soft_max=3.0, step=1)
+    cost_threshold: bpy.props.FloatProperty(
+        name=_("Cost Threshold"), default=2.5, min=0, soft_max=3.0, step=1
+    )
 
     maximum_area_threshold: bpy.props.FloatProperty(
-        name=_("Maximum Area Threshold"), default=0.500, min=0, soft_max=1.0, precision=3, step=1
+        name=_("Maximum Area Threshold"),
+        default=0.500,
+        min=0,
+        soft_max=1.0,
+        precision=3,
+        step=1,
     )
     minimum_area_threshold: bpy.props.FloatProperty(
-        name=_("Minimum Area Threshold"), default=0.001, min=0, soft_max=1.0, precision=3, step=1
+        name=_("Minimum Area Threshold"),
+        default=0.001,
+        min=0,
+        soft_max=1.0,
+        precision=3,
+        step=1,
     )
 
-    face_angle_cost_factor: bpy.props.FloatProperty(name=_("Face Angle Cost Factor"), default=1.0, min=0, soft_max=2.0, step=1)
-    perimeter_cost_factor: bpy.props.FloatProperty(name=_("Perimeter Cost Factor"), default=0.0, min=0, soft_max=10.0, step=1)
+    face_angle_cost_factor: bpy.props.FloatProperty(
+        name=_("Face Angle Cost Factor"), default=1.0, min=0, soft_max=2.0, step=1
+    )
+    perimeter_cost_factor: bpy.props.FloatProperty(
+        name=_("Perimeter Cost Factor"), default=0.0, min=0, soft_max=10.0, step=1
+    )
     material_change_cost_factor: bpy.props.FloatProperty(
         name=_("Material Change Cost Factor"), default=0.3, min=0, soft_max=1.0, step=1
     )
-    edge_sharp_cost_factor: bpy.props.FloatProperty(name=_("Edge Sharp Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
-    edge_seam_cost_factor: bpy.props.FloatProperty(name=_("Edge Seam Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
+    edge_sharp_cost_factor: bpy.props.FloatProperty(
+        name=_("Edge Sharp Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1
+    )
+    edge_seam_cost_factor: bpy.props.FloatProperty(
+        name=_("Edge Seam Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1
+    )
     vertex_group_weight_cost_factor: bpy.props.FloatProperty(
-        name=_("Vertex Group Weight Cost Factor"), default=0.1, min=0, soft_max=1.0, step=1
+        name=_("Vertex Group Weight Cost Factor"),
+        default=0.1,
+        min=0,
+        soft_max=1.0,
+        step=1,
     )
     vertex_group_change_cost_factor: bpy.props.FloatProperty(
-        name=_("Vertex Group Change Cost Factor"), default=0.5, min=0, soft_max=1.0, step=1
+        name=_("Vertex Group Change Cost Factor"),
+        default=0.5,
+        min=0,
+        soft_max=1.0,
+        step=1,
     )
 
-    edge_length_factor: bpy.props.FloatProperty(name=_("Edge Length Factor"), default=1.0, min=0, soft_max=1.0, step=1)
+    edge_length_factor: bpy.props.FloatProperty(
+        name=_("Edge Length Factor"), default=1.0, min=0, soft_max=1.0, step=1
+    )
 
     segmentation_vertex_color_random_seed: bpy.props.IntProperty(
         name=_("Segmentation Vertex Color Random Seed"), default=0, min=0
@@ -561,7 +574,9 @@ class AutoSegmentationOperator(bpy.types.Operator):
             target_bmesh: bmesh.types.BMesh = bmesh.new()
             mesh: bpy.types.Mesh = mesh_object.data
             target_bmesh.from_mesh(mesh, face_normals=False, vertex_normals=False)
-            color_layer = segmentation.get_color_layer(target_bmesh, self.segmentation_vertex_color_attribute_name)
+            color_layer = segmentation.get_color_layer(
+                target_bmesh, self.segmentation_vertex_color_attribute_name
+            )
 
             auto_segment_start_secs = time.perf_counter()
 
@@ -586,7 +601,12 @@ class AutoSegmentationOperator(bpy.types.Operator):
             segments = segment_result.segments
 
             if len(segments) == 0:
-                self.report({"WARNING"}, _("There is no target segment; In Edit Mode, select the faces you want to paint."))
+                self.report(
+                    {"WARNING"},
+                    _(
+                        "There is no target segment; In Edit Mode, select the faces you want to paint."
+                    ),
+                )
                 return {"FINISHED"}
 
             max_segment_area = sys.float_info.min
@@ -600,7 +620,11 @@ class AutoSegmentationOperator(bpy.types.Operator):
                 total_tri_loops += len(segment.tri_loop0s)
 
             cost_sorted_segment_contacts = segment_result.remain_segment_contacts
-            max_cost_normalized = cost_sorted_segment_contacts[-1].cost_normalized if len(cost_sorted_segment_contacts) > 0 else 0
+            max_cost_normalized = (
+                cost_sorted_segment_contacts[-1].cost_normalized
+                if len(cost_sorted_segment_contacts) > 0
+                else 0
+            )
 
             segmentation.assign_vertex_colors(
                 segments,
@@ -610,8 +634,12 @@ class AutoSegmentationOperator(bpy.types.Operator):
 
             target_bmesh.to_mesh(mesh)
 
-            segmentation.setup_materials(mesh, self.segmentation_vertex_color_attribute_name)
-            segmentation.setup_aovs(context.view_layer.aovs, self.segmentation_vertex_color_attribute_name)
+            segmentation.setup_materials(
+                mesh, self.segmentation_vertex_color_attribute_name
+            )
+            segmentation.setup_aovs(
+                context.view_layer.aovs, self.segmentation_vertex_color_attribute_name
+            )
 
             operator_end_secs = time.perf_counter()
 
@@ -620,7 +648,7 @@ class AutoSegmentationOperator(bpy.types.Operator):
                 f"""contact: {len(cost_sorted_segment_contacts)}, cost last/max: {segment_result.last_merged_cost}/{max_cost_normalized}
 segment: {len(segments)}, area min/max: {min_segment_area}/{max_segment_area}
 loop: {total_tri_loops}
-operation: {operator_end_secs-operator_start_secs} secs, auto_segment {auto_segment_end_secs-auto_segment_start_secs} secs
+operation: {operator_end_secs - operator_start_secs} secs, auto_segment {auto_segment_end_secs - auto_segment_start_secs} secs
 """,
             )
 
@@ -656,9 +684,15 @@ class PaintSelectedFacesOperator(bpy.types.Operator):
             segment_color = None
             if not self.random_color:
                 if context.tool_settings.vertex_paint.palette.colors.active is not None:
-                    segment_color = list(context.tool_settings.vertex_paint.palette.colors.active.color) + [1.0]
+                    segment_color = list(
+                        context.tool_settings.vertex_paint.palette.colors.active.color
+                    ) + [1.0]
 
-            segmentation.paint_selected_face_colors(mesh_object, segment_color, self.segmentation_vertex_color_attribute_name)
+            segmentation.paint_selected_face_colors(
+                mesh_object,
+                segment_color,
+                self.segmentation_vertex_color_attribute_name,
+            )
 
         finally:
             bpy.ops.object.mode_set(mode=previous_mode)
@@ -678,10 +712,15 @@ class SetupSegmentationColorPaletteOperator(bpy.types.Operator):
     def poll(cls, context: bpy.types.Context):
         if context.tool_settings.vertex_paint.palette is None:
             return True
-        return context.tool_settings.vertex_paint.palette.name != SEGMENTATION_COLOR_PALETTE_NAME
+        return (
+            context.tool_settings.vertex_paint.palette.name
+            != SEGMENTATION_COLOR_PALETTE_NAME
+        )
 
     def execute(self, context: bpy.types.Context):
-        palette: bpy.types.Palette = bpy.data.palettes.get(SEGMENTATION_COLOR_PALETTE_NAME)
+        palette: bpy.types.Palette = bpy.data.palettes.get(
+            SEGMENTATION_COLOR_PALETTE_NAME
+        )
         if palette is None:
             palette = bpy.data.palettes.new(SEGMENTATION_COLOR_PALETTE_NAME)
             palette_colors = palette.colors
@@ -702,10 +741,15 @@ class RestoreSegmentationColorPaletteOperator(bpy.types.Operator):
     def poll(cls, context: bpy.types.Context):
         if context.tool_settings.vertex_paint.palette is None:
             return True
-        return context.tool_settings.vertex_paint.palette.name == SEGMENTATION_COLOR_PALETTE_NAME
+        return (
+            context.tool_settings.vertex_paint.palette.name
+            == SEGMENTATION_COLOR_PALETTE_NAME
+        )
 
     def execute(self, context: bpy.types.Context):
-        palette: bpy.types.Palette = bpy.data.palettes.get(SEGMENTATION_COLOR_PALETTE_NAME)
+        palette: bpy.types.Palette = bpy.data.palettes.get(
+            SEGMENTATION_COLOR_PALETTE_NAME
+        )
         palette_colors = palette.colors
         palette_colors.clear()
         for color in segmentation.SEGMANTATION_COLORS:
