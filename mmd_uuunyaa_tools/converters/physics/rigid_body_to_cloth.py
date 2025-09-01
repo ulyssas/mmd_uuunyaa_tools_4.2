@@ -460,9 +460,7 @@ class RigidBodyToClothConverter:
         vert: bmesh.types.BMVert
         for vert in cloth_bm.verts:
             bone = pose_bones[vert.index]
-            if not bone.bone.use_connect and vert.is_boundary:
-                vertices.up_verts.add(vert)
-            elif bone.parent not in pose_bones:
+            if bone.parent not in pose_bones:
                 vertices.up_verts.add(vert)
             elif len(bone.children) == 0:
                 vertices.down_verts.add(vert)
