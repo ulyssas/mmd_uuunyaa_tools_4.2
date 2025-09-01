@@ -90,10 +90,6 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
         # Ray-tracing: True
         eevee.use_raytracing = True
 
-        # Indirect lighting: enable
-        # > Irradiance Smoothing: 0.50
-        eevee.gi_irradiance_smoothing = 0.50
-
         # Film > Transparent
         context.scene.render.film_transparent = self.film_transparent
 
@@ -151,10 +147,6 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
 
         # Ray-tracing: False (old eevee look)
         eevee.use_raytracing = False
-
-        # Indirect lighting: enable
-        # > Irradiance Smoothing: 0.50
-        eevee.gi_irradiance_smoothing = 0.50
 
         # Film > Transparent
         context.scene.render.film_transparent = self.film_transparent
