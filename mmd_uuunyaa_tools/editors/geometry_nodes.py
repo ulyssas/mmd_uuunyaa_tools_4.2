@@ -36,9 +36,7 @@ try:
             super().__init__(geometry)
 
         def get_output_node(self) -> NodeGroupOutput:
-            node_output: NodeGroupOutput = next(
-                (n for n in self.nodes if isinstance(n, NodeGroupOutput) and n.is_active_output), None
-            )
+            node_output: NodeGroupOutput = next((n for n in self.nodes if isinstance(n, NodeGroupOutput) and n.is_active_output), None)
             if node_output is None:
                 node_output = self.nodes.new(NodeGroupOutput.__name__)
                 node_output.is_active_output = True

@@ -148,10 +148,7 @@ class DynamicPaintAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
             "WAVE": "MOD_WAVE",
         }
 
-        return [
-            (s.name, s.name, "", surface_type2icon.get(s.surface_type, "QUESTION"), i)
-            for i, s in enumerate(modifier.canvas_settings.canvas_surfaces)
-        ]
+        return [(s.name, s.name, "", surface_type2icon.get(s.surface_type, "QUESTION"), i) for i, s in enumerate(modifier.canvas_settings.canvas_surfaces)]
 
     @staticmethod
     def _get_active_surface(prop):
@@ -175,9 +172,7 @@ class DynamicPaintAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
 
         modifier.canvas_settings.canvas_surfaces.active_index = index
 
-    presets: bpy.props.EnumProperty(
-        name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None
-    )
+    presets: bpy.props.EnumProperty(name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
 
     active_surface: bpy.props.EnumProperty(
         name=_("Active Surface"),
@@ -189,9 +184,7 @@ class DynamicPaintAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     @staticmethod
     def register():
         # pylint: disable=assignment-from-no-return
-        bpy.types.Object.mmd_uuunyaa_tools_dynamic_paint_settings = bpy.props.PointerProperty(
-            type=DynamicPaintAdjusterSettingsPropertyGroup
-        )
+        bpy.types.Object.mmd_uuunyaa_tools_dynamic_paint_settings = bpy.props.PointerProperty(type=DynamicPaintAdjusterSettingsPropertyGroup)
 
     @staticmethod
     def unregister():

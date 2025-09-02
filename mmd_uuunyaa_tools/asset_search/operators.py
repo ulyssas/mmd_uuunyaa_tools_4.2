@@ -43,9 +43,7 @@ class UpdateDebugAssetJson(bpy.types.Operator):
     output_json: bpy.props.StringProperty(default="ZDEBUG.json")
 
     def execute(self, context):
-        AssetUpdater.write_assets_json(
-            AssetUpdater.fetch_assets_json_by_issue_number(self.repo, self.issue_number), self.output_json
-        )
+        AssetUpdater.write_assets_json(AssetUpdater.fetch_assets_json_by_issue_number(self.repo, self.issue_number), self.output_json)
         return {"FINISHED"}
 
 

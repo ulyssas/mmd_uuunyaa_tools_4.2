@@ -148,12 +148,8 @@ class MMDBindArmatureObjectABC(ArmatureEditor, PoseBoneEditor):
         control_eyes_bone: bpy.types.PoseBone,
     ):
         eye_mmd_uuunyaa_data_path = f"pose.bones{self.datapaths[ControlType.EYE_MMD_UUUNYAA].data_path}"
-        self.add_copy_rotation_constraint(
-            target_eye_l_bone, self.raw_object, control_eye_l_bone.name, "LOCAL", eye_mmd_uuunyaa_data_path, invert_influence=True
-        )
-        self.add_copy_rotation_constraint(
-            target_eye_r_bone, self.raw_object, control_eye_r_bone.name, "LOCAL", eye_mmd_uuunyaa_data_path, invert_influence=True
-        )
+        self.add_copy_rotation_constraint(target_eye_l_bone, self.raw_object, control_eye_l_bone.name, "LOCAL", eye_mmd_uuunyaa_data_path, invert_influence=True)
+        self.add_copy_rotation_constraint(target_eye_r_bone, self.raw_object, control_eye_r_bone.name, "LOCAL", eye_mmd_uuunyaa_data_path, invert_influence=True)
         self.add_copy_rotation_constraint(
             control_eye_l_bone,
             self.raw_object,

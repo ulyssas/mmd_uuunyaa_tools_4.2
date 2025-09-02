@@ -70,11 +70,7 @@ class RigidBodyToClothConverter:
             pose_bone = mmd_armature_object.pose.bones.get(rigid_body_object.mmd_rigid.bone)
 
             if pose_bone is None:
-                raise MessageException(
-                    iface_("No bones related with {rigid_body_name}, Please relate a bone to the Rigid Body.").format(
-                        rigid_body_name=rigid_body_object.name
-                    )
-                )
+                raise MessageException(iface_("No bones related with {rigid_body_name}, Please relate a bone to the Rigid Body.").format(rigid_body_name=rigid_body_object.name))
 
             pose_bones.append(pose_bone)
 
@@ -130,9 +126,7 @@ class RigidBodyToClothConverter:
         cloth_bm.edges.ensure_lookup_table()
         cloth_bm.to_mesh(cloth_mesh)
 
-        pin_vertex_group = cls.new_pin_vertex_group(
-            cloth_mesh_object, side_joint_objects, new_up_verts, new_side_verts, rigid_body_index_dict
-        )
+        pin_vertex_group = cls.new_pin_vertex_group(cloth_mesh_object, side_joint_objects, new_up_verts, new_side_verts, rigid_body_index_dict)
 
         remove_objects(side_joint_objects)
 
@@ -144,9 +138,7 @@ class RigidBodyToClothConverter:
         mesh_editor.add_armature_modifier("physics_cloth_armature", mmd_armature_object, vertex_group=pin_vertex_group.name)
         mesh_editor.edit_cloth_modifier("physics_cloth", vertex_group_mass=pin_vertex_group.name)
 
-        corrective_smooth_modifier = mesh_editor.add_corrective_smooth_modifier(
-            "physics_cloth_smooth", smooth_type="LENGTH_WEIGHTED", rest_source="BIND"
-        )
+        corrective_smooth_modifier = mesh_editor.add_corrective_smooth_modifier("physics_cloth_smooth", smooth_type="LENGTH_WEIGHTED", rest_source="BIND")
         bpy.ops.object.correctivesmooth_bind(modifier=corrective_smooth_modifier.name)
         if subdivision_level == 0:
             corrective_smooth_modifier.show_viewport = False
@@ -169,13 +161,7 @@ class RigidBodyToClothConverter:
 
         if not vertices.all_ribbon and physics_mode in {PhysicsMode.AUTO, PhysicsMode.SURFACE_DEFORM}:
             bpy.context.view_layer.objects.active = mmd_mesh_object
-            bpy.ops.object.surfacedeform_bind(
-                modifier=MeshEditor(mmd_mesh_object)
-                .add_surface_deform_modifier(
-                    "physics_cloth_deform", target=cloth_mesh_object, vertex_group=deform_vertex_group.name
-                )
-                .name
-            )
+            bpy.ops.object.surfacedeform_bind(modifier=MeshEditor(mmd_mesh_object).add_surface_deform_modifier("physics_cloth_deform", target=cloth_mesh_object, vertex_group=deform_vertex_group.name).name)
 
         cloth_bm.free()
 
@@ -350,9 +336,7 @@ class RigidBodyToClothConverter:
         for vert in vertices.up_verts:
             new_location = pose_bones[vert.index].head
 
-            if (
-                physics_mode == PhysicsMode.AUTO and vert not in vertices.ribbon_verts
-            ) or physics_mode == PhysicsMode.SURFACE_DEFORM:
+            if (physics_mode == PhysicsMode.AUTO and vert not in vertices.ribbon_verts) or physics_mode == PhysicsMode.SURFACE_DEFORM:
                 for edge in vert.link_edges:
                     if edge in edges.up_edges:
                         break
@@ -373,9 +357,7 @@ class RigidBodyToClothConverter:
         return new_up_verts
 
     @staticmethod
-    def extend_down_edges(
-        cloth_bm: bmesh.types.BMesh, pose_bones: List[bpy.types.PoseBone], vertices: Vertices, edges: Edges
-    ) -> List[Optional[bmesh.types.BMVert]]:
+    def extend_down_edges(cloth_bm: bmesh.types.BMesh, pose_bones: List[bpy.types.PoseBone], vertices: Vertices, edges: Edges) -> List[Optional[bmesh.types.BMVert]]:
         new_down_verts: List[Optional[bmesh.types.BMVert]] = [None for i in range(len(cloth_bm.verts))]
         # 延长尾部顶点
         # extend tail vertex
@@ -404,9 +386,7 @@ class RigidBodyToClothConverter:
         return new_down_verts
 
     @staticmethod
-    def collect_joints(
-        mmd_model, rigid_body_index_dict: Dict[bpy.types.Object, int]
-    ) -> Tuple[List[bpy.types.Object], List[Tuple[int, int]], List[bpy.types.Object]]:
+    def collect_joints(mmd_model, rigid_body_index_dict: Dict[bpy.types.Object, int]) -> Tuple[List[bpy.types.Object], List[Tuple[int, int]], List[bpy.types.Object]]:
         joint_objects: List[bpy.types.Object] = []
         joint_edge_indices: List[Tuple[int, int]] = []
         side_joint_objects: List[bpy.types.Object] = []
@@ -423,9 +403,7 @@ class RigidBodyToClothConverter:
         return joint_objects, joint_edge_indices, side_joint_objects
 
     @staticmethod
-    def collect_vertices(
-        cloth_bm: bmesh.types.BMesh, pose_bones: List[bpy.types.PoseBone], physics_mode: PhysicsMode, extend_ribbon_area: bool
-    ) -> Vertices:
+    def collect_vertices(cloth_bm: bmesh.types.BMesh, pose_bones: List[bpy.types.PoseBone], physics_mode: PhysicsMode, extend_ribbon_area: bool) -> Vertices:
         vertices = Vertices()
 
         for vert in cloth_bm.verts:
@@ -437,9 +415,7 @@ class RigidBodyToClothConverter:
             boundary_verts = vertices.ribbon_verts
             boundary_verts_next = []
             while len(boundary_verts) != 0:
-                for vert in [
-                    v2 for v in boundary_verts for e in v.link_edges for v2 in e.verts if v2 not in vertices.ribbon_verts
-                ]:
+                for vert in [v2 for v in boundary_verts for e in v.link_edges for v2 in e.verts if v2 not in vertices.ribbon_verts]:
                     vertices.ribbon_verts.add(vert)
                     boundary_verts_next.append(vert)
                 boundary_verts = boundary_verts_next.copy()

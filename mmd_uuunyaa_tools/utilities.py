@@ -28,7 +28,7 @@ def to_human_friendly_text(number: float) -> str:
         return "0"
 
     prefix_index = max(0, min(len(SI_PREFIXES) - 1, int(math.floor(math.log10(abs(number)) / 3))))
-    return f"{number / 10**(3 * prefix_index):.2f}{SI_PREFIXES[prefix_index]}"
+    return f"{number / 10 ** (3 * prefix_index):.2f}{SI_PREFIXES[prefix_index]}"
 
 
 def get_preferences():
@@ -57,12 +57,7 @@ def import_mmd_tools():
     try:
         return importlib.import_module("bl_ext.blender_org.mmd_tools")
     except ImportError as exception:
-        raise RuntimeError(
-            _(
-                "MMD Tools is not installed correctly. "
-                "Please install MMD Tools using the correct steps, as UuuNyaa Tools depends on MMD Tools."
-            )
-        ) from exception
+        raise RuntimeError(_("MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as UuuNyaa Tools depends on MMD Tools.")) from exception
 
 
 def label_multiline(layout, text="", width=0):
@@ -79,9 +74,7 @@ def label_multiline(layout, text="", width=0):
 
 
 def raise_installation_error(base_from):
-    raise RuntimeError(
-        _("MMD UuuNyaa Tools is not installed correctly. Please reinstall MMD UuuNyaa Tools using the correct steps.")
-    ) from base_from
+    raise RuntimeError(_("MMD UuuNyaa Tools is not installed correctly. Please reinstall MMD UuuNyaa Tools using the correct steps.")) from base_from
 
 
 class MessageException(Exception):

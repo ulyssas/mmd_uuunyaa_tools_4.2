@@ -48,9 +48,7 @@ PACKAGE_NAME = __package__
 REGISTER_HOOKS = []
 UNREGISTER_HOOKS = []
 
-addon_updater_ops_spec = importlib.util.spec_from_file_location(
-    f"{PACKAGE_NAME}.addon_updater_ops", os.path.join(PACKAGE_PATH, "externals", "addon_updater", "addon_updater_ops.py")
-)
+addon_updater_ops_spec = importlib.util.spec_from_file_location(f"{PACKAGE_NAME}.addon_updater_ops", os.path.join(PACKAGE_PATH, "externals", "addon_updater", "addon_updater_ops.py"))
 addon_updater_ops = importlib.util.module_from_spec(addon_updater_ops_spec)
 sys.modules[f"{PACKAGE_NAME}.addon_updater_ops"] = addon_updater_ops
 addon_updater_ops_spec.loader.exec_module(addon_updater_ops)

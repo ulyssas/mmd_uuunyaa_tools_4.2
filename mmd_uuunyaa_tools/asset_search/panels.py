@@ -105,12 +105,7 @@ class AssetSearch(bpy.types.Operator):
         search_results = [
             asset
             for asset in ASSETS.values()
-            if (
-                query_type in {AssetType.ALL.name, asset.type.name}
-                and enabled_tag_count == len(asset.tag_names & enabled_tag_names)
-                and query_text in asset.keywords
-                and (Utilities.is_importable(asset) if query_is_cached else True)
-            )
+            if (query_type in {AssetType.ALL.name, asset.type.name} and enabled_tag_count == len(asset.tag_names & enabled_tag_names) and query_text in asset.keywords and (Utilities.is_importable(asset) if query_is_cached else True))
         ]
 
         hit_count = len(search_results)
@@ -122,9 +117,7 @@ class AssetSearch(bpy.types.Operator):
         result.update_time = update_time
 
         for asset in search_results[:max_search_result_count]:
-            CONTENT_CACHE.async_get_content(
-                asset.thumbnail_url, functools.partial(self._on_thumbnail_fetched, result, context.region, update_time, asset)
-            )
+            CONTENT_CACHE.async_get_content(asset.thumbnail_url, functools.partial(self._on_thumbnail_fetched, result, context.region, update_time, asset))
 
         tag_names = set()
         for asset in search_results:
@@ -285,15 +278,13 @@ class AssetDetailPopup(bpy.types.Operator):
             draw_titled_label(
                 layout,
                 title=_("Cache:"),
-                text=f'{iface_("Downloading")} {to_human_friendly_text(task.fetched_size)}B / {to_human_friendly_text(task.content_length)}B',
+                text=f"{iface_('Downloading')} {to_human_friendly_text(task.fetched_size)}B / {to_human_friendly_text(task.content_length)}B",
             )
             layout.operator(AssetDownloadCancel.bl_idname, text=_("Cancel"), icon="CANCEL").asset_id = asset.id
 
         elif asset_state is AssetState.CACHED:
             draw_title(layout, _("Cache:")).label(text=f"{to_human_friendly_text(content.length)}B   ({content.type})")
-            draw_title(layout, _("Path:")).operator(
-                "wm.path_open", text=content.filepath, icon="FILEBROWSER"
-            ).filepath = content.filepath
+            draw_title(layout, _("Path:")).operator("wm.path_open", text=content.filepath, icon="FILEBROWSER").filepath = content.filepath
 
             row = layout.split(factor=0.9, align=True)
             row.operator(AssetImport.bl_idname, text=_("Import"), icon="IMPORT").asset_id = asset.id
@@ -412,11 +403,7 @@ class AssetSearchPanel(bpy.types.Panel):
         if loading_count > 0:
             row = layout.row()
             row.alignment = "CENTER"
-            row.label(
-                text=iface_("Loading {loading_count} item{plural_form_suffix}...").format(
-                    loading_count=loading_count, plural_form_suffix="s" if loading_count > 1 else ""
-                )
-            )
+            row.label(text=iface_("Loading {loading_count} item{plural_form_suffix}...").format(loading_count=loading_count, plural_form_suffix="s" if loading_count > 1 else ""))
             return
 
     @staticmethod

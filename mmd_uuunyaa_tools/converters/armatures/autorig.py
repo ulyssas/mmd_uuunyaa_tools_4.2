@@ -102,26 +102,14 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
         MMDBindInfo(MMDBoneInfo.右つま先ＩＫ, "mmd_uuunyaa_toe_ik.r", "mmd_uuunyaa_toe_ik.r", GroupType.LEG_R, MMDBindType.NONE),
         MMDBindInfo(MMDBoneInfo.左つま先, None, None, GroupType.LEG_L, MMDBindType.NONE),
         MMDBindInfo(MMDBoneInfo.右つま先, None, None, GroupType.LEG_R, MMDBindType.NONE),
-        MMDBindInfo(
-            MMDBoneInfo.左肩C, "mmd_uuunyaa_shoulder_cancel.l", "mmd_uuunyaa_shoulder_cancel.l", GroupType.NONE, MMDBindType.NONE
-        ),
-        MMDBindInfo(
-            MMDBoneInfo.左肩P, "mmd_uuunyaa_shoulder_parent.l", "mmd_uuunyaa_shoulder_parent.l", GroupType.NONE, MMDBindType.NONE
-        ),
-        MMDBindInfo(
-            MMDBoneInfo.右肩C, "mmd_uuunyaa_shoulder_cancel.r", "mmd_uuunyaa_shoulder_cancel.r", GroupType.NONE, MMDBindType.NONE
-        ),
-        MMDBindInfo(
-            MMDBoneInfo.右肩P, "mmd_uuunyaa_shoulder_parent.r", "mmd_uuunyaa_shoulder_parent.r", GroupType.NONE, MMDBindType.NONE
-        ),
+        MMDBindInfo(MMDBoneInfo.左肩C, "mmd_uuunyaa_shoulder_cancel.l", "mmd_uuunyaa_shoulder_cancel.l", GroupType.NONE, MMDBindType.NONE),
+        MMDBindInfo(MMDBoneInfo.左肩P, "mmd_uuunyaa_shoulder_parent.l", "mmd_uuunyaa_shoulder_parent.l", GroupType.NONE, MMDBindType.NONE),
+        MMDBindInfo(MMDBoneInfo.右肩C, "mmd_uuunyaa_shoulder_cancel.r", "mmd_uuunyaa_shoulder_cancel.r", GroupType.NONE, MMDBindType.NONE),
+        MMDBindInfo(MMDBoneInfo.右肩P, "mmd_uuunyaa_shoulder_parent.r", "mmd_uuunyaa_shoulder_parent.r", GroupType.NONE, MMDBindType.NONE),
         MMDBindInfo(MMDBoneInfo.左ダミー, None, None, GroupType.NONE, MMDBindType.NONE),
         MMDBindInfo(MMDBoneInfo.右ダミー, None, None, GroupType.NONE, MMDBindType.NONE),
-        MMDBindInfo(
-            MMDBoneInfo.左足IK親, "mmd_uuunyaa_leg_ik_parent.l", "mmd_uuunyaa_leg_ik_parent.l", GroupType.LEG_L, MMDBindType.NONE
-        ),
-        MMDBindInfo(
-            MMDBoneInfo.右足IK親, "mmd_uuunyaa_leg_ik_parent.r", "mmd_uuunyaa_leg_ik_parent.r", GroupType.LEG_R, MMDBindType.NONE
-        ),
+        MMDBindInfo(MMDBoneInfo.左足IK親, "mmd_uuunyaa_leg_ik_parent.l", "mmd_uuunyaa_leg_ik_parent.l", GroupType.LEG_L, MMDBindType.NONE),
+        MMDBindInfo(MMDBoneInfo.右足IK親, "mmd_uuunyaa_leg_ik_parent.r", "mmd_uuunyaa_leg_ik_parent.r", GroupType.LEG_R, MMDBindType.NONE),
     ]
 
     @staticmethod
@@ -216,9 +204,7 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
     def leg_r_mmd_autorig(self, value):
         self._set_property(ControlType.LEG_R_MMD_UUUNYAA, value)
 
-    def _add_upper_arm_twist_bones(
-        self, rig_edit_bones: bpy.types.ArmatureEditBones
-    ) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
+    def _add_upper_arm_twist_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
         # add upper arm twist (腕捩)
         upper_arm_twist_fk_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_upper_arm_twist_fk.l")
         upper_arm_twist_fk_l_bone.layers = [i in {11} for i in range(32)]
@@ -240,9 +226,7 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
 
         return upper_arm_twist_fk_l_bone, upper_arm_twist_fk_r_bone
 
-    def _add_wrist_twist_bones(
-        self, rig_edit_bones: bpy.types.ArmatureEditBones
-    ) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
+    def _add_wrist_twist_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
         # add wrist twist (手捩)
         wrist_twist_fk_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_wrist_twist_fk.l")
         wrist_twist_fk_l_bone.layers = [i in {11} for i in range(32)]
@@ -264,9 +248,7 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
 
         return wrist_twist_fk_l_bone, wrist_twist_fk_r_bone
 
-    def _add_leg_ik_parent_bones(
-        self, rig_edit_bones: bpy.types.ArmatureEditBones
-    ) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
+    def _add_leg_ik_parent_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
         # add Leg IKP (足IK親) bones
         leg_ik_parent_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_leg_ik_parent.l")
         leg_ik_parent_l_bone.layers = [i in {1} for i in range(32)]
@@ -313,9 +295,7 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
 
         return toe_ik_l_bone, toe_ik_r_bone
 
-    def _add_eye_fk_bones(
-        self, rig_edit_bones: bpy.types.ArmatureEditBones
-    ) -> Tuple[bpy.types.EditBone, bpy.types.EditBone, bpy.types.EditBone]:
+    def _add_eye_fk_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone, bpy.types.EditBone]:
         rig_eyes_fk_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_eyes_fk")
         rig_eyes_fk_bone.head = rig_edit_bones["head.x"].tail + rig_edit_bones["head.x"].vector
         rig_eyes_fk_bone.head.y = rig_edit_bones["c_eye.l"].head.y
@@ -362,9 +342,7 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
 
         return center_bone, groove_bone
 
-    def _add_shoulder_parent_bones(
-        self, rig_edit_bones: bpy.types.ArmatureEditBones
-    ) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
+    def _add_shoulder_parent_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
         shoulder_parent_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_shoulder_parent.l")
         shoulder_parent_l_bone.head = rig_edit_bones["c_shoulder.l"].head
         shoulder_parent_l_bone.tail = shoulder_parent_l_bone.head + Vector([0, 0, rig_edit_bones["c_shoulder.l"].length / 2])
@@ -385,9 +363,7 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
 
         return shoulder_parent_l_bone, shoulder_parent_r_bone
 
-    def _add_shoulder_cancel_bones(
-        self, rig_edit_bones: bpy.types.ArmatureEditBones
-    ) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
+    def _add_shoulder_cancel_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
         shoulder_cancel_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_shoulder_cancel.l")
         shoulder_cancel_l_bone.head = rig_edit_bones["c_shoulder.l"].tail
         shoulder_cancel_l_bone.tail = shoulder_cancel_l_bone.head + Vector([0, 0, rig_edit_bones["c_shoulder.l"].length / 2])
@@ -408,46 +384,34 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
 
         return shoulder_cancel_l_bone, shoulder_cancel_r_bone
 
-    def _add_shoulder_cancel_dummy_bones(
-        self, rig_edit_bones: bpy.types.ArmatureEditBones
-    ) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
+    def _add_shoulder_cancel_dummy_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
         shoulder_cancel_dummy_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_shoulder_cancel_dummy.l")
         shoulder_cancel_dummy_l_bone.head = rig_edit_bones["c_shoulder.l"].head
-        shoulder_cancel_dummy_l_bone.tail = shoulder_cancel_dummy_l_bone.head + Vector(
-            [0, 0, rig_edit_bones["c_shoulder.l"].length / 2]
-        )
+        shoulder_cancel_dummy_l_bone.tail = shoulder_cancel_dummy_l_bone.head + Vector([0, 0, rig_edit_bones["c_shoulder.l"].length / 2])
         shoulder_cancel_dummy_l_bone.layers = [i in {2} for i in range(32)]
         shoulder_cancel_dummy_l_bone.parent = rig_edit_bones["mmd_uuunyaa_shoulder_parent.l"]
         shoulder_cancel_dummy_l_bone.roll = 0
 
         shoulder_cancel_dummy_r_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_shoulder_cancel_dummy.r")
         shoulder_cancel_dummy_r_bone.head = rig_edit_bones["c_shoulder.r"].head
-        shoulder_cancel_dummy_r_bone.tail = shoulder_cancel_dummy_r_bone.head + Vector(
-            [0, 0, rig_edit_bones["c_shoulder.r"].length / 2]
-        )
+        shoulder_cancel_dummy_r_bone.tail = shoulder_cancel_dummy_r_bone.head + Vector([0, 0, rig_edit_bones["c_shoulder.r"].length / 2])
         shoulder_cancel_dummy_r_bone.layers = [i in {2} for i in range(32)]
         shoulder_cancel_dummy_r_bone.parent = rig_edit_bones["mmd_uuunyaa_shoulder_parent.r"]
         shoulder_cancel_dummy_r_bone.roll = 0
 
         return shoulder_cancel_dummy_l_bone, shoulder_cancel_dummy_r_bone
 
-    def _add_shoulder_cancel_shadow_bones(
-        self, rig_edit_bones: bpy.types.ArmatureEditBones
-    ) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
+    def _add_shoulder_cancel_shadow_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
         shoulder_cancel_shadow_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_shoulder_cancel_shadow.l")
         shoulder_cancel_shadow_l_bone.head = rig_edit_bones["c_shoulder.l"].head
-        shoulder_cancel_shadow_l_bone.tail = shoulder_cancel_shadow_l_bone.head + Vector(
-            [0, 0, rig_edit_bones["c_shoulder.l"].length / 2]
-        )
+        shoulder_cancel_shadow_l_bone.tail = shoulder_cancel_shadow_l_bone.head + Vector([0, 0, rig_edit_bones["c_shoulder.l"].length / 2])
         shoulder_cancel_shadow_l_bone.layers = [i in {2} for i in range(32)]
         shoulder_cancel_shadow_l_bone.parent = rig_edit_bones["c_spine_02.x"]
         shoulder_cancel_shadow_l_bone.roll = 0
 
         shoulder_cancel_shadow_r_bone = self.get_or_create_bone(rig_edit_bones, "mmd_uuunyaa_shoulder_cancel_shadow.r")
         shoulder_cancel_shadow_r_bone.head = rig_edit_bones["c_shoulder.r"].head
-        shoulder_cancel_shadow_r_bone.tail = shoulder_cancel_shadow_r_bone.head + Vector(
-            [0, 0, rig_edit_bones["c_shoulder.r"].length / 2]
-        )
+        shoulder_cancel_shadow_r_bone.tail = shoulder_cancel_shadow_r_bone.head + Vector([0, 0, rig_edit_bones["c_shoulder.r"].length / 2])
         shoulder_cancel_shadow_r_bone.layers = [i in {2} for i in range(32)]
         shoulder_cancel_shadow_r_bone.parent = rig_edit_bones["c_spine_02.x"]
         shoulder_cancel_shadow_r_bone.roll = 0
@@ -757,9 +721,7 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
 
         rig_bone_groups = self.bone_collections
 
-        insufficient_custom_shapes = list(
-            {custom_shape_name for _, custom_shape_name, _, _ in bone_widgets} - set(bpy.data.objects.keys())
-        )
+        insufficient_custom_shapes = list({custom_shape_name for _, custom_shape_name, _, _ in bone_widgets} - set(bpy.data.objects.keys()))
         self.load_custom_shapes(insufficient_custom_shapes)
 
         for bone_name, custom_shape_name, custom_shape_scale, bone_group_name in bone_widgets:
@@ -798,9 +760,7 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
         update_influence_drivers(pose_bones["c_eye.l"], eye_mmd_uuunyaa_data_path, invert_influence=True)
         update_influence_drivers(pose_bones["c_eye.r"], eye_mmd_uuunyaa_data_path, invert_influence=True)
 
-    def pose_mmd_rest(
-        self, dependency_graph: bpy.types.Depsgraph, iterations: int, pose_arms: bool, pose_legs: bool, pose_fingers: bool
-    ):
+    def pose_mmd_rest(self, dependency_graph: bpy.types.Depsgraph, iterations: int, pose_arms: bool, pose_legs: bool, pose_fingers: bool):
         # pylint: disable=too-many-arguments, too-many-locals
         pose_bones = self.pose_bones
 
@@ -844,26 +804,16 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
 
             if pose_legs:
                 # foot.L
-                pose_bones["mmd_uuunyaa_leg_ik_parent.l"].location.x += (
-                    pose_bones["thigh.l"].head[0] - pose_bones["foot.l"].head[0]
-                )
-                pose_bones["c_thigh_b.l"].rotation_euler.y -= math.radians(180) + math.atan2(
-                    *pose_bones["c_thigh_b.l"].x_axis[0:2]
-                )
+                pose_bones["mmd_uuunyaa_leg_ik_parent.l"].location.x += pose_bones["thigh.l"].head[0] - pose_bones["foot.l"].head[0]
+                pose_bones["c_thigh_b.l"].rotation_euler.y -= math.radians(180) + math.atan2(*pose_bones["c_thigh_b.l"].x_axis[0:2])
 
-                pose_bones["c_foot_ik.l"].matrix = pose_bones["c_foot_ik.l"].matrix @ Matrix.Rotation(
-                    math.radians(180) + pose_bones["foot.l"].matrix.to_euler().z, 4, "Z"
-                )
+                pose_bones["c_foot_ik.l"].matrix = pose_bones["c_foot_ik.l"].matrix @ Matrix.Rotation(math.radians(180) + pose_bones["foot.l"].matrix.to_euler().z, 4, "Z")
                 pose_bones["c_leg_pole.l"].location.x += pose_bones["thigh.l"].head[0] - pose_bones["c_leg_pole.l"].head[0]
 
                 # foot.R
-                pose_bones["mmd_uuunyaa_leg_ik_parent.r"].location.x += (
-                    pose_bones["thigh.r"].head[0] - pose_bones["foot.r"].head[0]
-                )
+                pose_bones["mmd_uuunyaa_leg_ik_parent.r"].location.x += pose_bones["thigh.r"].head[0] - pose_bones["foot.r"].head[0]
                 pose_bones["c_thigh_b.r"].rotation_euler.y -= math.radians(0) + math.atan2(*pose_bones["c_thigh_b.r"].x_axis[0:2])
-                pose_bones["c_foot_ik.r"].matrix = pose_bones["c_foot_ik.r"].matrix @ Matrix.Rotation(
-                    math.radians(180) + pose_bones["foot.r"].matrix.to_euler().z, 4, "Z"
-                )
+                pose_bones["c_foot_ik.r"].matrix = pose_bones["c_foot_ik.r"].matrix @ Matrix.Rotation(math.radians(180) + pose_bones["foot.r"].matrix.to_euler().z, 4, "Z")
                 pose_bones["c_leg_pole.r"].location.x += pose_bones["thigh.r"].head[0] - pose_bones["c_leg_pole.r"].head[0]
 
             if pose_fingers:
