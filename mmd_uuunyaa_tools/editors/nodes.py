@@ -47,9 +47,7 @@ class NodeEditor(ABC):
     def get_output_node(self) -> bpy.types.Node:
         pass
 
-    def list_nodes(
-        self, node_type: type = None, label: str = None, name: str = None, node_frame: bpy.types.NodeFrame = None
-    ) -> Iterable[bpy.types.Node]:
+    def list_nodes(self, node_type: type = None, label: str = None, name: str = None, node_frame: bpy.types.NodeFrame = None) -> Iterable[bpy.types.Node]:
         node: bpy.types.Node
         for node in self.nodes:
             if node_type is not None and not isinstance(node, node_type):

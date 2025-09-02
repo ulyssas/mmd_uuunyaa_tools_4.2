@@ -19,41 +19,41 @@ class Markdown:
         # image
         match = re.fullmatch(r'!\[([^\]]*)\]\((.*?)\s*("(?:.*[^"])")?\s*\)', markdown_line)
         if match:
-            return {'type': 'image', 'markdown': markdown_line, 'alt': match.group(1), 'url': match.group(2)}
+            return {"type": "image", "markdown": markdown_line, "alt": match.group(1), "url": match.group(2)}
 
-        match = re.fullmatch(r'\|\s([^\|]+)\s\|\s([^\|]+)\s\|', markdown_line)
+        match = re.fullmatch(r"\|\s([^\|]+)\s\|\s([^\|]+)\s\|", markdown_line)
         if match:
-            return {'type': 'alias', 'markdown': markdown_line, 'language': match.group(1), 'representation': match.group(2)}
+            return {"type": "alias", "markdown": markdown_line, "language": match.group(1), "representation": match.group(2)}
 
-        return {'type': 'plain', 'markdown': markdown_line}
+        return {"type": "plain", "markdown": markdown_line}
 
     @staticmethod
     def parse(markdown_text):
         lines = []
-        root_block = {'header': '', 'depth': 0, 'lines': lines, 'children': []}
+        root_block = {"header": "", "depth": 0, "lines": lines, "children": []}
         block_stack = [root_block]
 
         def append_child(child_block):
-            block_stack[-1]['children'].append(child_block)
+            block_stack[-1]["children"].append(child_block)
             block_stack.append(child_block)
 
         def remove_empty_lines(lines, line_number):
             if len(lines) == 0:
                 return
 
-            while len(lines[line_number]['markdown'].strip()) == 0:
+            while len(lines[line_number]["markdown"].strip()) == 0:
                 del lines[line_number]
 
-        for markdown_line in markdown_text.split('\n'):
+        for markdown_line in markdown_text.split("\n"):
             markdown_line = markdown_line.rstrip()
-            if markdown_line.startswith('```'):
+            if markdown_line.startswith("```"):
                 continue
 
-            if not markdown_line.startswith('#'):
+            if not markdown_line.startswith("#"):
                 lines.append(Markdown.parse_line(markdown_line))
                 continue
 
-            match = re.fullmatch(r'^(#+)\s+(.+)$', markdown_line)
+            match = re.fullmatch(r"^(#+)\s+(.+)$", markdown_line)
             header_level = len(match.group(1))
             header_text = match.group(2)
 
@@ -63,103 +63,96 @@ class Markdown:
             # remove tail empty lines
             remove_empty_lines(lines, -1)
 
-            if block_stack[-1]['depth'] >= header_level:
-                while block_stack[-1]['depth'] >= header_level:
+            if block_stack[-1]["depth"] >= header_level:
+                while block_stack[-1]["depth"] >= header_level:
                     del block_stack[-1]
             else:
-                while block_stack[-1]['depth'] + 1 < header_level:
-                    append_child({'header': '', 'depth': block_stack[-1]['depth'] + 1, 'lines': [], 'children': []})
+                while block_stack[-1]["depth"] + 1 < header_level:
+                    append_child({"header": "", "depth": block_stack[-1]["depth"] + 1, "lines": [], "children": []})
 
             lines = []
-            append_child({'header': header_text, 'depth': header_level, 'lines': lines, 'children': []})
+            append_child({"header": header_text, "depth": header_level, "lines": lines, "children": []})
 
         return root_block
 
     @staticmethod
     def traverse_blocks(blocks):
         yield blocks
-        for block in blocks['children']:
+        for block in blocks["children"]:
             for child in Markdown.traverse_blocks(block):
                 yield child
 
     @staticmethod
     def to_markdown(blocks):
-        result = ''
+        result = ""
         for block in Markdown.traverse_blocks(blocks):
-            if block['header']:
+            if block["header"]:
                 if result:
-                    result += '\n'
+                    result += "\n"
 
                 result += f"{'#' * block['depth']} {block['header']}\n"
-            for line in block['lines']:
+            for line in block["lines"]:
                 result += f"{line['markdown']}\n"
 
         return result
 
 
 def to_asset(issue):
-    blocks = Markdown.parse(issue['body'])
+    blocks = Markdown.parse(issue["body"])
 
     tags = {
-        label: tag for label, tag in issue['labels'].items()
-        if label not in [
-            'duplicate',
-            'enhancement',
-            'invalid',
-            'question',
-        ] and ('=' not in label)
+        label: tag
+        for label, tag in issue["labels"].items()
+        if label
+        not in [
+            "duplicate",
+            "enhancement",
+            "invalid",
+            "question",
+        ]
+        and ("=" not in label)
     }
 
-    types = [
-        label[len('type='):] for label, tag in issue['labels'].items()
-        if label.startswith('type=')
-    ]
+    types = [label[len("type=") :] for label, tag in issue["labels"].items() if label.startswith("type=")]
 
     if len(types) != 1:
         print(f"WARN: invalid len(type)={len(types)}, number={issue['number']}", file=sys.stderr)
 
     asset = {
-        'id': f"{issue['number']:05d}",
-        'type': types[0],
-        'url': issue['url'],
-        'name': issue['title'],
-        'tags': tags,
-        'updated_at': issue['updated_at'],
+        "id": f"{issue['number']:05d}",
+        "type": types[0],
+        "url": issue["url"],
+        "name": issue["title"],
+        "tags": tags,
+        "updated_at": issue["updated_at"],
     }
 
     for block in Markdown.traverse_blocks(blocks):
-        if block['header'] == 'aliases':
-            asset['aliases'] = {
-                line['language']: line['representation']
-                for line in block['lines']
-                if line['type'] == 'alias'
-            }
-        elif block['header']:
-            lines = block['lines']
-            if len(lines) > 0 and lines[0]['type'] == 'image':
-                content = lines[0]['url']
+        if block["header"] == "aliases":
+            asset["aliases"] = {line["language"]: line["representation"] for line in block["lines"] if line["type"] == "alias"}
+        elif block["header"]:
+            lines = block["lines"]
+            if len(lines) > 0 and lines[0]["type"] == "image":
+                content = lines[0]["url"]
             else:
-                content = '\n'.join([line['markdown'] for line in lines])
-            asset[block['header']] = content
+                content = "\n".join([line["markdown"] for line in lines])
+            asset[block["header"]] = content
     return asset
 
 
 def to_summary_issue(raw_issue):
     return {
-        'url': raw_issue['html_url'],
-        'number': raw_issue['number'],
-        'title': raw_issue['title'],
-        'labels': {label['name']: label['description'] for label in raw_issue['labels']},
-        'body': raw_issue['body'],
-        'updated_at': raw_issue['updated_at'],
+        "url": raw_issue["html_url"],
+        "number": raw_issue["number"],
+        "title": raw_issue["title"],
+        "labels": {label["name"]: label["description"] for label in raw_issue["labels"]},
+        "body": raw_issue["body"],
+        "updated_at": raw_issue["updated_at"],
     }
 
 
 def fetch_issue(session, repo, issue_number):
-    response = session.get(
-        f'https://api.github.com/repos/{repo}/issues/{issue_number}',
-        headers={'Accept': 'application/vnd.github.v3+json'}
-    )
+    response = session.get(f"https://api.github.com/repos/{repo}/issues/{issue_number}", headers={"Accept": "application/vnd.github.v3+json"})
     response.raise_for_status()
     return to_summary_issue(json.loads(response.text))
 
@@ -168,16 +161,10 @@ def fetch_issues(session, repo, query):
     per_page = 100
     issues = []
     for page in itertools.count(1):
-        response = session.get(
-            f'https://api.github.com/repos/{repo}/issues',
-            params={**query, 'per_page': per_page, 'page': page},
-            headers={'Accept': 'application/vnd.github.v3+json'}
-        )
+        response = session.get(f"https://api.github.com/repos/{repo}/issues", params={**query, "per_page": per_page, "page": page}, headers={"Accept": "application/vnd.github.v3+json"})
         response.raise_for_status()
 
-        summary_issues = [
-            to_summary_issue(issue) for issue in json.loads(response.text)
-        ]
+        summary_issues = [to_summary_issue(issue) for issue in json.loads(response.text)]
         issues += summary_issues
 
         if len(summary_issues) < per_page:
@@ -189,19 +176,17 @@ def fetch_issues(session, repo, query):
 
 def wrap_assets(assets):
     return {
-        'format': 'blender_mmd_assets:3',
-        'description': 'This file is a release asset of blender_mmd_assets',
-        'license': 'CC-BY-4.0 License',
-        'created_at': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-        'asset_count': len(assets),
-        'assets': assets,
+        "format": "blender_mmd_assets:3",
+        "description": "This file is a release asset of blender_mmd_assets",
+        "license": "CC-BY-4.0 License",
+        "created_at": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "asset_count": len(assets),
+        "assets": assets,
     }
 
 
 def fetch_asset(session, repo, issue_number):
-    return to_asset(
-        fetch_issue(session, repo, issue_number)
-    )
+    return to_asset(fetch_issue(session, repo, issue_number))
 
 
 def fetch_assets(session, repo, query):
@@ -215,35 +200,37 @@ def fetch_assets(session, repo, query):
             if property in asset:
                 return True
 
-            print(f'ERROR: {property} not found', file=sys.stderr)
+            print(f"ERROR: {property} not found", file=sys.stderr)
             return False
 
-        if all([
-            check('thumbnail_url'),
-            check('source_url'),
-            check('download_action'),
-            check('import_action'),
-            check('aliases'),
-            check('note'),
-        ]):
+        if all(
+            [
+                check("thumbnail_url"),
+                check("source_url"),
+                check("download_action"),
+                check("import_action"),
+                check("aliases"),
+                check("note"),
+            ]
+        ):
             assets.append(asset)
 
     return assets
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) not in {2, 3}:
-        print(f'ERROR: invalid arguments: {sys.argv}', file=sys.stderr)
-        print('USAGE: python cat_asset_json.py REPO_USER/REPO_PATH [QUERY]')
+        print(f"ERROR: invalid arguments: {sys.argv}", file=sys.stderr)
+        print("USAGE: python cat_asset_json.py REPO_USER/REPO_PATH [QUERY]")
         sys.exit(1)
 
-    token = os.environ.get('GITHUB_TOKEN')
+    token = os.environ.get("GITHUB_TOKEN")
     repo = sys.argv[1]
 
     if len(sys.argv) == 3:
         query = ast.literal_eval(sys.argv[2])
     else:
-        query = {'state': 'open', 'milestone': 1, 'labels': 'Official'}
+        query = {"state": "open", "milestone": 1, "labels": "Official"}
 
     session = requests.Session()
     session.auth = (None, token)

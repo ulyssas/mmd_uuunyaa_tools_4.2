@@ -161,12 +161,8 @@ class UuuNyaaPhysicsPanel(bpy.types.Panel):
         col = layout.column(align=True)
         col.label(text=_("Misc:"), icon="BLENDER")
         grid = col.grid_flow(row_major=True)
-        grid.row(align=True).operator(
-            StretchBoneToVertexOperator.bl_idname, text=_("Stretch Bone to Vertex"), icon="CONSTRAINT_BONE"
-        )
-        grid.row(align=True).operator(
-            AddCenterOfGravityObject.bl_idname, text=_("Add Center of Gravity"), icon="ORIENTATION_CURSOR"
-        )
+        grid.row(align=True).operator(StretchBoneToVertexOperator.bl_idname, text=_("Stretch Bone to Vertex"), icon="CONSTRAINT_BONE")
+        grid.row(align=True).operator(AddCenterOfGravityObject.bl_idname, text=_("Add Center of Gravity"), icon="ORIENTATION_CURSOR")
 
     @staticmethod
     def _toggle_visibility_of_cloths(obj, context):
@@ -185,9 +181,7 @@ class UuuNyaaPhysicsPanel(bpy.types.Panel):
     @staticmethod
     def register():
         # pylint: disable=assignment-from-no-return
-        bpy.types.Object.mmd_uuunyaa_tools_show_cloths = bpy.props.BoolProperty(
-            default=True, update=UuuNyaaPhysicsPanel._toggle_visibility_of_cloths
-        )
+        bpy.types.Object.mmd_uuunyaa_tools_show_cloths = bpy.props.BoolProperty(default=True, update=UuuNyaaPhysicsPanel._toggle_visibility_of_cloths)
 
     @staticmethod
     def unregister():
@@ -280,35 +274,21 @@ class UuuNyaaSegmentationPanel(bpy.types.Panel):
 class SegmentationPropertyGroup(bpy.types.PropertyGroup):
     cost_threshold: bpy.props.FloatProperty(name=_("Cost Threshold"), default=2.5, min=0, soft_max=3.0, step=1)
 
-    maximum_area_threshold: bpy.props.FloatProperty(
-        name=_("Maximum Area Threshold"), default=0.500, min=0, soft_max=1.0, precision=3, step=1
-    )
-    minimum_area_threshold: bpy.props.FloatProperty(
-        name=_("Minimum Area Threshold"), default=0.001, min=0, soft_max=1.0, precision=3, step=1
-    )
+    maximum_area_threshold: bpy.props.FloatProperty(name=_("Maximum Area Threshold"), default=0.500, min=0, soft_max=1.0, precision=3, step=1)
+    minimum_area_threshold: bpy.props.FloatProperty(name=_("Minimum Area Threshold"), default=0.001, min=0, soft_max=1.0, precision=3, step=1)
 
     face_angle_cost_factor: bpy.props.FloatProperty(name=_("Face Angle Cost Factor"), default=1.0, min=0, soft_max=2.0, step=1)
     perimeter_cost_factor: bpy.props.FloatProperty(name=_("Perimeter Cost Factor"), default=0.0, min=0, soft_max=10.0, step=1)
-    material_change_cost_factor: bpy.props.FloatProperty(
-        name=_("Material Change Cost Factor"), default=0.3, min=0, soft_max=1.0, step=1
-    )
+    material_change_cost_factor: bpy.props.FloatProperty(name=_("Material Change Cost Factor"), default=0.3, min=0, soft_max=1.0, step=1)
     edge_sharp_cost_factor: bpy.props.FloatProperty(name=_("Edge Sharp Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
     edge_seam_cost_factor: bpy.props.FloatProperty(name=_("Edge Seam Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
-    vertex_group_weight_cost_factor: bpy.props.FloatProperty(
-        name=_("Vertex Group Weight Cost Factor"), default=0.1, min=0, soft_max=1.0, step=1
-    )
-    vertex_group_change_cost_factor: bpy.props.FloatProperty(
-        name=_("Vertex Group Change Cost Factor"), default=0.5, min=0, soft_max=1.0, step=1
-    )
+    vertex_group_weight_cost_factor: bpy.props.FloatProperty(name=_("Vertex Group Weight Cost Factor"), default=0.1, min=0, soft_max=1.0, step=1)
+    vertex_group_change_cost_factor: bpy.props.FloatProperty(name=_("Vertex Group Change Cost Factor"), default=0.5, min=0, soft_max=1.0, step=1)
 
     edge_length_factor: bpy.props.FloatProperty(name=_("Edge Length Factor"), default=1.0, min=0, soft_max=1.0, step=1)
 
-    segmentation_vertex_color_random_seed: bpy.props.IntProperty(
-        name=_("Segmentation Vertex Color Random Seed"), default=0, min=0
-    )
-    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(
-        name=_("Segmentation Vertex Color Attribute Name"), default="Segmentation"
-    )
+    segmentation_vertex_color_random_seed: bpy.props.IntProperty(name=_("Segmentation Vertex Color Random Seed"), default=0, min=0)
+    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name=_("Segmentation Vertex Color Attribute Name"), default="Segmentation")
 
     @staticmethod
     def register():

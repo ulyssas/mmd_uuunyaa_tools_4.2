@@ -73,9 +73,7 @@ class WetAdjuster(MaterialAdjusterABC):
             {
                 "Specular": self.to_link_or_value(node_shader.inputs["Specular"]),
                 "Roughness": self.to_link_or_value(node_shader.inputs["Roughness"]),
-                "Wet": self.edit(
-                    self.get_vertex_color_node(), {}, {"location": self.grid_to_position(-4, -10), "parent": node_frame}
-                ).outputs["Color"],
+                "Wet": self.edit(self.get_vertex_color_node(), {}, {"location": self.grid_to_position(-4, -10), "parent": node_frame}).outputs["Color"],
             },
             {"location": self.grid_to_position(-2, -10), "parent": node_frame},
         )

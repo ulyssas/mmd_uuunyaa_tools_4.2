@@ -206,9 +206,7 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     def _update_presets(prop, _):
         TUNERS[prop.presets](prop.id_data).execute()
 
-    presets: bpy.props.EnumProperty(
-        name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None
-    )
+    presets: bpy.props.EnumProperty(name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
 
     damping: bpy.props.FloatProperty(
         name=_("Damping"),
@@ -260,9 +258,7 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     @staticmethod
     def register():
         # pylint: disable=assignment-from-no-return
-        bpy.types.Object.mmd_uuunyaa_tools_collision_settings = bpy.props.PointerProperty(
-            type=CollisionAdjusterSettingsPropertyGroup
-        )
+        bpy.types.Object.mmd_uuunyaa_tools_collision_settings = bpy.props.PointerProperty(type=CollisionAdjusterSettingsPropertyGroup)
 
     @staticmethod
     def unregister():

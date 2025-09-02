@@ -57,9 +57,7 @@ class TransparentMaterialTuner(MaterialTunerABC):
         self.edit(
             self.get_output_node(),
             {
-                "Surface": self.edit(
-                    self.get_transparent_bsdf_node(), properties={"location": self.grid_to_position(-2, -0), "parent": node_frame}
-                ).outputs["BSDF"],
+                "Surface": self.edit(self.get_transparent_bsdf_node(), properties={"location": self.grid_to_position(-2, -0), "parent": node_frame}).outputs["BSDF"],
             },
             {"location": self.grid_to_position(+3, +0)},
             force=True,

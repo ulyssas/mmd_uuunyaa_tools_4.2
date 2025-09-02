@@ -38,9 +38,7 @@ class StretchBoneToVertexOperator(bpy.types.Operator):
         target_pose_bones: List[bpy.types.PoseBone] = list(context.selected_pose_bones)
         target_mesh_objects: List[bpy.types.Object] = [o for o in context.selected_objects if o.type == "MESH" and not o.hide]
 
-        i2vm: Dict[int, Tuple[bpy.types.MeshVertex, bpy.types.Object]] = dict(
-            enumerate((v, m) for m in target_mesh_objects for v in m.data.vertices)
-        )
+        i2vm: Dict[int, Tuple[bpy.types.MeshVertex, bpy.types.Object]] = dict(enumerate((v, m) for m in target_mesh_objects for v in m.data.vertices))
 
         mesh_object: Optional[bpy.types.Object] = None
         mesh_matrix: Matrix = Matrix()
@@ -69,9 +67,7 @@ class StretchBoneToVertexOperator(bpy.types.Operator):
                 return None, None
 
             vertex, mesh_object = i2vm[index]
-            vertex_group: bpy.types.VertexGroup = (
-                mesh_object.vertex_groups[name] if name in mesh_object.vertex_groups else mesh_object.vertex_groups.new(name=name)
-            )
+            vertex_group: bpy.types.VertexGroup = mesh_object.vertex_groups[name] if name in mesh_object.vertex_groups else mesh_object.vertex_groups.new(name=name)
             vertex_group.add([vertex.index], 1.0, "REPLACE")
             return vertex, mesh_object
 

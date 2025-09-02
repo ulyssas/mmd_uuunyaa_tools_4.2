@@ -81,9 +81,7 @@ class DownloadActionExecutor:
         response = session.get(url, allow_redirects=True)
         response.raise_for_status()
 
-        match = re.search(
-            r'<a +href="([^"]+)">Click here if your download does not start within a few seconds.</a>', response.text
-        )
+        match = re.search(r'<a +href="([^"]+)">Click here if your download does not start within a few seconds.</a>', response.text)
         if match is None:
             raise ValueError(_("Failed to download assets from SmutBase. The response format may have changed."))
 
@@ -102,7 +100,7 @@ class DownloadActionExecutor:
         download_key = match.group(1) if password is None else password
 
         response = session.post(
-            f"{url.replace('/file/','/api/file/')}/download-check",
+            f"{url.replace('/file/', '/api/file/')}/download-check",
             data={
                 "download_key": download_key,
                 "csrf_token": csrf_token,
@@ -238,18 +236,14 @@ class ImportActionExecutor:
             return
 
         namespace = "xrarfile"
-        loader = importlib.machinery.SourceFileLoader(
-            namespace, os.path.join(PACKAGE_PATH, "externals", "xrarfile", "xrarfile.py")
-        )
+        loader = importlib.machinery.SourceFileLoader(namespace, os.path.join(PACKAGE_PATH, "externals", "xrarfile", "xrarfile.py"))
         xrarfile = loader.load_module(namespace)  # pylint: disable=deprecated-method
 
         try:
             with xrarfile.XRarFile(rar_file_path) as rar:
                 rar.extractall(path=asset_path, pwd=password)
         except xrarfile.XRarCannotExec as ex:
-            raise MessageException(
-                _("Failed to execute unrar or WinRAR\nPlease install unrar or WinRAR and setup the PATH properly.")
-            ) from ex
+            raise MessageException(_("Failed to execute unrar or WinRAR\nPlease install unrar or WinRAR and setup the PATH properly.")) from ex
 
         _Utilities.write_json(asset)
         ImportActionExecutor.chmod_recursively(asset_path, stat.S_IWRITE)
@@ -264,18 +258,14 @@ class ImportActionExecutor:
             return
 
         namespace = "x7zipfile"
-        loader = importlib.machinery.SourceFileLoader(
-            namespace, os.path.join(PACKAGE_PATH, "externals", "x7zipfile", "x7zipfile.py")
-        )
+        loader = importlib.machinery.SourceFileLoader(namespace, os.path.join(PACKAGE_PATH, "externals", "x7zipfile", "x7zipfile.py"))
         x7zipfile = loader.load_module(namespace)  # pylint: disable=deprecated-method
 
         try:
             with x7zipfile.x7ZipFile(zip_file_path, pwd=password) as zip_file:
                 zip_file.extractall(path=asset_path)
         except x7zipfile.x7ZipCannotExec as ex:
-            raise MessageException(
-                _("Failed to execute 7z\nPlease install p7zip-full or 7-zip and setup the PATH properly.")
-            ) from ex
+            raise MessageException(_("Failed to execute 7z\nPlease install p7zip-full or 7-zip and setup the PATH properly.")) from ex
 
         _Utilities.write_json(asset)
         ImportActionExecutor.chmod_recursively(asset_path, stat.S_IWRITE)
@@ -428,11 +418,6 @@ class ImportActionExecutor:
             if os.sys.platform == "win32":
                 message = str(ex)
                 if message.startswith("[Errno 2] No such file or directory: ") and len(message) > 260 + 38:
-                    raise MessageException(
-                        _(
-                            "The file path is too long. "
-                            "This can be alleviated to some extent by shortening the Asset Extract Root Folder in the Add-on Preferences."
-                        )
-                    ) from ex
+                    raise MessageException(_("The file path is too long. This can be alleviated to some extent by shortening the Asset Extract Root Folder in the Add-on Preferences.")) from ex
 
             raise

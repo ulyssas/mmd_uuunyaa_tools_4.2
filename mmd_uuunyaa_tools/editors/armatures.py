@@ -18,6 +18,7 @@ from mmd_uuunyaa_tools.utilities import raise_installation_error
 
 PATH_BLENDS_RIGSHAPELIBRARY = os.path.join(PACKAGE_PATH, "blends", "RigShapeLibrary.blend")
 
+
 @dataclass
 class DriverVariable:
     name: str
@@ -37,16 +38,12 @@ class PoseBoneEditor(ABC):
         driver.expression = driver_expression
 
     @classmethod
-    def add_influence_driver(
-        cls, constraint: bpy.types.Constraint, target: bpy.types.Object, data_path: str, invert_influence=False
-    ):
+    def add_influence_driver(cls, constraint: bpy.types.Constraint, target: bpy.types.Object, data_path: str, invert_influence=False):
         variable = DriverVariable("mmd_uuunyaa_influence", target, data_path)
         cls.add_driver(constraint, "influence", ("1-" if invert_influence else "+") + variable.name, variable)
 
     @classmethod
-    def update_influence_driver(
-        cls, constraint: bpy.types.Constraint, target: bpy.types.Object, data_path: str, invert_influence=False
-    ):
+    def update_influence_driver(cls, constraint: bpy.types.Constraint, target: bpy.types.Object, data_path: str, invert_influence=False):
         constraint.driver_remove("influence")
         cls.add_influence_driver(constraint, target, data_path, invert_influence=invert_influence)
 

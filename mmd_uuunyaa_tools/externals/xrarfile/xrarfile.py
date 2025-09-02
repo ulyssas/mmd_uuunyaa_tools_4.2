@@ -37,7 +37,7 @@ import sys
 from dataclasses import dataclass
 from typing import Iterator, List, Union
 
-_WIN32 = sys.platform == 'win32'
+_WIN32 = sys.platform == "win32"
 
 
 @dataclass
@@ -76,8 +76,7 @@ class _Executor(ABC):
 
     @staticmethod
     def _popen(command: Union[str, List[str]]) -> subprocess.Popen:
-        """Disconnect command from parent fds, read only from stdout.
-        """
+        """Disconnect command from parent fds, read only from stdout."""
         try:
             return subprocess.Popen(
                 command,
@@ -85,13 +84,13 @@ class _Executor(ABC):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 stdin=subprocess.DEVNULL,
-                creationflags=0x08000000 if _WIN32 else 0  # CREATE_NO_WINDOW
+                creationflags=0x08000000 if _WIN32 else 0,  # CREATE_NO_WINDOW
             )
         except OSError as ex:
             if ex.errno == errno.ENOENT:
-                raise XRarCannotExec('RAR not installed?') from None
+                raise XRarCannotExec("RAR not installed?") from None
             if ex.errno == errno.EACCES or ex.errno == errno.EPERM:
-                raise XRarCannotExec('Cannot execute RAR') from None
+                raise XRarCannotExec("Cannot execute RAR") from None
             raise
 
     def execute(self, command: Union[str, List[str]]) -> Iterator[str]:
@@ -100,13 +99,13 @@ class _Executor(ABC):
         while True:
             line = process.stdout.readline()
             if line is not None:
-                yield line.decode('utf-8', 'ignore').rstrip(linesep)
+                yield line.decode("utf-8", "ignore").rstrip(linesep)
 
             if not line and process.poll() is not None:
                 break
 
         exit_code = process.poll()
-        error_message = process.stderr.read().decode('utf-8', 'ignore').strip()
+        error_message = process.stderr.read().decode("utf-8", "ignore").strip()
 
         for stream in [process.stdin, process.stdout, process.stderr]:
             try:
@@ -138,21 +137,21 @@ class UnrarExecutor(_Executor):
         password: Union[str, None] = None,
         other_options: Union[List[str], None] = None,
     ):
-        command = [self.executable, 'x', '-y', '-o+']
+        command = [self.executable, "x", "-y", "-o+"]
 
         if password is not None:
-            command.append(f'-p{password}')
+            command.append(f"-p{password}")
 
         if other_options is not None:
             command.extend(other_options)
 
-        if _WIN32 and archive_name[-4:].lower() != '.rar':
-            archive_name += '.*'
+        if _WIN32 and archive_name[-4:].lower() != ".rar":
+            archive_name += ".*"
 
         command.append(archive_name)
 
         if output_directory is not None:
-            command.append(output_directory + ('' if output_directory.endswith(os.path.sep) else os.path.sep))
+            command.append(output_directory + ("" if output_directory.endswith(os.path.sep) else os.path.sep))
 
         for _ in self.execute(command):
             pass
@@ -169,13 +168,13 @@ class UnarExecutor(_Executor):
         password: Union[str, None] = None,
         other_options: Union[List[str], None] = None,
     ):
-        command = [self.executable, '-force-overwrite']
+        command = [self.executable, "-force-overwrite"]
 
         if output_directory is not None:
-            command.extend(['-output-directory', output_directory])
+            command.extend(["-output-directory", output_directory])
 
         if password is not None:
-            command.extend(['-password', password])
+            command.extend(["-password", password])
 
         if other_options is not None:
             command.extend(other_options)
@@ -187,11 +186,15 @@ class UnarExecutor(_Executor):
 
 
 _EXECUTORS = [
-    UnrarExecutor('unrar'),
-    UnarExecutor('unar'),
-] + ([
-    UnrarExecutor('UnRAR.exe'),
-] if _WIN32 else [])
+    UnrarExecutor("unrar"),
+    UnarExecutor("unar"),
+] + (
+    [
+        UnrarExecutor("UnRAR.exe"),
+    ]
+    if _WIN32
+    else []
+)
 
 _EXECUTOR: _Executor = None
 
@@ -207,34 +210,29 @@ def get_executor() -> _Executor:
             _EXECUTOR = executor
             return _EXECUTOR
 
-    raise XRarCannotExec(
-        'Cannot find working RAR command. '
-        'Please install RAR and setup the PATH properly.'
-    )
+    raise XRarCannotExec("Cannot find working RAR command. Please install RAR and setup the PATH properly.")
 
 
 class XRarFile:
-    """Class with methods to open, close, list RAR files.
-    """
+    """Class with methods to open, close, list RAR files."""
 
     def __init__(
         self,
         file: Union[str, bytes, os.PathLike],
-        mode: str = 'r',
+        mode: str = "r",
         pwd: Union[str, None] = None,
     ):
-        """Open the RAR file with mode read 'r'.
-        """
+        """Open the RAR file with mode read 'r'."""
         self._file = file if not isinstance(file, os.PathLike) else str(file)
 
-        if mode != 'r':
-            raise NotImplementedError('XRarFile supports only mode=r')
+        if mode != "r":
+            raise NotImplementedError("XRarFile supports only mode=r")
 
         self._pwd = pwd
 
         self._executor = get_executor()
 
-    def __enter__(self) -> 'XRarFile':
+    def __enter__(self) -> "XRarFile":
         """Open context."""
         return self
 
@@ -243,22 +241,22 @@ class XRarFile:
         self.close()
 
     def open(self):
-        raise NotImplementedError('XRarFile does not yet support open')
+        raise NotImplementedError("XRarFile does not yet support open")
 
     def close(self):
         """Release open resources."""
 
     def infolist(self) -> List[XRarInfo]:
-        raise NotImplementedError('XRarFile does not yet support infolist')
+        raise NotImplementedError("XRarFile does not yet support infolist")
 
     def getinfo(self, member: str) -> XRarInfo:
-        raise NotImplementedError('XRarFile does not yet support getinfo')
+        raise NotImplementedError("XRarFile does not yet support getinfo")
 
     def namelist(self) -> List[str]:
-        raise NotImplementedError('XRarFile does not yet support namelist')
+        raise NotImplementedError("XRarFile does not yet support namelist")
 
     def extract(self, member: Union[str, XRarInfo], path: Union[str, None] = None, pwd: Union[str, None] = None):
-        raise NotImplementedError('XRarFile does not yet support extract')
+        raise NotImplementedError("XRarFile does not yet support extract")
 
     def extractall(self, path: Union[str, None] = None, members: Union[List[Union[str, XRarInfo]], None] = None, pwd: Union[str, None] = None):
         """Extract all files into current directory.
@@ -273,7 +271,7 @@ class XRarFile:
         """
 
         if members is not None:
-            raise NotImplementedError('XRarFile does not yet support extractall with members')
+            raise NotImplementedError("XRarFile does not yet support extractall with members")
 
         self._executor.execute_extractall(
             archive_name=self._file,

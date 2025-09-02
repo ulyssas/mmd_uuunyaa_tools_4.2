@@ -6,7 +6,10 @@ from typing import Iterable, Iterator, List
 
 import bpy
 
-from mmd_uuunyaa_tools.converters.physics.rigid_body_to_cloth import PhysicsMode, RigidBodyToClothConverter
+from mmd_uuunyaa_tools.converters.physics.rigid_body_to_cloth import (
+    PhysicsMode,
+    RigidBodyToClothConverter,
+)
 from mmd_uuunyaa_tools.editors.meshes import MeshEditor
 from mmd_uuunyaa_tools.m17n import _
 from mmd_uuunyaa_tools.tuners import TunerABC, TunerRegistry
@@ -25,10 +28,14 @@ if not hasattr(mmd_tools.core.model.Model, "clothGroupObject"):
                     break
 
             if self._cloth_grp is None:
-                cloths = mmd_tools.bpyutils.FnContext.new_and_link_object(bpy.context, name='cloths', object_data = None)
+                cloths = mmd_tools.bpyutils.FnContext.new_and_link_object(bpy.context, name="cloths", object_data=None)
                 cloths.parent = self.rootObject()
                 cloths.hide = cloths.hide_select = True
-                cloths.lock_rotation = cloths.lock_location = cloths.lock_scale = [True, True, True]
+                cloths.lock_rotation = cloths.lock_location = cloths.lock_scale = [
+                    True,
+                    True,
+                    True,
+                ]
                 self._cloth_grp = cloths
 
         return self._cloth_grp
@@ -43,9 +50,12 @@ if not hasattr(mmd_tools.core.model.Model, "clothGroupObject"):
                 continue
             yield obj
 
-    def iterate_joint_objects(root_object: bpy.types.Object) -> Iterator[bpy.types.Object]:
+    def iterate_joint_objects(
+        root_object: bpy.types.Object,
+    ) -> Iterator[bpy.types.Object]:
         return mmd_tools.core.model.FnModel.iterate_filtered_child_objects(
-            mmd_tools.core.model.FnModel.is_joint_object, mmd_tools.core.model.FnModel.find_joint_group_object(root_object)
+            mmd_tools.core.model.FnModel.is_joint_object,
+            mmd_tools.core.model.FnModel.find_joint_group_object(root_object),
         )
 
     mmd_tools.core.model.Model.cloths = mmd_model_cloths_method
@@ -176,7 +186,11 @@ class UuuNyaaClothAdjuster(bpy.types.Panel):
 
         col = box.column()
         col.label(text=_("Batch Operation:"))
-        col.operator(CopyClothAdjusterSettings.bl_idname, text=_("Copy to Selected"), icon="DUPLICATE")
+        col.operator(
+            CopyClothAdjusterSettings.bl_idname,
+            text=_("Copy to Selected"),
+            icon="DUPLICATE",
+        )
 
         col = layout.column(align=True)
         col.label(text=_("Cache:"))
@@ -251,7 +265,9 @@ class SelectClothMesh(bpy.types.Operator):
         return MeshEditor(active_object).find_cloth_modifier() is not None
 
     @staticmethod
-    def filter_only_in_mmd_model(key_object: bpy.types.Object) -> Iterable[bpy.types.Object]:
+    def filter_only_in_mmd_model(
+        key_object: bpy.types.Object,
+    ) -> Iterable[bpy.types.Object]:
         mmd_root = mmd_tools.core.model.FnModel.find_root_object(key_object)
         if mmd_root is None:
             return
@@ -332,7 +348,9 @@ class ConvertRigidBodyToClothOperator(bpy.types.Operator):
     subdivision_level: bpy.props.IntProperty(name=_("Subdivision Levels"), min=0, max=5, default=0)
     ribbon_stiffness: bpy.props.FloatProperty(name=_("Ribbon Stiffness"), min=0, max=1, default=0.2)
     physics_mode: bpy.props.EnumProperty(
-        name=_("Physics Mode"), items=[(m.name, m.value, "") for m in PhysicsMode], default=PhysicsMode.AUTO.name
+        name=_("Physics Mode"),
+        items=[(m.name, m.value, "") for m in PhysicsMode],
+        default=PhysicsMode.AUTO.name,
     )
     extend_ribbon_area: bpy.props.BoolProperty(name=_("Extend Ribbon Area"), default=True)
 
@@ -412,7 +430,10 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         TUNERS[prop.presets](prop.id_data).execute()
 
     presets: bpy.props.EnumProperty(
-        name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None
+        name=_("Presets"),
+        items=TUNERS.to_enum_property_items(),
+        update=_update_presets.__func__,
+        default=None,
     )
 
     mass: bpy.props.FloatProperty(
@@ -464,8 +485,16 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         name=_("Collision Quality"),
         min=1,
         max=20,
-        get=lambda p: getattr(MeshEditor(p.id_data).find_cloth_collision_settings(), "collision_quality", 0),
-        set=lambda p, v: setattr(MeshEditor(p.id_data).find_cloth_collision_settings(), "collision_quality", v),
+        get=lambda p: getattr(
+            MeshEditor(p.id_data).find_cloth_collision_settings(),
+            "collision_quality",
+            0,
+        ),
+        set=lambda p, v: setattr(
+            MeshEditor(p.id_data).find_cloth_collision_settings(),
+            "collision_quality",
+            v,
+        ),
     )
 
     distance_min: bpy.props.FloatProperty(
@@ -492,7 +521,11 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         name=_("Simulation Start"),
         min=0,
         max=1048574,
-        get=lambda p: getattr(getattr(MeshEditor(p.id_data).find_cloth_modifier(), "point_cache", None), "frame_start", 0),
+        get=lambda p: getattr(
+            getattr(MeshEditor(p.id_data).find_cloth_modifier(), "point_cache", None),
+            "frame_start",
+            0,
+        ),
         set=lambda p, v: setattr(MeshEditor(p.id_data).find_cloth_modifier().point_cache, "frame_start", v),
     )
 
@@ -500,7 +533,11 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         name=_("Simulation End"),
         min=1,
         max=1048574,
-        get=lambda p: getattr(getattr(MeshEditor(p.id_data).find_cloth_modifier(), "point_cache", None), "frame_end", 0),
+        get=lambda p: getattr(
+            getattr(MeshEditor(p.id_data).find_cloth_modifier(), "point_cache", None),
+            "frame_end",
+            0,
+        ),
         set=lambda p, v: setattr(MeshEditor(p.id_data).find_cloth_modifier().point_cache, "frame_end", v),
     )
 
@@ -534,9 +571,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
                 set_bind_modifier(modifier, bind)
 
         cloth_corrective_smooth_modifier = cloth_mesh_editor.find_corrective_smooth_modifier()
-        target_mesh_modifiers: List[bpy.types.SurfaceDeformModifier] = [
-            m for o in bpy.data.objects for m in o.modifiers if m.type == "SURFACE_DEFORM" and m.target == cloth_mesh_object
-        ]
+        target_mesh_modifiers: List[bpy.types.SurfaceDeformModifier] = [m for o in bpy.data.objects for m in o.modifiers if m.type == "SURFACE_DEFORM" and m.target == cloth_mesh_object]
 
         if cloth_corrective_smooth_modifier is not None:
             if subdivision_level == 0:
@@ -558,7 +593,11 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         min=0,
         soft_max=2,
         max=6,
-        get=lambda p: getattr(MeshEditor(p.id_data).find_subsurface_modifier(name="physics_cloth_subsurface"), "levels", 0),
+        get=lambda p: getattr(
+            MeshEditor(p.id_data).find_subsurface_modifier(name="physics_cloth_subsurface"),
+            "levels",
+            0,
+        ),
         set=_set_subdivision_levels.__func__,
     )
 
@@ -575,11 +614,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         )
 
     def cache_equals(self, obj):
-        return (
-            isinstance(obj, ClothAdjusterSettingsPropertyGroup)
-            and self.frame_start == obj.frame_start
-            and self.frame_end == obj.frame_end
-        )
+        return isinstance(obj, ClothAdjusterSettingsPropertyGroup) and self.frame_start == obj.frame_start and self.frame_end == obj.frame_end
 
     @staticmethod
     def register():

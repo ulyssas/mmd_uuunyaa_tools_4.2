@@ -98,9 +98,7 @@ def create_skin_hair(  # pylint: disable=too-many-arguments
             theta = random.random() * math.pi * 2
             band = random.random() * fluctuation
 
-            sprout(
-                Vector([xpos + band * math.cos(theta), 0, zpos + band * math.sin(theta)]), target_length, target_number_of_cuts
-            )
+            sprout(Vector([xpos + band * math.cos(theta), 0, zpos + band * math.sin(theta)]), target_length, target_number_of_cuts)
     return vertices, faces
 
 

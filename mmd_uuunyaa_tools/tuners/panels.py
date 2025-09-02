@@ -146,9 +146,7 @@ class MaterialPanel(bpy.types.Panel):
         if node_frame is None:
             return
 
-        utilities.draw_setting_shader_node_properties(
-            layout, utilities.list_nodes(node_type=bpy.types.ShaderNodeGroup, node_frame=node_frame)
-        )
+        utilities.draw_setting_shader_node_properties(layout, utilities.list_nodes(node_type=bpy.types.ShaderNodeGroup, node_frame=node_frame))
 
 
 class MaterialAdjusterPanel(bpy.types.Panel):
@@ -171,9 +169,7 @@ class MaterialAdjusterPanel(bpy.types.Panel):
         utilities = MaterialAdjusterUtilities(material)
         if not utilities.check_attachable():
             col.label(
-                text=iface_("{material_name} is unsupported. Select other material to be output from Principled BSDF.").format(
-                    material_name=material.name
-                ),
+                text=iface_("{material_name} is unsupported. Select other material to be output from Principled BSDF.").format(material_name=material.name),
                 icon="ERROR",
             )
             return
@@ -195,9 +191,7 @@ class MaterialAdjusterPanel(bpy.types.Panel):
         if node_frame is None:
             return
 
-        utilities.draw_setting_shader_node_properties(
-            layout, utilities.list_nodes(node_type=bpy.types.ShaderNodeGroup, node_frame=node_frame)
-        )
+        utilities.draw_setting_shader_node_properties(layout, utilities.list_nodes(node_type=bpy.types.ShaderNodeGroup, node_frame=node_frame))
 
 
 try:
@@ -236,19 +230,13 @@ try:
             # Modifier Name
             row = col.row(align=True)
             row.alignment = "CENTER"
-            row.label(
-                text=row.enum_item_name(
-                    mmd_uuunyaa_tools_geometry_nodes, "thumbnails", mmd_uuunyaa_tools_geometry_nodes.thumbnails
-                )
-            )
+            row.label(text=row.enum_item_name(mmd_uuunyaa_tools_geometry_nodes, "thumbnails", mmd_uuunyaa_tools_geometry_nodes.thumbnails))
 
             utilities = GeometryEditor(geometry_node_tree)
             node_frame = utilities.find_node_frame()
             if node_frame is None:
                 return
 
-            utilities.draw_setting_shader_node_properties(
-                layout, utilities.list_nodes(node_type=bpy.types.GeometryNodeGroup, node_frame=node_frame)
-            )
+            utilities.draw_setting_shader_node_properties(layout, utilities.list_nodes(node_type=bpy.types.GeometryNodeGroup, node_frame=node_frame))
 except ImportError:
     print("[WARN] Geometry Nodes do not exist. Ignore it.")

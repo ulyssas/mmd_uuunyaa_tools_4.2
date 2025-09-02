@@ -171,15 +171,9 @@ class MMDArmatureObject(ArmatureEditor):
         self.mmd_model_name = import_mmd_tools().core.model.FnModel.find_root_object(mmd_armature_object).mmd_root.name
 
         self.mmd_bone_names: Set[str] = set({b.mmd_bone_name for b in MMDBoneInfo})
-        self.exist_strict_bone_names: Set[str] = {
-            b.mmd_bone.name_j for b in self.raw_object.pose.bones if b.mmd_bone.name_j in self.mmd_bone_names
-        }
-        self.exist_actual_bone_names: Set[str] = {
-            b.name for b in self.raw_object.pose.bones if b.mmd_bone.name_j in self.mmd_bone_names
-        }
-        self.exist_bone_types: Set[MMDBoneType] = {
-            b.bone_type for b in MMDBoneInfo if b.mmd_bone_name in self.exist_strict_bone_names
-        }
+        self.exist_strict_bone_names: Set[str] = {b.mmd_bone.name_j for b in self.raw_object.pose.bones if b.mmd_bone.name_j in self.mmd_bone_names}
+        self.exist_actual_bone_names: Set[str] = {b.name for b in self.raw_object.pose.bones if b.mmd_bone.name_j in self.mmd_bone_names}
+        self.exist_bone_types: Set[MMDBoneType] = {b.bone_type for b in MMDBoneInfo if b.mmd_bone_name in self.exist_strict_bone_names}
 
     def has_bone_type(self, bone_type: MMDBoneType) -> bool:
         return bone_type in self.exist_bone_types
@@ -195,9 +189,7 @@ class MMDArmatureObject(ArmatureEditor):
 
     @property
     def strict_bones(self) -> Dict[str, bpy.types.Bone]:
-        return {
-            self.to_strict_mmd_bone_name(b.name): b for b in self.raw_armature.bones if b.name in self.exist_actual_bone_names
-        }
+        return {self.to_strict_mmd_bone_name(b.name): b for b in self.raw_armature.bones if b.name in self.exist_actual_bone_names}
 
     @property
     def strict_pose_bones(self) -> Dict[str, bpy.types.PoseBone]:
@@ -209,11 +201,7 @@ class MMDArmatureObject(ArmatureEditor):
 
     @property
     def strict_edit_bones(self) -> Dict[str, bpy.types.EditBone]:
-        return {
-            self.to_strict_mmd_bone_name(b.name): b
-            for b in self.raw_armature.edit_bones
-            if b.name in self.exist_actual_bone_names
-        }
+        return {self.to_strict_mmd_bone_name(b.name): b for b in self.raw_armature.edit_bones if b.name in self.exist_actual_bone_names}
 
     def clean_armature(self):
         def to_distance(left: Vector, right: Vector) -> float:
@@ -263,9 +251,7 @@ class MMDArmatureObject(ArmatureEditor):
         threshold_distance = mmd_edit_bones["下半身"].length / 4
         if upper_lower_distance > threshold_distance:
             # upper body is too far
-            mmd_edit_bones["上半身"].head += -mmd_edit_bones["上半身"].vector * (
-                (upper_lower_distance - threshold_distance) / mmd_edit_bones["上半身"].length
-            )
+            mmd_edit_bones["上半身"].head += -mmd_edit_bones["上半身"].vector * ((upper_lower_distance - threshold_distance) / mmd_edit_bones["上半身"].length)
 
         if MMDBoneType.UPPER_BODY_1 in self.exist_bone_types:
             upper_body_1_head = self.to_center(mmd_edit_bones["上半身"].head, mmd_edit_bones["上半身2"].head)

@@ -71,43 +71,28 @@ class MMDUuuNyaaToolsAddonPreferences(bpy.types.AddonPreferences):
 
     asset_extract_folder: bpy.props.StringProperty(
         name=_("Asset Extract Folder"),
-        description=_(
-            "Path to assets. Create it under the Asset Extract Root Folder.\n"
-            "The following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}"
-        ),
+        description=_("Path to assets. Create it under the Asset Extract Root Folder.\nThe following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}"),
         default="{type}/{id}.{name}",
     )
 
     asset_extract_json: bpy.props.StringProperty(
         name=_("Asset Extract JSON"),
         description=_(
-            "Name to assets marker JSON. Create it under the Asset Extract Folder.\n"
-            "The presence of this file is used to determine the existence of the asset.\n"
-            "The following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}"
+            "Name to assets marker JSON. Create it under the Asset Extract Folder.\nThe presence of this file is used to determine the existence of the asset.\nThe following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}"
         ),
         default="{id}.json",
     )
 
     # Addon updater preferences.
-    auto_check_update: bpy.props.BoolProperty(
-        name="Auto-check for Update", description="If enabled, auto-check for updates using an interval", default=False
-    )
+    auto_check_update: bpy.props.BoolProperty(name="Auto-check for Update", description="If enabled, auto-check for updates using an interval", default=False)
 
-    updater_interval_months: bpy.props.IntProperty(
-        name="Months", description="Number of months between checking for updates", default=0, min=0
-    )
+    updater_interval_months: bpy.props.IntProperty(name="Months", description="Number of months between checking for updates", default=0, min=0)
 
-    updater_interval_days: bpy.props.IntProperty(
-        name="Days", description="Number of days between checking for updates", default=7, min=0, max=31
-    )
+    updater_interval_days: bpy.props.IntProperty(name="Days", description="Number of days between checking for updates", default=7, min=0, max=31)
 
-    updater_interval_hours: bpy.props.IntProperty(
-        name="Hours", description="Number of hours between checking for updates", default=0, min=0, max=23
-    )
+    updater_interval_hours: bpy.props.IntProperty(name="Hours", description="Number of hours between checking for updates", default=0, min=0, max=23)
 
-    updater_interval_minutes: bpy.props.IntProperty(
-        name="Minutes", description="Number of minutes between checking for updates", default=0, min=0, max=59
-    )
+    updater_interval_minutes: bpy.props.IntProperty(name="Minutes", description="Number of minutes between checking for updates", default=0, min=0, max=59)
 
     _translation_texts = [
         _("Check now for mmd_uuunyaa_tools update"),
@@ -141,15 +126,11 @@ class MMDUuuNyaaToolsAddonPreferences(bpy.types.AddonPreferences):
 
         row = col.split(factor=0.95, align=True)
         row.prop(self, "asset_json_update_repo")
-        row.operator(
-            "wm.url_open", text=_("Browse Assets"), icon="URL"
-        ).url = f"https://github.com/{self.asset_json_update_repo}/issues"
+        row.operator("wm.url_open", text=_("Browse Assets"), icon="URL").url = f"https://github.com/{self.asset_json_update_repo}/issues"
 
         row = col.split(factor=0.95, align=True)
         row.prop(self, "asset_json_update_query")
-        row.operator(
-            "wm.url_open", text=_("Query Examples"), icon="URL"
-        ).url = "https://github.com/UuuNyaa/blender_mmd_uuunyaa_tools/wiki/How-to-add-a-new-asset#query-examples"
+        row.operator("wm.url_open", text=_("Query Examples"), icon="URL").url = "https://github.com/UuuNyaa/blender_mmd_uuunyaa_tools/wiki/How-to-add-a-new-asset#query-examples"
 
         col.prop(self, "asset_json_update_on_startup_enabled")
 

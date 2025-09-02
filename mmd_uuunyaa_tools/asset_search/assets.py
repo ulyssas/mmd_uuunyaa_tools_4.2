@@ -103,9 +103,7 @@ class _Utilities:
             url=asset["url"],
             name=asset["name"],
             tags=asset["tags"],
-            updated_at=datetime.strptime(asset["updated_at"], "%Y-%m-%dT%H:%M:%S%z")
-            .replace(tzinfo=timezone.utc)
-            .astimezone(tz=None),
+            updated_at=datetime.strptime(asset["updated_at"], "%Y-%m-%dT%H:%M:%S%z").replace(tzinfo=timezone.utc).astimezone(tz=None),
             thumbnail_url=asset["thumbnail_url"],
             source_url=asset["source_url"],
             download_action=asset["download_action"],
@@ -234,9 +232,7 @@ class AssetUpdater:
     @staticmethod
     def load_cat_asset_json():
         namespace = "cat_asset_json"
-        loader = importlib.machinery.SourceFileLoader(
-            namespace, os.path.join(PACKAGE_PATH, "externals", "blender_mmd_assets", "cat_asset_json.py")
-        )
+        loader = importlib.machinery.SourceFileLoader(namespace, os.path.join(PACKAGE_PATH, "externals", "blender_mmd_assets", "cat_asset_json.py"))
         return loader.load_module(namespace)  # pylint: disable=deprecated-method
 
     @staticmethod
@@ -280,9 +276,7 @@ def initialize_asset_registory():
 
     if preferences.asset_json_update_on_startup_enabled:
         try:
-            print(
-                f"Asset Auto Update: repo='{preferences.asset_json_update_repo}', query='{preferences.asset_json_update_query}'"
-            )
+            print(f"Asset Auto Update: repo='{preferences.asset_json_update_repo}', query='{preferences.asset_json_update_query}'")
             AssetUpdater.write_assets_json(
                 AssetUpdater.fetch_assets_json_by_query(preferences.asset_json_update_repo, preferences.asset_json_update_query),
                 AssetUpdater.default_assets_json,

@@ -91,7 +91,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
     def check_render_engine(context: bpy.types.Context):
         return CheckResult(
             _("Render Engine"),
-            CheckResultStatus.GOOD if context.scene.render.engine == "BLENDER_EEVEE" else CheckResultStatus.BAD,
+            CheckResultStatus.GOOD if context.scene.render.engine == "BLENDER_EEVEE_NEXT" else CheckResultStatus.BAD,
             0,
             "scene.render.engine",
             _("= Eevee is Good"),
@@ -568,9 +568,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
         else:
             total_status = CheckResultStatus.GOOD
 
-        total_result = CheckResult(
-            _("Total Performance Impact"), total_status, total_impact, f"{total_impact:+.2f}%", _("<= 0% is Good"), editable=False
-        )
+        total_result = CheckResult(_("Total Performance Impact"), total_status, total_impact, f"{total_impact:+.2f}%", _("<= 0% is Good"), editable=False)
 
         def draw_check_result(layout: bpy.types.UILayout, result: CheckResult):
             row = layout.column().split(factor=0.1, align=True)
