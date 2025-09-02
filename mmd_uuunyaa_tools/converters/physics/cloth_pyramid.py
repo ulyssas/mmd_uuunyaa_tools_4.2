@@ -866,6 +866,7 @@ def to_targets(
 class AddPyramidMeshByBreastBoneOperator(bpy.types.Operator):
     bl_idname = "mmd_uuunyaa_tools.add_pyramid_mesh_by_breast_bone"
     bl_label = _("Add Pyramid Mesh by Breast Bone")
+    bl_description = _("Add pyramid meshes from selected breast bones.")
     bl_options = {"REGISTER", "UNDO"}
 
     head_tail: bpy.props.FloatProperty(name=_("Head/Tail"), default=0.5, min=0.0, max=1.0, step=10)
@@ -913,6 +914,7 @@ class AddPyramidMeshByBreastBoneOperator(bpy.types.Operator):
 class ConvertPyramidMeshToClothOperator(bpy.types.Operator):
     bl_idname = "mmd_uuunyaa_tools.convert_pyramid_mesh_to_cloth"
     bl_label = _("Convert Pyramid Mesh to Cloth")
+    bl_description = _("Convert pyramid meshes to cloth simulation.")
     bl_options = {"REGISTER", "UNDO"}
 
     boundary_expansion_hop_count: bpy.props.IntProperty(name=_("Boundary Expansion Hop Count"), default=0, min=0, max=5)

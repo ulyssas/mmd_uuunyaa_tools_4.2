@@ -20,6 +20,7 @@ from mmd_uuunyaa_tools.utilities import MessageException, import_mmd_tools
 class MMDArmatureAddMetarig(bpy.types.Operator):
     bl_idname = "mmd_uuunyaa_tools.mmd_armature_add_metarig"
     bl_label = _("Add Human (metarig) from MMD Armature")
+    bl_description = _("Generate Human (metarig) from MMD Armature.")
     bl_options = {"REGISTER", "UNDO"}
 
     is_clean_armature: bpy.props.BoolProperty(name=_("Clean Armature"), default=True)
@@ -220,6 +221,7 @@ class MMDRigifyOperatorABC:
 class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
     bl_idname = "mmd_uuunyaa_tools.mmd_rigify_mmd_focused_integrate"
     bl_label = _("MMD compatibility focused Integrate")
+    bl_description = _("Combine Rigify rig and MMD armature.")
     bl_options = {"REGISTER", "UNDO"}
 
     is_join_armatures: bpy.props.BoolProperty(
@@ -271,6 +273,7 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
 class MMDRigifyIntegrateFocusOnRigify(bpy.types.Operator, MMDRigifyOperatorABC):
     bl_idname = "mmd_uuunyaa_tools.mmd_rigify_rigify_focused_integrate"
     bl_label = _("Rigify operability focused Integrate")
+    bl_description = _("Combine Rigify rig and MMD armature.")
     bl_options = {"REGISTER", "UNDO"}
 
     is_join_armatures: bpy.props.BoolProperty(
