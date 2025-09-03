@@ -8,9 +8,9 @@ from typing import Any, Dict, Iterable, Optional, Tuple, Union
 
 import bpy
 
-from mmd_tools_append import PACKAGE_PATH
-from mmd_tools_append.m17n import _
-from mmd_tools_append.utilities import raise_installation_error
+from .. import PACKAGE_PATH
+from ..m17n import _
+from ..utilities import raise_installation_error
 
 PATH_BLENDS_MMD_APPEND_MATERIALS = os.path.join(PACKAGE_PATH, "blends", "MMDAppend_Materials.blend")
 
@@ -295,7 +295,6 @@ class MaterialEditor(NodeEditor):
         self.set_material_properties(
             {
                 "blend_method": "HASHED",
-                "shadow_method": "HASHED",
                 "use_screen_refraction": False,
                 "refraction_depth": 0.000,
             }

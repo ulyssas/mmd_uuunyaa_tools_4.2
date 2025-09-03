@@ -4,8 +4,8 @@
 
 import bpy
 
-from mmd_tools_append.m17n import _
-from mmd_tools_append.tuners import lighting_tuners, material_adjusters, material_tuners
+from ..m17n import _
+from ..tuners import lighting_tuners, material_adjusters, material_tuners
 
 
 class TuneLighting(bpy.types.Operator):
@@ -94,7 +94,7 @@ class DetachMaterialAdjuster(bpy.types.Operator):
 
 
 try:
-    from mmd_tools_append.tuners.geometry_nodes_tuners import TUNERS, GeometryNodesUtilities
+    from ..tuners.geometry_nodes_tuners import TUNERS, GeometryNodesUtilities
 
     class TuneGeometryNodes(bpy.types.Operator):
         bl_idname = "mmd_tools_append.tune_geometry_nodes"

@@ -4,12 +4,10 @@
 
 import bpy
 
-from mmd_tools_append.converters.armatures import (
-    AutoRigArmatureObject,
-    ControlType,
-    MMDRigifyArmatureObject,
-)
-from mmd_tools_append.m17n import _
+from ...m17n import _
+from .autorig import AutoRigArmatureObject
+from .mmd_bind import ControlType
+from .rigify import MMDRigifyArmatureObject
 
 
 class MMDRigifyPanel(bpy.types.Panel):

@@ -9,7 +9,7 @@ from typing import Dict, NamedTuple, Tuple
 import bpy
 import bpy.utils.previews
 
-from mmd_tools_append import PACKAGE_PATH
+from .. import PACKAGE_PATH
 
 
 class TunerABC(ABC):

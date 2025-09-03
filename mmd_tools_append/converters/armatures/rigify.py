@@ -8,21 +8,9 @@ from typing import Dict, Set, Tuple
 import bpy
 from mathutils import Color, Euler, Matrix, Vector
 
-from mmd_tools_append.converters.armatures.mmd import (
-    MMDArmatureObject,
-    MMDBoneInfo,
-    MMDBoneType,
-)
-from mmd_tools_append.converters.armatures.mmd_bind import (
-    ControlType,
-    DataPath,
-    GroupType,
-    MMDBindArmatureObjectABC,
-    MMDBindInfo,
-    MMDBindType,
-    PoseBoneEditor,
-)
-from mmd_tools_append.editors.armatures import DriverVariable
+from ...editors.armatures import DriverVariable, PoseBoneEditor
+from .mmd import MMDArmatureObject
+from .mmd_bind import ControlType, DataPath, GroupType, MMDBindArmatureObjectABC, MMDBindInfo, MMDBindType, MMDBoneInfo
 
 
 class RigifyArmatureObject(MMDBindArmatureObjectABC):

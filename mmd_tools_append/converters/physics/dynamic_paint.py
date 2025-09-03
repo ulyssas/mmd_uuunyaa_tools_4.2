@@ -4,9 +4,9 @@
 
 import bpy
 
-from mmd_tools_append.editors.meshes import MeshEditor
-from mmd_tools_append.m17n import _
-from mmd_tools_append.tuners import TunerABC, TunerRegistry
+from ...editors.meshes import MeshEditor
+from ...m17n import _
+from ...tuners import TunerABC, TunerRegistry
 
 
 class MMDAppendDynamicPaintAdjuster(bpy.types.Panel):

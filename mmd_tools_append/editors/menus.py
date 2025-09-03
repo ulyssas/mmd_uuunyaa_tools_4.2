@@ -4,13 +4,13 @@
 
 import bpy
 
-from mmd_tools_append.editors.operators import (
+from ..editors.operators import (
     RemoveUnusedShapeKeys,
     RemoveUnusedVertexGroups,
     SelectMovedPoseBones,
     SelectShapeKeyTargetVertices,
 )
-from mmd_tools_append.m17n import _
+from ..m17n import _
 
 
 class RemoveUnusedVertexGroupsMenu(bpy.types.Menu):

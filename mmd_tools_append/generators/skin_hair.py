@@ -10,7 +10,7 @@ import bpy
 import bpy_extras
 from mathutils import Quaternion, Vector
 
-from mmd_tools_append.m17n import _
+from ..m17n import _
 
 
 def create_skin_hair(  # pylint: disable=too-many-arguments

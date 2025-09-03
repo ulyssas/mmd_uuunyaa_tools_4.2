@@ -11,9 +11,9 @@ from typing import Dict, Iterable, List, Optional, Set, Tuple
 import bmesh
 import bpy
 
-from mmd_tools_append.editors.meshes import MeshEditor
-from mmd_tools_append.m17n import _, iface_
-from mmd_tools_append.utilities import MessageException, import_mmd_tools
+from ...editors.meshes import MeshEditor
+from ...m17n import _, iface_
+from ...utilities import MessageException, import_mmd_tools
 
 
 class PhysicsMode(Enum):

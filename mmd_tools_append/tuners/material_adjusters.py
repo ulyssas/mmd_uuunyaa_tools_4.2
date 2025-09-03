@@ -6,8 +6,8 @@ from abc import abstractmethod
 
 import bpy
 
-from mmd_tools_append.editors.nodes import MaterialEditor
-from mmd_tools_append.m17n import _
+from ..editors.nodes import MaterialEditor
+from ..m17n import _
 
 
 class MaterialAdjusterUtilities(MaterialEditor):

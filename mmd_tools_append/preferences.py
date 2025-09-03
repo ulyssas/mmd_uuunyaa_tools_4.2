@@ -8,9 +8,9 @@ import tempfile
 
 import bpy
 
-from mmd_tools_append.asset_search.assets import AssetUpdater
-from mmd_tools_append.asset_search.operators import DeleteCachedFiles
-from mmd_tools_append.m17n import _
+from .asset_search.assets import AssetUpdater
+from .asset_search.operators import DeleteCachedFiles
+from .m17n import _
 
 
 class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):

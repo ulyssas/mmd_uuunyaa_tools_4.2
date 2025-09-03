@@ -4,8 +4,8 @@
 
 import bpy
 
-from mmd_tools_append.m17n import _
-from mmd_tools_append.tuners import geometry_nodes_tuners, lighting_tuners, material_tuners
+from ..m17n import _
+from ..tuners import geometry_nodes_tuners, lighting_tuners, material_tuners
 
 
 class LightingPropertyGroup(bpy.types.PropertyGroup):

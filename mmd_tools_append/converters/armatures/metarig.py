@@ -7,8 +7,8 @@ import math
 import bpy
 from mathutils import Vector
 
-from mmd_tools_append.converters.armatures.mmd import MMDArmatureObject, MMDBoneType
-from mmd_tools_append.editors.armatures import ArmatureEditor
+from .mmd import MMDArmatureObject, MMDBoneType
+from ...editors.armatures import ArmatureEditor
 
 
 class MetarigArmatureObject(ArmatureEditor):

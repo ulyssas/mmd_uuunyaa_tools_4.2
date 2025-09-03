@@ -7,16 +7,14 @@ from typing import Iterable
 
 import bpy
 
-from mmd_tools_append import PACKAGE_PATH
-from mmd_tools_append.editors.nodes import NodeEditor
-from mmd_tools_append.m17n import _
+from .. import PACKAGE_PATH
+from ..editors.nodes import NodeEditor
+from ..m17n import _
 
 try:
     from bpy.types import (
         GeometryNode,
-        GeometryNodeAlignRotationToVector,
         GeometryNodeGroup,
-        GeometryNodePointInstance,
         NodeGroupInput,
         NodeGroupOutput,
         NodeSocketGeometry,
@@ -47,12 +45,6 @@ try:
             if node_input is None:
                 node_input = self.nodes.new(NodeGroupInput.__name__)
             return node_input
-
-        def new_align_rotation_to_vector_node(self) -> GeometryNodeAlignRotationToVector:
-            return self.new_node(GeometryNodeAlignRotationToVector, label="Align Rotation to Vector")
-
-        def new_point_instance_node(self) -> GeometryNodePointInstance:
-            return self.new_node(GeometryNodePointInstance, label="Point Instance")
 
         def get_point_random_rotation_node(self) -> ShaderNodeGroup:
             return self.get_node_group(_("Point Random Rotation"), label="Point Random Rotation")

@@ -13,8 +13,8 @@ import bpy
 import rna_prop_ui
 from mathutils import Matrix, Vector
 
-from mmd_tools_append import PACKAGE_PATH
-from mmd_tools_append.utilities import raise_installation_error
+from .. import PACKAGE_PATH
+from ..utilities import raise_installation_error
 
 PATH_BLENDS_RIGSHAPELIBRARY = os.path.join(PACKAGE_PATH, "blends", "RigShapeLibrary.blend")
 

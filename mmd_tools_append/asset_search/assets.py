@@ -14,9 +14,9 @@ from typing import Any, Dict, ItemsView, Tuple, ValuesView
 
 import requests
 
-from mmd_tools_append import PACKAGE_PATH, REGISTER_HOOKS
-from mmd_tools_append.m17n import _
-from mmd_tools_append.utilities import get_preferences
+from .. import PACKAGE_PATH, REGISTER_HOOKS
+from ..m17n import _
+from ..utilities import get_preferences
 
 
 class AssetType(Enum):

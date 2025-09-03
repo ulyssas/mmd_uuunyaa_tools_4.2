@@ -9,8 +9,8 @@ from typing import Dict, List, Optional
 
 import bpy
 
-from mmd_tools_append.converters.armatures.mmd import MMDBoneInfo
-from mmd_tools_append.editors.armatures import ArmatureEditor, PoseBoneEditor
+from ...editors.armatures import ArmatureEditor, PoseBoneEditor
+from .mmd import MMDBoneInfo
 
 
 class GroupType(Enum):

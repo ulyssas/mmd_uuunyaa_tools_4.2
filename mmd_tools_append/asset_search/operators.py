@@ -4,9 +4,9 @@
 
 import bpy
 
-from mmd_tools_append.asset_search.assets import ASSETS, AssetUpdater
-from mmd_tools_append.asset_search.cache import CONTENT_CACHE
-from mmd_tools_append.m17n import _
+from ..m17n import _
+from .assets import ASSETS, AssetUpdater
+from .cache import CONTENT_CACHE
 
 
 class ReloadAssetJsons(bpy.types.Operator):

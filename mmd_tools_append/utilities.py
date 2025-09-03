@@ -9,7 +9,7 @@ import re
 
 import bpy
 
-from mmd_tools_append.m17n import _
+from .m17n import _
 
 
 def to_int32(value: int) -> int:
@@ -55,7 +55,12 @@ def is_mmd_tools_installed() -> bool:
 
 def import_mmd_tools():
     try:
-        return importlib.import_module("bl_ext.blender_org.mmd_tools")
+        try:
+            return importlib.import_module("bl_ext.blender_org.mmd_tools")
+        except ImportError:
+            # for debugging
+            return importlib.import_module("bl_ext.vscode_development.mmd_tools")
+
     except ImportError as exception:
         raise RuntimeError(_("MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools.")) from exception
 

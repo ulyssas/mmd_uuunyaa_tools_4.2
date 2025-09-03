@@ -5,17 +5,17 @@
 
 import bpy
 
-from mmd_tools_append.editors.nodes import MaterialEditor
-from mmd_tools_append.m17n import _, iface_
-from mmd_tools_append.tuners.lighting_tuners import LightingUtilities
-from mmd_tools_append.tuners.material_adjusters import (
+from ..editors.nodes import MaterialEditor
+from ..m17n import _, iface_
+from ..tuners.lighting_tuners import LightingUtilities
+from ..tuners.material_adjusters import (
     EmissionAdjuster,
     GlitterAdjuster,
     MaterialAdjusterUtilities,
     SubsurfaceAdjuster,
     WetAdjuster,
 )
-from mmd_tools_append.tuners.operators import AttachMaterialAdjuster, DetachMaterialAdjuster, FreezeLighting
+from ..tuners.operators import AttachMaterialAdjuster, DetachMaterialAdjuster, FreezeLighting
 
 
 class SkyPanel(bpy.types.Panel):
@@ -195,8 +195,8 @@ class MaterialAdjusterPanel(bpy.types.Panel):
 
 
 try:
-    from mmd_tools_append.editors.geometry_nodes import GeometryEditor
-    from mmd_tools_append.tuners.geometry_nodes_tuners import GeometryNodesUtilities
+    from ..editors.geometry_nodes import GeometryEditor
+    from ..tuners.geometry_nodes_tuners import GeometryNodesUtilities
 
     class GeometryNodesPanel(bpy.types.Panel):
         bl_idname = "MMD_APPEND_PT_geometry_nodes_panel"

@@ -8,8 +8,8 @@ from typing import Dict, Iterable, Tuple
 import bpy
 from mathutils import Euler, Matrix, Vector
 
-from mmd_tools_append.converters.armatures.mmd import MMDBoneInfo
-from mmd_tools_append.converters.armatures.mmd_bind import (
+from .mmd import MMDBoneInfo
+from .mmd_bind import (
     ControlType,
     DataPath,
     GroupType,

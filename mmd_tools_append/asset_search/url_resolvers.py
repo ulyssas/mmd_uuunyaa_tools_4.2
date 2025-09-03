@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 
 import requests
 
-from mmd_tools_append.asset_search.actions import DownloadActionExecutor
+from .actions import DownloadActionExecutor
 
 
 class URLResolverABC(ABC):

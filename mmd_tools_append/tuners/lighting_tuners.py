@@ -7,10 +7,10 @@ from typing import Optional
 
 import bpy
 
-from mmd_tools_append import PACKAGE_PATH
-from mmd_tools_append.m17n import _
-from mmd_tools_append.tuners import TunerABC, TunerRegistry
-from mmd_tools_append.tuners.utilities import ObjectAppender, ObjectMarker
+from .. import PACKAGE_PATH
+from ..m17n import _
+from ..tuners import TunerABC, TunerRegistry
+from ..tuners.utilities import ObjectAppender, ObjectMarker
 
 PATH_BLENDS_MMD_APPEND_LIGHTINGS = os.path.join(PACKAGE_PATH, "blends", "MMDAppend_Lightings.blend")
 

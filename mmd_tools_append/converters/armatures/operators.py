@@ -6,15 +6,12 @@ from typing import Iterable, Optional, Tuple
 
 import bpy
 
-from mmd_tools_append.converters.armatures import (
-    AutoRigArmatureObject,
-    MetarigArmatureObject,
-    MMDArmatureObject,
-    MMDRigifyArmatureObject,
-    RigifyArmatureObject,
-)
-from mmd_tools_append.m17n import _
-from mmd_tools_append.utilities import MessageException, import_mmd_tools
+from ...m17n import _
+from ...utilities import MessageException, import_mmd_tools
+from .autorig import AutoRigArmatureObject
+from .metarig import MetarigArmatureObject
+from .mmd import MMDArmatureObject
+from .rigify import MMDRigifyArmatureObject, RigifyArmatureObject
 
 
 class MMDArmatureAddMetarig(bpy.types.Operator):
@@ -268,7 +265,7 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
         return {"FINISHED"}
 
 
-class MMDRigifyIntegrateFocusOnRigify(bpy.types.Operator, MMDRigifyOperatorABC):
+class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
     bl_idname = "mmd_tools_append.mmd_rigify_rigify_focused_integrate"
     bl_label = _("Rigify operability focused Integrate")
     bl_options = {"REGISTER", "UNDO"}

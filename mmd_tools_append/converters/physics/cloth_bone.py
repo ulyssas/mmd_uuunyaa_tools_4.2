@@ -8,7 +8,7 @@ import bpy
 import mathutils
 from mathutils import Matrix, Vector
 
-from mmd_tools_append.m17n import _
+from ...m17n import _
 
 
 class StretchBoneToVertexOperator(bpy.types.Operator):

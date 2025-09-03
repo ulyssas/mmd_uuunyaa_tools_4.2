@@ -18,10 +18,10 @@ from typing import List, Optional
 import bpy
 import requests
 
-from mmd_tools_append import PACKAGE_PATH
-from mmd_tools_append.asset_search.assets import AssetDescription, _Utilities
-from mmd_tools_append.m17n import _
-from mmd_tools_append.utilities import MessageException
+from .. import PACKAGE_PATH
+from ..m17n import _
+from ..utilities import MessageException
+from .assets import AssetDescription, _Utilities
 
 
 class RestrictionChecker(ast.NodeVisitor):

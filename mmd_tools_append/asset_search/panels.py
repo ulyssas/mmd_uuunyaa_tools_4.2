@@ -11,13 +11,13 @@ from typing import List, Optional, Tuple
 import bpy
 import bpy.utils.previews
 
-from mmd_tools_append import PACKAGE_PATH
-from mmd_tools_append.asset_search.actions import ImportActionExecutor, MessageException
-from mmd_tools_append.asset_search.assets import ASSETS, AssetDescription, AssetType
-from mmd_tools_append.asset_search.cache import CONTENT_CACHE, Content, Task
-from mmd_tools_append.asset_search.operators import DeleteDebugAssetJson, ReloadAssetJsons, UpdateAssetJson, UpdateDebugAssetJson
-from mmd_tools_append.m17n import _, iface_
-from mmd_tools_append.utilities import get_preferences, label_multiline, to_human_friendly_text, to_int32
+from .. import PACKAGE_PATH
+from ..m17n import _, iface_
+from ..utilities import get_preferences, label_multiline, to_human_friendly_text, to_int32
+from .actions import ImportActionExecutor, MessageException
+from .assets import ASSETS, AssetDescription, AssetType
+from .cache import CONTENT_CACHE, Content, Task
+from .operators import DeleteDebugAssetJson, ReloadAssetJsons, UpdateAssetJson, UpdateDebugAssetJson
 
 PREVIEWS: Optional[bpy.utils.previews.ImagePreviewCollection]
 

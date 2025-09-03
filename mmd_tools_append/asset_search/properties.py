@@ -4,7 +4,7 @@
 
 import bpy
 
-from mmd_tools_append.asset_search.assets import AssetType, AssetUpdater
+from .assets import AssetType, AssetUpdater
 
 
 def update_search_query(_, context):

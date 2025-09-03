@@ -4,10 +4,10 @@
 
 # pylint: disable=too-many-lines
 
-from mmd_tools_append.editors.nodes import MaterialEditor
-from mmd_tools_append.m17n import _
-from mmd_tools_append.tuners import TunerABC, TunerRegistry
-from mmd_tools_append.tuners.material_adjusters import SubsurfaceAdjuster, WetAdjuster
+from ..editors.nodes import MaterialEditor
+from ..m17n import _
+from ..tuners import TunerABC, TunerRegistry
+from ..tuners.material_adjusters import SubsurfaceAdjuster, WetAdjuster
 
 
 class MaterialTunerABC(TunerABC, MaterialEditor):
@@ -66,7 +66,6 @@ class TransparentMaterialTuner(MaterialTunerABC):
         self.set_material_properties(
             {
                 "blend_method": "HASHED",
-                "shadow_method": "HASHED",
                 "show_transparent_back": False,
                 "use_screen_refraction": True,
             }
@@ -473,7 +472,6 @@ class StoneGemMaterialTuner(MaterialTunerABC):
         self.set_material_properties(
             {
                 "blend_method": "OPAQUE",
-                "shadow_method": "OPAQUE",
                 "use_screen_refraction": True,
             }
         )
@@ -648,7 +646,6 @@ class FabricCottonMaterialTuner(MaterialTunerABC):
         self.set_material_properties(
             {
                 "blend_method": "BLEND",
-                "shadow_method": "OPAQUE",
                 "show_transparent_back": False,
                 "use_screen_refraction": True,
             }
@@ -734,7 +731,6 @@ class FabricSilkMaterialTuner(MaterialTunerABC):
         self.set_material_properties(
             {
                 "blend_method": "BLEND",
-                "shadow_method": "OPAQUE",
                 "show_transparent_back": False,
                 "use_screen_refraction": True,
             }
@@ -1044,7 +1040,6 @@ class LiquidWaterMaterialTuner(MaterialTunerABC):
         self.set_material_properties(
             {
                 "blend_method": "HASHED",
-                "shadow_method": "HASHED",
                 "use_screen_refraction": True,
             }
         )
@@ -1100,7 +1095,6 @@ class LiquidCloudyMaterialTuner(MaterialTunerABC):
         self.set_material_properties(
             {
                 "blend_method": "HASHED",
-                "shadow_method": "HASHED",
                 "use_screen_refraction": True,
             }
         )

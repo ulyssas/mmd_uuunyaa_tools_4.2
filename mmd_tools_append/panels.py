@@ -4,8 +4,8 @@
 
 import bpy
 
-from mmd_tools_append.checkers.operators import CheckEeveeRenderingPerformance
-from mmd_tools_append.converters.armatures.operators import (
+from .checkers.operators import CheckEeveeRenderingPerformance
+from .converters.armatures.operators import (
     MMDArmatureAddMetarig,
     MMDAutoRigApplyMMDRestPose,
     MMDAutoRigConvert,
@@ -14,15 +14,15 @@ from mmd_tools_append.converters.armatures.operators import (
     MMDRigifyIntegrateFocusOnMMD,
     MMDRigifyIntegrateFocusOnRigify,
 )
-from mmd_tools_append.converters.physics.cloth import ConvertRigidBodyToClothOperator, RemoveMeshCloth, SelectClothMesh
-from mmd_tools_append.converters.physics.cloth_bone import StretchBoneToVertexOperator
-from mmd_tools_append.converters.physics.cloth_pyramid import (
+from .converters.physics.cloth import ConvertRigidBodyToClothOperator, RemoveMeshCloth, SelectClothMesh
+from .converters.physics.cloth_bone import StretchBoneToVertexOperator
+from .converters.physics.cloth_pyramid import (
     AddPyramidMeshByBreastBoneOperator,
     AssignPyramidWeightsOperator,
     ConvertPyramidMeshToClothOperator,
 )
-from mmd_tools_append.converters.physics.collision import RemoveMeshCollision, SelectCollisionMesh
-from mmd_tools_append.editors.operators import (
+from .converters.physics.collision import RemoveMeshCollision, SelectCollisionMesh
+from .editors.operators import (
     AutoSegmentationOperator,
     PaintSelectedFacesOperator,
     RestoreSegmentationColorPaletteOperator,
@@ -31,9 +31,9 @@ from mmd_tools_append.editors.operators import (
     SetupRenderEngineForWorkbench,
     SetupSegmentationColorPaletteOperator,
 )
-from mmd_tools_append.generators.physics import AddCenterOfGravityObject
-from mmd_tools_append.m17n import _
-from mmd_tools_append.utilities import import_mmd_tools
+from .generators.physics import AddCenterOfGravityObject
+from .m17n import _
+from .utilities import import_mmd_tools
 
 mmd_tools = import_mmd_tools()
 

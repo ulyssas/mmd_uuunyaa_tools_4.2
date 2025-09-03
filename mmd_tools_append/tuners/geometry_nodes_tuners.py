@@ -6,11 +6,11 @@ from typing import Optional
 
 import bpy
 
-from mmd_tools_append.m17n import _
-from mmd_tools_append.tuners import TunerABC, TunerRegistry
+from ..m17n import _
+from ..tuners import TunerABC, TunerRegistry
 
 try:
-    from mmd_tools_append.editors.geometry_nodes import GeometryEditor
+    from ..editors.geometry_nodes import GeometryEditor
 
     class GeometryNodesUtilities:
         @staticmethod

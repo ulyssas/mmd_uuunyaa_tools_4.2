@@ -6,9 +6,9 @@ from typing import Iterable
 
 import bpy
 
-from mmd_tools_append.editors.meshes import MeshEditor
-from mmd_tools_append.m17n import _
-from mmd_tools_append.utilities import import_mmd_tools
+from ...editors.meshes import MeshEditor
+from ...m17n import _
+from ...utilities import import_mmd_tools
 
 
 class MMDAppendRigidBodyAdjusterPanel(bpy.types.Panel):

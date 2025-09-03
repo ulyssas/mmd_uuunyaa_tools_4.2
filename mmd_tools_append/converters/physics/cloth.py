@@ -6,14 +6,14 @@ from typing import Iterable, Iterator, List
 
 import bpy
 
-from mmd_tools_append.converters.physics.rigid_body_to_cloth import (
+from ...editors.meshes import MeshEditor
+from ...m17n import _
+from ...tuners import TunerABC, TunerRegistry
+from ...utilities import MessageException, import_mmd_tools
+from .rigid_body_to_cloth import (
     PhysicsMode,
     RigidBodyToClothConverter,
 )
-from mmd_tools_append.editors.meshes import MeshEditor
-from mmd_tools_append.m17n import _
-from mmd_tools_append.tuners import TunerABC, TunerRegistry
-from mmd_tools_append.utilities import MessageException, import_mmd_tools
 
 mmd_tools = import_mmd_tools()
 if not hasattr(mmd_tools.core.model.Model, "clothGroupObject"):

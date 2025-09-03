@@ -9,7 +9,7 @@ from typing import Optional, Set, Tuple
 
 import bpy
 
-from mmd_tools_append.m17n import _, iface_
+from ..m17n import _, iface_
 
 
 class CheckResultStatus(Enum):
@@ -496,7 +496,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
         alpha_hashed_material_count = 0
 
         for material in active_materials:
-            if material.blend_method != "HASHED" and material.shadow_method != "HASHED":
+            if material.blend_method != "HASHED":
                 continue
             alpha_hashed_material_count += 1
 
@@ -652,7 +652,7 @@ class SelectMeshObjectsWithSlowMaterial(bpy.types.Operator):
                 if material is None:
                     continue
 
-                if material.blend_method != "HASHED" and material.shadow_method != "HASHED":
+                if material.blend_method != "HASHED":
                     continue
 
                 obj.select_set(True)

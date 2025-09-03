@@ -6,7 +6,7 @@ import os
 
 import bpy
 
-from mmd_tools_append.utilities import raise_installation_error
+from ..utilities import raise_installation_error
 
 
 class ObjectMarker:

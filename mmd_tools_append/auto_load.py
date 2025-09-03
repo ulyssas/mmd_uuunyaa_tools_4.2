@@ -1,11 +1,13 @@
-import os
-import bpy
-import sys
-import typing
+# Copyright 2021 MMD Tools authors
+# This file is part of MMD Tools.
+
+import importlib
 import inspect
 import pkgutil
-import importlib
+import typing
 from pathlib import Path
+
+import bpy
 
 __all__ = (
     "init",
@@ -19,11 +21,10 @@ modules = None
 ordered_classes = None
 
 
-def init():
-    global modules
-    global ordered_classes
+def init(package_name):
+    global modules, ordered_classes
 
-    modules = get_all_submodules(Path(__file__).parent)
+    modules = get_all_submodules(Path(__file__).parent, package_name)
     ordered_classes = get_ordered_classes_to_register(modules)
 
 
@@ -52,9 +53,8 @@ def unregister():
 # Import modules
 #################################################
 
-
-def get_all_submodules(directory):
-    return list(iter_submodules(directory, directory.name))
+def get_all_submodules(directory, package_name):
+    return list(iter_submodules(directory, package_name))
 
 
 def iter_submodules(path, package_name):
@@ -74,7 +74,6 @@ def iter_submodule_names(path, root=""):
 
 # Find classes to register
 #################################################
-
 
 def get_ordered_classes_to_register(modules):
     return toposort(get_register_deps_dict(modules))
@@ -107,10 +106,9 @@ def get_dependency_from_annotation(value):
     if blender_version >= (2, 93):
         if isinstance(value, bpy.props._PropertyDeferred):
             return value.keywords.get("type")
-    else:
-        if isinstance(value, tuple) and len(value) == 2:
-            if value[0] in (bpy.props.PointerProperty, bpy.props.CollectionProperty):
-                return value[1]["type"]
+    elif isinstance(value, tuple) and len(value) == 2:
+        if value[0] in {bpy.props.PointerProperty, bpy.props.CollectionProperty}:
+            return value[1]["type"]
     return None
 
 
@@ -134,8 +132,7 @@ def iter_my_classes(modules):
 def get_classes_in_modules(modules):
     classes = set()
     for module in modules:
-        for cls in iter_classes_in_module(module):
-            classes.add(cls)
+        classes.update(iter_classes_in_module(module))
     return classes
 
 
@@ -146,31 +143,34 @@ def iter_classes_in_module(module):
 
 
 def get_register_base_types():
-    return set(
-        getattr(bpy.types, name)
-        for name in [
-            "Panel",
-            "Operator",
-            "PropertyGroup",
-            "AddonPreferences",
-            "Header",
-            "Menu",
-            "Node",
-            "NodeSocket",
-            "NodeTree",
-            "UIList",
-            "RenderEngine",
-            "Gizmo",
-            "GizmoGroup",
-        ]
-    )
+    return {getattr(bpy.types, name) for name in [
+        "Panel", "Operator", "PropertyGroup",
+        "AddonPreferences", "Header", "Menu",
+        "Node", "NodeSocket", "NodeTree",
+        "UIList", "RenderEngine",
+        "Gizmo", "GizmoGroup",
+    ]}
 
 
 # Find order to register to solve dependencies
 #################################################
 
-
 def toposort(deps_dict):
+    # Test for circular dependencies
+    if deps_dict:
+        test_deps = {k: v.copy() for k, v in deps_dict.items()}
+        for _ in range(len(deps_dict)):
+            resolved = [k for k, v in test_deps.items() if not v]
+            if not resolved:
+                raise ValueError(f"Circular dependency detected: {list(test_deps.keys())}")
+            for k in resolved:
+                del test_deps[k]
+            for v in test_deps.values():
+                v -= set(resolved)
+            if not test_deps:
+                break
+
+    # Perform topological sort
     sorted_list = []
     sorted_values = set()
     while len(deps_dict) > 0:
