@@ -32,19 +32,19 @@ jobs:
       - name: Checkout blender_mmd_assets
         uses: actions/checkout@v2
         with:
-          repository: UuuNyaa/blender_mmd_assets
+          repository: MMD-Blender/blender_mmd_assets
           path: blender_mmd_assets
 
       - name: Build asset
         run: |
-          mkdir mmd_uuunyaa_tools/asset_jsons
-          python blender_mmd_assets/cat_asset_json.py UuuNyaa/blender_mmd_assets "{'state': 'open', 'labels':'Official'}" > mmd_uuunyaa_tools/asset_jsons/assets.json
+          mkdir mmd_tools_append/asset_jsons
+          python blender_mmd_assets/cat_asset_json.py UuuNyaa/blender_mmd_assets "{'state': 'open', 'labels':'Official'}" > mmd_tools_append/asset_jsons/assets.json
 
       - name: Copy LICENSE file
-        run: cp -p LICENSE mmd_uuunyaa_tools/
+        run: cp -p LICENSE mmd_tools_append/
 
       - name: Build project
-        run: zip -r -9 artifact.zip mmd_uuunyaa_tools/
+        run: zip -r -9 artifact.zip mmd_tools_append/
 
       - name: Create a Release
         id: create_release
@@ -72,5 +72,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./artifact.zip
-          asset_name: mmd_uuunyaa_tools-${{ steps.branch_name.outputs.tag }}.zip
+          asset_name: mmd_tools_append-${{ steps.branch_name.outputs.tag }}.zip
           asset_content_type: application/zip

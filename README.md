@@ -1,19 +1,19 @@
-# mmd_uuunyaa_tools
-mmd_uuunyaa_tools is a blender addon for adjust scenes, models and materials in concert with [UuuNyaa/blender_mmd_tools](https://github.com/UuuNyaa/blender_mmd_tools).
+# mmd_tools_append
+mmd_tools_append is a blender addon for adjust scenes, models and materials in concert with [MMD-Blender/blender_mmd_tools](https://github.com/MMD-Blender/blender_mmd_tools).
 
-mmd_uuunyaa_toolsは[UuuNyaa/blender_mmd_tools](https://github.com/UuuNyaa/blender_mmd_tools)と連携してシーン、モデル、マテリアルを調整するためのBlenderアドオンです。
+mmd_tools_appendは[MMD-Blender/blender_mmd_tools](https://github.com/MMD-Blender/blender_mmd_tools)と連携してシーン、モデル、マテリアルを調整するためのBlenderアドオンです。
 
 ## Installation & Usage
-- Check [the mmd_uuunyaa_tools wiki!](https://github.com/UuuNyaa/blender_mmd_uuunyaa_tools/wiki/Home) for details.
-- 詳細は [mmd_uuunyaa_toolsのwiki! (日本語)](https://github.com/UuuNyaa/blender_mmd_uuunyaa_tools/wiki/Home.ja) を確認してください。
+- Check [the mmd_tools_append wiki!](https://github.com/MMD-Blender/blender_mmd_tools_append/wiki/Home) for details.
+- 詳細は [mmd_tools_appendのwiki! (日本語)](https://github.com/MMD-Blender/blender_mmd_tools_append/wiki/Home.ja) を確認してください。
 
 ### YouTube video available
-| [![How to use MMD UuuNyaa Tools](https://img.youtube.com/vi/QJqfsohDzPs/0.jpg)](https://youtu.be/QJqfsohDzPs) |
+| [![How to use MMD Tools Append](https://img.youtube.com/vi/QJqfsohDzPs/0.jpg)](https://youtu.be/QJqfsohDzPs) |
 |:--:|
-| *How to use MMD UuuNyaa Tools* / *MMD UuuNyaa Toolsの使い方* |
+| *How to use MMD Tools Append* / *MMD Tools Appendの使い方* |
 
 ## Contribution
-mmd_uuunyaa_tools needs your contribution!
+mmd_tools_append needs your contribution!
 
 - Feature/Asset requests (material, lighting, etc)
 - Document writing / translation
