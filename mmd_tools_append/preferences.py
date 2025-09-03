@@ -8,13 +8,11 @@ import tempfile
 
 import bpy
 
-from mmd_tools_append import addon_updater_ops, utilities
 from mmd_tools_append.asset_search.assets import AssetUpdater
 from mmd_tools_append.asset_search.operators import DeleteCachedFiles
 from mmd_tools_append.m17n import _
 
 
-@addon_updater_ops.make_annotations
 class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
     bl_idname = __package__
 
@@ -83,17 +81,6 @@ class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
         default="{id}.json",
     )
 
-    # Addon updater preferences.
-    auto_check_update: bpy.props.BoolProperty(name="Auto-check for Update", description="If enabled, auto-check for updates using an interval", default=False)
-
-    updater_interval_months: bpy.props.IntProperty(name="Months", description="Number of months between checking for updates", default=0, min=0)
-
-    updater_interval_days: bpy.props.IntProperty(name="Days", description="Number of days between checking for updates", default=7, min=0, max=31)
-
-    updater_interval_hours: bpy.props.IntProperty(name="Hours", description="Number of hours between checking for updates", default=0, min=0, max=23)
-
-    updater_interval_minutes: bpy.props.IntProperty(name="Minutes", description="Number of minutes between checking for updates", default=0, min=0, max=59)
-
     _translation_texts = [
         _("Check now for mmd_tools_append update"),
         _("Auto-check for Update"),
@@ -153,10 +140,6 @@ class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
         col.prop(self, "asset_extract_root_folder")
         col.prop(self, "asset_extract_folder")
         col.prop(self, "asset_extract_json")
-
-        col = layout.box().column()
-        col.label(text=_("(Experimental) Add-on Update"), icon="ERROR")
-        addon_updater_ops.update_settings_ui_condensed(self, context, col)
 
         layout.separator()
         col = layout.column()

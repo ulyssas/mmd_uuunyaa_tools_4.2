@@ -615,10 +615,6 @@ translation_dict = {
         ("Operator", "Setup Segmentation Color Palette"): "セグメンテーションカラーパレットを設定",
         #: mmd_tools_append/editors/operators.py:675
         ("Operator", "Restore Segmentation Color Palette"): "セグメンテーションカラーパレットを復元",
-        #: mmd_tools_append/externals/addon_updater/addon_updater_ops.py:181
-        ("*", "Update {} ready!"): "更新できます! {}",
-        #: mmd_tools_append/externals/addon_updater/addon_updater_ops.py:1067 mmd_tools_append/externals/addon_updater/addon_updater_ops.py:1210
-        ("*", "Update now to {}"): "今すぐ更新 {}",
         #: mmd_tools_append/generators/physics.py:13 mmd_tools_append/panels.py:144
         ("Operator", "Add Center of Gravity"): "重心を追加",
         #: mmd_tools_append/generators/physics.py:16
@@ -1590,10 +1586,6 @@ translation_dict = {
         ("Operator", "Setup Segmentation Color Palette"): "设置分割调色板",
         #: mmd_tools_append/editors/operators.py:675
         ("Operator", "Restore Segmentation Color Palette"): "恢复分割调色板",
-        #: mmd_tools_append/externals/addon_updater/addon_updater_ops.py:181
-        ("*", "Update {} ready!"): "可以更新!",
-        #: mmd_tools_append/externals/addon_updater/addon_updater_ops.py:1067 mmd_tools_append/externals/addon_updater/addon_updater_ops.py:1210
-        ("*", "Update now to {}"): "立即更新 {}",
         #: mmd_tools_append/generators/physics.py:13 mmd_tools_append/panels.py:144
         ("Operator", "Add Center of Gravity"): "添加重心",
         #: mmd_tools_append/generators/physics.py:16
