@@ -7,7 +7,7 @@
 from ..editors.nodes import MaterialEditor
 from ..m17n import _
 from ..tuners import TunerABC, TunerRegistry
-from ..tuners.material_adjusters import SubsurfaceAdjuster, WetAdjuster
+from ..tuners.material_adjusters import WetAdjuster
 
 
 class MaterialTunerABC(TunerABC, MaterialEditor):
@@ -94,7 +94,7 @@ class EyeHighlightMaterialTuner(MaterialTunerABC):
                     {
                         "Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0xFFFFFF),
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
-                        "Emission": self.hex_to_rgba(0x999999),
+                        "Emission Color": self.hex_to_rgba(0x999999),
                     },
                     {"location": self.grid_to_position(+0, +0), "parent": node_frame},
                 ).outputs["BSDF"],
@@ -126,7 +126,7 @@ class EyeWhiteMaterialTuner(MaterialTunerABC):
                     {
                         "Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0xFFFFFF),
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
-                        "Emission": self.hex_to_rgba(0x666666),
+                        "Emission Color": self.hex_to_rgba(0x666666),
                     },
                     {"location": self.grid_to_position(+0, +0), "parent": node_frame},
                 ).outputs["BSDF"],
@@ -157,11 +157,11 @@ class EyeIrisMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x00001E),
-                        "Subsurface": 0.001,
-                        "Specular": 0.500,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 0.500,
-                        "Clearcoat": 1.000,
-                        "Clearcoat Roughness": 0.030,
+                        "Coat Weight": 1.000,
+                        "Coat Roughness": 0.030,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
                     },
@@ -194,8 +194,8 @@ class EyeLashMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x122837),
-                        "Subsurface": 0.001,
-                        "Specular": 0.500,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 1.000,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
@@ -229,8 +229,8 @@ class HairMatteMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x698E9A),
-                        "Subsurface": 0.001,
-                        "Specular": 0.500,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 0.600,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
@@ -282,12 +282,11 @@ class SkinMucosaMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_skin_color_adjust.outputs["Color"],
-                        "Subsurface": 0.200,
-                        "Subsurface Color": self.hex_to_rgba(0xE40000),
-                        "Specular": 0.500,
+                        "Subsurface Weight": 1.000,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 0.600,
-                        "Clearcoat": 0.500,
-                        "Clearcoat Roughness": 0.600,
+                        "Coat Weight": 0.500,
+                        "Coat Roughness": 0.600,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
                         "Normal": node_skin_bump.outputs["Normal"],
@@ -299,15 +298,13 @@ class SkinMucosaMaterialTuner(MaterialTunerABC):
             force=True,
         )
 
-        self.edit(SubsurfaceAdjuster(self.material).attach(), {"Max": 0.400})
-
         node_adjuster = self.edit(WetAdjuster(self.material).attach(), {})
 
         self.edit(
             self.get_shader_node(),
             {
-                "Clearcoat": node_adjuster.outputs["Specular"],
-                "Clearcoat Roughness": node_adjuster.outputs["Roughness"],
+                "Coat Weight": node_adjuster.outputs["Specular IOR Level"],
+                "Coat Roughness": node_adjuster.outputs["Roughness"],
             },
         )
 
@@ -351,9 +348,8 @@ class SkinBumpMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_skin_color_adjust.outputs["Color"],
-                        "Subsurface": 0.050,
-                        "Subsurface Color": self.hex_to_rgba(0xE40000),
-                        "Specular": 0.500,
+                        "Subsurface Weight": 1.000,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 0.700,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
@@ -365,8 +361,6 @@ class SkinBumpMaterialTuner(MaterialTunerABC):
             {"location": self.grid_to_position(+3, +0)},
             force=True,
         )
-
-        self.edit(SubsurfaceAdjuster(self.material).attach(), {"Max": 0.100})
 
 
 class MetalNobleMaterialTuner(MaterialTunerABC):
@@ -390,7 +384,7 @@ class MetalNobleMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0xFFC356),
-                        "Subsurface": 0.001,
+                        "Subsurface Weight": 0.001,
                         "Metallic": 1.000,
                         "Roughness": 0.000,
                         "IOR": 0.500,
@@ -424,7 +418,7 @@ class MetalBaseMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x8E9194),
-                        "Subsurface": 0.001,
+                        "Subsurface Weight": 0.001,
                         "Metallic": 1.000,
                         "Roughness": 0.400,
                         "IOR": 2.500,
@@ -460,7 +454,7 @@ class StoneGemMaterialTuner(MaterialTunerABC):
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x7E8FD4),
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
                         "IOR": 2.000,
-                        "Transmission": 1.000,
+                        "Transmission Weight": 1.000,
                     },
                     {"location": self.grid_to_position(+0, +0), "parent": node_frame},
                 ).outputs["BSDF"],
@@ -498,8 +492,8 @@ class FabricBumpMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x999999),
-                        "Subsurface": 0.001,
-                        "Specular": 0.130,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.130,
                         "Roughness": 1.000,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
@@ -542,8 +536,8 @@ class FabricWaveMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x999999),
-                        "Subsurface": 0.001,
-                        "Specular": 0.500,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 1.000,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
@@ -627,11 +621,10 @@ class FabricCottonMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_fabric_woven_texture.outputs["Color"],
-                        "Subsurface": 0.001,
-                        "Specular": 0.500,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 1.000,
-                        "Sheen": 1.000,
-                        "Sheen Tint": 1.000,
+                        "Sheen Weight": 1.000,
                         "IOR": 1.450,
                         "Alpha": node_fabric_woven_texture.outputs["Alpha"],
                         "Normal": node_fabric_woven_texture.outputs["Normal"],
@@ -712,11 +705,10 @@ class FabricSilkMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_fabric_woven_texture.outputs["Color"],
-                        "Subsurface": 0.001,
-                        "Specular": 1.000,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 1.000,
                         "Roughness": 0.200,
-                        "Sheen": 1.000,
-                        "Sheen Tint": 1.000,
+                        "Sheen Weight": 1.000,
                         "IOR": 1.450,
                         "Alpha": node_fabric_woven_texture.outputs["Alpha"],
                         "Normal": node_fabric_woven_texture.outputs["Normal"],
@@ -781,7 +773,7 @@ class FabricKnitMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": knit_texture.outputs["Color"],
-                        "Specular": 0.200,
+                        "Specular IOR Level": 0.200,
                         "Roughness": 0.800,
                         "IOR": 1.450,
                         "Alpha": knit_texture.outputs["Alpha"],
@@ -841,10 +833,10 @@ class FabricLeatherMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": leather_texture.outputs["Color"],
-                        "Subsurface": 0.001,
-                        "Specular": 0.200,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.200,
                         "Roughness": leather_texture.outputs["Roughness"],
-                        "Sheen": 0.300,
+                        "Sheen Weight": 0.300,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
                         "Normal": leather_texture.outputs["Normal"],
@@ -878,8 +870,8 @@ class PlasticGlossMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x666666),
-                        "Subsurface": 0.001,
-                        "Specular": 0.500,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 0.100,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
@@ -913,8 +905,8 @@ class PlasticBumpMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x666666),
-                        "Subsurface": 0.001,
-                        "Specular": 0.500,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 0.100,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
@@ -958,8 +950,8 @@ class PlasticMatteMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0x666666),
-                        "Subsurface": 0.001,
-                        "Specular": 0.500,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 0.700,
                         "IOR": 1.450,
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
@@ -993,11 +985,11 @@ class PlasticEmissionMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": self.hex_to_rgba(0x000000),
-                        "Subsurface": 0.001,
-                        "Specular": 0.500,
+                        "Subsurface Weight": 0.001,
+                        "Specular IOR Level": 0.500,
                         "Roughness": 0.700,
                         "IOR": 1.450,
-                        "Emission": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0xFF6666),
+                        "Emission Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0xFF6666),
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
                     },
                     {"location": self.grid_to_position(+0, +0), "parent": node_frame},
@@ -1077,9 +1069,9 @@ class LiquidCloudyMaterialTuner(MaterialTunerABC):
                             self.get_shader_node(),
                             {
                                 "Base Color": self.hex_to_rgba(0xE7E7E7),
-                                "Specular": 1.000,
+                                "Specular IOR Level": 1.000,
                                 "Roughness": 0.000,
-                                "Clearcoat": 1.000,
+                                "Coat Weight": 1.000,
                                 "IOR": 1.450,
                             },
                             {"location": self.grid_to_position(-2, -4), "parent": node_frame},
@@ -1138,8 +1130,8 @@ class ArtisticWatercolorMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": self.hex_to_rgba(0x000000),
-                        "Specular": 0.000,
-                        "Emission": node_watercolor_texture.outputs["Color"],
+                        "Specular IOR Level": 0.000,
+                        "Emission Color": node_watercolor_texture.outputs["Color"],
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
                     },
                     {"location": self.grid_to_position(+0, +0), "parent": node_frame},
@@ -1189,9 +1181,9 @@ class ToonShaderMaterialTuner(MaterialTunerABC):
                     self.get_shader_node(),
                     {
                         "Base Color": self.hex_to_rgba(0x000000),
-                        "Specular": 0.000,
+                        "Specular IOR Level": 0.000,
                         "Roughness": 0.000,
-                        "Emission": node_toon_shader_texture.outputs["Color"],
+                        "Emission Color": node_toon_shader_texture.outputs["Color"],
                         "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
                     },
                     {"location": self.grid_to_position(+0, +0), "parent": node_frame},

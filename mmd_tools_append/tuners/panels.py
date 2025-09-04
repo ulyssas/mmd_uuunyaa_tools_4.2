@@ -12,7 +12,6 @@ from ..tuners.material_adjusters import (
     EmissionAdjuster,
     GlitterAdjuster,
     MaterialAdjusterUtilities,
-    SubsurfaceAdjuster,
     WetAdjuster,
 )
 from ..tuners.operators import AttachMaterialAdjuster, DetachMaterialAdjuster, FreezeLighting
@@ -182,7 +181,6 @@ class MaterialAdjusterPanel(bpy.types.Panel):
             else:
                 layout.operator(AttachMaterialAdjuster.bl_idname, text=text, icon=icon).adjuster_name = class_.get_name()
 
-        draw_operator(grid, SubsurfaceAdjuster, text=_("Subsurface"), icon="SHADING_RENDERED")
         draw_operator(grid, WetAdjuster, text=_("Wet"), icon="MOD_FLUIDSIM")
         draw_operator(grid, GlitterAdjuster, text=_("Glitter"), icon="PMARKER_ACT")
         draw_operator(grid, EmissionAdjuster, text=_("Emission"), icon="LIGHT")

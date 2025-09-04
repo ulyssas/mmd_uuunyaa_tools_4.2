@@ -28,7 +28,7 @@ class NodeEditor(ABC):
 
     @staticmethod
     def grid_to_position(grid_x: int, grid_y: int) -> Tuple[int, int]:
-        return (grid_x * 100, grid_y * 100)
+        return (grid_x * 100, (grid_y - 3) * 100)
 
     _library_blend_file_path = str
     _node_group_type = type
@@ -148,6 +148,35 @@ class MaterialEditor(NodeEditor):
         if color < 0.04045:
             return color / 12.92
         return ((color + 0.055) / 1.055) ** 2.4
+
+    @staticmethod
+    def to_link_or_rgb(color: Union[bpy.types.NodeSocket, Tuple[float, float, float, float]]) -> Union[bpy.types.NodeSocket, Tuple[float, float, float]]:
+        if isinstance(color, bpy.types.NodeSocket):
+            return color
+
+        if len(color) >= 3:
+            return tuple(MaterialEditor.srgb_to_linearrgb(c) for c in color[:3])
+
+        raise ValueError("color must be a NodeSocket or a sequence of at least three floats")
+
+    @staticmethod
+    def to_link_or_rgba(color: Union[bpy.types.NodeSocket, Tuple[float, float, float]], alpha=1.0) -> Union[bpy.types.NodeSocket, Tuple[float, float, float, float]]:
+        if isinstance(color, bpy.types.NodeSocket):
+            return color
+
+        if len(color) >= 3:
+            return tuple([MaterialEditor.srgb_to_linearrgb(c) for c in color[:3]] + [alpha])
+
+        raise ValueError("color must be a NodeSocket or a sequence of at least three floats")
+
+    @staticmethod
+    def hex_to_rgb(hex_int: int) -> Tuple[float, float, float]:
+        # pylint: disable=invalid-name
+        # r,g,b is commonly used
+        r = (hex_int & 0xFF0000) >> 16
+        g = (hex_int & 0x00FF00) >> 8
+        b = hex_int & 0x0000FF
+        return tuple(MaterialEditor.srgb_to_linearrgb(c / 0xFF) for c in (r, g, b))
 
     @staticmethod
     def hex_to_rgba(hex_int: int, alpha=1.0) -> Tuple[float, float, float, float]:
