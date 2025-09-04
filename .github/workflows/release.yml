@@ -1,28 +1,30 @@
 on:
   push:
-    branches:
-      - "!*"
     tags:
-      - "v*"
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 name: Release
 
 jobs:
-  build:
+  release:
+    # Note: `github.event.base_ref` is equal to `refs/heads/main` when the workflow is triggered
+    # by a branch, or a lightweight tag (_not_ an annotated tag), placed on the last commit of the `main` branch
+    if: github.event.base_ref == 'refs/heads/main'
+
     runs-on: ubuntu-latest
 
     steps:
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           lfs: true
 
@@ -30,9 +32,9 @@ jobs:
         run: git lfs checkout
 
       - name: Checkout blender_mmd_assets
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
-          repository: MMD-Blender/blender_mmd_assets
+          repository: UuuNyaa/blender_mmd_assets
           path: blender_mmd_assets
 
       - name: Build asset
@@ -43,34 +45,37 @@ jobs:
       - name: Copy LICENSE file
         run: cp -p LICENSE mmd_tools_append/
 
-      - name: Build project
-        run: zip -r -9 artifact.zip mmd_tools_append/
+      - name: Remove development-only files
+        run: rm -rf mmd_tools_append/typings
+
+      - name: Generate zip filename
+        run: |
+          declare -A tag_prefix_to_blender_version=(
+            ["v1"]="bl3.6"
+            ["v4"]="bl4.2"
+          )
+          blender_version=${tag_prefix_to_blender_version[${GITHUB_REF_NAME%%.*}]}
+          if [ -z "$blender_version" ]; then
+            echo "Error: No Blender version mapping found for tag ${GITHUB_REF_NAME}"
+            exit 1
+          fi
+          echo "zip_filename=mmd_tools_append-${GITHUB_REF_NAME}-${blender_version}.zip" >> $GITHUB_ENV
+
+      - name: Create a zip
+        run: |
+          (
+            cd mmd_tools_append &&
+            find . -type f ! -path "*/.*" ! -path "*/__pycache__/*" -print |
+            zip -9r "../${{ env.zip_filename }}" -@
+          )
 
       - name: Create a Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          name: Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          files: ${{ env.zip_filename }}
           draft: true
+          generate_release_notes: true
           prerelease: false
-
-      - name: Branch name
-        id: branch_name
-        run: |
-          echo ::set-output name=name::${GITHUB_REF#refs/*/}
-          echo ::set-output name=branch::${GITHUB_REF#refs/heads/}
-          echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
-
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.SuperSecret }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifact.zip
-          asset_name: mmd_tools_append-${{ steps.branch_name.outputs.tag }}.zip
-          asset_content_type: application/zip

@@ -8,6 +8,7 @@ import tempfile
 
 import bpy
 
+from . import utilities
 from .asset_search.assets import AssetUpdater
 from .asset_search.operators import DeleteCachedFiles
 from .m17n import _
