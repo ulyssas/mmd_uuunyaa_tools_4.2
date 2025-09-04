@@ -49,20 +49,30 @@ def sanitize_path_fragment(path_fragment: str) -> str:
     )
 
 
-def is_mmd_tools_installed() -> bool:
-    return importlib.find_loader("mmd_tools")  # pylint: disable=deprecated-method
+def import_from_file(module_name: str, module_path: str):
+    module_name = f"bl_ext.blender_org.mmd_tools_append.{module_name}"
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load module '{module_name}' from '{module_path}'")
+
+    module = importlib.util.module_from_spec(spec)
+    # Optional: cache in sys.modules to avoid reloading
+    import sys
+
+    sys.modules[module_name] = module  # ensures single instance if repeatedly called
+    spec.loader.exec_module(module)  # type: ignore[attr-defined]
+    return module
 
 
 def import_mmd_tools():
     try:
-        try:
-            return importlib.import_module("bl_ext.blender_org.mmd_tools")
-        except ImportError:
-            # for debugging
-            return importlib.import_module("bl_ext.vscode_development.mmd_tools")
-
+        return importlib.import_module("bl_ext.blender_org.mmd_tools")
     except ImportError as exception:
-        raise RuntimeError(_("MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools.")) from exception
+        # for debugging
+        try:
+            return importlib.import_module("bl_ext.vscode_development.mmd_tools")
+        except ImportError:
+            raise RuntimeError(_("MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools.")) from exception
 
 
 def label_multiline(layout, text="", width=0):

@@ -12,32 +12,7 @@ import bpy
 
 from ..editors import segmentation
 from ..m17n import _
-from ..utilities import (
-    import_mmd_tools,
-    is_mmd_tools_installed,
-    label_multiline,
-)
-
-
-class ConvertMaterialsForEevee(bpy.types.Operator):
-    bl_idname = "mmd_tools_append.convert_materials_for_eevee"
-    bl_label = _("Convert Materials for Eevee")
-    bl_description = _("Convert materials of selected objects for Eevee.")
-    bl_options = {"REGISTER", "UNDO"}
-
-    @classmethod
-    def poll(cls, context):
-        return next((x for x in context.selected_objects if x.type == "MESH"), None) and is_mmd_tools_installed()
-
-    def execute(self, context):
-        mmd_tools = import_mmd_tools()
-        for obj in (x for x in context.selected_objects if x.type == "MESH"):
-            mmd_tools.cycles_converter.convertToCyclesShader(obj, use_principled=True, clean_nodes=True)
-
-        if context.scene.render.engine != "BLENDER_EEVEE_NEXT":
-            context.scene.render.engine = "BLENDER_EEVEE_NEXT"
-
-        return {"FINISHED"}
+from ..utilities import label_multiline
 
 
 class SetupRenderEngineForEevee(bpy.types.Operator):

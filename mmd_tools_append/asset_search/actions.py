@@ -5,7 +5,6 @@
 import ast
 import errno
 import functools
-import importlib
 import json
 import os
 import re
@@ -20,7 +19,7 @@ import requests
 
 from .. import PACKAGE_PATH
 from ..m17n import _
-from ..utilities import MessageException
+from ..utilities import MessageException, import_from_file
 from .assets import AssetDescription, _Utilities
 
 
@@ -235,9 +234,7 @@ class ImportActionExecutor:
         if _Utilities.is_extracted(asset):
             return
 
-        namespace = "xrarfile"
-        loader = importlib.machinery.SourceFileLoader(namespace, os.path.join(PACKAGE_PATH, "externals", "xrarfile", "xrarfile.py"))
-        xrarfile = loader.load_module(namespace)  # pylint: disable=deprecated-method
+        xrarfile = import_from_file("xrarfile", os.path.join(PACKAGE_PATH, "externals", "xrarfile", "xrarfile.py"))
 
         try:
             with xrarfile.XRarFile(rar_file_path) as rar:
@@ -257,9 +254,7 @@ class ImportActionExecutor:
         if _Utilities.is_extracted(asset):
             return
 
-        namespace = "x7zipfile"
-        loader = importlib.machinery.SourceFileLoader(namespace, os.path.join(PACKAGE_PATH, "externals", "x7zipfile", "x7zipfile.py"))
-        x7zipfile = loader.load_module(namespace)  # pylint: disable=deprecated-method
+        x7zipfile = import_from_file("x7zipfile", os.path.join(PACKAGE_PATH, "externals", "x7zipfile", "x7zipfile.py"))
 
         try:
             with x7zipfile.x7ZipFile(zip_file_path, pwd=password) as zip_file:

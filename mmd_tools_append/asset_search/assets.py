@@ -4,7 +4,6 @@
 
 import ast
 import glob
-import importlib
 import json
 import os
 import traceback
@@ -16,7 +15,7 @@ import requests
 
 from .. import PACKAGE_PATH, REGISTER_HOOKS
 from ..m17n import _
-from ..utilities import get_preferences
+from ..utilities import get_preferences, import_from_file
 
 
 class AssetType(Enum):
@@ -231,9 +230,7 @@ class AssetUpdater:
 
     @staticmethod
     def load_cat_asset_json():
-        namespace = "cat_asset_json"
-        loader = importlib.machinery.SourceFileLoader(namespace, os.path.join(PACKAGE_PATH, "externals", "blender_mmd_assets", "cat_asset_json.py"))
-        return loader.load_module(namespace)  # pylint: disable=deprecated-method
+        return import_from_file("cat_asset_json", os.path.join(PACKAGE_PATH, "externals", "blender_mmd_assets", "cat_asset_json.py"))
 
     @staticmethod
     def write_assets_json(assets_json_object, output_json: str):
