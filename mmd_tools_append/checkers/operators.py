@@ -450,7 +450,6 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
 
         col = layout.column(align=True)
         col.label(text=_("Object with Impact Selection:"), icon="RESTRICT_SELECT_OFF")
-        col.operator(SelectMeshObjectsWithUseAutoSmooth.bl_idname, icon="MESH_DATA")
         col.operator(SelectMeshObjectsWithSlowMaterial.bl_idname, icon="MATERIAL")
 
     # results: List[CheckResult] = []
@@ -459,29 +458,6 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
         return context.window_manager.invoke_popup(self, width=600)
 
     def execute(self, _context):
-        return {"FINISHED"}
-
-
-class SelectMeshObjectsWithUseAutoSmooth(bpy.types.Operator):
-    bl_idname = "mmd_tools_append.select_mesh_objects_with_use_auto_smooth"
-    bl_label = _("Select Mesh Objects with Use Auto Smooth")
-    bl_options = {"REGISTER", "UNDO"}
-
-    def execute(self, context: bpy.types.Context):
-        obj: bpy.types.Object
-        for obj in context.view_layer.objects:
-            if obj.type != "MESH":
-                continue
-
-            if obj.hide_render:
-                continue
-
-            mesh: bpy.types.Mesh = obj.data
-            if not mesh.use_auto_smooth:
-                continue
-
-            obj.select_set(True)
-
         return {"FINISHED"}
 
 
