@@ -132,32 +132,12 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
         )
 
     @classmethod
-    def check_use_gtao(cls, context: bpy.types.Context) -> CheckResult:
-        return CheckResult(
-            _("Use Ambient Occlusion"),
-            CheckResultStatus.AVERAGE if context.scene.eevee.use_gtao else CheckResultStatus.GOOD,
-            0 if context.scene.eevee.use_gtao else -3.9,
-            "scene.eevee.use_gtao",
-            _("= False is Good"),
-        )
-
-    @classmethod
-    def check_use_bloom(cls, context: bpy.types.Context) -> CheckResult:
-        return CheckResult(
-            _("Use Bloom"),
-            CheckResultStatus.AVERAGE if context.scene.eevee.use_bloom else CheckResultStatus.GOOD,
-            0 if context.scene.eevee.use_bloom else -2.9,
-            "scene.eevee.use_bloom",
-            _("= False is Good"),
-        )
-
-    @classmethod
     def check_use_motion_blur(cls, context: bpy.types.Context) -> CheckResult:
         return CheckResult(
             _("Use Motion Blur"),
-            CheckResultStatus.AVERAGE if context.scene.eevee.use_motion_blur else CheckResultStatus.GOOD,
-            0 if context.scene.eevee.use_motion_blur else -3.4,
-            "scene.eevee.use_motion_blur",
+            CheckResultStatus.AVERAGE if context.scene.render.use_motion_blur else CheckResultStatus.GOOD,
+            0 if context.scene.render.use_motion_blur else -3.4,
+            "scene.render.use_motion_blur",
             _("= False is Good"),
         )
 
@@ -181,49 +161,6 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
             -0.0163 + 4.85e-03 * (math.log(context.scene.eevee.bokeh_max_size) if context.scene.eevee.bokeh_max_size != 0 else 0),
             "scene.eevee.bokeh_max_size",
             _("<= 16 is Good"),
-        )
-
-    @classmethod
-    def check_sss_samples(cls, context: bpy.types.Context) -> CheckResult:
-        status = CheckResultStatus.UNKNOWN
-        if context.scene.eevee.sss_samples == 32:
-            status = CheckResultStatus.BAD
-        elif context.scene.eevee.sss_samples > 16:
-            status = CheckResultStatus.POOR
-        elif context.scene.eevee.sss_samples > 8:
-            status = CheckResultStatus.WARNING
-        elif context.scene.eevee.sss_samples > 4:
-            status = CheckResultStatus.AVERAGE
-        else:
-            status = CheckResultStatus.GOOD
-
-        return CheckResult(
-            _("Subsurface Scattering Samples"),
-            status,
-            -8.22e-04 + 1.7e-04 * context.scene.eevee.sss_samples + 8.29e-06 * math.pow(context.scene.eevee.sss_samples, 2),
-            "scene.eevee.sss_samples",
-            _("<= 4 is Good"),
-        )
-
-    @classmethod
-    def check_use_ssr(cls, context: bpy.types.Context) -> CheckResult:
-        return CheckResult(
-            _("Use Screen Space Refraction"),
-            CheckResultStatus.WARNING if context.scene.eevee.use_ssr else CheckResultStatus.GOOD,
-            0 if context.scene.eevee.use_ssr else -11.4,
-            "scene.eevee.use_ssr",
-            _("= False is Good"),
-        )
-
-    @classmethod
-    def check_use_ssr_halfres(cls, context: bpy.types.Context) -> CheckResult:
-        return CheckResult(
-            _("Use Half Res Trace"),
-            CheckResultStatus.AVERAGE if not context.scene.eevee.use_ssr_halfres else CheckResultStatus.GOOD,
-            -2.2 if context.scene.eevee.use_ssr_halfres else 0,
-            "scene.eevee.use_ssr_halfres",
-            _("= True is Good"),
-            1,
         )
 
     @classmethod
@@ -356,16 +293,6 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
         )
 
     @classmethod
-    def check_use_pass_bloom(cls, context: bpy.types.Context) -> CheckResult:
-        return CheckResult(
-            _("Pass Bloom"),
-            CheckResultStatus.WARNING if context.view_layer.eevee.use_pass_bloom else CheckResultStatus.GOOD,
-            -(-0.8 - 2.6) if context.view_layer.eevee.use_pass_bloom else 0,
-            "view_layer.eevee.use_pass_bloom",
-            _("= False is Good"),
-        )
-
-    @classmethod
     def check_use_pass_volume_direct(cls, context: bpy.types.Context) -> Optional[CheckResult]:
         if not hasattr(context.view_layer.eevee, "use_pass_volume_direct"):
             return None
@@ -443,72 +370,6 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
 
         return (context, path_fragments[-1])
 
-    @classmethod
-    def check_meshes_use_auto_smooth(cls, context: bpy.types.Context) -> CheckResult:
-        mesh_count = 0
-        use_auto_smooth_mesh_count = 0
-
-        obj: bpy.types.Object
-        for obj in context.view_layer.objects:
-            if obj.type != "MESH":
-                continue
-
-            if obj.hide_render:
-                continue
-
-            mesh: bpy.types.Mesh = obj.data
-
-            mesh_count += 1
-
-            if not mesh.use_auto_smooth:
-                continue
-
-            use_auto_smooth_mesh_count += 1
-
-        return CheckResult(
-            _("Meshes Use Auto Smooth"),
-            CheckResultStatus.GOOD if use_auto_smooth_mesh_count == 0 else CheckResultStatus.WARNING,
-            min(use_auto_smooth_mesh_count * 0.7, 3),
-            f"{use_auto_smooth_mesh_count} / {mesh_count}",
-            _("= 0 is Good"),
-            editable=False,
-        )
-
-    @classmethod
-    def check_materials_method(cls, context: bpy.types.Context) -> CheckResult:
-        active_materials: Set[bpy.types.Material] = set()
-
-        obj: bpy.types.Object
-        for obj in context.view_layer.objects:
-            if obj.type != "MESH":
-                continue
-
-            if obj.hide_render:
-                continue
-
-            material_slot: bpy.types.MaterialSlot
-            for material_slot in obj.material_slots:
-                if material_slot.material is None:
-                    continue
-                active_materials.add(material_slot.material)
-
-        material_count = len(active_materials)
-        alpha_hashed_material_count = 0
-
-        for material in active_materials:
-            if material.blend_method != "HASHED":
-                continue
-            alpha_hashed_material_count += 1
-
-        return CheckResult(
-            _("Materials Use Alpha Hashed"),
-            CheckResultStatus.GOOD if alpha_hashed_material_count == 0 else CheckResultStatus.WARNING,
-            min(alpha_hashed_material_count * 0.4, 2),
-            f"{alpha_hashed_material_count} / {material_count}",
-            _("= 0 is Good"),
-            editable=False,
-        )
-
     def draw(self, context: bpy.types.Context):
         layout: bpy.types.UILayout = self.layout
         layout.label(text=_("Eevee Rendering Performance Checker"), icon="MOD_TIME")
@@ -521,15 +382,10 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
                     self.check_render_engine(context),
                     self.check_taa_render_samples(context),
                     self.check_taa_samples(context),
-                    self.check_use_gtao(context),
-                    self.check_use_bloom(context),
-                    self.check_bokeh_max_size(context),
-                    self.check_sss_samples(context),
-                    self.check_use_ssr(context),
-                    self.check_use_ssr_halfres(context),
                     self.check_use_motion_blur(context),
-                    self.check_file_format(context),
+                    self.check_bokeh_max_size(context),
                     self.check_use_compositing(context),
+                    self.check_file_format(context),
                     self.check_use_sequencer(context),
                     self.check_use_pass_z(context),
                     self.check_use_pass_normal(context),
@@ -542,12 +398,9 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
                     self.check_use_pass_environment(context),
                     self.check_use_pass_shadow(context),
                     self.check_use_pass_ambient_occlusion(context),
-                    self.check_use_pass_bloom(context),
                     self.check_use_pass_cryptomatte_object(context),
                     self.check_use_pass_cryptomatte_material(context),
                     self.check_use_pass_cryptomatte_asset(context),
-                    self.check_meshes_use_auto_smooth(context),
-                    self.check_materials_method(context),
                 ],
             )
         )
