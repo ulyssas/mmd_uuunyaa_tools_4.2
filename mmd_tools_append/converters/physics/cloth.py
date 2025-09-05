@@ -9,14 +9,70 @@ import bpy
 from ...editors.meshes import MeshEditor
 from ...m17n import _
 from ...tuners import TunerABC, TunerRegistry
-from ...utilities import MessageException, import_mmd_tools
+from ...utilities import MessageException, MMD_TOOLS_IMPORT_HOOKS, import_mmd_tools
 from .rigid_body_to_cloth import (
     PhysicsMode,
     RigidBodyToClothConverter,
 )
 
-mmd_tools = import_mmd_tools()
-if not hasattr(mmd_tools.core.model.Model, "clothGroupObject"):
+
+def on_import_mmd_tools_ensure_cloth_methods(mmd_tools):
+    """
+    Monkey-patch helper that augments mmd_tools.core.model.Model with cloth-related
+    convenience methods if they are not already present.
+
+    Behavior:
+    1. Idempotency: Returns immediately if Model already has the attribute
+        'clothGroupObject', preventing duplicate patching.
+    2. Adds Model.clothGroupObject(self):
+        - Lazily resolves (and caches on the instance as _cloth_grp) a dedicated
+          container object named "cloths" parented to the model's root object.
+        - Searches existing children of rootObject() for an object named "cloths".
+        - If absent, creates a new empty object via mmd_tools.bpyutils.FnContext.new_and_link_object.
+        - Configures the new object to be:
+             * Hidden and unselectable (hide, hide_select = True)
+             * Transform-locked on location, rotation, and scale (all axes True)
+        - Returns the resolved/created container object.
+    3. Adds Model.cloths(self):
+        - Iterates over all objects returned by Model.allObjects(clothGroupObject()).
+        - Yields only MESH type objects that have an existing cloth modifier, as
+          determined by MeshEditor(obj).find_cloth_modifier().
+
+    Side Effects:
+    - Mutates the mmd_tools.core.model.Model class by attaching two methods:
+      'clothGroupObject' and 'cloths'.
+    - May create and link a new helper object named "cloths" into the current
+      Blender context's scene hierarchy.
+
+    Caching Details:
+    - The resolved group object is stored per-model instance in the private
+      attribute _cloth_grp to avoid repeated scene searches or object creation.
+
+    Prerequisites:
+    - A functioning import_mmd_tools() utility returning the mmd_tools module.
+    - Availability of bpy (Blender Python API) and MeshEditor in the execution environment.
+
+    Returns:
+         None
+
+    Raises:
+         None (all operations are performed defensively; absence of expected API
+         components would surface as AttributeError at runtime).
+
+    Usage Pattern:
+         ensure_cloth_methods()
+         model = mmd_tools.core.model.Model(...)
+         grp = model.clothGroupObject()
+         for cloth_obj in model.cloths():
+              ...
+
+    Rationale:
+    - Centralizes the patch so add-on code can safely call ensure_cloth_methods()
+      before relying on the extended API, without risking duplicate definitions.
+    """
+
+    if hasattr(mmd_tools.core.model.Model, "clothGroupObject"):
+        return
 
     def mmd_model_cloth_group_object_method(self):
         # pylint: disable=protected-access
@@ -50,15 +106,10 @@ if not hasattr(mmd_tools.core.model.Model, "clothGroupObject"):
                 continue
             yield obj
 
-    def iterate_joint_objects(
-        root_object: bpy.types.Object,
-    ) -> Iterator[bpy.types.Object]:
-        return mmd_tools.core.model.FnModel.iterate_filtered_child_objects(
-            mmd_tools.core.model.FnModel.is_joint_object,
-            mmd_tools.core.model.FnModel.find_joint_group_object(root_object),
-        )
-
     mmd_tools.core.model.Model.cloths = mmd_model_cloths_method
+
+
+MMD_TOOLS_IMPORT_HOOKS.append(on_import_mmd_tools_ensure_cloth_methods)
 
 
 class ClothTunerABC(TunerABC, MeshEditor):
@@ -268,6 +319,7 @@ class SelectClothMesh(bpy.types.Operator):
     def filter_only_in_mmd_model(
         key_object: bpy.types.Object,
     ) -> Iterable[bpy.types.Object]:
+        mmd_tools = import_mmd_tools()
         mmd_root = mmd_tools.core.model.FnModel.find_root_object(key_object)
         if mmd_root is None:
             return
@@ -362,7 +414,7 @@ class ConvertRigidBodyToClothOperator(bpy.types.Operator):
         selected_mesh_mmd_root = None
         selected_rigid_body_mmd_root = None
 
-        mmd_find_root = mmd_tools.core.model.FnModel.find_root_object
+        mmd_find_root = import_mmd_tools().core.model.FnModel.find_root_object
         for obj in context.selected_objects:
             if obj.type != "MESH":
                 return False
@@ -382,7 +434,7 @@ class ConvertRigidBodyToClothOperator(bpy.types.Operator):
 
     def execute(self, context: bpy.types.Context):
         try:
-            mmd_find_root = mmd_tools.core.model.FnModel.find_root_object
+            mmd_find_root = import_mmd_tools().core.model.FnModel.find_root_object
 
             target_mmd_root_object = None
             rigid_body_objects: List[bpy.types.Object] = []

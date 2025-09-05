@@ -4,6 +4,8 @@
 
 import bpy
 
+from ...utilities import is_mmd_tools_installed
+
 from ...m17n import _
 from .autorig import AutoRigArmatureObject
 from .mmd_bind import ControlType
@@ -20,6 +22,9 @@ class MMDRigifyPanel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
+        if not is_mmd_tools_installed():
+            return False
+
         active_object = context.active_object
         if not MMDRigifyArmatureObject.is_rigify_armature_object(active_object):
             return False

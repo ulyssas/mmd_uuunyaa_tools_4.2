@@ -13,7 +13,7 @@ import bpy.utils.previews
 
 from .. import PACKAGE_PATH
 from ..m17n import _, iface_
-from ..utilities import get_preferences, label_multiline, to_human_friendly_text, to_int32
+from ..utilities import get_preferences, is_mmd_tools_installed, label_multiline, to_human_friendly_text, to_int32
 from .actions import ImportActionExecutor, MessageException
 from .assets import ASSETS, AssetDescription, AssetType
 from .cache import CONTENT_CACHE, Content, Task
@@ -204,7 +204,7 @@ class AssetImport(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return bpy.context.mode == "OBJECT"
+        return bpy.context.mode == "OBJECT" and is_mmd_tools_installed()
 
     def execute(self, context):
         print(f"do: {self.bl_idname}")

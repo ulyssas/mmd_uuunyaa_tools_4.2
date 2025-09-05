@@ -33,9 +33,23 @@ from .editors.operators import (
 )
 from .generators.physics import AddCenterOfGravityObject
 from .m17n import _
-from .utilities import import_mmd_tools
+from .utilities import import_mmd_tools, is_mmd_tools_installed
 
-mmd_tools = import_mmd_tools()
+
+class InstallMMDTools(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.install_mmd_tools"
+    bl_label = _("Install MMD Tools")
+    bl_options = {"REGISTER"}
+
+    @classmethod
+    def poll(cls, _context):
+        return not is_mmd_tools_installed()
+
+    def execute(self, context):
+        bpy.ops.extensions.userpref_allow_online()
+        bpy.ops.extensions.repo_sync(repo_index=0)
+        bpy.ops.extensions.package_install(repo_index=0, pkg_id="mmd_tools")
+        return {"FINISHED"}
 
 
 class OperatorPanel(bpy.types.Panel):
@@ -48,6 +62,11 @@ class OperatorPanel(bpy.types.Panel):
 
     def draw(self, _context):
         layout = self.layout
+
+        if not is_mmd_tools_installed():
+            layout.label(text=_("MMD Tools is not installed."), icon="ERROR")
+            layout.operator(InstallMMDTools.bl_idname, icon="IMPORT")
+            return
 
         col = layout.column(align=True)
         col.label(text=_("Render:"), icon="SCENE_DATA")
@@ -97,6 +116,10 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
     bl_region_type = "UI"
     bl_category = "MMD"
 
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        return is_mmd_tools_installed()
+
     def draw(self, context: bpy.types.Context):
         layout = self.layout
 
@@ -108,7 +131,7 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
         row.operator(SelectCollisionMesh.bl_idname, text=_(""), icon="RESTRICT_SELECT_OFF")
         row.operator(RemoveMeshCollision.bl_idname, text=_(""), icon="TRASH")
 
-        mmd_root_object = mmd_tools.core.model.FnModel.find_root_object(context.active_object)
+        mmd_root_object = import_mmd_tools().core.model.FnModel.find_root_object(context.active_object)
         if mmd_root_object is None:
             col = layout.column(align=True)
             col.label(text=_("MMD Model is not selected."), icon="ERROR")
@@ -166,11 +189,13 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
 
     @staticmethod
     def _toggle_visibility_of_cloths(obj, context):
+        mmd_tools = import_mmd_tools()
+
         mmd_root_object = mmd_tools.core.model.FnModel.find_root_object(obj)
         mmd_model = mmd_tools.core.model.Model(mmd_root_object)
         hide = not mmd_root_object.mmd_tools_append_show_cloths
 
-        with mmd_tools.bpyutils.activate_layer_collection(mmd_root_object):
+        with mmd_tools.bpyutils.FnContext.temp_override_active_layer_collection(context, mmd_root_object):
             cloth_object: bpy.types.Object
             for cloth_object in mmd_model.cloths():
                 cloth_object.hide = hide
@@ -197,7 +222,7 @@ class MMDAppendSegmentationPanel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
-        return context.mode in {"PAINT_VERTEX", "EDIT_MESH"}
+        return is_mmd_tools_installed() and context.mode in {"PAINT_VERTEX", "EDIT_MESH"}
 
     def draw(self, context: bpy.types.Context):
         layout = self.layout

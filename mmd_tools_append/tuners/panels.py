@@ -5,6 +5,7 @@
 
 import bpy
 
+from ..utilities import is_mmd_tools_installed
 from ..editors.nodes import MaterialEditor
 from ..m17n import _, iface_
 from ..tuners.lighting_tuners import LightingUtilities
@@ -122,7 +123,7 @@ class MaterialPanel(bpy.types.Panel):
     @classmethod
     def poll(cls, context):
         obj = context.active_object
-        return obj.active_material and obj.mmd_type == "NONE"
+        return is_mmd_tools_installed() and obj.active_material and obj.mmd_type == "NONE"
 
     def draw(self, context):
         material = context.active_object.active_material

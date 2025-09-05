@@ -3,9 +3,11 @@
 # This file is part of MMD Tools Append.
 
 import hashlib
-import importlib
+import importlib.util
+import logging
 import math
 import re
+import sys
 
 import bpy
 
@@ -56,23 +58,51 @@ def import_from_file(module_name: str, module_path: str):
         raise ImportError(f"Cannot load module '{module_name}' from '{module_path}'")
 
     module = importlib.util.module_from_spec(spec)
-    # Optional: cache in sys.modules to avoid reloading
-    import sys
-
     sys.modules[module_name] = module  # ensures single instance if repeatedly called
     spec.loader.exec_module(module)  # type: ignore[attr-defined]
     return module
 
 
+def is_mmd_tools_installed():
+    candidates = (
+        "bl_ext.blender_org.mmd_tools",
+        "bl_ext.vscode_development.mmd_tools",
+    )
+
+    for name in candidates:
+        if name in sys.modules or importlib.util.find_spec(name) is not None:
+            return True
+
+    return False
+
+
+_MMD_TOOLS_CACHE = None
+
+MMD_TOOLS_IMPORT_HOOKS = []
+
+
 def import_mmd_tools():
+    global _MMD_TOOLS_CACHE
+    global MMD_TOOLS_IMPORT_HOOKS
+
+    if _MMD_TOOLS_CACHE is not None:
+        return _MMD_TOOLS_CACHE
+
     try:
-        return importlib.import_module("bl_ext.blender_org.mmd_tools")
+        _MMD_TOOLS_CACHE = importlib.import_module("bl_ext.blender_org.mmd_tools")
     except ImportError as exception:
-        # for debugging
         try:
-            return importlib.import_module("bl_ext.vscode_development.mmd_tools")
+            _MMD_TOOLS_CACHE = importlib.import_module("bl_ext.vscode_development.mmd_tools")
         except ImportError:
             raise RuntimeError(_("MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools.")) from exception
+
+    for hook in MMD_TOOLS_IMPORT_HOOKS:
+        try:
+            hook(_MMD_TOOLS_CACHE)
+        except:
+            logging.exception(f"Warning: An error occurred in import_mmd_tools hook {hook}")
+
+    return _MMD_TOOLS_CACHE
 
 
 def label_multiline(layout, text="", width=0):
