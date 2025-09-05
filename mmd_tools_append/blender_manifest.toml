@@ -1,13 +1,13 @@
 schema_version = "1.0.0"
 
 id = "mmd_tools_append"
-version = "4.5.0"
+version = "4.5.1"
 name = "MMD Tools Append"
 tagline = "Appendix tools for MMD model & scene editing"
 maintainer = "UuuNyaa <uuunyaa@gmail.com>"
 type = "add-on"
 
-website = "https://mmd-blender.fandom.com/wiki/MMD_Tools"
+website = "https://mmd-blender.fandom.com/wiki/MMD_UuuNyaa_Tools"
 
 # Optional list defined by Blender and server, see:
 # https://docs.blender.org/manual/en/dev/advanced/extensions/tags.html
@@ -20,7 +20,7 @@ tags = [
   "Physics",
 ]
 
-blender_version_min = "4.2.0"
+blender_version_min = "4.5.0"
 blender_version_max = "6.0.0"
 
 license = ["SPDX:GPL-3.0-or-later"]
