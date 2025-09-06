@@ -90,10 +90,10 @@ def import_mmd_tools():
 
     try:
         _MMD_TOOLS_CACHE = importlib.import_module("bl_ext.blender_org.mmd_tools")
-    except ImportError as exception:
+    except Exception as exception:
         try:
             _MMD_TOOLS_CACHE = importlib.import_module("bl_ext.vscode_development.mmd_tools")
-        except ImportError:
+        except:
             raise RuntimeError(_("MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools.")) from exception
 
     for hook in MMD_TOOLS_IMPORT_HOOKS:
