@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "mmd_tools_append"
-version = "4.5.1"
+version = "4.5.2"
 name = "MMD Tools Append"
 tagline = "Appendix tools for MMD model & scene editing"
 maintainer = "UuuNyaa <uuunyaa@gmail.com>"
@@ -20,7 +20,7 @@ tags = [
   "Physics",
 ]
 
-blender_version_min = "4.5.0"
+blender_version_min = "4.2.0"
 blender_version_max = "6.0.0"
 
 license = ["SPDX:GPL-3.0-or-later"]
