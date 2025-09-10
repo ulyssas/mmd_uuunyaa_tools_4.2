@@ -428,7 +428,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         self.fit_edit_bone_rotation(toe_ik_l_bone, rig_edit_bones["foot_ik.L"])
 
         toe_ik_r_bone = self.get_or_create_bone(rig_edit_bones, "mmd_append_toe_ik.R")
-        self.bone_collections["Leg.L (Tweak)"].assign(toe_ik_r_bone)
+        self.bone_collections["Leg.R (Tweak)"].assign(toe_ik_r_bone)
         toe_ik_r_bone.head = rig_edit_bones["ORG-foot.R"].tail
         toe_ik_r_bone.tail = toe_ik_r_bone.head - Vector([0, 0, rig_edit_bones["mmd_append_leg_ik_parent.R"].length])
         toe_ik_r_bone.parent = rig_edit_bones["foot_ik.R"]
