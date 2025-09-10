@@ -592,6 +592,12 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         # pylint: disable=too-many-statements
         rig_edit_bones = self.edit_bones
 
+        # Add MMD Bone Collections if they don't exist
+        if "mmd_dummy" not in self.bone_collections:
+            self.bone_collections.new("mmd_dummy")
+        if "mmd_shadow" not in self.bone_collections:
+            self.bone_collections.new("mmd_shadow")
+
         # add center (センター) groove (グルーブ) bone
         center_bone, groove_bone = self._add_root_bones(rig_edit_bones)
 
