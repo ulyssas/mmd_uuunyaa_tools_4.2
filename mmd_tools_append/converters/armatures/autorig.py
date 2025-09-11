@@ -361,9 +361,6 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
 
         rig_edit_bones["c_shoulder.r"].parent = shoulder_parent_r_bone
 
-        self.raw_armature.collections_all["Main"].assign(shoulder_parent_l_bone)
-        self.raw_armature.collections_all["Main"].assign(shoulder_parent_r_bone)
-
         return shoulder_parent_l_bone, shoulder_parent_r_bone
 
     def _add_shoulder_cancel_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
