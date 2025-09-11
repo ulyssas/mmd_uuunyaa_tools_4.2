@@ -9,7 +9,7 @@ import bpy
 from mathutils import Color, Euler, Matrix, Vector
 
 from ...editors.armatures import DriverVariable, PoseBoneEditor
-from .mmd import MMDArmatureObject
+from .mmd import MMDArmatureObject, MMDBoneType
 from .mmd_bind import ControlType, DataPath, GroupType, MMDBindArmatureObjectABC, MMDBindInfo, MMDBindType, MMDBoneInfo
 
 
@@ -428,7 +428,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         self.fit_edit_bone_rotation(toe_ik_l_bone, rig_edit_bones["foot_ik.L"])
 
         toe_ik_r_bone = self.get_or_create_bone(rig_edit_bones, "mmd_append_toe_ik.R")
-        self.bone_collections["Leg.L (Tweak)"].assign(toe_ik_r_bone)
+        self.bone_collections["Leg.R (Tweak)"].assign(toe_ik_r_bone)
         toe_ik_r_bone.head = rig_edit_bones["ORG-foot.R"].tail
         toe_ik_r_bone.tail = toe_ik_r_bone.head - Vector([0, 0, rig_edit_bones["mmd_append_leg_ik_parent.R"].length])
         toe_ik_r_bone.parent = rig_edit_bones["foot_ik.R"]
@@ -591,6 +591,12 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
     def imitate_mmd_bone_structure(self):
         # pylint: disable=too-many-statements
         rig_edit_bones = self.edit_bones
+
+        # Add MMD Bone Collections if they don't exist
+        if "mmd_dummy" not in self.bone_collections:
+            self.bone_collections.new("mmd_dummy")
+        if "mmd_shadow" not in self.bone_collections:
+            self.bone_collections.new("mmd_shadow")
 
         # add center (センター) groove (グルーブ) bone
         center_bone, groove_bone = self._add_root_bones(rig_edit_bones)
