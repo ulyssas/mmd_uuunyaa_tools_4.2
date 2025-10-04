@@ -249,34 +249,68 @@ class MetarigArmatureObject(ArmatureEditor):
         metarig_edit_bones["shin.R"].tail = mmd_edit_bones["右ひざ"].tail
 
         if MMDBoneType.TOE_EX in mmd_armature_object.exist_bone_types:
-            metarig_edit_bones["foot.L"].tail = Vector(
-                [
-                    mmd_edit_bones["左足首"].tail.x,
-                    mmd_edit_bones["左足先EX"].head.y,
-                    mmd_edit_bones["左足首"].tail.z,
-                ]
-            )
-            metarig_edit_bones["foot.R"].tail = Vector(
-                [
-                    mmd_edit_bones["右足首"].tail.x,
-                    mmd_edit_bones["右足先EX"].head.y,
-                    mmd_edit_bones["右足首"].tail.z,
-                ]
-            )
-            metarig_edit_bones["toe.L"].tail = Vector(
-                [
-                    mmd_edit_bones["左足首"].tail.x,
-                    mmd_edit_bones["左足先EX"].tail.y,
-                    mmd_edit_bones["左足首"].tail.z,
-                ]
-            )
-            metarig_edit_bones["toe.R"].tail = Vector(
-                [
-                    mmd_edit_bones["右足首"].tail.x,
-                    mmd_edit_bones["右足先EX"].tail.y,
-                    mmd_edit_bones["右足首"].tail.z,
-                ]
-            )
+            if mmd_edit_bones["右足首"].tail.y < mmd_edit_bones["右足先EX"].head.y:
+                # snap to the TOE_EX completely.
+                metarig_edit_bones["foot.L"].tail = Vector(
+                    [
+                        mmd_edit_bones["左足先EX"].head.x,
+                        mmd_edit_bones["左足先EX"].head.y,
+                        mmd_edit_bones["左足先EX"].head.z,
+                    ]
+                )
+                metarig_edit_bones["foot.R"].tail = Vector(
+                    [
+                        mmd_edit_bones["右足先EX"].head.x,
+                        mmd_edit_bones["右足先EX"].head.y,
+                        mmd_edit_bones["右足先EX"].head.z,
+                    ]
+                )
+                # makes sure toe goes forward (-Y)
+                metarig_edit_bones["toe.L"].tail = Vector(
+                    [
+                        mmd_edit_bones["左足首"].tail.x,
+                        mmd_edit_bones["左足首"].tail.y,
+                        mmd_edit_bones["左足先EX"].head.z,
+                    ]
+                )
+                metarig_edit_bones["toe.R"].tail = Vector(
+                    [
+                        mmd_edit_bones["右足首"].tail.x,
+                        mmd_edit_bones["右足首"].tail.y,
+                        mmd_edit_bones["右足先EX"].head.z,
+                    ]
+                )
+            else:
+                # original method
+                metarig_edit_bones["foot.L"].tail = Vector(
+                    [
+                        mmd_edit_bones["左足首"].tail.x,
+                        mmd_edit_bones["左足先EX"].head.y,
+                        mmd_edit_bones["左足首"].tail.z,
+                    ]
+                )
+                metarig_edit_bones["foot.R"].tail = Vector(
+                    [
+                        mmd_edit_bones["右足首"].tail.x,
+                        mmd_edit_bones["右足先EX"].head.y,
+                        mmd_edit_bones["右足首"].tail.z,
+                    ]
+                )
+                metarig_edit_bones["toe.L"].tail = Vector(
+                    [
+                        mmd_edit_bones["左足首"].tail.x,
+                        mmd_edit_bones["左足先EX"].tail.y,
+                        mmd_edit_bones["左足首"].tail.z,
+                    ]
+                )
+                metarig_edit_bones["toe.R"].tail = Vector(
+                    [
+                        mmd_edit_bones["右足首"].tail.x,
+                        mmd_edit_bones["右足先EX"].tail.y,
+                        mmd_edit_bones["右足首"].tail.z,
+                    ]
+                )
+
         else:
             metarig_edit_bones["foot.L"].tail = mmd_edit_bones["左足首"].tail
             metarig_edit_bones["foot.R"].tail = mmd_edit_bones["右足首"].tail
