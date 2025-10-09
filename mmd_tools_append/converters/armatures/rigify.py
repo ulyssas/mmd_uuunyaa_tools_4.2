@@ -1229,6 +1229,10 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
         rig_edit_bones: bpy.types.ArmatureEditBones = self.edit_bones
         mmd_edit_bones: bpy.types.ArmatureEditBones = mmd_armature_object.strict_edit_bones
 
+        # enable Local Location of foot_ik.L/R
+        rig_edit_bones["foot_ik.L"].use_local_location = True
+        rig_edit_bones["foot_ik.R"].use_local_location = True
+
         # add center (センター) groove (グルーブ) bone
         center_bone, groove_bone = self._add_root_bones(rig_edit_bones)
         self._fit_bone(center_bone, mmd_edit_bones, "センター")
