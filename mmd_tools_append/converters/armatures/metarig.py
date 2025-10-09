@@ -251,20 +251,8 @@ class MetarigArmatureObject(ArmatureEditor):
         if MMDBoneType.TOE_EX in mmd_armature_object.exist_bone_types:
             if mmd_edit_bones["右足首"].tail.y < mmd_edit_bones["右足先EX"].head.y:
                 # snap to the TOE_EX completely.
-                metarig_edit_bones["foot.L"].tail = Vector(
-                    [
-                        mmd_edit_bones["左足先EX"].head.x,
-                        mmd_edit_bones["左足先EX"].head.y,
-                        mmd_edit_bones["左足先EX"].head.z,
-                    ]
-                )
-                metarig_edit_bones["foot.R"].tail = Vector(
-                    [
-                        mmd_edit_bones["右足先EX"].head.x,
-                        mmd_edit_bones["右足先EX"].head.y,
-                        mmd_edit_bones["右足先EX"].head.z,
-                    ]
-                )
+                metarig_edit_bones["foot.L"].tail = mmd_edit_bones["左足先EX"].head
+                metarig_edit_bones["foot.R"].tail = mmd_edit_bones["右足先EX"].head
                 # makes sure toe goes forward (-Y)
                 metarig_edit_bones["toe.L"].tail = Vector(
                     [
