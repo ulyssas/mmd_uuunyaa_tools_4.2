@@ -77,7 +77,7 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
 
     use_motion_blur: bpy.props.BoolProperty(name=_("Use Motion Blur"), default=False)
-    use_shadows: bpy.props.BoolProperty(name=_("Use Shadows"), default=True)
+    use_shadows: bpy.props.BoolProperty(name=_("Use Shadow"), default=True)
     film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
 
     @classmethod

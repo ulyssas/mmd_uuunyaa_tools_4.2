@@ -395,8 +395,8 @@ class MMDRigifyConvert(bpy.types.Operator):
 
 class MMDRigifyDerigger(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_derigger"
-    bl_label = _("De-rig armature")
-    bl_description = _("Remove non-deform bones from armature. Works for non-Rigify controllers as well.")
+    bl_label = _("Remove rig from armature")
+    bl_description = _("Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure.")
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -418,9 +418,10 @@ class MMDRigifyDerigger(bpy.types.Operator):
             rigify_armature_object = RigifyArmatureObject(context.active_object)
 
             bpy.ops.object.mode_set(mode="EDIT")
-            rigify_armature_object.derig()
+            removed_count = rigify_armature_object.derig()
 
         finally:
+            self.report({"INFO"}, message=f"Removed {removed_count} bones.")
             bpy.ops.object.mode_set(mode=previous_mode)
 
         return {"FINISHED"}

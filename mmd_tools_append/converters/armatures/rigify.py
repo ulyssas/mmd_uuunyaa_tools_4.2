@@ -1190,8 +1190,8 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
             dependency_graph.update()
 
-    def derig(self):
-        """Remove non-deform bones."""
+    def derig(self) -> int:
+        """Remove non-deform bones. Returns how many bones were removed."""
         armature = self.raw_armature
         bones = armature.edit_bones
         armature.show_bone_custom_shapes = False
@@ -1215,7 +1215,10 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         if "rig_id" in armature:
             del armature["rig_id"]
 
-        print(f"Removed {len(to_delete)} bones.")
+        removed_count = len(to_delete)
+        print(f"Removed {removed_count} bones.")
+
+        return removed_count
 
 
 class MMDRigifyArmatureObject(RigifyArmatureObject):
