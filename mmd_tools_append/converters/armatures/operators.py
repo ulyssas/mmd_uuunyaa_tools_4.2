@@ -393,6 +393,39 @@ class MMDRigifyConvert(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class MMDRigifyDerigger(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.rigify_derigger"
+    bl_label = _("De-rig armature")
+    bl_description = _("Remove non-deform bones from armature. Works for non-Rigify controllers as well.")
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            rigify_armature_object = RigifyArmatureObject(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            rigify_armature_object.derig()
+
+        finally:
+            bpy.ops.object.mode_set(mode=previous_mode)
+
+        return {"FINISHED"}
+
+
 class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_apply_mmd_rest_pose"
     bl_label = _("Apply MMD Rest Pose")

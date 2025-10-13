@@ -1190,6 +1190,33 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
             dependency_graph.update()
 
+    def derig(self):
+        """Remove non-deform bones."""
+        armature = self.raw_armature
+        bones = armature.edit_bones
+        armature.show_bone_custom_shapes = False
+
+        for collection in armature.collections:
+            collection.is_visible = True
+
+        # find non-deform bones
+        to_delete = [b for b in bones if not armature.bones[b.name].use_deform]
+
+        # delete constraints for All bones
+        pose_bones = self.pose_bones
+        for pbone in pose_bones:
+            for c in list(pbone.constraints):
+                pbone.constraints.remove(c)
+
+        for bone in to_delete:
+            bones.remove(bone)
+
+        # Remove rig_id to prevent being identified as a rigify armature
+        if "rig_id" in armature:
+            del armature["rig_id"]
+
+        print(f"Removed {len(to_delete)} bones.")
+
 
 class MMDRigifyArmatureObject(RigifyArmatureObject):
     @staticmethod
