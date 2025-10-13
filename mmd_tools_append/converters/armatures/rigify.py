@@ -1190,7 +1190,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
             dependency_graph.update()
 
-    def derig(self) -> int:
+    def derig(self, remove_constraints: bool=True) -> int:
         """Remove non-deform bones. Returns how many bones were removed."""
         armature = self.raw_armature
         bones = armature.edit_bones
@@ -1203,10 +1203,11 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         to_delete = [b for b in bones if not armature.bones[b.name].use_deform]
 
         # delete constraints for All bones
-        pose_bones = self.pose_bones
-        for pbone in pose_bones:
-            for c in list(pbone.constraints):
-                pbone.constraints.remove(c)
+        if remove_constraints:
+            pose_bones = self.pose_bones
+            for pbone in pose_bones:
+                for c in list(pbone.constraints):
+                    pbone.constraints.remove(c)
 
         for bone in to_delete:
             bones.remove(bone)
@@ -1219,6 +1220,16 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         print(f"Removed {removed_count} bones.")
 
         return removed_count
+
+    def unlock_bones(self):
+        """Unlocks positions, rotations and scales of all bones."""
+
+        pose_bones = self.pose_bones
+        for pbone in pose_bones:
+            pbone.lock_location = [False, False, False]
+            pbone.lock_rotation_w = False
+            pbone.lock_rotation = [False, False, False]
+            pbone.lock_scale = [False, False, False]
 
 
 class MMDRigifyArmatureObject(RigifyArmatureObject):

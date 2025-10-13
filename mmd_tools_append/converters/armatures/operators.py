@@ -399,6 +399,9 @@ class MMDRigifyDerigger(bpy.types.Operator):
     bl_description = _("Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure.")
     bl_options = {"REGISTER", "UNDO"}
 
+    remove_constraints: bpy.props.BoolProperty(name=_("Remove Bone Constraints"), default=True)
+    unlock_bones: bpy.props.BoolProperty(name=_("Unlock Bones"), description=_("Unlock all bone transformations (translations, rotations, scales)"), default=True)
+
     @classmethod
     def poll(cls, context):
         if context.mode not in {"OBJECT", "POSE"}:
@@ -418,7 +421,11 @@ class MMDRigifyDerigger(bpy.types.Operator):
             rigify_armature_object = RigifyArmatureObject(context.active_object)
 
             bpy.ops.object.mode_set(mode="EDIT")
-            removed_count = rigify_armature_object.derig()
+            removed_count = rigify_armature_object.derig(self.remove_constraints)
+
+            if self.unlock_bones:
+                bpy.ops.object.mode_set(mode="POSE")
+                rigify_armature_object.unlock_bones()
 
         finally:
             self.report({"INFO"}, message=f"Removed {removed_count} bones.")

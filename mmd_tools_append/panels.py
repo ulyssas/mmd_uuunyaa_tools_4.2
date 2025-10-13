@@ -102,8 +102,8 @@ class OperatorPanel(bpy.types.Panel):
         col.label(text=_("Rigify to MMD:"), icon="OUTLINER_OB_ARMATURE")
         grid = col.grid_flow(row_major=True, align=True)
         grid.row(align=True).operator(MMDRigifyConvert.bl_idname, text=_("Convert to MMD compatible"), icon="ARMATURE_DATA")
-        grid.row(align=True).operator(MMDRigifyDerigger.bl_idname, text=_("De-rig armature"), icon="OUTLINER_OB_ARMATURE")
         grid.row(align=True).operator(MMDRigifyApplyMMDRestPose.bl_idname, text=_("Apply MMD Rest Pose"))
+        grid.row(align=True).operator(MMDRigifyDerigger.bl_idname, text=_("De-rig armature"), icon="OUTLINER_OB_ARMATURE")
 
         col.label(text=_("(Experimental) Auto-Rig to MMD:"), icon="OUTLINER_OB_ARMATURE")
         grid = col.grid_flow(row_major=True, align=True)
