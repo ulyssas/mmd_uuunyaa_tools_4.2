@@ -400,6 +400,8 @@ class MMDRigifyDerigger(bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
 
     remove_constraints: bpy.props.BoolProperty(name=_("Remove Bone Constraints"), default=True)
+    remove_prefix: bpy.props.BoolProperty(name=_("Remove Rigify prefixes"), description=_("Remove Rigify prefixes (DEF-)."), default=True)
+    cleanup: bpy.props.BoolProperty(name=_("Fix Rigify Bone structure"), description=_("Only works for Rigify."), default=True)
     unlock_bones: bpy.props.BoolProperty(name=_("Unlock Bones"), description=_("Unlock all bone transformations (translations, rotations, scales)"), default=True)
 
     @classmethod
@@ -421,7 +423,7 @@ class MMDRigifyDerigger(bpy.types.Operator):
             rigify_armature_object = RigifyArmatureObject(context.active_object)
 
             bpy.ops.object.mode_set(mode="EDIT")
-            removed_count = rigify_armature_object.derig(self.remove_constraints)
+            removed_count = rigify_armature_object.derig(self.remove_constraints, self.remove_prefix, self.cleanup)
 
             if self.unlock_bones:
                 bpy.ops.object.mode_set(mode="POSE")

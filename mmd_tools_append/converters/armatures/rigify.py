@@ -1190,17 +1190,20 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
             dependency_graph.update()
 
-    def derig(self, remove_constraints: bool=True) -> int:
+    def derig(self, remove_constraints: bool, remove_prefix: bool, cleanup: bool) -> int:
         """Remove non-deform bones. Returns how many bones were removed."""
         armature = self.raw_armature
         bones = armature.edit_bones
         armature.show_bone_custom_shapes = False
 
+        # {child: parent} pairs
+        parent_map = {b.name: (b.parent.name if b.parent else None) for b in bones}
+
         for collection in armature.collections:
             collection.is_visible = True
 
         # find non-deform bones
-        to_delete = [b for b in bones if not armature.bones[b.name].use_deform]
+        to_delete = [b for b in bones if not bones[b.name].use_deform]
 
         # delete constraints for All bones
         if remove_constraints:
@@ -1212,24 +1215,82 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         for bone in to_delete:
             bones.remove(bone)
 
+        if cleanup:
+            self._cleanup_derigged_rigify(parent_map)
+
+        if remove_prefix:
+            self._remove_rigify_prefix()
+
         # Remove rig_id to prevent being identified as a rigify armature
         if "rig_id" in armature:
             del armature["rig_id"]
 
         removed_count = len(to_delete)
-        print(f"Removed {removed_count} bones.")
 
         return removed_count
 
     def unlock_bones(self):
         """Unlocks positions, rotations and scales of all bones."""
-
         pose_bones = self.pose_bones
         for pbone in pose_bones:
             pbone.lock_location = [False, False, False]
             pbone.lock_rotation_w = False
             pbone.lock_rotation = [False, False, False]
             pbone.lock_scale = [False, False, False]
+
+    def _cleanup_derigged_rigify(self, parent_map: dict):
+        """
+        Fix broken DEF bone parents in derigged Rigify rigs. parent_map is {child_name: parent_name}.
+        """
+        armature = self.raw_armature
+        bones = armature.edit_bones
+
+        def get_def_parent(child_name: str):
+            """
+            Search through parent_map until DEF bone parent is found. Returns None if unsuccessful.
+            """
+            parent_name: str = parent_map.get(child_name)
+            if not parent_name:
+                return None
+
+            # Use DEF if it already exists
+            if parent_name.startswith("DEF-") and parent_name in bones:
+                return bones[parent_name]
+
+            # Use DEF counterpart if it's ORG
+            if parent_name.startswith("ORG-"):
+                # skip bones without prefixes
+                if "-" not in child_name:
+                    return get_def_parent(parent_name)
+
+                # skip if the current parent use the same name
+                base = parent_name.split("-", 1)[1]
+                def_name= f"DEF-{base}"
+                if base == child_name.split("-", 1)[1]:
+                    return get_def_parent(parent_name)
+                if def_name in bones:
+                    return bones[def_name]
+
+            # Go higher in the hierarchy
+            return get_def_parent(parent_name)
+
+        for bone in bones:
+            if not bone.use_deform or not bone.name.startswith("DEF-"):
+                continue
+
+            parent = get_def_parent(bone.name)
+            if parent:
+                bone.parent = parent
+
+        print("Fixed DEF-bones in Rigify.")
+
+    def _remove_rigify_prefix(self):
+        armature = self.raw_armature
+        bones = armature.edit_bones
+
+        for bone in bones:
+            if "-" in bone.name:
+                bone.name = bone.name.split("-", 1)[1]
 
 
 class MMDRigifyArmatureObject(RigifyArmatureObject):
