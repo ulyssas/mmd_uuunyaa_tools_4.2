@@ -252,19 +252,33 @@ translation_dict = {
         ("Operator", "Remove rig from armature"): "アーマチュアからリグを削除",
         #: mmd_tools_append/converters/armatures/operators.py:399
         ("*", "Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure."): "アーマチュアから非変形ボーンを削除します. Rigify以外のリグにも対応しています.\nボーン構造が崩れる恐れがあります",
-        #: mmd_tools_append/converters/armatures/operators.py:432 mmd_tools_append/converters/armatures/operators.py:507 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:111
+        #: mmd_tools_append/converters/armatures/operators.py:402
+        ("*", "Remove Bone Constraints"): "ボーンコンストレイントを削除",
+        #: mmd_tools_append/converters/armatures/operators.py:403
+        ("*", "Remove Rigify prefixes"): "Rigify接頭辞を削除",
+        #: mmd_tools_append/converters/armatures/operators.py:403
+        ("*", "Remove Rigify prefixes (DEF-)."): "Rigifyボーン名につくDEF等の接頭辞を削除します",
+        #: mmd_tools_append/converters/armatures/operators.py:404
+        ("*", "Fix Rigify Bone structure"): "Rigifyボーン構造を修正",
+        #: mmd_tools_append/converters/armatures/operators.py:404
+        ("*", "Only works for Rigify."): "Rigify専用です",
+        #: mmd_tools_append/converters/armatures/operators.py:405
+        ("*", "Unlock Bones"): "トランスフォームのロック解除",
+        #: mmd_tools_append/converters/armatures/operators.py:405
+        ("*", "Unlock all bone transformations (translations, rotations, scales)"): "ボーンの位置, 回転, スケールの制限を解除します",
+        #: mmd_tools_append/converters/armatures/operators.py:441 mmd_tools_append/converters/armatures/operators.py:516 mmd_tools_append/panels.py:105 mmd_tools_append/panels.py:111
         ("Operator", "Apply MMD Rest Pose"): "MMDレストポーズを適用",
-        #: mmd_tools_append/converters/armatures/operators.py:436 mmd_tools_append/converters/armatures/operators.py:511
+        #: mmd_tools_append/converters/armatures/operators.py:445 mmd_tools_append/converters/armatures/operators.py:520
         ("*", "Iterations"): "反復",
-        #: mmd_tools_append/converters/armatures/operators.py:437 mmd_tools_append/converters/armatures/operators.py:512
+        #: mmd_tools_append/converters/armatures/operators.py:446 mmd_tools_append/converters/armatures/operators.py:521
         ("*", "Number of solving iterations"): "反復解決回数",
-        #: mmd_tools_append/converters/armatures/operators.py:442 mmd_tools_append/converters/armatures/operators.py:517
+        #: mmd_tools_append/converters/armatures/operators.py:451 mmd_tools_append/converters/armatures/operators.py:526
         ("*", "Pose arms"): "腕をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:443 mmd_tools_append/converters/armatures/operators.py:518
+        #: mmd_tools_append/converters/armatures/operators.py:452 mmd_tools_append/converters/armatures/operators.py:527
         ("*", "Pose legs"): "脚をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:444 mmd_tools_append/converters/armatures/operators.py:519
+        #: mmd_tools_append/converters/armatures/operators.py:453 mmd_tools_append/converters/armatures/operators.py:528
         ("*", "Pose fingers"): "指をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:479
+        #: mmd_tools_append/converters/armatures/operators.py:488
         ("Operator", "Convert AutoRig Armature to MMD compatible"): "AutoRigアーマチュアをMMD互換に変換",
         #: mmd_tools_append/converters/armatures/panels.py:17
         ("*", "MMD Append Rigify"): "MMD Append Rigify",
@@ -633,7 +647,7 @@ translation_dict = {
         ("*", "Rigify to MMD:"): "RigifyからMMD:",
         #: mmd_tools_append/panels.py:104 mmd_tools_append/panels.py:110
         ("Operator", "Convert to MMD compatible"): "MMD互換に変換",
-        #: mmd_tools_append/panels.py:105
+        #: mmd_tools_append/panels.py:106
         ("Operator", "De-rig armature"): "リグを解除",
         #: mmd_tools_append/panels.py:108
         ("*", "(Experimental) Auto-Rig to MMD:"): "(実験的) Auto-RigからMMD:",
@@ -969,7 +983,9 @@ translation_dict = {
         #: mmd_tools_append/utilities.py:125
         ("*", "MMD Tools Append is not installed correctly. Please reinstall MMD Tools Append using the correct steps."): "MMD Tools Appendが正しくインストールされていません。正しい手順でMMD Tools Appendを再インストールしてください。",
         #: MISSING
-        ("*", "Pass Bloom"): "ブルームをパス",
+        ("*", "Use Ambient Occlusion"): "アンビエントオクルージョン(AO)を使用",
+        #: MISSING
+        ("*", "Max"): "最大",
         #: MISSING
         ("*", "(Experimental) Add-on Update"): "(実験的) アドオン更新",
         #: MISSING
@@ -977,50 +993,48 @@ translation_dict = {
         #: MISSING
         ("*", "Subsurface Color"): "サブサーフェスカラー",
         #: MISSING
-        ("*", "View3D > Sidebar > MMD Tools Panel"): "3Dビュー > サイドバー > MMD Toolsパネル",
-        #: MISSING
-        ("*", "Blood Color"): "血液カラー",
-        #: MISSING
-        ("*", "Specular"): "スペキュラー",
-        #: MISSING
-        ("*", "Use Bloom"): "ブルームを使用",
-        #: MISSING
-        ("*", "Subsurface Scattering Samples"): "サブサーフェススキャッタリングサンプル数",
-        #: MISSING
-        ("*", "Meshes Use Auto Smooth"): "メッシュが自動スムーズを使用",
-        #: MISSING
-        ("*", "Others"): "その他",
-        #: MISSING
-        ("*", "Use Ambient Occlusion"): "アンビエントオクルージョン(AO)を使用",
-        #: MISSING
-        ("*", "Max"): "最大",
+        ("*", "Shadow"): "シャドウ",
         #: MISSING
         ("*", "Use Screen Space Refraction"): "スクリーンスペース反射を使用",
         #: MISSING
+        ("*", "Specular"): "スペキュラー",
+        #: MISSING
+        ("*", "Dummy"): "ダミー",
+        #: MISSING
+        ("*", "Blood Color"): "血液カラー",
+        #: MISSING
+        ("*", "Convert materials of selected objects for Eevee."): "選択中オブジェクトマテリアルをEevee用に変換",
+        #: MISSING
+        ("*", "Use Bloom"): "ブルームを使用",
+        #: MISSING
+        ("*", "Use Half Res Trace"): "半解像度トレースを使用",
+        #: MISSING
         ("*", "= 0 is Good"): "= 0が良い",
+        #: MISSING
+        ("*", "Others"): "その他",
+        #: MISSING
+        ("*", "Use Soft Shadows"): "ソフトシャドウを使用",
+        #: MISSING
+        ("*", "Subsurface"): "サブサーフェス",
+        ("Operator", "Subsurface"): "サブサーフェス",
+        #: MISSING
+        ("*", "View3D > Sidebar > MMD Tools Panel"): "3Dビュー > サイドバー > MMD Toolsパネル",
         #: MISSING
         ("*", "= True is Good"): "= Trueが良い",
         #: MISSING
         ("Operator", "Select Mesh Objects with Use Auto Smooth"): "自動スムーズを使用するメッシュオブジェクトを選択",
         #: MISSING
-        ("*", "Shadow"): "シャドウ",
-        #: MISSING
         ("*", "<= 4 is Good"): "<= 4が良い",
         #: MISSING
-        ("*", "Subsurface"): "サブサーフェス",
-        ("Operator", "Subsurface"): "サブサーフェス",
-        #: MISSING
-        ("*", "Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!."): "MMDモデル＆シーン編集のためのユーティリティーツールです。by Uuu(/>ω<)/Nyaa!",
-        #: MISSING
-        ("*", "Convert materials of selected objects for Eevee."): "選択中オブジェクトマテリアルをEevee用に変換",
-        #: MISSING
-        ("*", "Use Soft Shadows"): "ソフトシャドウを使用",
+        ("*", "Pass Bloom"): "ブルームをパス",
         #: MISSING
         ("*", "Materials Use Alpha Hashed"): "マテリアルがアルファハッシュを使用",
         #: MISSING
-        ("*", "Use Half Res Trace"): "半解像度トレースを使用",
+        ("*", "Subsurface Scattering Samples"): "サブサーフェススキャッタリングサンプル数",
         #: MISSING
-        ("*", "Dummy"): "ダミー",
+        ("*", "Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!."): "MMDモデル＆シーン編集のためのユーティリティーツールです。by Uuu(/>ω<)/Nyaa!",
+        #: MISSING
+        ("*", "Meshes Use Auto Smooth"): "メッシュが自動スムーズを使用",
     },
     "zh_HANS": {
         #: mmd_tools_append/asset_search/actions.py:85
@@ -1235,19 +1249,19 @@ translation_dict = {
         ("*", "Upper Body2 as"): "上半身2为",
         #: mmd_tools_append/converters/armatures/operators.py:360
         ("*", "Lower Body as"): "下半身为",
-        #: mmd_tools_append/converters/armatures/operators.py:432 mmd_tools_append/converters/armatures/operators.py:507 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:111
+        #: mmd_tools_append/converters/armatures/operators.py:441 mmd_tools_append/converters/armatures/operators.py:516 mmd_tools_append/panels.py:105 mmd_tools_append/panels.py:111
         ("Operator", "Apply MMD Rest Pose"): "应用MMD静置姿态",
-        #: mmd_tools_append/converters/armatures/operators.py:436 mmd_tools_append/converters/armatures/operators.py:511
+        #: mmd_tools_append/converters/armatures/operators.py:445 mmd_tools_append/converters/armatures/operators.py:520
         ("*", "Iterations"): "迭代",
-        #: mmd_tools_append/converters/armatures/operators.py:437 mmd_tools_append/converters/armatures/operators.py:512
+        #: mmd_tools_append/converters/armatures/operators.py:446 mmd_tools_append/converters/armatures/operators.py:521
         ("*", "Number of solving iterations"): "解算迭代的次数",
-        #: mmd_tools_append/converters/armatures/operators.py:442 mmd_tools_append/converters/armatures/operators.py:517
+        #: mmd_tools_append/converters/armatures/operators.py:451 mmd_tools_append/converters/armatures/operators.py:526
         ("*", "Pose arms"): "姿势手臂",
-        #: mmd_tools_append/converters/armatures/operators.py:443 mmd_tools_append/converters/armatures/operators.py:518
+        #: mmd_tools_append/converters/armatures/operators.py:452 mmd_tools_append/converters/armatures/operators.py:527
         ("*", "Pose legs"): "姿势腿",
-        #: mmd_tools_append/converters/armatures/operators.py:444 mmd_tools_append/converters/armatures/operators.py:519
+        #: mmd_tools_append/converters/armatures/operators.py:453 mmd_tools_append/converters/armatures/operators.py:528
         ("*", "Pose fingers"): "姿势手指",
-        #: mmd_tools_append/converters/armatures/operators.py:479
+        #: mmd_tools_append/converters/armatures/operators.py:488
         ("Operator", "Convert AutoRig Armature to MMD compatible"): "将AutoRig骨架转换为MMD兼容",
         #: mmd_tools_append/converters/armatures/panels.py:17
         ("*", "MMD Append Rigify"): "MMD Append Rigify",
@@ -1943,7 +1957,9 @@ translation_dict = {
         #: mmd_tools_append/utilities.py:125
         ("*", "MMD Tools Append is not installed correctly. Please reinstall MMD Tools Append using the correct steps."): "MMD Tools Append安装不正确。请使用正确的程序重新安装MMD Tools Append。",
         #: MISSING
-        ("*", "Pass Bloom"): "辉光通道",
+        ("*", "Use Ambient Occlusion"): "使用环境光遮蔽 (AO)",
+        #: MISSING
+        ("*", "Max"): "最大",
         #: MISSING
         ("*", "(Experimental) Add-on Update"): "(实验的) 插件更新",
         #: MISSING
@@ -1951,50 +1967,48 @@ translation_dict = {
         #: MISSING
         ("*", "Subsurface Color"): "次表面颜色",
         #: MISSING
-        ("*", "View3D > Sidebar > MMD Tools Panel"): "3D视图 > 侧栏 > MMD Tools面板",
-        #: MISSING
-        ("*", "Blood Color"): "血液颜色",
-        #: MISSING
-        ("*", "Specular"): "高光",
-        #: MISSING
-        ("*", "Use Bloom"): "使用辉光",
-        #: MISSING
-        ("*", "Subsurface Scattering Samples"): "次表面散射采样",
-        #: MISSING
-        ("*", "Meshes Use Auto Smooth"): "网格使用自动平滑",
-        #: MISSING
-        ("*", "Others"): "其他",
-        #: MISSING
-        ("*", "Use Ambient Occlusion"): "使用环境光遮蔽 (AO)",
-        #: MISSING
-        ("*", "Max"): "最大",
+        ("*", "Shadow"): "阴影",
         #: MISSING
         ("*", "Use Screen Space Refraction"): "使用屏幕空间折射",
         #: MISSING
+        ("*", "Specular"): "高光",
+        #: MISSING
+        ("*", "Dummy"): "伪",
+        #: MISSING
+        ("*", "Blood Color"): "血液颜色",
+        #: MISSING
+        ("*", "Convert materials of selected objects for Eevee."): "为Eevee转换选物体的材质",
+        #: MISSING
+        ("*", "Use Bloom"): "使用辉光",
+        #: MISSING
+        ("*", "Use Half Res Trace"): "使用半精度追踪",
+        #: MISSING
         ("*", "= 0 is Good"): "= 0是良好",
+        #: MISSING
+        ("*", "Others"): "其他",
+        #: MISSING
+        ("*", "Use Soft Shadows"): "使用柔和阴影",
+        #: MISSING
+        ("*", "Subsurface"): "次表面",
+        ("Operator", "Subsurface"): "次表面",
+        #: MISSING
+        ("*", "View3D > Sidebar > MMD Tools Panel"): "3D视图 > 侧栏 > MMD Tools面板",
         #: MISSING
         ("*", "= True is Good"): "= True是良好",
         #: MISSING
         ("Operator", "Select Mesh Objects with Use Auto Smooth"): "选择使用自动平滑的网格物体",
         #: MISSING
-        ("*", "Shadow"): "阴影",
-        #: MISSING
         ("*", "<= 4 is Good"): "<= 4是良好",
         #: MISSING
-        ("*", "Subsurface"): "次表面",
-        ("Operator", "Subsurface"): "次表面",
-        #: MISSING
-        ("*", "Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!."): "用于MMD模型和场景编辑的实用工具。by Uuu(/>ω<)/Nyaa!",
-        #: MISSING
-        ("*", "Convert materials of selected objects for Eevee."): "为Eevee转换选物体的材质",
-        #: MISSING
-        ("*", "Use Soft Shadows"): "使用柔和阴影",
+        ("*", "Pass Bloom"): "辉光通道",
         #: MISSING
         ("*", "Materials Use Alpha Hashed"): "纹理使用Alpha Hashed",
         #: MISSING
-        ("*", "Use Half Res Trace"): "使用半精度追踪",
+        ("*", "Subsurface Scattering Samples"): "次表面散射采样",
         #: MISSING
-        ("*", "Dummy"): "伪",
+        ("*", "Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!."): "用于MMD模型和场景编辑的实用工具。by Uuu(/>ω<)/Nyaa!",
+        #: MISSING
+        ("*", "Meshes Use Auto Smooth"): "网格使用自动平滑",
     },
 }
 # ##### END AUTOGENERATED I18N SECTION #####
