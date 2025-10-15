@@ -436,6 +436,40 @@ class MMDRigifyDerigger(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class MMDRigifyTranslator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.rigify_translator"
+    bl_label = _("Translate Rigify names to MMD")
+    bl_description = _("Translate Rigify metarig bone names to MMD.")
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            rigify_armature_object = RigifyArmatureObject(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            translated_count = rigify_armature_object.translate_rigify()
+
+        finally:
+            self.report({"INFO"}, message=f"Translated {translated_count} bones.")
+            bpy.ops.object.mode_set(mode=previous_mode)
+
+        return {"FINISHED"}
+
+
 class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_apply_mmd_rest_pose"
     bl_label = _("Apply MMD Rest Pose")

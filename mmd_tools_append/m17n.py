@@ -266,19 +266,23 @@ translation_dict = {
         ("*", "Unlock Bones"): "トランスフォームのロック解除",
         #: mmd_tools_append/converters/armatures/operators.py:405
         ("*", "Unlock all bone transformations (translations, rotations, scales)"): "ボーンの位置, 回転, スケールの制限を解除します",
-        #: mmd_tools_append/converters/armatures/operators.py:441 mmd_tools_append/converters/armatures/operators.py:516 mmd_tools_append/panels.py:105 mmd_tools_append/panels.py:111
+        #: mmd_tools_append/converters/armatures/operators.py:441
+        ("Operator", "Translate Rigify names to MMD"): "Rigifyボーン名をMMDに翻訳",
+        #: mmd_tools_append/converters/armatures/operators.py:442
+        ("*", "Translate Rigify metarig bone names to MMD."): "Rigifyメタリグに存在するボーン名をMMD用に翻訳します",
+        #: mmd_tools_append/converters/armatures/operators.py:475 mmd_tools_append/converters/armatures/operators.py:550 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:113
         ("Operator", "Apply MMD Rest Pose"): "MMDレストポーズを適用",
-        #: mmd_tools_append/converters/armatures/operators.py:445 mmd_tools_append/converters/armatures/operators.py:520
+        #: mmd_tools_append/converters/armatures/operators.py:479 mmd_tools_append/converters/armatures/operators.py:554
         ("*", "Iterations"): "反復",
-        #: mmd_tools_append/converters/armatures/operators.py:446 mmd_tools_append/converters/armatures/operators.py:521
+        #: mmd_tools_append/converters/armatures/operators.py:480 mmd_tools_append/converters/armatures/operators.py:555
         ("*", "Number of solving iterations"): "反復解決回数",
-        #: mmd_tools_append/converters/armatures/operators.py:451 mmd_tools_append/converters/armatures/operators.py:526
+        #: mmd_tools_append/converters/armatures/operators.py:485 mmd_tools_append/converters/armatures/operators.py:560
         ("*", "Pose arms"): "腕をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:452 mmd_tools_append/converters/armatures/operators.py:527
+        #: mmd_tools_append/converters/armatures/operators.py:486 mmd_tools_append/converters/armatures/operators.py:561
         ("*", "Pose legs"): "脚をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:453 mmd_tools_append/converters/armatures/operators.py:528
+        #: mmd_tools_append/converters/armatures/operators.py:487 mmd_tools_append/converters/armatures/operators.py:562
         ("*", "Pose fingers"): "指をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:488
+        #: mmd_tools_append/converters/armatures/operators.py:522
         ("Operator", "Convert AutoRig Armature to MMD compatible"): "AutoRigアーマチュアをMMD互換に変換",
         #: mmd_tools_append/converters/armatures/panels.py:17
         ("*", "MMD Append Rigify"): "MMD Append Rigify",
@@ -382,7 +386,7 @@ translation_dict = {
         ("*", "Minimum Distance"): "最小距離",
         #: mmd_tools_append/converters/physics/cloth.py:563
         ("*", "Impulse Clamping"): "撃力を制限",
-        #: mmd_tools_append/converters/physics/cloth_bone.py:16 mmd_tools_append/panels.py:189
+        #: mmd_tools_append/converters/physics/cloth_bone.py:16 mmd_tools_append/panels.py:191
         ("Operator", "Stretch Bone to Vertex"): "ボーンを頂点にストレッチ",
         #: mmd_tools_append/converters/physics/cloth_pyramid.py:181
         ("*", "Target bones not found."): "対象ボーンが見つからない",
@@ -565,31 +569,31 @@ translation_dict = {
         #: mmd_tools_append/editors/operators.py:433
         ("*", "Auto Segmentation"): "自動セグメンテーション",
         ("Operator", "Auto Segmentation"): "自動セグメンテーション",
-        #: mmd_tools_append/editors/operators.py:436 mmd_tools_append/panels.py:302
+        #: mmd_tools_append/editors/operators.py:436 mmd_tools_append/panels.py:304
         ("*", "Cost Threshold"): "コストしきい値",
-        #: mmd_tools_append/editors/operators.py:439 mmd_tools_append/panels.py:304
+        #: mmd_tools_append/editors/operators.py:439 mmd_tools_append/panels.py:306
         ("*", "Maximum Area Threshold"): "最大面積しきい値",
-        #: mmd_tools_append/editors/operators.py:447 mmd_tools_append/panels.py:305
+        #: mmd_tools_append/editors/operators.py:447 mmd_tools_append/panels.py:307
         ("*", "Minimum Area Threshold"): "最小面積しきい値",
-        #: mmd_tools_append/editors/operators.py:455 mmd_tools_append/panels.py:307
+        #: mmd_tools_append/editors/operators.py:455 mmd_tools_append/panels.py:309
         ("*", "Face Angle Cost Factor"): "面角度コスト係数",
-        #: mmd_tools_append/editors/operators.py:456 mmd_tools_append/panels.py:308
+        #: mmd_tools_append/editors/operators.py:456 mmd_tools_append/panels.py:310
         ("*", "Perimeter Cost Factor"): "外周コスト係数",
-        #: mmd_tools_append/editors/operators.py:457 mmd_tools_append/panels.py:309
+        #: mmd_tools_append/editors/operators.py:457 mmd_tools_append/panels.py:311
         ("*", "Material Change Cost Factor"): "マテリアル変化コスト係数",
-        #: mmd_tools_append/editors/operators.py:458 mmd_tools_append/panels.py:310
+        #: mmd_tools_append/editors/operators.py:458 mmd_tools_append/panels.py:312
         ("*", "Edge Sharp Cost Factor"): "辺シャープコスト係数",
-        #: mmd_tools_append/editors/operators.py:459 mmd_tools_append/panels.py:311
+        #: mmd_tools_append/editors/operators.py:459 mmd_tools_append/panels.py:313
         ("*", "Edge Seam Cost Factor"): "辺シームコスト係数",
-        #: mmd_tools_append/editors/operators.py:461 mmd_tools_append/panels.py:312
+        #: mmd_tools_append/editors/operators.py:461 mmd_tools_append/panels.py:314
         ("*", "Vertex Group Weight Cost Factor"): "頂点グループウェイトコスト係数",
-        #: mmd_tools_append/editors/operators.py:468 mmd_tools_append/panels.py:313
+        #: mmd_tools_append/editors/operators.py:468 mmd_tools_append/panels.py:315
         ("*", "Vertex Group Change Cost Factor"): "頂点グループ変化コスト係数",
-        #: mmd_tools_append/editors/operators.py:475 mmd_tools_append/panels.py:315
+        #: mmd_tools_append/editors/operators.py:475 mmd_tools_append/panels.py:317
         ("*", "Edge Length Factor"): "辺の長さ係数",
-        #: mmd_tools_append/editors/operators.py:477 mmd_tools_append/panels.py:317
+        #: mmd_tools_append/editors/operators.py:477 mmd_tools_append/panels.py:319
         ("*", "Segmentation Vertex Color Random Seed"): "セグメンテーション頂点カラーランダムシード",
-        #: mmd_tools_append/editors/operators.py:478 mmd_tools_append/editors/operators.py:576 mmd_tools_append/panels.py:318
+        #: mmd_tools_append/editors/operators.py:478 mmd_tools_append/editors/operators.py:576 mmd_tools_append/panels.py:320
         ("*", "Segmentation Vertex Color Attribute Name"): "セグメンテーション頂点カラーランダムシード属性名",
         #: mmd_tools_append/editors/operators.py:525
         ("*", "There is no target segment; In Edit Mode, select the faces you want to paint."): "対象のセグメントがありません。編集モードでペイントしたい面を選択してください。",
@@ -601,7 +605,7 @@ translation_dict = {
         ("Operator", "Setup Segmentation Color Palette"): "セグメンテーションカラーパレットを設定",
         #: mmd_tools_append/editors/operators.py:637
         ("Operator", "Restore Segmentation Color Palette"): "セグメンテーションカラーパレットを復元",
-        #: mmd_tools_append/generators/physics.py:14 mmd_tools_append/panels.py:190
+        #: mmd_tools_append/generators/physics.py:14 mmd_tools_append/panels.py:192
         ("Operator", "Add Center of Gravity"): "重心を追加",
         #: mmd_tools_append/generators/physics.py:17
         ("*", "Radius"): "半径",
@@ -631,91 +635,93 @@ translation_dict = {
         ("Operator", "Skin Hair"): "体毛",
         #: mmd_tools_append/generators/skin_hair.py:178
         ("*", "MMD Append Extras"): "MMD Appendその他",
-        #: mmd_tools_append/panels.py:42
+        #: mmd_tools_append/panels.py:43
         ("*", "Install MMD Tools"): "MMD Toolsをインストール",
-        #: mmd_tools_append/panels.py:58
+        #: mmd_tools_append/panels.py:59
         ("*", "MMD Append Operator"): "MMD Appendオペレーター",
-        #: mmd_tools_append/panels.py:68
+        #: mmd_tools_append/panels.py:69
         ("*", "MMD Tools is not installed."): "MMD Toolsがインストールされていません。",
-        #: mmd_tools_append/panels.py:73
+        #: mmd_tools_append/panels.py:74
         ("*", "Render:"): "レンダー:",
-        #: mmd_tools_append/panels.py:81
+        #: mmd_tools_append/panels.py:82
         ("*", "MMD to Rigify:"): "MMDからRigify:",
-        #: mmd_tools_append/panels.py:85
+        #: mmd_tools_append/panels.py:86
         ("Operator", "Add Metarig"): "メタリグを追加",
-        #: mmd_tools_append/panels.py:102
+        #: mmd_tools_append/panels.py:103
         ("*", "Rigify to MMD:"): "RigifyからMMD:",
-        #: mmd_tools_append/panels.py:104 mmd_tools_append/panels.py:110
+        #: mmd_tools_append/panels.py:105 mmd_tools_append/panels.py:112
         ("Operator", "Convert to MMD compatible"): "MMD互換に変換",
-        #: mmd_tools_append/panels.py:106
+        #: mmd_tools_append/panels.py:107
         ("Operator", "De-rig armature"): "リグを解除",
         #: mmd_tools_append/panels.py:108
+        ("Operator", "Translate Rigify to MMD"): "RigifyをMMDに翻訳",
+        #: mmd_tools_append/panels.py:110
         ("*", "(Experimental) Auto-Rig to MMD:"): "(実験的) Auto-RigからMMD:",
-        #: mmd_tools_append/panels.py:116
+        #: mmd_tools_append/panels.py:118
         ("*", "MMD Append Physics"): "MMD Append物理演算",
-        #: mmd_tools_append/panels.py:129
+        #: mmd_tools_append/panels.py:131
         ("*", "Relevant Selection:"): "関連選択",
-        #: mmd_tools_append/panels.py:132
+        #: mmd_tools_append/panels.py:134
         ("*", "Collision Mesh"): "コリジョンメッシュ",
-        #: mmd_tools_append/panels.py:139
+        #: mmd_tools_append/panels.py:141
         ("*", "MMD Model is not selected."): "MMDモデルが未選択",
-        #: mmd_tools_append/panels.py:144
+        #: mmd_tools_append/panels.py:146
         ("*", "Rigid Body"): "リジッドボディ",
-        #: mmd_tools_append/panels.py:159
+        #: mmd_tools_append/panels.py:161
         ("*", "Cloth Mesh"): "クロスメッシュ",
-        #: mmd_tools_append/panels.py:171
+        #: mmd_tools_append/panels.py:173
         ("*", "Converter:"): "コンバーター:",
-        #: mmd_tools_append/panels.py:175
+        #: mmd_tools_append/panels.py:177
         ("Operator", "Rigid Body to Cloth"): "リジッドボディをクロスに",
-        #: mmd_tools_append/panels.py:180
-        ("*", "Pyramid Cloth:"): "ピラミッドクロス:",
         #: mmd_tools_append/panels.py:182
-        ("Operator", "Add Pyramid"): "ピラミッドを追加",
-        #: mmd_tools_append/panels.py:183
-        ("Operator", "Pyramid to Cloth"): "ピラミッドをクロスに",
+        ("*", "Pyramid Cloth:"): "ピラミッドクロス:",
         #: mmd_tools_append/panels.py:184
+        ("Operator", "Add Pyramid"): "ピラミッドを追加",
+        #: mmd_tools_append/panels.py:185
+        ("Operator", "Pyramid to Cloth"): "ピラミッドをクロスに",
+        #: mmd_tools_append/panels.py:186
         ("Operator", "Repaint Weight"): "ウェイト再ペイント",
-        #: mmd_tools_append/panels.py:187
+        #: mmd_tools_append/panels.py:189
         ("*", "Misc:"): "その他",
-        #: mmd_tools_append/panels.py:220
+        #: mmd_tools_append/panels.py:222
         ("*", "MMD Append Segmentation"): "MMD Appendセグメンテーション",
-        #: mmd_tools_append/panels.py:235
+        #: mmd_tools_append/panels.py:237
         ("*", "Color Layer&AOV Name"): "カラーレイヤー&AOV名",
-        #: mmd_tools_append/panels.py:249
+        #: mmd_tools_append/panels.py:251
         ("*", "Auto Segmentation:"): "自動セグメンテーション:",
-        #: mmd_tools_append/panels.py:252
-        ("*", "Thresholds:"): "しきい値:",
         #: mmd_tools_append/panels.py:254
-        ("*", "Cost"): "コスト",
+        ("*", "Thresholds:"): "しきい値:",
         #: mmd_tools_append/panels.py:256
+        ("*", "Cost"): "コスト",
+        #: mmd_tools_append/panels.py:258
         ("*", "Area Max"): "面積最大",
-        #: mmd_tools_append/panels.py:257
-        ("*", "Min"): "最小",
         #: mmd_tools_append/panels.py:259
+        ("*", "Min"): "最小",
+        #: mmd_tools_append/panels.py:261
         ("*", "Cost Factors:"): "コスト係数:",
-        #: mmd_tools_append/panels.py:262
-        ("*", "Face Angle"): "面角度",
-        #: mmd_tools_append/panels.py:263
-        ("*", "Perimeter"): "外周",
         #: mmd_tools_append/panels.py:264
+        ("*", "Face Angle"): "面角度",
+        #: mmd_tools_append/panels.py:265
+        ("*", "Perimeter"): "外周",
+        #: mmd_tools_append/panels.py:266
         ("*", "Material Change"): "マテリアル変化",
-        #: mmd_tools_append/panels.py:268
-        ("*", "Edge "): "辺 ",
-        #: mmd_tools_append/panels.py:269
-        ("*", "Sharp"): "シャープ",
         #: mmd_tools_append/panels.py:270
+        ("*", "Edge "): "辺 ",
+        #: mmd_tools_append/panels.py:271
+        ("*", "Sharp"): "シャープ",
+        #: mmd_tools_append/panels.py:272
         ("*", "Seam"): "シーム",
-        #: mmd_tools_append/panels.py:274
-        ("*", "Vertex Group "): "頂点グループ ",
-        #: mmd_tools_append/panels.py:275
-        ("*", "Weight"): "ウェイト",
         #: mmd_tools_append/panels.py:276
-        ("*", "Change"): "変化",
+        ("*", "Vertex Group "): "頂点グループ ",
+        #: mmd_tools_append/panels.py:277
+        ("*", "Weight"): "ウェイト",
         #: mmd_tools_append/panels.py:278
+        ("*", "Change"): "変化",
+        #: mmd_tools_append/panels.py:280
         ("*", "Other Parameters:"): "他のパラメーター:",
-        #: mmd_tools_append/panels.py:281
-        ("*", "Color Random Seed"): "カラーランダムシード",
         #: mmd_tools_append/panels.py:283
+        ("*", "Color Random Seed"): "カラーランダムシード",
+        #: mmd_tools_append/panels.py:285
         ("Operator", "Execute Auto Segmentation"): "自動セグメンテーションを実行",
         #: mmd_tools_append/preferences.py:21
         ("*", "Asset Search Results Max. Display Count"): "アセットサーチ結果の最大表示件数",
@@ -1196,19 +1202,19 @@ translation_dict = {
         ("*", "Upper Body2 as"): "上半身2为",
         #: mmd_tools_append/converters/armatures/operators.py:360
         ("*", "Lower Body as"): "下半身为",
-        #: mmd_tools_append/converters/armatures/operators.py:441 mmd_tools_append/converters/armatures/operators.py:516 mmd_tools_append/panels.py:105 mmd_tools_append/panels.py:111
+        #: mmd_tools_append/converters/armatures/operators.py:475 mmd_tools_append/converters/armatures/operators.py:550 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:113
         ("Operator", "Apply MMD Rest Pose"): "应用MMD静置姿态",
-        #: mmd_tools_append/converters/armatures/operators.py:445 mmd_tools_append/converters/armatures/operators.py:520
+        #: mmd_tools_append/converters/armatures/operators.py:479 mmd_tools_append/converters/armatures/operators.py:554
         ("*", "Iterations"): "迭代",
-        #: mmd_tools_append/converters/armatures/operators.py:446 mmd_tools_append/converters/armatures/operators.py:521
+        #: mmd_tools_append/converters/armatures/operators.py:480 mmd_tools_append/converters/armatures/operators.py:555
         ("*", "Number of solving iterations"): "解算迭代的次数",
-        #: mmd_tools_append/converters/armatures/operators.py:451 mmd_tools_append/converters/armatures/operators.py:526
+        #: mmd_tools_append/converters/armatures/operators.py:485 mmd_tools_append/converters/armatures/operators.py:560
         ("*", "Pose arms"): "姿势手臂",
-        #: mmd_tools_append/converters/armatures/operators.py:452 mmd_tools_append/converters/armatures/operators.py:527
+        #: mmd_tools_append/converters/armatures/operators.py:486 mmd_tools_append/converters/armatures/operators.py:561
         ("*", "Pose legs"): "姿势腿",
-        #: mmd_tools_append/converters/armatures/operators.py:453 mmd_tools_append/converters/armatures/operators.py:528
+        #: mmd_tools_append/converters/armatures/operators.py:487 mmd_tools_append/converters/armatures/operators.py:562
         ("*", "Pose fingers"): "姿势手指",
-        #: mmd_tools_append/converters/armatures/operators.py:488
+        #: mmd_tools_append/converters/armatures/operators.py:522
         ("Operator", "Convert AutoRig Armature to MMD compatible"): "将AutoRig骨架转换为MMD兼容",
         #: mmd_tools_append/converters/armatures/panels.py:17
         ("*", "MMD Append Rigify"): "MMD Append Rigify",
@@ -1312,7 +1318,7 @@ translation_dict = {
         ("*", "Minimum Distance"): "最小距离",
         #: mmd_tools_append/converters/physics/cloth.py:563
         ("*", "Impulse Clamping"): "冲量钳制",
-        #: mmd_tools_append/converters/physics/cloth_bone.py:16 mmd_tools_append/panels.py:189
+        #: mmd_tools_append/converters/physics/cloth_bone.py:16 mmd_tools_append/panels.py:191
         ("Operator", "Stretch Bone to Vertex"): "拉伸骨骼到顶点",
         #: mmd_tools_append/converters/physics/cloth_pyramid.py:181
         ("*", "Target bones not found."): "没有找到目标骨骼",
@@ -1491,31 +1497,31 @@ translation_dict = {
         #: mmd_tools_append/editors/operators.py:433
         ("*", "Auto Segmentation"): "自动分割",
         ("Operator", "Auto Segmentation"): "自动分割",
-        #: mmd_tools_append/editors/operators.py:436 mmd_tools_append/panels.py:302
+        #: mmd_tools_append/editors/operators.py:436 mmd_tools_append/panels.py:304
         ("*", "Cost Threshold"): "费用阈值",
-        #: mmd_tools_append/editors/operators.py:439 mmd_tools_append/panels.py:304
+        #: mmd_tools_append/editors/operators.py:439 mmd_tools_append/panels.py:306
         ("*", "Maximum Area Threshold"): "最大面积阈值",
-        #: mmd_tools_append/editors/operators.py:447 mmd_tools_append/panels.py:305
+        #: mmd_tools_append/editors/operators.py:447 mmd_tools_append/panels.py:307
         ("*", "Minimum Area Threshold"): "最小面积阈值",
-        #: mmd_tools_append/editors/operators.py:455 mmd_tools_append/panels.py:307
+        #: mmd_tools_append/editors/operators.py:455 mmd_tools_append/panels.py:309
         ("*", "Face Angle Cost Factor"): "面夹角费用系数",
-        #: mmd_tools_append/editors/operators.py:456 mmd_tools_append/panels.py:308
+        #: mmd_tools_append/editors/operators.py:456 mmd_tools_append/panels.py:310
         ("*", "Perimeter Cost Factor"): "外围费用系数",
-        #: mmd_tools_append/editors/operators.py:457 mmd_tools_append/panels.py:309
+        #: mmd_tools_append/editors/operators.py:457 mmd_tools_append/panels.py:311
         ("*", "Material Change Cost Factor"): "材质变化费用系数",
-        #: mmd_tools_append/editors/operators.py:458 mmd_tools_append/panels.py:310
+        #: mmd_tools_append/editors/operators.py:458 mmd_tools_append/panels.py:312
         ("*", "Edge Sharp Cost Factor"): "锐边费用系数",
-        #: mmd_tools_append/editors/operators.py:459 mmd_tools_append/panels.py:311
+        #: mmd_tools_append/editors/operators.py:459 mmd_tools_append/panels.py:313
         ("*", "Edge Seam Cost Factor"): "缝合边费用系数",
-        #: mmd_tools_append/editors/operators.py:461 mmd_tools_append/panels.py:312
+        #: mmd_tools_append/editors/operators.py:461 mmd_tools_append/panels.py:314
         ("*", "Vertex Group Weight Cost Factor"): "顶点组权重费用系数",
-        #: mmd_tools_append/editors/operators.py:468 mmd_tools_append/panels.py:313
+        #: mmd_tools_append/editors/operators.py:468 mmd_tools_append/panels.py:315
         ("*", "Vertex Group Change Cost Factor"): "顶点组变化费用系数",
-        #: mmd_tools_append/editors/operators.py:475 mmd_tools_append/panels.py:315
+        #: mmd_tools_append/editors/operators.py:475 mmd_tools_append/panels.py:317
         ("*", "Edge Length Factor"): "边长度系数",
-        #: mmd_tools_append/editors/operators.py:477 mmd_tools_append/panels.py:317
+        #: mmd_tools_append/editors/operators.py:477 mmd_tools_append/panels.py:319
         ("*", "Segmentation Vertex Color Random Seed"): "分割顶点颜色随机种",
-        #: mmd_tools_append/editors/operators.py:478 mmd_tools_append/editors/operators.py:576 mmd_tools_append/panels.py:318
+        #: mmd_tools_append/editors/operators.py:478 mmd_tools_append/editors/operators.py:576 mmd_tools_append/panels.py:320
         ("*", "Segmentation Vertex Color Attribute Name"): "分割顶点颜色属性名称",
         #: mmd_tools_append/editors/operators.py:525
         ("*", "There is no target segment; In Edit Mode, select the faces you want to paint."): "没有目标段；在编辑模式下，选择你要画的面。",
@@ -1527,7 +1533,7 @@ translation_dict = {
         ("Operator", "Setup Segmentation Color Palette"): "设置分割调色板",
         #: mmd_tools_append/editors/operators.py:637
         ("Operator", "Restore Segmentation Color Palette"): "恢复分割调色板",
-        #: mmd_tools_append/generators/physics.py:14 mmd_tools_append/panels.py:190
+        #: mmd_tools_append/generators/physics.py:14 mmd_tools_append/panels.py:192
         ("Operator", "Add Center of Gravity"): "添加重心",
         #: mmd_tools_append/generators/physics.py:17
         ("*", "Radius"): "半径",
@@ -1557,89 +1563,89 @@ translation_dict = {
         ("Operator", "Skin Hair"): "体毛",
         #: mmd_tools_append/generators/skin_hair.py:178
         ("*", "MMD Append Extras"): "MMD Append其他项",
-        #: mmd_tools_append/panels.py:42
+        #: mmd_tools_append/panels.py:43
         ("*", "Install MMD Tools"): "安装MMD Tools",
-        #: mmd_tools_append/panels.py:58
+        #: mmd_tools_append/panels.py:59
         ("*", "MMD Append Operator"): "MMD Append操作项",
-        #: mmd_tools_append/panels.py:68
+        #: mmd_tools_append/panels.py:69
         ("*", "MMD Tools is not installed."): "MMD Tools未安装。",
-        #: mmd_tools_append/panels.py:73
+        #: mmd_tools_append/panels.py:74
         ("*", "Render:"): "渲染:",
-        #: mmd_tools_append/panels.py:81
+        #: mmd_tools_append/panels.py:82
         ("*", "MMD to Rigify:"): "MMD到Rigify:",
-        #: mmd_tools_append/panels.py:85
+        #: mmd_tools_append/panels.py:86
         ("Operator", "Add Metarig"): "添加Metarig",
-        #: mmd_tools_append/panels.py:102
+        #: mmd_tools_append/panels.py:103
         ("*", "Rigify to MMD:"): "Rigify到MMD:",
-        #: mmd_tools_append/panels.py:104 mmd_tools_append/panels.py:110
+        #: mmd_tools_append/panels.py:105 mmd_tools_append/panels.py:112
         ("Operator", "Convert to MMD compatible"): "转换为MMD兼容",
-        #: mmd_tools_append/panels.py:108
+        #: mmd_tools_append/panels.py:110
         ("*", "(Experimental) Auto-Rig to MMD:"): "(实验的) Auto-Rig到MMD:",
-        #: mmd_tools_append/panels.py:116
+        #: mmd_tools_append/panels.py:118
         ("*", "MMD Append Physics"): "MMD Append物理计算",
-        #: mmd_tools_append/panels.py:129
+        #: mmd_tools_append/panels.py:131
         ("*", "Relevant Selection:"): "相关选:",
-        #: mmd_tools_append/panels.py:132
+        #: mmd_tools_append/panels.py:134
         ("*", "Collision Mesh"): "碰撞网格",
-        #: mmd_tools_append/panels.py:139
+        #: mmd_tools_append/panels.py:141
         ("*", "MMD Model is not selected."): "未选择MMD模型",
-        #: mmd_tools_append/panels.py:144
+        #: mmd_tools_append/panels.py:146
         ("*", "Rigid Body"): "刚体",
-        #: mmd_tools_append/panels.py:159
+        #: mmd_tools_append/panels.py:161
         ("*", "Cloth Mesh"): "布料网格",
-        #: mmd_tools_append/panels.py:171
+        #: mmd_tools_append/panels.py:173
         ("*", "Converter:"): "转换器:",
-        #: mmd_tools_append/panels.py:175
+        #: mmd_tools_append/panels.py:177
         ("Operator", "Rigid Body to Cloth"): "将刚体转换为布料",
-        #: mmd_tools_append/panels.py:180
-        ("*", "Pyramid Cloth:"): "金字塔布料:",
         #: mmd_tools_append/panels.py:182
-        ("Operator", "Add Pyramid"): "添加金字塔",
-        #: mmd_tools_append/panels.py:183
-        ("Operator", "Pyramid to Cloth"): "将金字塔转换为布料",
+        ("*", "Pyramid Cloth:"): "金字塔布料:",
         #: mmd_tools_append/panels.py:184
+        ("Operator", "Add Pyramid"): "添加金字塔",
+        #: mmd_tools_append/panels.py:185
+        ("Operator", "Pyramid to Cloth"): "将金字塔转换为布料",
+        #: mmd_tools_append/panels.py:186
         ("Operator", "Repaint Weight"): "重新权重绘制",
-        #: mmd_tools_append/panels.py:187
+        #: mmd_tools_append/panels.py:189
         ("*", "Misc:"): "杂项",
-        #: mmd_tools_append/panels.py:220
+        #: mmd_tools_append/panels.py:222
         ("*", "MMD Append Segmentation"): "MMD Append分割",
-        #: mmd_tools_append/panels.py:235
+        #: mmd_tools_append/panels.py:237
         ("*", "Color Layer&AOV Name"): "颜色层&AOV名",
-        #: mmd_tools_append/panels.py:249
+        #: mmd_tools_append/panels.py:251
         ("*", "Auto Segmentation:"): "自动分割:",
-        #: mmd_tools_append/panels.py:252
-        ("*", "Thresholds:"): "阈值:",
         #: mmd_tools_append/panels.py:254
-        ("*", "Cost"): "费用",
+        ("*", "Thresholds:"): "阈值:",
         #: mmd_tools_append/panels.py:256
+        ("*", "Cost"): "费用",
+        #: mmd_tools_append/panels.py:258
         ("*", "Area Max"): "面积最大",
-        #: mmd_tools_append/panels.py:257
-        ("*", "Min"): "最小",
         #: mmd_tools_append/panels.py:259
+        ("*", "Min"): "最小",
+        #: mmd_tools_append/panels.py:261
         ("*", "Cost Factors:"): "费用系数:",
-        #: mmd_tools_append/panels.py:262
-        ("*", "Face Angle"): "面夹角",
-        #: mmd_tools_append/panels.py:263
-        ("*", "Perimeter"): "外围",
         #: mmd_tools_append/panels.py:264
+        ("*", "Face Angle"): "面夹角",
+        #: mmd_tools_append/panels.py:265
+        ("*", "Perimeter"): "外围",
+        #: mmd_tools_append/panels.py:266
         ("*", "Material Change"): "材质变化",
-        #: mmd_tools_append/panels.py:268
-        ("*", "Edge "): "边 ",
-        #: mmd_tools_append/panels.py:269
-        ("*", "Sharp"): "锐边",
         #: mmd_tools_append/panels.py:270
+        ("*", "Edge "): "边 ",
+        #: mmd_tools_append/panels.py:271
+        ("*", "Sharp"): "锐边",
+        #: mmd_tools_append/panels.py:272
         ("*", "Seam"): "缝合边",
-        #: mmd_tools_append/panels.py:274
-        ("*", "Vertex Group "): "顶点组 ",
-        #: mmd_tools_append/panels.py:275
-        ("*", "Weight"): "权重",
         #: mmd_tools_append/panels.py:276
-        ("*", "Change"): "变化",
+        ("*", "Vertex Group "): "顶点组 ",
+        #: mmd_tools_append/panels.py:277
+        ("*", "Weight"): "权重",
         #: mmd_tools_append/panels.py:278
+        ("*", "Change"): "变化",
+        #: mmd_tools_append/panels.py:280
         ("*", "Other Parameters:"): "其他参数",
-        #: mmd_tools_append/panels.py:281
-        ("*", "Color Random Seed"): "颜色随机种",
         #: mmd_tools_append/panels.py:283
+        ("*", "Color Random Seed"): "颜色随机种",
+        #: mmd_tools_append/panels.py:285
         ("Operator", "Execute Auto Segmentation"): "执行自动分割",
         #: mmd_tools_append/preferences.py:21
         ("*", "Asset Search Results Max. Display Count"): "显示的资产搜索结果的最大数量",

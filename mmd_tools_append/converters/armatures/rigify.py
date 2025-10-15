@@ -1285,12 +1285,74 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         print("Fixed DEF-bones in Rigify.")
 
     def _remove_rigify_prefix(self):
-        armature = self.raw_armature
-        bones = armature.edit_bones
+        bones = self.raw_armature.edit_bones
 
         for bone in bones:
             if "-" in bone.name:
                 bone.name = bone.name.split("-", 1)[1]
+
+    def translate_rigify(self) -> int:
+        """
+        Translate bone names exist in Rigify metarig (De-rigged Rigify rig).
+        """
+        rigify_to_mmd_tuples = [
+            ("spine", "腰"),
+            ("spine.001", "下半身"),
+            ("spine.002", "上半身"),
+            ("spine.003", "上半身2"),
+            ("spine.004", "首"),
+            ("spine.005", "首2"),
+            ("spine.006", "頭"),
+            ("eye", "目"),
+            ("shoulder", "肩"),
+            ("upper_arm", "腕"),
+            ("upper_arm.L.001", "左腕捩"),
+            ("upper_arm.R.001", "右腕捩"),
+            ("forearm", "ひじ"),
+            ("forearm.L.001", "左手捩"),
+            ("forearm.R.001", "右手捩"),
+            ("hand", "手首"),
+            ("palm.01", "人指０"),
+            ("f_index.01", "人指１"),
+            ("f_index.02", "人指２"),
+            ("f_index.03", "人指３"),
+            ("thumb.01", "親指０"),
+            ("thumb.02", "親指１"),
+            ("thumb.03", "親指２"),
+            ("palm.02", "中指０"),
+            ("f_middle.01", "中指１"),
+            ("f_middle.02", "中指２"),
+            ("f_middle.03", "中指３"),
+            ("palm.03", "薬指０"),
+            ("f_ring.01", "薬指１"),
+            ("f_ring.02", "薬指２"),
+            ("f_ring.03", "薬指３"),
+            ("palm.04", "小指０"),
+            ("f_pinky.01", "小指１"),
+            ("f_pinky.02", "小指２"),
+            ("f_pinky.03", "小指３"),
+            ("breast", "胸"),
+            ("thigh", "足"),
+            ("shin", "ひざ"),
+            ("foot", "足首"),
+            ("toe", "つま先"),
+        ]
+
+        trans_count = 0
+        bones = self.raw_armature.edit_bones
+
+        for src, dest in rigify_to_mmd_tuples:
+            if src in bones:
+                bones[src].name = dest
+                trans_count += 1
+            if f"{src}.L" in bones:
+                bones[f"{src}.L"].name = f"左{dest}"
+                trans_count += 1
+            if f"{src}.R" in bones:
+                bones[f"{src}.R"].name = f"右{dest}"
+                trans_count += 1
+
+        return trans_count
 
 
 class MMDRigifyArmatureObject(RigifyArmatureObject):
