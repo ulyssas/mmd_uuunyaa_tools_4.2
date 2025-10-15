@@ -982,59 +982,6 @@ translation_dict = {
         ): "MMD Toolsが正しくインストールされていません。MMD Append ToolsはMMD Toolsに依存しているので、正しい手順でMMD Toolsを再インストールしてください。",
         #: mmd_tools_append/utilities.py:125
         ("*", "MMD Tools Append is not installed correctly. Please reinstall MMD Tools Append using the correct steps."): "MMD Tools Appendが正しくインストールされていません。正しい手順でMMD Tools Appendを再インストールしてください。",
-        #: MISSING
-        ("*", "Use Ambient Occlusion"): "アンビエントオクルージョン(AO)を使用",
-        #: MISSING
-        ("*", "Max"): "最大",
-        #: MISSING
-        ("*", "(Experimental) Add-on Update"): "(実験的) アドオン更新",
-        #: MISSING
-        ("Operator", "Convert Materials for Eevee"): "マテリアルをEevee用に変換",
-        #: MISSING
-        ("*", "Subsurface Color"): "サブサーフェスカラー",
-        #: MISSING
-        ("*", "Shadow"): "シャドウ",
-        #: MISSING
-        ("*", "Use Screen Space Refraction"): "スクリーンスペース反射を使用",
-        #: MISSING
-        ("*", "Specular"): "スペキュラー",
-        #: MISSING
-        ("*", "Dummy"): "ダミー",
-        #: MISSING
-        ("*", "Blood Color"): "血液カラー",
-        #: MISSING
-        ("*", "Convert materials of selected objects for Eevee."): "選択中オブジェクトマテリアルをEevee用に変換",
-        #: MISSING
-        ("*", "Use Bloom"): "ブルームを使用",
-        #: MISSING
-        ("*", "Use Half Res Trace"): "半解像度トレースを使用",
-        #: MISSING
-        ("*", "= 0 is Good"): "= 0が良い",
-        #: MISSING
-        ("*", "Others"): "その他",
-        #: MISSING
-        ("*", "Use Soft Shadows"): "ソフトシャドウを使用",
-        #: MISSING
-        ("*", "Subsurface"): "サブサーフェス",
-        ("Operator", "Subsurface"): "サブサーフェス",
-        #: MISSING
-        ("*", "View3D > Sidebar > MMD Tools Panel"): "3Dビュー > サイドバー > MMD Toolsパネル",
-        #: MISSING
-        ("*", "= True is Good"): "= Trueが良い",
-        #: MISSING
-        ("Operator", "Select Mesh Objects with Use Auto Smooth"): "自動スムーズを使用するメッシュオブジェクトを選択",
-        #: MISSING
-        ("*", "<= 4 is Good"): "<= 4が良い",
-        #: MISSING
-        ("*", "Pass Bloom"): "ブルームをパス",
-        #: MISSING
-        ("*", "Materials Use Alpha Hashed"): "マテリアルがアルファハッシュを使用",
-        #: MISSING
-        ("*", "Subsurface Scattering Samples"): "サブサーフェススキャッタリングサンプル数",
-        #: MISSING
-        ("*", "Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!."): "MMDモデル＆シーン編集のためのユーティリティーツールです。by Uuu(/>ω<)/Nyaa!",
-        #: MISSING
-        ("*", "Meshes Use Auto Smooth"): "メッシュが自動スムーズを使用",
     },
     "zh_HANS": {
         #: mmd_tools_append/asset_search/actions.py:85
@@ -1956,59 +1903,6 @@ translation_dict = {
         ("*", "MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools."): "MMD Tools安装不正确。请使用正确的步骤安装MMD Tools，因为MMD Append Tools依赖于MMD Tools。",
         #: mmd_tools_append/utilities.py:125
         ("*", "MMD Tools Append is not installed correctly. Please reinstall MMD Tools Append using the correct steps."): "MMD Tools Append安装不正确。请使用正确的程序重新安装MMD Tools Append。",
-        #: MISSING
-        ("*", "Use Ambient Occlusion"): "使用环境光遮蔽 (AO)",
-        #: MISSING
-        ("*", "Max"): "最大",
-        #: MISSING
-        ("*", "(Experimental) Add-on Update"): "(实验的) 插件更新",
-        #: MISSING
-        ("Operator", "Convert Materials for Eevee"): "转换材质给Eevee",
-        #: MISSING
-        ("*", "Subsurface Color"): "次表面颜色",
-        #: MISSING
-        ("*", "Shadow"): "阴影",
-        #: MISSING
-        ("*", "Use Screen Space Refraction"): "使用屏幕空间折射",
-        #: MISSING
-        ("*", "Specular"): "高光",
-        #: MISSING
-        ("*", "Dummy"): "伪",
-        #: MISSING
-        ("*", "Blood Color"): "血液颜色",
-        #: MISSING
-        ("*", "Convert materials of selected objects for Eevee."): "为Eevee转换选物体的材质",
-        #: MISSING
-        ("*", "Use Bloom"): "使用辉光",
-        #: MISSING
-        ("*", "Use Half Res Trace"): "使用半精度追踪",
-        #: MISSING
-        ("*", "= 0 is Good"): "= 0是良好",
-        #: MISSING
-        ("*", "Others"): "其他",
-        #: MISSING
-        ("*", "Use Soft Shadows"): "使用柔和阴影",
-        #: MISSING
-        ("*", "Subsurface"): "次表面",
-        ("Operator", "Subsurface"): "次表面",
-        #: MISSING
-        ("*", "View3D > Sidebar > MMD Tools Panel"): "3D视图 > 侧栏 > MMD Tools面板",
-        #: MISSING
-        ("*", "= True is Good"): "= True是良好",
-        #: MISSING
-        ("Operator", "Select Mesh Objects with Use Auto Smooth"): "选择使用自动平滑的网格物体",
-        #: MISSING
-        ("*", "<= 4 is Good"): "<= 4是良好",
-        #: MISSING
-        ("*", "Pass Bloom"): "辉光通道",
-        #: MISSING
-        ("*", "Materials Use Alpha Hashed"): "纹理使用Alpha Hashed",
-        #: MISSING
-        ("*", "Subsurface Scattering Samples"): "次表面散射采样",
-        #: MISSING
-        ("*", "Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!."): "用于MMD模型和场景编辑的实用工具。by Uuu(/>ω<)/Nyaa!",
-        #: MISSING
-        ("*", "Meshes Use Auto Smooth"): "网格使用自动平滑",
     },
 }
 # ##### END AUTOGENERATED I18N SECTION #####
