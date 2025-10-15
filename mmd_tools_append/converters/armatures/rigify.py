@@ -1265,7 +1265,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
                 # skip if the current parent use the same name
                 base = parent_name.split("-", 1)[1]
-                def_name= f"DEF-{base}"
+                def_name = f"DEF-{base}"
                 if base == child_name.split("-", 1)[1]:
                     return get_def_parent(parent_name)
                 if def_name in bones:
