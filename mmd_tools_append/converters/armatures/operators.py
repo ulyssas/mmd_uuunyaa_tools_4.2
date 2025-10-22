@@ -429,8 +429,12 @@ class MMDRigifyDerigger(bpy.types.Operator):
                 bpy.ops.object.mode_set(mode="POSE")
                 rigify_armature_object.unlock_bones()
 
-        finally:
             self.report({"INFO"}, message=f"Removed {removed_count} bones.")
+
+        except Exception as e:
+            self.report({"ERROR"}, message=f"Failed to remove rig: {e}")
+            return {"CANCELLED"}
+        finally:
             bpy.ops.object.mode_set(mode=previous_mode)
 
         return {"FINISHED"}
@@ -462,9 +466,12 @@ class MMDRigifyTranslator(bpy.types.Operator):
 
             bpy.ops.object.mode_set(mode="EDIT")
             translated_count = rigify_armature_object.translate_rigify()
-
-        finally:
             self.report({"INFO"}, message=f"Translated {translated_count} bones.")
+
+        except Exception as e:
+            self.report({"ERROR"}, message=f"Failed to translate bones: {e}")
+            return {"CANCELLED"}
+        finally:
             bpy.ops.object.mode_set(mode=previous_mode)
 
         return {"FINISHED"}
