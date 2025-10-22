@@ -393,6 +393,90 @@ class MMDRigifyConvert(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class MMDRigifyDerigger(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.rigify_derigger"
+    bl_label = _("Remove rig from armature")
+    bl_description = _("Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure.")
+    bl_options = {"REGISTER", "UNDO"}
+
+    remove_constraints: bpy.props.BoolProperty(name=_("Remove Bone Constraints"), default=True)
+    remove_prefix: bpy.props.BoolProperty(name=_("Remove Rigify prefixes"), description=_("Remove Rigify prefixes (DEF-)."), default=True)
+    cleanup: bpy.props.BoolProperty(name=_("Fix Rigify Bone structure"), description=_("Only works for Rigify."), default=True)
+    unlock_bones: bpy.props.BoolProperty(name=_("Unlock Bones"), description=_("Unlock all bone transformations (translations, rotations, scales)"), default=True)
+
+    @classmethod
+    def poll(cls, context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            rigify_armature_object = RigifyArmatureObject(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            removed_count = rigify_armature_object.derig(self.remove_constraints, self.remove_prefix, self.cleanup)
+
+            if self.unlock_bones:
+                bpy.ops.object.mode_set(mode="POSE")
+                rigify_armature_object.unlock_bones()
+
+            self.report({"INFO"}, message=f"Removed {removed_count} bones.")
+
+        except Exception as e:
+            self.report({"ERROR"}, message=f"Failed to remove rig: {e}")
+            return {"CANCELLED"}
+        finally:
+            bpy.ops.object.mode_set(mode=previous_mode)
+
+        return {"FINISHED"}
+
+
+class MMDRigifyTranslator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.rigify_translator"
+    bl_label = _("Translate Rigify names to MMD")
+    bl_description = _("Translate Rigify metarig bone names to MMD.")
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            rigify_armature_object = RigifyArmatureObject(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            translated_count = rigify_armature_object.translate_rigify()
+            self.report({"INFO"}, message=f"Translated {translated_count} bones.")
+
+        except Exception as e:
+            self.report({"ERROR"}, message=f"Failed to translate bones: {e}")
+            return {"CANCELLED"}
+        finally:
+            bpy.ops.object.mode_set(mode=previous_mode)
+
+        return {"FINISHED"}
+
+
 class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_apply_mmd_rest_pose"
     bl_label = _("Apply MMD Rest Pose")

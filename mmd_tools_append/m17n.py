@@ -29,21 +29,17 @@ def unregister():
 
 translation_dict = {
     "ja_JP": {
-        #: mmd_tools_append/__init__.py:41
-        ("*", "Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!."): "MMDモデル＆シーン編集のためのユーティリティーツールです。by Uuu(/>ω<)/Nyaa!",
-        #: mmd_tools_append/__init__.py:42
-        ("*", "View3D > Sidebar > MMD Tools Panel"): "3Dビュー > サイドバー > MMD Toolsパネル",
-        #: mmd_tools_append/asset_search/actions.py:73
+        #: mmd_tools_append/asset_search/actions.py:85
         ("*", "Failed to download assets from SmutBase. The response format may have changed."): "SmutBaseからのアセットダウンロードに失敗しました。レスポンスフォーマットが変わっている可能性があります。",
-        #: mmd_tools_append/asset_search/actions.py:100
+        #: mmd_tools_append/asset_search/actions.py:112
         ("*", "Failed to download assets from BowlRoll. Incorrect download key."): "BowlRollからのアセットダウンロードに失敗しました。ダウンロードキーが正しくありません。",
-        #: mmd_tools_append/asset_search/actions.py:116
+        #: mmd_tools_append/asset_search/actions.py:128
         ("*", "Failed to download assets from Google Drive. Incorrect download key."): "Google Driveからのアセットダウンロードに失敗しました。ダウンロードキーが正しくありません。",
-        #: mmd_tools_append/asset_search/actions.py:141
+        #: mmd_tools_append/asset_search/actions.py:149
         ("*", "Failed to download assets from OneDrive. Incorrect download key."): "OneDriveからのアセットダウンロードに失敗しました。ダウンロードキーが正しくありません。",
-        #: mmd_tools_append/asset_search/actions.py:155
+        #: mmd_tools_append/asset_search/actions.py:159
         ("*", "Failed to download assets from uploader.jp. The response format may have changed."): "uploader.jpからのアセットダウンロードに失敗しました。レスポンスフォーマットが変わっている可能性があります。",
-        #: mmd_tools_append/asset_search/actions.py:424
+        #: mmd_tools_append/asset_search/actions.py:416
         (
             "*",
             "The file path is too long. This can be alleviated to some extent by shortening the Asset Extract Root Folder in the Add-on Preferences.",
@@ -64,893 +60,881 @@ translation_dict = {
         ("*", "Material"): "マテリアル",
         #: mmd_tools_append/asset_search/assets.py:40
         ("*", "World (.blend)"): "ワールド (.blend)",
-        #: mmd_tools_append/asset_search/operators.py:13
+        #: mmd_tools_append/asset_search/operators.py:14
         ("Operator", "Reload Asset JSONs"): "アセットJSONをリロード",
-        #: mmd_tools_append/asset_search/operators.py:23
+        #: mmd_tools_append/asset_search/operators.py:24
         ("Operator", "Update Assets JSON"): "アセットJSONを更新",
-        #: mmd_tools_append/asset_search/operators.py:40
+        #: mmd_tools_append/asset_search/operators.py:38
         ("Operator", "Update Debug Asset JSON"): "デバッグアセットJSONを更新",
-        #: mmd_tools_append/asset_search/operators.py:57
+        #: mmd_tools_append/asset_search/operators.py:52
         ("Operator", "Delete Debug Asset JSON"): "デバッグアセットJSONを削除",
-        #: mmd_tools_append/asset_search/operators.py:72
+        #: mmd_tools_append/asset_search/operators.py:67
         ("Operator", "Delete Asset Cached Files"): "アセットキャッシュファイルを削除",
-        #: mmd_tools_append/asset_search/panels.py:266
+        #: mmd_tools_append/asset_search/panels.py:261
         ("*", "Type:"): "タイプ:",
-        #: mmd_tools_append/asset_search/panels.py:267
+        #: mmd_tools_append/asset_search/panels.py:262
         ("*", "ID:"): "ID:",
-        #: mmd_tools_append/asset_search/panels.py:269
+        #: mmd_tools_append/asset_search/panels.py:264
         ("*", "Name:"): "名前:",
-        #: mmd_tools_append/asset_search/panels.py:270
+        #: mmd_tools_append/asset_search/panels.py:265
         ("*", "Aliases:"): "別名:",
-        #: mmd_tools_append/asset_search/panels.py:271 mmd_tools_append/asset_search/panels.py:348
+        #: mmd_tools_append/asset_search/panels.py:266 mmd_tools_append/asset_search/panels.py:332
         ("*", "Tags:"): "タグ:",
-        #: mmd_tools_append/asset_search/panels.py:272
+        #: mmd_tools_append/asset_search/panels.py:267
         ("*", "Updated at:"): "更新時刻",
-        #: mmd_tools_append/asset_search/panels.py:273
+        #: mmd_tools_append/asset_search/panels.py:268
         ("*", "Note:"): "メモ",
-        #: mmd_tools_append/asset_search/panels.py:275
+        #: mmd_tools_append/asset_search/panels.py:270
         ("*", "Source:"): "配信元:",
-        #: mmd_tools_append/asset_search/panels.py:280
+        #: mmd_tools_append/asset_search/panels.py:275
         ("Operator", "Download"): "ダウンロード",
-        #: mmd_tools_append/asset_search/panels.py:283
-        ("*", "Downloading"): "ダウンロード中",
-        #: mmd_tools_append/asset_search/panels.py:283 mmd_tools_append/asset_search/panels.py:287 mmd_tools_append/converters/physics/cloth.py:177
+        #: mmd_tools_append/asset_search/panels.py:280 mmd_tools_append/asset_search/panels.py:286 mmd_tools_append/converters/physics/cloth.py:247
         ("*", "Cache:"): "キャッシュ:",
-        #: mmd_tools_append/asset_search/panels.py:284
+        #: mmd_tools_append/asset_search/panels.py:281
+        ("*", "Downloading"): "ダウンロード中",
+        #: mmd_tools_append/asset_search/panels.py:283
         ("Operator", "Cancel"): "キャンセル",
-        #: mmd_tools_append/asset_search/panels.py:288 mmd_tools_append/asset_search/panels.py:300
+        #: mmd_tools_append/asset_search/panels.py:287 mmd_tools_append/asset_search/panels.py:295
         ("*", "Path:"): "パス:",
-        #: mmd_tools_append/asset_search/panels.py:295 mmd_tools_append/asset_search/panels.py:301
+        #: mmd_tools_append/asset_search/panels.py:290 mmd_tools_append/asset_search/panels.py:296
         ("Operator", "Import"): "インポート",
-        #: mmd_tools_append/asset_search/panels.py:304 mmd_tools_append/asset_search/panels.py:307
+        #: mmd_tools_append/asset_search/panels.py:299 mmd_tools_append/asset_search/panels.py:302
         ("Operator", "Retry"): "リトライ",
-        #: mmd_tools_append/asset_search/panels.py:331
+        #: mmd_tools_append/asset_search/panels.py:315
         ("*", "MMD Append Asset Search"): "MMD Appendアセットサーチ",
-        #: mmd_tools_append/asset_search/panels.py:343
+        #: mmd_tools_append/asset_search/panels.py:327
         ("*", "Asset type"): "アセットタイプ",
-        #: mmd_tools_append/asset_search/panels.py:344 mmd_tools_append/asset_search/panels.py:485
+        #: mmd_tools_append/asset_search/panels.py:328 mmd_tools_append/asset_search/panels.py:472
         ("*", "Query"): "クエリ",
-        #: mmd_tools_append/asset_search/panels.py:351
+        #: mmd_tools_append/asset_search/panels.py:335
         ("*", "Cached"): "キャッシュ済",
-        #: mmd_tools_append/asset_search/panels.py:364
+        #: mmd_tools_append/asset_search/panels.py:352
         ("*", "{search_result_count} of {search_result_hit_count} results"): "{search_result_count} 件 / {search_result_hit_count} 件中",
-        #: mmd_tools_append/asset_search/panels.py:410
+        #: mmd_tools_append/asset_search/panels.py:399
         ("*", "Invalid search result, Please search again."): "無効な検索結果です。再検索してください。",
-        #: mmd_tools_append/asset_search/panels.py:417
+        #: mmd_tools_append/asset_search/panels.py:406
         ("*", "Loading {loading_count} item{plural_form_suffix}..."): "{loading_count} 件をロード中...",
-        #: mmd_tools_append/asset_search/panels.py:437
+        #: mmd_tools_append/asset_search/panels.py:423
         ("*", "MMD Append Assets Operator"): "MMD Appendアセットオペレーター",
-        #: mmd_tools_append/asset_search/panels.py:448
+        #: mmd_tools_append/asset_search/panels.py:434
         ("*", "Reload local asset JSON files"): "ローカルアセットJSONファイルをリロード",
-        #: mmd_tools_append/asset_search/panels.py:454
+        #: mmd_tools_append/asset_search/panels.py:440
         ("*", "Download and Update to the latest assets"): "最新アセットをダウンロードして更新",
-        #: mmd_tools_append/asset_search/panels.py:468
+        #: mmd_tools_append/asset_search/panels.py:455
         ("*", "Debug"): "デバッグ",
-        #: mmd_tools_append/asset_search/panels.py:474
+        #: mmd_tools_append/asset_search/panels.py:461
         ("*", "Fetch an asset for debug"): "デバッグ用にアセットを取得",
-        #: mmd_tools_append/asset_search/panels.py:475
+        #: mmd_tools_append/asset_search/panels.py:462
         ("*", "issue #"): "issue番号",
-        #: mmd_tools_append/asset_search/panels.py:482
+        #: mmd_tools_append/asset_search/panels.py:469
         ("*", "Download and Update to the latest filtered assets for debug"): "デバッグ用にフィルタ済み最新アセットをダウンロードして更新",
-        #: mmd_tools_append/asset_search/panels.py:484
+        #: mmd_tools_append/asset_search/panels.py:471
         ("*", "Repository"): "リポジトリ",
-        #: mmd_tools_append/asset_search/panels.py:486
+        #: mmd_tools_append/asset_search/panels.py:473
         ("*", "Write to"): "書込み先",
-        #: mmd_tools_append/asset_search/panels.py:488
+        #: mmd_tools_append/asset_search/panels.py:475
         ("Operator", "Update Assets JSON by query"): "アセットJSONをクエリで更新",
-        #: mmd_tools_append/checkers/operators.py:15
-        ("Status", "Good"): "良い",
         #: mmd_tools_append/checkers/operators.py:16
-        ("Status", "Average"): "普通",
+        ("Status", "Good"): "良い",
         #: mmd_tools_append/checkers/operators.py:17
-        ("Status", "Warning"): "警告",
+        ("Status", "Average"): "普通",
         #: mmd_tools_append/checkers/operators.py:18
-        ("Status", "Poor"): "劣る",
+        ("Status", "Warning"): "警告",
         #: mmd_tools_append/checkers/operators.py:19
-        ("Status", "Bad"): "悪い",
+        ("Status", "Poor"): "劣る",
         #: mmd_tools_append/checkers/operators.py:20
+        ("Status", "Bad"): "悪い",
+        #: mmd_tools_append/checkers/operators.py:21
         ("Status", "Unknown"): "不明",
-        #: mmd_tools_append/checkers/operators.py:69
+        #: mmd_tools_append/checkers/operators.py:70
         ("Operator", "Check Eevee Rendering Performance"): "Eeveeレンダリングパフォーマンスチェック",
-        #: mmd_tools_append/checkers/operators.py:81
+        #: mmd_tools_append/checkers/operators.py:82
         ("*", "Blender Version"): "Blenderバージョン",
-        #: mmd_tools_append/checkers/operators.py:85
+        #: mmd_tools_append/checkers/operators.py:86
         ("*", ">= 2.93 LTS is Good"): ">= 2.93 LTSが良い",
-        #: mmd_tools_append/checkers/operators.py:92
+        #: mmd_tools_append/checkers/operators.py:93
         ("*", "Render Engine"): "レンダーエンジン",
-        #: mmd_tools_append/checkers/operators.py:96
+        #: mmd_tools_append/checkers/operators.py:97
         ("*", "= Eevee is Good"): "= Eeveeが良い",
-        #: mmd_tools_append/checkers/operators.py:114
+        #: mmd_tools_append/checkers/operators.py:115
         ("*", "Render Samples"): "レンダーのサンプル数",
-        #: mmd_tools_append/checkers/operators.py:118 mmd_tools_append/checkers/operators.py:129 mmd_tools_append/checkers/operators.py:182
+        #: mmd_tools_append/checkers/operators.py:119 mmd_tools_append/checkers/operators.py:130 mmd_tools_append/checkers/operators.py:163
         ("*", "<= 16 is Good"): "<= 16が良い",
-        #: mmd_tools_append/checkers/operators.py:125
+        #: mmd_tools_append/checkers/operators.py:126
         ("*", "Viewport Samples"): "ビューポートのサンプル数",
-        #: mmd_tools_append/checkers/operators.py:136
-        ("*", "Use Ambient Occlusion"): "アンビエントオクルージョン(AO)を使用",
-        #: mmd_tools_append/checkers/operators.py:140 mmd_tools_append/checkers/operators.py:150 mmd_tools_append/checkers/operators.py:160 mmd_tools_append/checkers/operators.py:214 mmd_tools_append/checkers/operators.py:235 mmd_tools_append/checkers/operators.py:248 mmd_tools_append/checkers/operators.py:261 mmd_tools_append/checkers/operators.py:274 mmd_tools_append/checkers/operators.py:284 mmd_tools_append/checkers/operators.py:294 mmd_tools_append/checkers/operators.py:304 mmd_tools_append/checkers/operators.py:314 mmd_tools_append/checkers/operators.py:324 mmd_tools_append/checkers/operators.py:334 mmd_tools_append/checkers/operators.py:344 mmd_tools_append/checkers/operators.py:354 mmd_tools_append/checkers/operators.py:364 mmd_tools_append/checkers/operators.py:377 mmd_tools_append/checkers/operators.py:387 mmd_tools_append/checkers/operators.py:397 mmd_tools_append/checkers/operators.py:407
-        ("*", "= False is Good"): "= Falseが良い",
-        #: mmd_tools_append/checkers/operators.py:146 mmd_tools_append/editors/operators.py:49 mmd_tools_append/editors/operators.py:126
-        ("*", "Use Bloom"): "ブルームを使用",
-        #: mmd_tools_append/checkers/operators.py:156 mmd_tools_append/editors/operators.py:50 mmd_tools_append/editors/operators.py:127
+        #: mmd_tools_append/checkers/operators.py:137 mmd_tools_append/editors/operators.py:24 mmd_tools_append/editors/operators.py:79
         ("*", "Use Motion Blur"): "モーションブラーを使用",
-        #: mmd_tools_append/checkers/operators.py:178
+        #: mmd_tools_append/checkers/operators.py:141 mmd_tools_append/checkers/operators.py:173 mmd_tools_append/checkers/operators.py:186 mmd_tools_append/checkers/operators.py:199 mmd_tools_append/checkers/operators.py:212 mmd_tools_append/checkers/operators.py:222 mmd_tools_append/checkers/operators.py:232 mmd_tools_append/checkers/operators.py:242 mmd_tools_append/checkers/operators.py:252 mmd_tools_append/checkers/operators.py:262 mmd_tools_append/checkers/operators.py:272 mmd_tools_append/checkers/operators.py:282 mmd_tools_append/checkers/operators.py:292 mmd_tools_append/checkers/operators.py:305 mmd_tools_append/checkers/operators.py:315 mmd_tools_append/checkers/operators.py:325 mmd_tools_append/checkers/operators.py:335
+        ("*", "= False is Good"): "= Falseが良い",
+        #: mmd_tools_append/checkers/operators.py:159
         ("*", "Depth of Field Max Size"): "被写界深度最大サイズ",
-        #: mmd_tools_append/checkers/operators.py:200
-        ("*", "Subsurface Scattering Samples"): "サブサーフェススキャッタリングサンプル数",
-        #: mmd_tools_append/checkers/operators.py:204
-        ("*", "<= 4 is Good"): "<= 4が良い",
-        #: mmd_tools_append/checkers/operators.py:210
-        ("*", "Use Screen Space Refraction"): "スクリーンスペース反射を使用",
-        #: mmd_tools_append/checkers/operators.py:220
-        ("*", "Use Half Res Trace"): "半解像度トレースを使用",
-        #: mmd_tools_append/checkers/operators.py:224
-        ("*", "= True is Good"): "= Trueが良い",
-        #: mmd_tools_append/checkers/operators.py:231
+        #: mmd_tools_append/checkers/operators.py:169
         ("*", "Use Compositing"): "コンポジティングを使用",
-        #: mmd_tools_append/checkers/operators.py:244
+        #: mmd_tools_append/checkers/operators.py:182
         ("*", "Pass Cryptomatte Object"): "Cryptomatteオブジェクトをパス",
-        #: mmd_tools_append/checkers/operators.py:257
+        #: mmd_tools_append/checkers/operators.py:195
         ("*", "Pass Cryptomatte Material"): "Cryptomatteマテリアルをパス",
-        #: mmd_tools_append/checkers/operators.py:270
+        #: mmd_tools_append/checkers/operators.py:208
         ("*", "Pass Cryptomatte Asset"): "Cryptomatteアセットをパス",
-        #: mmd_tools_append/checkers/operators.py:280
+        #: mmd_tools_append/checkers/operators.py:218
         ("*", "Pass Glossy Light"): "スペキュラーライトをパス",
-        #: mmd_tools_append/checkers/operators.py:290
+        #: mmd_tools_append/checkers/operators.py:228
         ("*", "Pass Diffuse Light"): "ディフューズライトをパス",
-        #: mmd_tools_append/checkers/operators.py:300
+        #: mmd_tools_append/checkers/operators.py:238
         ("*", "Pass Emit"): "放射をパス",
-        #: mmd_tools_append/checkers/operators.py:310
+        #: mmd_tools_append/checkers/operators.py:248
         ("*", "Pass Glossy Color"): "スペキュラーカラーをパス",
-        #: mmd_tools_append/checkers/operators.py:320
+        #: mmd_tools_append/checkers/operators.py:258
         ("*", "Pass Diffuse Color"): "ディフューズカラーをパス",
-        #: mmd_tools_append/checkers/operators.py:330
+        #: mmd_tools_append/checkers/operators.py:268
         ("*", "Pass Shadow"): "影をパス",
-        #: mmd_tools_append/checkers/operators.py:340
+        #: mmd_tools_append/checkers/operators.py:278
         ("*", "Pass Ambient Occlusion"): "アンビエントオクルージョン(AO)をパス",
-        #: mmd_tools_append/checkers/operators.py:350
+        #: mmd_tools_append/checkers/operators.py:288
         ("*", "Pass Normal"): "ノーマルをパス",
-        #: mmd_tools_append/checkers/operators.py:360
-        ("*", "Pass Bloom"): "ブルームをパス",
-        #: mmd_tools_append/checkers/operators.py:373
+        #: mmd_tools_append/checkers/operators.py:301
         ("*", "Pass Volume Light"): "ボリュームライトをパス",
-        #: mmd_tools_append/checkers/operators.py:383
+        #: mmd_tools_append/checkers/operators.py:311
         ("*", "Pass Z"): "Zをパス",
-        #: mmd_tools_append/checkers/operators.py:393
+        #: mmd_tools_append/checkers/operators.py:321
         ("*", "Pass Environment"): "環境をパス",
-        #: mmd_tools_append/checkers/operators.py:403
+        #: mmd_tools_append/checkers/operators.py:331
         ("*", "Use Sequencer"): "シーケンサーを使用",
-        #: mmd_tools_append/checkers/operators.py:432
+        #: mmd_tools_append/checkers/operators.py:360
         ("*", "= JPEG is Good"): "= JPEGが良い",
-        #: mmd_tools_append/checkers/operators.py:432
+        #: mmd_tools_append/checkers/operators.py:360
         ("*", "File Format"): "ファイルフォーマット",
-        #: mmd_tools_append/checkers/operators.py:468
-        ("*", "Meshes Use Auto Smooth"): "メッシュが自動スムーズを使用",
-        #: mmd_tools_append/checkers/operators.py:472 mmd_tools_append/checkers/operators.py:507
-        ("*", "= 0 is Good"): "= 0が良い",
-        #: mmd_tools_append/checkers/operators.py:503
-        ("*", "Materials Use Alpha Hashed"): "マテリアルがアルファハッシュを使用",
-        #: mmd_tools_append/checkers/operators.py:513
+        #: mmd_tools_append/checkers/operators.py:375
         ("*", "Eevee Rendering Performance Checker"): "Eeveeレンダリングパフォーマンスチェッカー",
-        #: mmd_tools_append/checkers/operators.py:573
+        #: mmd_tools_append/checkers/operators.py:424
         ("*", "<= 0% is Good"): "<= 0%が良い",
-        #: mmd_tools_append/checkers/operators.py:573
+        #: mmd_tools_append/checkers/operators.py:424
         ("*", "Total Performance Impact"): "合計パフォーマンスインパクト",
-        #: mmd_tools_append/checkers/operators.py:601
+        #: mmd_tools_append/checkers/operators.py:452
         ("*", "Object with Impact Selection:"): "インパクトのあるオブジェクト選択:",
-        #: mmd_tools_append/checkers/operators.py:616
-        ("Operator", "Select Mesh Objects with Use Auto Smooth"): "自動スムーズを使用するメッシュオブジェクトを選択",
-        #: mmd_tools_append/checkers/operators.py:639
+        #: mmd_tools_append/checkers/operators.py:466
         ("Operator", "Select Mesh Objects with Use Alpha Hashed"): "アルファハッシュを使用するメッシュオブジェクトを選択",
         #: mmd_tools_append/converters/armatures/operators.py:19
         ("Operator", "Add Human (metarig) from MMD Armature"): "MMDアーマチュアからHuman (metarig)を追加",
-        #: mmd_tools_append/converters/armatures/operators.py:22
-        ("Operator", "Clean Armature"): "アーマチュアを掃除",
+        #: mmd_tools_append/converters/armatures/operators.py:20
+        ("*", "Generate Human (metarig) from MMD Armature."): "MMDアーマチュアからHuman (metarig)を生成します",
         #: mmd_tools_append/converters/armatures/operators.py:23
+        ("Operator", "Clean Armature"): "アーマチュアを掃除",
+        #: mmd_tools_append/converters/armatures/operators.py:24
         ("Operator", "Clean Koikatsu Armature"): "コイカツアーマチュアを掃除",
-        #: mmd_tools_append/converters/armatures/operators.py:227
+        #: mmd_tools_append/converters/armatures/operators.py:220
         ("Operator", "MMD compatibility focused Integrate"): "MMD互換性を重視して統合",
-        #: mmd_tools_append/converters/armatures/operators.py:230 mmd_tools_append/converters/armatures/operators.py:282
+        #: mmd_tools_append/converters/armatures/operators.py:221 mmd_tools_append/converters/armatures/operators.py:273
+        ("*", "Combine Rigify rig and MMD armature."): "RigifyリグとMMDアーマチュアを統合します",
+        #: mmd_tools_append/converters/armatures/operators.py:225 mmd_tools_append/converters/armatures/operators.py:277
         ("Operator", "Join Armatures"): "アーマチュアを結合",
-        #: mmd_tools_append/converters/armatures/operators.py:230 mmd_tools_append/converters/armatures/operators.py:282
+        #: mmd_tools_append/converters/armatures/operators.py:226 mmd_tools_append/converters/armatures/operators.py:278
         ("*", "Join MMD and Rigify armatures"): "RigifyとMMDアーマチュアを結合",
-        #: mmd_tools_append/converters/armatures/operators.py:231 mmd_tools_append/converters/armatures/operators.py:283
-        ("*", "MMD main bone layer"): "MMDメインボーンレイヤー",
-        #: mmd_tools_append/converters/armatures/operators.py:232 mmd_tools_append/converters/armatures/operators.py:284
-        ("*", "MMD others bone layer"): "MMDその他ボーンレイヤー",
-        #: mmd_tools_append/converters/armatures/operators.py:233 mmd_tools_append/converters/armatures/operators.py:285
-        ("*", "MMD shadow bone layer"): "MMDシャドウボーンレイヤー",
-        #: mmd_tools_append/converters/armatures/operators.py:234 mmd_tools_append/converters/armatures/operators.py:286
-        ("*", "MMD dummy bone layer"): "MMDダミーボーンレイヤー",
-        #: mmd_tools_append/converters/armatures/operators.py:279
+        #: mmd_tools_append/converters/armatures/operators.py:272
         ("Operator", "Rigify operability focused Integrate"): "Rigify操作性を重視して統合",
-        #: mmd_tools_append/converters/armatures/operators.py:287
+        #: mmd_tools_append/converters/armatures/operators.py:281
+        ("*", "MMD main bone layer"): "MMDメインボーンレイヤー",
+        #: mmd_tools_append/converters/armatures/operators.py:282
+        ("*", "MMD others bone layer"): "MMDその他ボーンレイヤー",
+        #: mmd_tools_append/converters/armatures/operators.py:283
+        ("*", "MMD shadow bone layer"): "MMDシャドウボーンレイヤー",
+        #: mmd_tools_append/converters/armatures/operators.py:284
+        ("*", "MMD dummy bone layer"): "MMDダミーボーンレイヤー",
+        #: mmd_tools_append/converters/armatures/operators.py:285
         ("*", "Rename MMD bones"): "MMDボーンをリネーム",
-        #: mmd_tools_append/converters/armatures/operators.py:333
+        #: mmd_tools_append/converters/armatures/operators.py:346
         ("Operator", "Convert Rigify Armature to MMD compatible"): "RigifyアーマチュアをMMD互換に変換",
-        #: mmd_tools_append/converters/armatures/operators.py:337
+        #: mmd_tools_append/converters/armatures/operators.py:350
         ("*", "Upper Body2 as"): "上半身２として",
-        #: mmd_tools_append/converters/armatures/operators.py:347
+        #: mmd_tools_append/converters/armatures/operators.py:360
         ("*", "Lower Body as"): "下半身として",
-        #: mmd_tools_append/converters/armatures/operators.py:383 mmd_tools_append/converters/armatures/operators.py:452 mmd_tools_append/panels.py:76 mmd_tools_append/panels.py:81
+        #: mmd_tools_append/converters/armatures/operators.py:398
+        ("Operator", "Remove rig from armature"): "アーマチュアからリグを削除",
+        #: mmd_tools_append/converters/armatures/operators.py:399
+        ("*", "Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure."): "アーマチュアから非変形ボーンを削除します. Rigify以外のリグにも対応しています.\nボーン構造が崩れる恐れがあります",
+        #: mmd_tools_append/converters/armatures/operators.py:402
+        ("*", "Remove Bone Constraints"): "ボーンコンストレイントを削除",
+        #: mmd_tools_append/converters/armatures/operators.py:403
+        ("*", "Remove Rigify prefixes"): "Rigify接頭辞を削除",
+        #: mmd_tools_append/converters/armatures/operators.py:403
+        ("*", "Remove Rigify prefixes (DEF-)."): "Rigifyボーン名につくDEF等の接頭辞を削除します",
+        #: mmd_tools_append/converters/armatures/operators.py:404
+        ("*", "Fix Rigify Bone structure"): "Rigifyボーン構造を修正",
+        #: mmd_tools_append/converters/armatures/operators.py:404
+        ("*", "Only works for Rigify."): "Rigify専用です",
+        #: mmd_tools_append/converters/armatures/operators.py:405
+        ("*", "Unlock Bones"): "トランスフォームのロック解除",
+        #: mmd_tools_append/converters/armatures/operators.py:405
+        ("*", "Unlock all bone transformations (translations, rotations, scales)"): "ボーンの位置, 回転, スケールの制限を解除します",
+        #: mmd_tools_append/converters/armatures/operators.py:441
+        ("Operator", "Translate Rigify names to MMD"): "Rigifyボーン名をMMDに翻訳",
+        #: mmd_tools_append/converters/armatures/operators.py:442
+        ("*", "Translate Rigify metarig bone names to MMD."): "Rigifyメタリグに存在するボーン名をMMD用に翻訳します",
+        #: mmd_tools_append/converters/armatures/operators.py:475 mmd_tools_append/converters/armatures/operators.py:550 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:113
         ("Operator", "Apply MMD Rest Pose"): "MMDレストポーズを適用",
-        #: mmd_tools_append/converters/armatures/operators.py:386 mmd_tools_append/converters/armatures/operators.py:455
+        #: mmd_tools_append/converters/armatures/operators.py:479 mmd_tools_append/converters/armatures/operators.py:554
         ("*", "Iterations"): "反復",
-        #: mmd_tools_append/converters/armatures/operators.py:386 mmd_tools_append/converters/armatures/operators.py:455
+        #: mmd_tools_append/converters/armatures/operators.py:480 mmd_tools_append/converters/armatures/operators.py:555
         ("*", "Number of solving iterations"): "反復解決回数",
-        #: mmd_tools_append/converters/armatures/operators.py:387 mmd_tools_append/converters/armatures/operators.py:456
+        #: mmd_tools_append/converters/armatures/operators.py:485 mmd_tools_append/converters/armatures/operators.py:560
         ("*", "Pose arms"): "腕をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:388 mmd_tools_append/converters/armatures/operators.py:457
+        #: mmd_tools_append/converters/armatures/operators.py:486 mmd_tools_append/converters/armatures/operators.py:561
         ("*", "Pose legs"): "脚をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:389 mmd_tools_append/converters/armatures/operators.py:458
+        #: mmd_tools_append/converters/armatures/operators.py:487 mmd_tools_append/converters/armatures/operators.py:562
         ("*", "Pose fingers"): "指をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:424
+        #: mmd_tools_append/converters/armatures/operators.py:522
         ("Operator", "Convert AutoRig Armature to MMD compatible"): "AutoRigアーマチュアをMMD互換に変換",
-        #: mmd_tools_append/converters/armatures/panels.py:14
+        #: mmd_tools_append/converters/armatures/panels.py:17
         ("*", "MMD Append Rigify"): "MMD Append Rigify",
-        #: mmd_tools_append/converters/armatures/panels.py:50
+        #: mmd_tools_append/converters/armatures/panels.py:56
         ("*", "MMD-Rigify:"): "MMD-Rigify",
-        #: mmd_tools_append/converters/armatures/panels.py:52 mmd_tools_append/converters/armatures/panels.py:121
+        #: mmd_tools_append/converters/armatures/panels.py:58 mmd_tools_append/converters/armatures/panels.py:183
         ("*", "Integrated armature is not selected."): "統合アーマチュアが未選択です。",
-        #: mmd_tools_append/converters/armatures/panels.py:54
+        #: mmd_tools_append/converters/armatures/panels.py:63
         ("*", "Bind"): "束縛",
-        #: mmd_tools_append/converters/armatures/panels.py:55 mmd_tools_append/converters/armatures/panels.py:123
+        #: mmd_tools_append/converters/armatures/panels.py:69 mmd_tools_append/converters/armatures/panels.py:188
         ("*", "Eyes"): "目",
-        #: mmd_tools_append/converters/armatures/panels.py:57 mmd_tools_append/converters/armatures/panels.py:68 mmd_tools_append/converters/armatures/panels.py:125 mmd_tools_append/converters/armatures/panels.py:133
+        #: mmd_tools_append/converters/armatures/panels.py:76 mmd_tools_append/converters/armatures/panels.py:117 mmd_tools_append/converters/armatures/panels.py:195 mmd_tools_append/converters/armatures/panels.py:223
         ("*", "Leg.L"): "脚.L",
-        #: mmd_tools_append/converters/armatures/panels.py:58 mmd_tools_append/converters/armatures/panels.py:69 mmd_tools_append/converters/armatures/panels.py:126 mmd_tools_append/converters/armatures/panels.py:134
+        #: mmd_tools_append/converters/armatures/panels.py:82 mmd_tools_append/converters/armatures/panels.py:123 mmd_tools_append/converters/armatures/panels.py:201 mmd_tools_append/converters/armatures/panels.py:229
         ("*", "Leg.R"): "脚.R",
-        #: mmd_tools_append/converters/armatures/panels.py:60
+        #: mmd_tools_append/converters/armatures/panels.py:89
         ("*", "Toe.L"): "つま先.L",
-        #: mmd_tools_append/converters/armatures/panels.py:61
+        #: mmd_tools_append/converters/armatures/panels.py:95
         ("*", "Toe.R"): "つま先.R",
-        #: mmd_tools_append/converters/armatures/panels.py:63 mmd_tools_append/converters/armatures/panels.py:128
+        #: mmd_tools_append/converters/armatures/panels.py:99 mmd_tools_append/converters/armatures/panels.py:205
         ("*", "IK-FK:"): "IK-FK",
-        #: mmd_tools_append/converters/armatures/panels.py:65 mmd_tools_append/converters/armatures/panels.py:130
+        #: mmd_tools_append/converters/armatures/panels.py:104 mmd_tools_append/converters/armatures/panels.py:210
         ("*", "Arm.L"): "腕.L",
-        #: mmd_tools_append/converters/armatures/panels.py:66 mmd_tools_append/converters/armatures/panels.py:131
+        #: mmd_tools_append/converters/armatures/panels.py:110 mmd_tools_append/converters/armatures/panels.py:216
         ("*", "Arm.R"): "腕.R",
-        #: mmd_tools_append/converters/armatures/panels.py:74
+        #: mmd_tools_append/converters/armatures/panels.py:133
         ("*", "MMD Layers:"): "MMDレイヤー:",
-        #: mmd_tools_append/converters/armatures/panels.py:76 mmd_tools_append/converters/armatures/panels.py:138
-        ("*", "Main"): "メイン",
-        #: mmd_tools_append/converters/armatures/panels.py:79
-        ("*", "Others"): "その他",
-        #: mmd_tools_append/converters/armatures/panels.py:82
-        ("*", "Shadow"): "シャドウ",
-        #: mmd_tools_append/converters/armatures/panels.py:85
-        ("*", "Dummy"): "ダミー",
-        #: mmd_tools_append/converters/armatures/panels.py:90
+        #: mmd_tools_append/converters/armatures/panels.py:152
         ("*", "MMD Append AutoRig"): "MMD Append AutoRig",
-        #: mmd_tools_append/converters/armatures/panels.py:117
+        #: mmd_tools_append/converters/armatures/panels.py:179
         ("*", "MMD-AutoRig:"): "MMD-AutoRig:",
-        #: mmd_tools_append/converters/armatures/panels.py:136
+        #: mmd_tools_append/converters/armatures/panels.py:233
         ("*", "Layers:"): "レイヤー:",
-        #: mmd_tools_append/converters/armatures/panels.py:141
+        #: mmd_tools_append/converters/armatures/panels.py:235
+        ("*", "Main"): "メイン",
+        #: mmd_tools_append/converters/armatures/panels.py:238
         ("*", "Sub"): "サブ",
-        #: mmd_tools_append/converters/armatures/panels.py:144
+        #: mmd_tools_append/converters/armatures/panels.py:241
         ("*", "Spine"): "脊柱",
-        #: mmd_tools_append/converters/armatures/panels.py:147
+        #: mmd_tools_append/converters/armatures/panels.py:244
         ("*", "Limbs"): "肢体",
-        #: mmd_tools_append/converters/physics/cloth.py:60 mmd_tools_append/converters/physics/collision.py:25 mmd_tools_append/converters/physics/dynamic_paint.py:63
+        #: mmd_tools_append/converters/physics/cloth.py:126 mmd_tools_append/converters/physics/collision.py:26 mmd_tools_append/converters/physics/dynamic_paint.py:64
         ("*", "Nothing"): "なし",
-        #: mmd_tools_append/converters/physics/cloth.py:73
+        #: mmd_tools_append/converters/physics/cloth.py:139
         ("*", "Cotton"): "綿",
-        #: mmd_tools_append/converters/physics/cloth.py:96
+        #: mmd_tools_append/converters/physics/cloth.py:162
         ("*", "Silk"): "絹",
-        #: mmd_tools_append/converters/physics/cloth.py:119
+        #: mmd_tools_append/converters/physics/cloth.py:185
         ("*", "Breast Pyramid"): "胸ピラミッド",
-        #: mmd_tools_append/converters/physics/cloth.py:145
+        #: mmd_tools_append/converters/physics/cloth.py:211
         ("*", "MMD Append Cloth Adjuster"): "MMD Appendクロス調整器",
-        #: mmd_tools_append/converters/physics/cloth.py:167
+        #: mmd_tools_append/converters/physics/cloth.py:233
         ("*", "Collision:"): "コリジョン:",
-        #: mmd_tools_append/converters/physics/cloth.py:173 mmd_tools_append/converters/physics/cloth_pyramid.py:969 mmd_tools_append/converters/physics/collision.py:78 mmd_tools_append/converters/physics/rigid_body.py:29
+        #: mmd_tools_append/converters/physics/cloth.py:239 mmd_tools_append/converters/physics/cloth_pyramid.py:1064 mmd_tools_append/converters/physics/collision.py:79 mmd_tools_append/converters/physics/rigid_body.py:30
         ("*", "Batch Operation:"): "一括操作:",
-        #: mmd_tools_append/converters/physics/cloth.py:174 mmd_tools_append/converters/physics/cloth_pyramid.py:970 mmd_tools_append/converters/physics/collision.py:79 mmd_tools_append/converters/physics/rigid_body.py:30
+        #: mmd_tools_append/converters/physics/cloth.py:242 mmd_tools_append/converters/physics/cloth_pyramid.py:1067 mmd_tools_append/converters/physics/collision.py:80 mmd_tools_append/converters/physics/rigid_body.py:31
         ("Operator", "Copy to Selected"): "選択にコピー",
-        #: mmd_tools_append/converters/physics/cloth.py:179 mmd_tools_append/converters/physics/cloth.py:472 mmd_tools_append/converters/physics/dynamic_paint.py:48
+        #: mmd_tools_append/converters/physics/cloth.py:249 mmd_tools_append/converters/physics/cloth.py:573 mmd_tools_append/converters/physics/dynamic_paint.py:49
         ("*", "Simulation Start"): "シミュレーション開始",
-        #: mmd_tools_append/converters/physics/cloth.py:180 mmd_tools_append/converters/physics/cloth.py:478 mmd_tools_append/converters/physics/dynamic_paint.py:49
+        #: mmd_tools_append/converters/physics/cloth.py:250 mmd_tools_append/converters/physics/cloth.py:585 mmd_tools_append/converters/physics/dynamic_paint.py:50
         ("*", "Simulation End"): "シミュレーション終了",
-        #: mmd_tools_append/converters/physics/cloth.py:186
+        #: mmd_tools_append/converters/physics/cloth.py:256
         ("*", "Subdivision:"): "細分化:",
-        #: mmd_tools_append/converters/physics/cloth.py:187 mmd_tools_append/converters/physics/cloth.py:327 mmd_tools_append/converters/physics/cloth.py:536
+        #: mmd_tools_append/converters/physics/cloth.py:257 mmd_tools_append/converters/physics/cloth.py:400 mmd_tools_append/converters/physics/cloth.py:644
         ("*", "Subdivision Levels"): "細分化レベル",
-        #: mmd_tools_append/converters/physics/cloth.py:192
+        #: mmd_tools_append/converters/physics/cloth.py:262
         ("*", "Copy Cloth Adjuster Settings"): "クロス調整器をコピー",
-        #: mmd_tools_append/converters/physics/cloth.py:227
+        #: mmd_tools_append/converters/physics/cloth.py:297
         ("Operator", "Select Cloth Mesh"): "クロスメッシュを選択",
-        #: mmd_tools_append/converters/physics/cloth.py:230 mmd_tools_append/converters/physics/collision.py:120
+        #: mmd_tools_append/converters/physics/cloth.py:300 mmd_tools_append/converters/physics/collision.py:121
         ("*", "Same MMD Model"): "同じMMDモデル",
-        #: mmd_tools_append/converters/physics/cloth.py:231 mmd_tools_append/converters/physics/collision.py:121
+        #: mmd_tools_append/converters/physics/cloth.py:301 mmd_tools_append/converters/physics/collision.py:122
         ("*", "Same Physics Settings"): "同じ物理設定",
-        #: mmd_tools_append/converters/physics/cloth.py:232
+        #: mmd_tools_append/converters/physics/cloth.py:302
         ("*", "Same Cache Settings"): "同じキャッシュ設定",
-        #: mmd_tools_append/converters/physics/cloth.py:286
+        #: mmd_tools_append/converters/physics/cloth.py:359
         ("Operator", "Remove Mesh Cloth"): "クロスを除去",
-        #: mmd_tools_append/converters/physics/cloth.py:323
+        #: mmd_tools_append/converters/physics/cloth.py:396
         ("Operator", "Convert Rigid Body to Cloth"): "リジッドボディをクロスに変換",
-        #: mmd_tools_append/converters/physics/cloth.py:324
+        #: mmd_tools_append/converters/physics/cloth.py:397
         ("*", "Select both the mesh to be deformed and the rigid body"): "変形対象メッシュとリジッドボディの両方を選択",
-        #: mmd_tools_append/converters/physics/cloth.py:328
+        #: mmd_tools_append/converters/physics/cloth.py:401
         ("*", "Ribbon Stiffness"): "リボン剛性",
-        #: mmd_tools_append/converters/physics/cloth.py:330
+        #: mmd_tools_append/converters/physics/cloth.py:403
         ("*", "Physics Mode"): "物理モード",
-        #: mmd_tools_append/converters/physics/cloth.py:335
+        #: mmd_tools_append/converters/physics/cloth.py:407
         ("*", "Extend Ribbon Area"): "リボンエリア拡張",
-        #: mmd_tools_append/converters/physics/cloth.py:385
+        #: mmd_tools_append/converters/physics/cloth.py:455
         ("*", "Multiple MMD models selected. Please select single model at a time."): "複数のMMDモデルが選択されています。ひとつずつモデルを選択してください。",
-        #: mmd_tools_append/converters/physics/cloth.py:415 mmd_tools_append/converters/physics/collision.py:209 mmd_tools_append/converters/physics/dynamic_paint.py:178
+        #: mmd_tools_append/converters/physics/cloth.py:485 mmd_tools_append/converters/physics/collision.py:209 mmd_tools_append/converters/physics/dynamic_paint.py:175
         ("*", "Presets"): "プリセット",
-        #: mmd_tools_append/converters/physics/cloth.py:422
+        #: mmd_tools_append/converters/physics/cloth.py:492
         ("*", "Vertex Mass"): "頂点の質量",
-        #: mmd_tools_append/converters/physics/cloth.py:435
+        #: mmd_tools_append/converters/physics/cloth.py:509
         ("*", "Stiffness"): "剛性",
-        #: mmd_tools_append/converters/physics/cloth.py:448 mmd_tools_append/converters/physics/collision.py:216
+        #: mmd_tools_append/converters/physics/cloth.py:527 mmd_tools_append/converters/physics/collision.py:212
         ("*", "Damping"): "減衰",
-        #: mmd_tools_append/converters/physics/cloth.py:454
+        #: mmd_tools_append/converters/physics/cloth.py:537
         ("*", "Collision Quality"): "コリジョンの品質",
-        #: mmd_tools_append/converters/physics/cloth.py:460
+        #: mmd_tools_append/converters/physics/cloth.py:553
         ("*", "Minimum Distance"): "最小距離",
-        #: mmd_tools_append/converters/physics/cloth.py:466
+        #: mmd_tools_append/converters/physics/cloth.py:563
         ("*", "Impulse Clamping"): "撃力を制限",
-        #: mmd_tools_append/converters/physics/cloth_bone.py:15 mmd_tools_append/panels.py:143
+        #: mmd_tools_append/converters/physics/cloth_bone.py:16 mmd_tools_append/panels.py:191
         ("Operator", "Stretch Bone to Vertex"): "ボーンを頂点にストレッチ",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:160
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:181
         ("*", "Target bones not found."): "対象ボーンが見つからない",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:775
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:868
         ("*", "Add Pyramid Mesh by Breast Bone"): "胸ボーンからピラミッドメッシュを追加",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:778
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:869
+        ("*", "Add pyramid meshes from selected breast bones."): "選択された胸ボーンからピラミッドメッシュを追加します",
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:872
         ("*", "Head/Tail"): "ヘッド/テール",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:779
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:873
         ("*", "String Length Ratio"): "弦長比",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:780
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:874
         ("*", "Base Area Factor"): "底面積係数",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:781
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:875
         ("*", "Project Base Vertices Vertically"): "底面頂点を垂直に投影",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:822
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:916
         ("Operator", "Convert Pyramid Mesh to Cloth"): "ピラミッドメッシュをクロスに変換",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:825 mmd_tools_append/converters/physics/cloth_pyramid.py:890
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:917
+        ("*", "Convert pyramid meshes to cloth simulation."): "ピラミッドメッシュをクロスシミュレーションに変換します",
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:920 mmd_tools_append/converters/physics/cloth_pyramid.py:985
         ("*", "Boundary Expansion Hop Count"): "境界拡張ホップ数",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:887
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:982
         ("Operator", "Assign Pyramid Weights"): "ピラミッドへウェイトを割当",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:942
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1037
         ("*", "MMD Append Pyramid Cloth Adjuster"): "MMD Appendピラミッドクロス調整器",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:959
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1054
         ("*", "Weights:"): "ウエイト:",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:965
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1060
         ("*", "Cloth Physics:"): "クロス物理:",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:975
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1074
         ("*", "Copy Pyramid Cloth Adjuster Settings"): "ピラミッドクロス調整器をコピー",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1004
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1103
         ("*", "String Pin Weight"): "弦固定ウェイト",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1010
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1113
         ("*", "Apex Pin Weight"): "頂点固定ウェイト",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1016
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1123
         ("*", "Base Pin Weight"): "底面固定ウェイト",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1022
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1133
         ("*", "Speed Multiplier"): "速度の乗数",
-        #: mmd_tools_append/converters/physics/collision.py:38
+        #: mmd_tools_append/converters/physics/collision.py:39
         ("*", "Thin Smooth"): "薄くスムーズ",
-        #: mmd_tools_append/converters/physics/collision.py:56
+        #: mmd_tools_append/converters/physics/collision.py:57
         ("*", "MMD Append Collision Adjuster"): "MMD Appendコリジョン調整器",
-        #: mmd_tools_append/converters/physics/collision.py:84
+        #: mmd_tools_append/converters/physics/collision.py:85
         ("Operator", "Copy Collision Adjuster Settings"): "コリジョン調整器をコピー",
-        #: mmd_tools_append/converters/physics/collision.py:117
+        #: mmd_tools_append/converters/physics/collision.py:118
         ("Operator", "Select Collision Mesh"): "コリジョンメッシュを選択",
-        #: mmd_tools_append/converters/physics/collision.py:168
+        #: mmd_tools_append/converters/physics/collision.py:169
         ("Operator", "Remove Mesh Collision"): "コリジョンを除去",
-        #: mmd_tools_append/converters/physics/collision.py:222
+        #: mmd_tools_append/converters/physics/collision.py:221
         ("*", "Thickness Outer"): "外側の厚さ",
-        #: mmd_tools_append/converters/physics/collision.py:228
+        #: mmd_tools_append/converters/physics/collision.py:230
         ("*", "Thickness Inner"): "内側の厚さ",
-        #: mmd_tools_append/converters/physics/collision.py:234
+        #: mmd_tools_append/converters/physics/collision.py:239
         ("*", "Cloth Friction"): "摩擦",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:13
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:14
         ("*", "MMD Append Dynamic Paint Adjuster"): "MMD Appendダイナミックペイント調整器",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:39
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:40
         ("*", "Cache"): "キャッシュ",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:76
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:77
         ("*", "Canvas Skin Press"): "キャンバス 肌圧迫",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:111
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:112
         ("*", "Brush Default"): "ブラシ デフォルト",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:185
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:178
         ("*", "Active Surface"): "アクティブサーフェス",
-        #: mmd_tools_append/converters/physics/rigid_body.py:15
+        #: mmd_tools_append/converters/physics/rigid_body.py:16
         ("*", "MMD Append Rigid Body Adjuster"): "MMD Appendリジッドボディ調整器",
-        #: mmd_tools_append/converters/physics/rigid_body.py:35
+        #: mmd_tools_append/converters/physics/rigid_body.py:36
         ("Operator", "Select Rigid Body Mesh"): "リジッドボディメッシュを選択",
-        #: mmd_tools_append/converters/physics/rigid_body.py:38
-        ("*", "Only in the MMD Model"): "MMDモデルのみ",
         #: mmd_tools_append/converters/physics/rigid_body.py:39
+        ("*", "Only in the MMD Model"): "MMDモデルのみ",
+        #: mmd_tools_append/converters/physics/rigid_body.py:40
         ("*", "Only the same Settings"): "同じ設定のみ",
-        #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:25
-        ("*", "Auto"): "自動",
         #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:26
-        ("*", "Bone Constraint"): "ボーンコンストレイント",
+        ("*", "Auto"): "自動",
         #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:27
+        ("*", "Bone Constraint"): "ボーンコンストレイント",
+        #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:28
         ("*", "Surface Deform"): "サーフェス変形",
-        #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:76
+        #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:73
         ("*", "No bones related with {rigid_body_name}, Please relate a bone to the Rigid Body."): "{rigid_body_name}に関連するボーンがありません。リジッドボディにボーンを関連付けてください。",
         #: mmd_tools_append/editors/geometry_nodes.py:50
         ("*", "Point Random Rotation"): "ポイントランダム回転",
         #: mmd_tools_append/editors/geometry_nodes.py:53
         ("*", "Random Rotation Point Instance"): "ランダム回転ポイントインスタンス",
-        #: mmd_tools_append/editors/menus.py:15 mmd_tools_append/editors/menus.py:35 mmd_tools_append/editors/menus.py:55
+        #: mmd_tools_append/editors/menus.py:18 mmd_tools_append/editors/menus.py:38 mmd_tools_append/editors/menus.py:58 mmd_tools_append/generators/skin_hair.py:170
         ("*", "MMD Append"): "MMD Append",
-        #: mmd_tools_append/editors/menus.py:75
+        #: mmd_tools_append/editors/menus.py:78
         ("*", "Select Moved"): "操作済選択",
-        #: mmd_tools_append/editors/menus.py:80
+        #: mmd_tools_append/editors/menus.py:83
         ("Operator", "Moved"): "操作済",
         ("*", "Moved"): "操作済",
-        #: mmd_tools_append/editors/menus.py:85 mmd_tools_append/editors/operators.py:455
+        #: mmd_tools_append/editors/menus.py:88 mmd_tools_append/editors/operators.py:385
         ("Operator", "Rotated"): "回転済",
         ("*", "Rotated"): "回転済",
-        #: mmd_tools_append/editors/menus.py:90 mmd_tools_append/editors/operators.py:456
+        #: mmd_tools_append/editors/menus.py:93 mmd_tools_append/editors/operators.py:386
         ("Operator", "Translated"): "移動済",
         ("*", "Translated"): "移動済",
-        #: mmd_tools_append/editors/menus.py:95 mmd_tools_append/editors/operators.py:457
+        #: mmd_tools_append/editors/menus.py:98 mmd_tools_append/editors/operators.py:387
         ("Operator", "Scaled"): "スケール済",
         ("*", "Scaled"): "スケール済",
-        #: mmd_tools_append/editors/nodes.py:237
+        #: mmd_tools_append/editors/nodes.py:260
         ("*", "Skin Color Adjust"): "肌カラー調整",
-        #: mmd_tools_append/editors/nodes.py:240 mmd_tools_append/tuners/material_tuners.py:251
+        #: mmd_tools_append/editors/nodes.py:263 mmd_tools_append/tuners/material_tuners.py:319
         ("*", "Skin Bump"): "肌 凹凸",
-        #: mmd_tools_append/editors/nodes.py:243
+        #: mmd_tools_append/editors/nodes.py:266
         ("*", "Fabric Woven Texture"): "布地織物テクスチャ",
-        #: mmd_tools_append/editors/nodes.py:246 mmd_tools_append/tuners/material_tuners.py:373
+        #: mmd_tools_append/editors/nodes.py:269 mmd_tools_append/tuners/material_tuners.py:481
         ("*", "Fabric Bump"): "布地 凹凸",
-        #: mmd_tools_append/editors/nodes.py:249
+        #: mmd_tools_append/editors/nodes.py:272
         ("*", "Wave Bump"): "波形バンプ",
-        #: mmd_tools_append/editors/nodes.py:252
+        #: mmd_tools_append/editors/nodes.py:275
         ("*", "Magic Bump"): "マジックバンプ",
-        #: mmd_tools_append/editors/nodes.py:255
+        #: mmd_tools_append/editors/nodes.py:278
         ("*", "Shadowless BSDF"): "影なしBSDF",
-        #: mmd_tools_append/editors/nodes.py:258
+        #: mmd_tools_append/editors/nodes.py:281
         ("*", "Gem BSDF"): "宝石BSDF",
-        #: mmd_tools_append/editors/nodes.py:261
+        #: mmd_tools_append/editors/nodes.py:284
         ("*", "Liquid BSDF"): "液体BSDF",
-        #: mmd_tools_append/editors/nodes.py:264
+        #: mmd_tools_append/editors/nodes.py:287
         ("*", "Knit Texture"): "編み物Bテクスチャ",
-        #: mmd_tools_append/editors/nodes.py:267
+        #: mmd_tools_append/editors/nodes.py:290
         ("*", "Leather Texture"): "革テクスチャ",
-        #: mmd_tools_append/editors/nodes.py:270
+        #: mmd_tools_append/editors/nodes.py:293
         ("*", "Watercolor Texture"): "水彩画テクスチャ",
-        #: mmd_tools_append/editors/nodes.py:273
+        #: mmd_tools_append/editors/nodes.py:296
         ("*", "Toon Shader Texture"): "トーンシェーダーテクスチャ",
-        #: mmd_tools_append/editors/nodes.py:276
+        #: mmd_tools_append/editors/nodes.py:299
         ("*", "MMDTexUV"): "MMDTexUV",
-        #: mmd_tools_append/editors/nodes.py:279 mmd_tools_append/tuners/material_adjusters.py:103
+        #: mmd_tools_append/editors/nodes.py:302
         ("*", "Subsurface Adjuster"): "サブサーフェス調節器",
-        #: mmd_tools_append/editors/nodes.py:282 mmd_tools_append/tuners/material_adjusters.py:58
+        #: mmd_tools_append/editors/nodes.py:305 mmd_tools_append/tuners/material_adjusters.py:58
         ("*", "Wet Adjuster"): "ウエット調節器",
-        #: mmd_tools_append/editors/nodes.py:285 mmd_tools_append/tuners/material_adjusters.py:195
+        #: mmd_tools_append/editors/nodes.py:308 mmd_tools_append/tuners/material_adjusters.py:173
         ("*", "Emission Adjuster"): "放射調節器",
-        #: mmd_tools_append/editors/nodes.py:288 mmd_tools_append/tuners/material_adjusters.py:149
+        #: mmd_tools_append/editors/nodes.py:311 mmd_tools_append/tuners/material_adjusters.py:115
         ("*", "Glitter Adjuster"): "グリッター調整器",
-        #: mmd_tools_append/editors/nodes.py:330
+        #: mmd_tools_append/editors/nodes.py:354
         ("*", "Sun Direction"): "太陽の方向",
-        #: mmd_tools_append/editors/operators.py:21
-        ("Operator", "Convert Materials for Eevee"): "マテリアルをEevee用に変換",
-        #: mmd_tools_append/editors/operators.py:22
-        ("*", "Convert materials of selected objects for Eevee."): "選択中オブジェクトマテリアルをEevee用に変換",
-        #: mmd_tools_append/editors/operators.py:45
+        #: mmd_tools_append/editors/operators.py:20
         ("Operator", "Setup Render Engine for Eevee"): "レンダーエンジンをEevee用に設定",
-        #: mmd_tools_append/editors/operators.py:46
+        #: mmd_tools_append/editors/operators.py:21
         ("*", "Setup render engine properties for Eevee."): "レンダーエンジンプロパティをEevee用に設定",
-        #: mmd_tools_append/editors/operators.py:51 mmd_tools_append/editors/operators.py:129 mmd_tools_append/editors/operators.py:206
+        #: mmd_tools_append/editors/operators.py:25 mmd_tools_append/editors/operators.py:81 mmd_tools_append/editors/operators.py:137
         ("*", "Use Film Transparent"): "フィルム透過を使用",
-        #: mmd_tools_append/editors/operators.py:122
+        #: mmd_tools_append/editors/operators.py:75
         ("Operator", "Setup Render Engine for Toon Eevee"): "レンダーエンジンをトーンEevee用に設定",
-        #: mmd_tools_append/editors/operators.py:123
+        #: mmd_tools_append/editors/operators.py:76
         ("*", "Setup render engine properties for Toon Eevee."): "レンダーエンジンプロパティをトーンEevee用に設定",
-        #: mmd_tools_append/editors/operators.py:128
-        ("*", "Use Soft Shadows"): "ソフトシャドウを使用",
-        #: mmd_tools_append/editors/operators.py:200
-        ("Operator", "Setup Render Engine for Workbench"): "レンダーエンジンをWorkbench用に設定",
-        #: mmd_tools_append/editors/operators.py:201
-        ("*", "Setup render engine properties for Workbench."): "レンダーエンジンプロパティをWorkbench用に設定",
-        #: mmd_tools_append/editors/operators.py:204
+        #: mmd_tools_append/editors/operators.py:80 mmd_tools_append/editors/operators.py:135
         ("*", "Use Shadow"): "シャドウを使用",
-        #: mmd_tools_append/editors/operators.py:205
+        #: mmd_tools_append/editors/operators.py:131
+        ("Operator", "Setup Render Engine for Workbench"): "レンダーエンジンをWorkbench用に設定",
+        #: mmd_tools_append/editors/operators.py:132
+        ("*", "Setup render engine properties for Workbench."): "レンダーエンジンプロパティをWorkbench用に設定",
+        #: mmd_tools_append/editors/operators.py:136
         ("*", "Use Depth of Field"): "被写界深度を使用",
-        #: mmd_tools_append/editors/operators.py:250
+        #: mmd_tools_append/editors/operators.py:181
         ("Operator", "Show Message Box"): "メッセージボックスを表示",
-        #: mmd_tools_append/editors/operators.py:271
+        #: mmd_tools_append/editors/operators.py:202
         ("Operator", "Remove Unused Vertex Groups"): "未使用頂点グループをすべて削除",
-        #: mmd_tools_append/editors/operators.py:272
+        #: mmd_tools_append/editors/operators.py:203
         ("*", "Remove unused vertex groups from the active meshes"): "アクティブメッシュから未使用頂点グループをすべて削除",
-        #: mmd_tools_append/editors/operators.py:275
+        #: mmd_tools_append/editors/operators.py:206
         ("*", "Weight Threshold"): "ウエイトしきい値",
-        #: mmd_tools_append/editors/operators.py:339
+        #: mmd_tools_append/editors/operators.py:270
         ("Operator", "Select Shape Key Target Vertices"): "シェイプキー対象の頂点を選択",
-        #: mmd_tools_append/editors/operators.py:340
+        #: mmd_tools_append/editors/operators.py:271
         ("*", "Select shape key target vertices from the active meshes"): "アクティブメッシュのシェイプキー対象の頂点を選択",
-        #: mmd_tools_append/editors/operators.py:343 mmd_tools_append/editors/operators.py:390
+        #: mmd_tools_append/editors/operators.py:274 mmd_tools_append/editors/operators.py:321
         ("*", "Distance Threshold"): "距離しきい値",
-        #: mmd_tools_append/editors/operators.py:386
+        #: mmd_tools_append/editors/operators.py:317
         ("Operator", "Remove Unused Shape Keys"): "未使用シェイプキーをすべて削除",
-        #: mmd_tools_append/editors/operators.py:387
+        #: mmd_tools_append/editors/operators.py:318
         ("*", "Remove unused shape keys from the active meshes"): "アクティブメッシュから未使用シェイプキーをすべて削除",
-        #: mmd_tools_append/editors/operators.py:452
+        #: mmd_tools_append/editors/operators.py:382
         ("Operator", "Select Moved Pose Bones"): "操作済ポーズボーンを選択",
-        #: mmd_tools_append/editors/operators.py:459
+        #: mmd_tools_append/editors/operators.py:389
         ("*", "Tolerance"): "許容範囲",
-        #: mmd_tools_append/editors/operators.py:503
+        #: mmd_tools_append/editors/operators.py:433
         ("*", "Auto Segmentation"): "自動セグメンテーション",
         ("Operator", "Auto Segmentation"): "自動セグメンテーション",
-        #: mmd_tools_append/editors/operators.py:506 mmd_tools_append/panels.py:257
+        #: mmd_tools_append/editors/operators.py:436 mmd_tools_append/panels.py:304
         ("*", "Cost Threshold"): "コストしきい値",
-        #: mmd_tools_append/editors/operators.py:508 mmd_tools_append/panels.py:259
+        #: mmd_tools_append/editors/operators.py:439 mmd_tools_append/panels.py:306
         ("*", "Maximum Area Threshold"): "最大面積しきい値",
-        #: mmd_tools_append/editors/operators.py:509 mmd_tools_append/panels.py:260
+        #: mmd_tools_append/editors/operators.py:447 mmd_tools_append/panels.py:307
         ("*", "Minimum Area Threshold"): "最小面積しきい値",
-        #: mmd_tools_append/editors/operators.py:511 mmd_tools_append/panels.py:262
+        #: mmd_tools_append/editors/operators.py:455 mmd_tools_append/panels.py:309
         ("*", "Face Angle Cost Factor"): "面角度コスト係数",
-        #: mmd_tools_append/editors/operators.py:512 mmd_tools_append/panels.py:263
+        #: mmd_tools_append/editors/operators.py:456 mmd_tools_append/panels.py:310
         ("*", "Perimeter Cost Factor"): "外周コスト係数",
-        #: mmd_tools_append/editors/operators.py:513 mmd_tools_append/panels.py:264
+        #: mmd_tools_append/editors/operators.py:457 mmd_tools_append/panels.py:311
         ("*", "Material Change Cost Factor"): "マテリアル変化コスト係数",
-        #: mmd_tools_append/editors/operators.py:514 mmd_tools_append/panels.py:265
+        #: mmd_tools_append/editors/operators.py:458 mmd_tools_append/panels.py:312
         ("*", "Edge Sharp Cost Factor"): "辺シャープコスト係数",
-        #: mmd_tools_append/editors/operators.py:515 mmd_tools_append/panels.py:266
+        #: mmd_tools_append/editors/operators.py:459 mmd_tools_append/panels.py:313
         ("*", "Edge Seam Cost Factor"): "辺シームコスト係数",
-        #: mmd_tools_append/editors/operators.py:516 mmd_tools_append/panels.py:267
+        #: mmd_tools_append/editors/operators.py:461 mmd_tools_append/panels.py:314
         ("*", "Vertex Group Weight Cost Factor"): "頂点グループウェイトコスト係数",
-        #: mmd_tools_append/editors/operators.py:517 mmd_tools_append/panels.py:268
+        #: mmd_tools_append/editors/operators.py:468 mmd_tools_append/panels.py:315
         ("*", "Vertex Group Change Cost Factor"): "頂点グループ変化コスト係数",
-        #: mmd_tools_append/editors/operators.py:519 mmd_tools_append/panels.py:270
+        #: mmd_tools_append/editors/operators.py:475 mmd_tools_append/panels.py:317
         ("*", "Edge Length Factor"): "辺の長さ係数",
-        #: mmd_tools_append/editors/operators.py:521 mmd_tools_append/panels.py:272
+        #: mmd_tools_append/editors/operators.py:477 mmd_tools_append/panels.py:319
         ("*", "Segmentation Vertex Color Random Seed"): "セグメンテーション頂点カラーランダムシード",
-        #: mmd_tools_append/editors/operators.py:522 mmd_tools_append/editors/operators.py:614 mmd_tools_append/panels.py:273
+        #: mmd_tools_append/editors/operators.py:478 mmd_tools_append/editors/operators.py:576 mmd_tools_append/panels.py:320
         ("*", "Segmentation Vertex Color Attribute Name"): "セグメンテーション頂点カラーランダムシード属性名",
-        #: mmd_tools_append/editors/operators.py:567
+        #: mmd_tools_append/editors/operators.py:525
         ("*", "There is no target segment; In Edit Mode, select the faces you want to paint."): "対象のセグメントがありません。編集モードでペイントしたい面を選択してください。",
-        #: mmd_tools_append/editors/operators.py:610
+        #: mmd_tools_append/editors/operators.py:572
         ("Operator", "Paint Selected Faces"): "選択した面をペイント",
-        #: mmd_tools_append/editors/operators.py:613
+        #: mmd_tools_append/editors/operators.py:575
         ("*", "Random Color"): "ランダムカラー",
-        #: mmd_tools_append/editors/operators.py:651
+        #: mmd_tools_append/editors/operators.py:613
         ("Operator", "Setup Segmentation Color Palette"): "セグメンテーションカラーパレットを設定",
-        #: mmd_tools_append/editors/operators.py:675
+        #: mmd_tools_append/editors/operators.py:637
         ("Operator", "Restore Segmentation Color Palette"): "セグメンテーションカラーパレットを復元",
-        #: mmd_tools_append/generators/physics.py:13 mmd_tools_append/panels.py:144
+        #: mmd_tools_append/generators/physics.py:14 mmd_tools_append/panels.py:192
         ("Operator", "Add Center of Gravity"): "重心を追加",
-        #: mmd_tools_append/generators/physics.py:16
+        #: mmd_tools_append/generators/physics.py:17
         ("*", "Radius"): "半径",
-        #: mmd_tools_append/generators/skin_hair.py:117
+        #: mmd_tools_append/generators/skin_hair.py:107
         ("*", "Add Skin Hair Mesh"): "体毛メッシュを追加",
-        #: mmd_tools_append/generators/skin_hair.py:118
+        #: mmd_tools_append/generators/skin_hair.py:108
         ("*", "Construct a skin hair mesh"): "体毛メッシュを構築",
-        #: mmd_tools_append/generators/skin_hair.py:134
+        #: mmd_tools_append/generators/skin_hair.py:124
         ("*", "Align"): "整列",
-        #: mmd_tools_append/generators/skin_hair.py:136
+        #: mmd_tools_append/generators/skin_hair.py:126
         ("*", "Align the new object to the world"): "新規オブジェクトをワールド空間で整列",
-        #: mmd_tools_append/generators/skin_hair.py:136
+        #: mmd_tools_append/generators/skin_hair.py:126
         ("*", "World"): "ワールド",
-        #: mmd_tools_append/generators/skin_hair.py:137
+        #: mmd_tools_append/generators/skin_hair.py:127
         ("*", "Align the new object to the view"): "新規オブジェクトを視点で整列",
-        #: mmd_tools_append/generators/skin_hair.py:137
+        #: mmd_tools_append/generators/skin_hair.py:127
         ("*", "View"): "ビュー",
-        #: mmd_tools_append/generators/skin_hair.py:138
+        #: mmd_tools_append/generators/skin_hair.py:128
         ("*", "3D Cursor"): "3Dカーソル",
-        #: mmd_tools_append/generators/skin_hair.py:138
+        #: mmd_tools_append/generators/skin_hair.py:128
         ("*", "Use the 3D cursor orientation for the new object"): "新規オブジェクトに3Dカーソルの回転を使用",
-        #: mmd_tools_append/generators/skin_hair.py:145
+        #: mmd_tools_append/generators/skin_hair.py:135
         ("*", "Location"): "位置",
-        #: mmd_tools_append/generators/skin_hair.py:149
+        #: mmd_tools_append/generators/skin_hair.py:139
         ("*", "Rotation"): "回転",
-        #: mmd_tools_append/generators/skin_hair.py:180
-        ("*", "MMD Append"): "MMD Append",
-        #: mmd_tools_append/generators/skin_hair.py:184
+        #: mmd_tools_append/generators/skin_hair.py:174
         ("Operator", "Skin Hair"): "体毛",
-        #: mmd_tools_append/generators/skin_hair.py:188
+        #: mmd_tools_append/generators/skin_hair.py:178
         ("*", "MMD Append Extras"): "MMD Appendその他",
-        #: mmd_tools_append/panels.py:34
+        #: mmd_tools_append/panels.py:43
+        ("*", "Install MMD Tools"): "MMD Toolsをインストール",
+        #: mmd_tools_append/panels.py:59
         ("*", "MMD Append Operator"): "MMD Appendオペレーター",
-        #: mmd_tools_append/panels.py:44
+        #: mmd_tools_append/panels.py:69
+        ("*", "MMD Tools is not installed."): "MMD Toolsがインストールされていません。",
+        #: mmd_tools_append/panels.py:74
         ("*", "Render:"): "レンダー:",
-        #: mmd_tools_append/panels.py:52
+        #: mmd_tools_append/panels.py:82
         ("*", "MMD to Rigify:"): "MMDからRigify:",
-        #: mmd_tools_append/panels.py:56
-        ("Operator", "Add Metarig"): "メタリグを追加",
-        #: mmd_tools_append/panels.py:73
-        ("*", "Rigify to MMD:"): "RigifyからMMD:",
-        #: mmd_tools_append/panels.py:75 mmd_tools_append/panels.py:80
-        ("Operator", "Convert to MMD compatible"): "MMD互換に変換",
-        #: mmd_tools_append/panels.py:78
-        ("*", "(Experimental) Auto-Rig to MMD:"): "(実験的) Auto-RigからMMD:",
         #: mmd_tools_append/panels.py:86
-        ("*", "MMD Append Physics"): "MMD Append物理演算",
-        #: mmd_tools_append/panels.py:95
-        ("*", "Relevant Selection:"): "関連選択",
-        #: mmd_tools_append/panels.py:98
-        ("*", "Collision Mesh"): "コリジョンメッシュ",
-        #: mmd_tools_append/panels.py:105
-        ("*", "MMD Model is not selected."): "MMDモデルが未選択",
+        ("Operator", "Add Metarig"): "メタリグを追加",
+        #: mmd_tools_append/panels.py:103
+        ("*", "Rigify to MMD:"): "RigifyからMMD:",
+        #: mmd_tools_append/panels.py:105 mmd_tools_append/panels.py:112
+        ("Operator", "Convert to MMD compatible"): "MMD互換に変換",
+        #: mmd_tools_append/panels.py:107
+        ("Operator", "De-rig armature"): "リグを解除",
+        #: mmd_tools_append/panels.py:108
+        ("Operator", "Translate Rigify to MMD"): "RigifyをMMDに翻訳",
         #: mmd_tools_append/panels.py:110
-        ("*", "Rigid Body"): "リジッドボディ",
-        #: mmd_tools_append/panels.py:119
-        ("*", "Cloth Mesh"): "クロスメッシュ",
-        #: mmd_tools_append/panels.py:125
-        ("*", "Converter:"): "コンバーター:",
-        #: mmd_tools_append/panels.py:129
-        ("Operator", "Rigid Body to Cloth"): "リジッドボディをクロスに",
+        ("*", "(Experimental) Auto-Rig to MMD:"): "(実験的) Auto-RigからMMD:",
+        #: mmd_tools_append/panels.py:118
+        ("*", "MMD Append Physics"): "MMD Append物理演算",
+        #: mmd_tools_append/panels.py:131
+        ("*", "Relevant Selection:"): "関連選択",
         #: mmd_tools_append/panels.py:134
-        ("*", "Pyramid Cloth:"): "ピラミッドクロス:",
-        #: mmd_tools_append/panels.py:136
-        ("Operator", "Add Pyramid"): "ピラミッドを追加",
-        #: mmd_tools_append/panels.py:137
-        ("Operator", "Pyramid to Cloth"): "ピラミッドをクロスに",
-        #: mmd_tools_append/panels.py:138
-        ("Operator", "Repaint Weight"): "ウェイト再ペイント",
+        ("*", "Collision Mesh"): "コリジョンメッシュ",
         #: mmd_tools_append/panels.py:141
+        ("*", "MMD Model is not selected."): "MMDモデルが未選択",
+        #: mmd_tools_append/panels.py:146
+        ("*", "Rigid Body"): "リジッドボディ",
+        #: mmd_tools_append/panels.py:161
+        ("*", "Cloth Mesh"): "クロスメッシュ",
+        #: mmd_tools_append/panels.py:173
+        ("*", "Converter:"): "コンバーター:",
+        #: mmd_tools_append/panels.py:177
+        ("Operator", "Rigid Body to Cloth"): "リジッドボディをクロスに",
+        #: mmd_tools_append/panels.py:182
+        ("*", "Pyramid Cloth:"): "ピラミッドクロス:",
+        #: mmd_tools_append/panels.py:184
+        ("Operator", "Add Pyramid"): "ピラミッドを追加",
+        #: mmd_tools_append/panels.py:185
+        ("Operator", "Pyramid to Cloth"): "ピラミッドをクロスに",
+        #: mmd_tools_append/panels.py:186
+        ("Operator", "Repaint Weight"): "ウェイト再ペイント",
+        #: mmd_tools_append/panels.py:189
         ("*", "Misc:"): "その他",
-        #: mmd_tools_append/panels.py:175
+        #: mmd_tools_append/panels.py:222
         ("*", "MMD Append Segmentation"): "MMD Appendセグメンテーション",
-        #: mmd_tools_append/panels.py:190
+        #: mmd_tools_append/panels.py:237
         ("*", "Color Layer&AOV Name"): "カラーレイヤー&AOV名",
-        #: mmd_tools_append/panels.py:204
+        #: mmd_tools_append/panels.py:251
         ("*", "Auto Segmentation:"): "自動セグメンテーション:",
-        #: mmd_tools_append/panels.py:207
+        #: mmd_tools_append/panels.py:254
         ("*", "Thresholds:"): "しきい値:",
-        #: mmd_tools_append/panels.py:209
+        #: mmd_tools_append/panels.py:256
         ("*", "Cost"): "コスト",
-        #: mmd_tools_append/panels.py:211
+        #: mmd_tools_append/panels.py:258
         ("*", "Area Max"): "面積最大",
-        #: mmd_tools_append/panels.py:212 mmd_tools_append/tuners/material_adjusters.py:106
+        #: mmd_tools_append/panels.py:259
         ("*", "Min"): "最小",
-        #: mmd_tools_append/panels.py:214
+        #: mmd_tools_append/panels.py:261
         ("*", "Cost Factors:"): "コスト係数:",
-        #: mmd_tools_append/panels.py:217
+        #: mmd_tools_append/panels.py:264
         ("*", "Face Angle"): "面角度",
-        #: mmd_tools_append/panels.py:218
+        #: mmd_tools_append/panels.py:265
         ("*", "Perimeter"): "外周",
-        #: mmd_tools_append/panels.py:219
+        #: mmd_tools_append/panels.py:266
         ("*", "Material Change"): "マテリアル変化",
-        #: mmd_tools_append/panels.py:223
+        #: mmd_tools_append/panels.py:270
         ("*", "Edge "): "辺 ",
-        #: mmd_tools_append/panels.py:224
+        #: mmd_tools_append/panels.py:271
         ("*", "Sharp"): "シャープ",
-        #: mmd_tools_append/panels.py:225
+        #: mmd_tools_append/panels.py:272
         ("*", "Seam"): "シーム",
-        #: mmd_tools_append/panels.py:229
+        #: mmd_tools_append/panels.py:276
         ("*", "Vertex Group "): "頂点グループ ",
-        #: mmd_tools_append/panels.py:230
+        #: mmd_tools_append/panels.py:277
         ("*", "Weight"): "ウェイト",
-        #: mmd_tools_append/panels.py:231
+        #: mmd_tools_append/panels.py:278
         ("*", "Change"): "変化",
-        #: mmd_tools_append/panels.py:233
+        #: mmd_tools_append/panels.py:280
         ("*", "Other Parameters:"): "他のパラメーター:",
-        #: mmd_tools_append/panels.py:236
+        #: mmd_tools_append/panels.py:283
         ("*", "Color Random Seed"): "カラーランダムシード",
-        #: mmd_tools_append/panels.py:238
+        #: mmd_tools_append/panels.py:285
         ("Operator", "Execute Auto Segmentation"): "自動セグメンテーションを実行",
-        #: mmd_tools_append/preferences.py:22
+        #: mmd_tools_append/preferences.py:21
         ("*", "Asset Search Results Max. Display Count"): "アセットサーチ結果の最大表示件数",
-        #: mmd_tools_append/preferences.py:23
+        #: mmd_tools_append/preferences.py:22
         ("*", "Larger value is slower"): "大きい値ほど遅い",
-        #: mmd_tools_append/preferences.py:30
+        #: mmd_tools_append/preferences.py:29
         ("*", "Asset JSONs Folder"): "アセットJSONフォルダー",
-        #: mmd_tools_append/preferences.py:31
+        #: mmd_tools_append/preferences.py:30
         ("*", "Path to asset list JSON files"): "アセットJSONファイルのパス",
-        #: mmd_tools_append/preferences.py:37
+        #: mmd_tools_append/preferences.py:36
         ("*", "Asset JSON Update Repository"): "アセットJSON更新リポジトリ",
-        #: mmd_tools_append/preferences.py:38
+        #: mmd_tools_append/preferences.py:37
         ("*", "Specify the github repository which to retrieve the assets"): "アセットを取得するgithubリポジトリを指定",
-        #: mmd_tools_append/preferences.py:43
+        #: mmd_tools_append/preferences.py:42
         ("*", "Asset JSON Update Query"): "アセットJSON更新クエリ",
-        #: mmd_tools_append/preferences.py:44
+        #: mmd_tools_append/preferences.py:43
         ("*", "Specify the filter conditions for retrieving assets"): "アセットを取得するフィルタ条件を指定",
-        #: mmd_tools_append/preferences.py:49
+        #: mmd_tools_append/preferences.py:47
         ("*", "Asset JSON Auto Update on Startup"): "起動時にアセットJSONを更新する",
-        #: mmd_tools_append/preferences.py:54
+        #: mmd_tools_append/preferences.py:50
         ("*", "Asset Cache Folder"): "アセットキャッシュフォルダー",
-        #: mmd_tools_append/preferences.py:55
+        #: mmd_tools_append/preferences.py:51
         ("*", "Path to asset cache folder"): "アセットキャッシュフォルダーのパス",
-        #: mmd_tools_append/preferences.py:61
+        #: mmd_tools_append/preferences.py:57
         ("*", "Asset Max. Cache Size (MB)"): "アセット最大キャッシュサイズ(MB)",
-        #: mmd_tools_append/preferences.py:62
+        #: mmd_tools_append/preferences.py:58
         ("*", "Maximum size (Mega bytes) of the asset cache folder"): "アセットキャッシュフォルダーの最大サイズ(メガバイト)",
-        #: mmd_tools_append/preferences.py:69
+        #: mmd_tools_append/preferences.py:65
         ("*", "Asset Extract Root Folder"): "アセット展開ルートフォルダー",
-        #: mmd_tools_append/preferences.py:70
+        #: mmd_tools_append/preferences.py:66
         ("*", "Path to extract the cached assets"): "キャッシュしたアセットの展開パス",
-        #: mmd_tools_append/preferences.py:76
+        #: mmd_tools_append/preferences.py:72
         ("*", "Asset Extract Folder"): "アセット展開フォルダー",
-        #: mmd_tools_append/preferences.py:83
+        #: mmd_tools_append/preferences.py:78
         ("*", "Asset Extract JSON"): "アセット展開JSON",
-        #: mmd_tools_append/preferences.py:129
+        #: mmd_tools_append/preferences.py:86
         ("Operator", "Check now for mmd_tools_append update"): "mmd_tools_appendの更新を今すぐチェック",
-        #: mmd_tools_append/preferences.py:130
+        #: mmd_tools_append/preferences.py:87
         ("*", "Auto-check for Update"): "更新を自動的にチェックする",
-        #: mmd_tools_append/preferences.py:131
+        #: mmd_tools_append/preferences.py:88
         ("*", "Last check: Never"): "Last check: 未チェック",
-        #: mmd_tools_append/preferences.py:132
+        #: mmd_tools_append/preferences.py:89
         ("Operator", "Addon is up to date"): "アドオンは最新です",
-        #: mmd_tools_append/preferences.py:133
+        #: mmd_tools_append/preferences.py:90
         ("Operator", "Checking..."): "チェック中...",
-        #: mmd_tools_append/preferences.py:134
+        #: mmd_tools_append/preferences.py:91
         ("*", "Choose 'Update Now' & press OK to install, "): "「今すぐ更新」を選択し、OKを押してインストール",
-        #: mmd_tools_append/preferences.py:135
+        #: mmd_tools_append/preferences.py:92
         ("*", "or click outside window to defer"): "またはウィンドウの外をクリックして保留",
-        #: mmd_tools_append/preferences.py:136
+        #: mmd_tools_append/preferences.py:93
         ("*", "No updates available"): "更新はありません",
-        #: mmd_tools_append/preferences.py:137
+        #: mmd_tools_append/preferences.py:94
         ("*", "Press okay to dismiss dialog"): "OKを押してダイアログを閉じる",
-        #: mmd_tools_append/preferences.py:138
+        #: mmd_tools_append/preferences.py:95
         ("*", "Check for update now?"): "今すぐ更新をチェックしますか?",
-        #: mmd_tools_append/preferences.py:139
+        #: mmd_tools_append/preferences.py:96
         ("*", "Process update"): "更新処理",
-        #: mmd_tools_append/preferences.py:140
+        #: mmd_tools_append/preferences.py:97
         ("*", "Decide to install, ignore, or defer new addon update"): "アドオンの更新、無視または保留を選択",
-        #: mmd_tools_append/preferences.py:141
+        #: mmd_tools_append/preferences.py:98
         ("*", "Update Now"): "今すぐ更新",
-        #: mmd_tools_append/preferences.py:142
+        #: mmd_tools_append/preferences.py:99
         ("*", "Install update now"): "今すぐ更新をインストール",
-        #: mmd_tools_append/preferences.py:143
+        #: mmd_tools_append/preferences.py:100
         ("*", "Ignore"): "無視",
-        #: mmd_tools_append/preferences.py:144
+        #: mmd_tools_append/preferences.py:101
         ("*", "Ignore this update to prevent future popups"): "このアップデートは無視して今後のポップアップを止める",
-        #: mmd_tools_append/preferences.py:145
+        #: mmd_tools_append/preferences.py:102
         ("*", "Defer"): "保留",
-        #: mmd_tools_append/preferences.py:146
+        #: mmd_tools_append/preferences.py:103
         ("*", "Defer choice till next blender session"): "次回のBlender起動まで保留",
-        #: mmd_tools_append/preferences.py:160
+        #: mmd_tools_append/preferences.py:117
         ("*", "Browse Assets"): "アセットを閲覧",
-        #: mmd_tools_append/preferences.py:164
+        #: mmd_tools_append/preferences.py:121
         ("*", "Query Examples"): "クエリ例",
-        #: mmd_tools_append/preferences.py:172
+        #: mmd_tools_append/preferences.py:129
         ("*", "Asset Cache Usage:"): "アセットキャッシュ利用量",
-        #: mmd_tools_append/preferences.py:189
-        ("*", "(Experimental) Add-on Update"): "(実験的) アドオン更新",
-        #: mmd_tools_append/preferences.py:194
+        #: mmd_tools_append/preferences.py:147
         ("*", "Credits:"): "クレジット:",
-        #: mmd_tools_append/preferences.py:198
+        #: mmd_tools_append/preferences.py:151
         ("*", "Rigid body Physics to Cloth Physics feature is the work of 小威廉伯爵."): "リジッドボディ物理からクロス物理機能は小威廉伯爵の作品です。",
-        #: mmd_tools_append/preferences.py:200
+        #: mmd_tools_append/preferences.py:153
         ("*", "It was ported with his permission."): "この機能は本人の許可を得て移植したものです。",
-        #: mmd_tools_append/tuners/geometry_nodes_tuners.py:43 mmd_tools_append/tuners/lighting_tuners.py:53 mmd_tools_append/tuners/material_tuners.py:25
+        #: mmd_tools_append/tuners/geometry_nodes_tuners.py:44 mmd_tools_append/tuners/lighting_tuners.py:51 mmd_tools_append/tuners/material_tuners.py:24
         ("*", "Reset"): "リセット",
-        #: mmd_tools_append/tuners/geometry_nodes_tuners.py:58
+        #: mmd_tools_append/tuners/geometry_nodes_tuners.py:63
         ("*", "Sequins"): "スパンコール",
-        #: mmd_tools_append/tuners/lighting_tuners.py:66
+        #: mmd_tools_append/tuners/lighting_tuners.py:64
         ("*", "Left Accent"): "左アクセント",
-        #: mmd_tools_append/tuners/lighting_tuners.py:80
+        #: mmd_tools_append/tuners/lighting_tuners.py:78
         ("*", "Double Side Accent"): "両側アクセント",
-        #: mmd_tools_append/tuners/lighting_tuners.py:94
+        #: mmd_tools_append/tuners/lighting_tuners.py:92
         ("*", "God Ray"): "ゴッドレイ",
-        #: mmd_tools_append/tuners/lighting_tuners.py:108
+        #: mmd_tools_append/tuners/lighting_tuners.py:106
         ("*", "Backlight"): "バックライト",
-        #: mmd_tools_append/tuners/lighting_tuners.py:122
+        #: mmd_tools_append/tuners/lighting_tuners.py:120
         ("*", "Light Probe Grid"): "イラディアンスボリューム",
-        #: mmd_tools_append/tuners/lighting_tuners.py:136
+        #: mmd_tools_append/tuners/lighting_tuners.py:134
         ("*", "Shadowless"): "シャドウレス",
-        #: mmd_tools_append/tuners/material_adjusters.py:61 mmd_tools_append/tuners/material_adjusters.py:152
-        ("*", "Specular"): "スペキュラー",
-        #: mmd_tools_append/tuners/material_adjusters.py:62 mmd_tools_append/tuners/material_adjusters.py:153 mmd_tools_append/tuners/material_tuners.py:629
+        #: mmd_tools_append/tuners/material_adjusters.py:61 mmd_tools_append/tuners/material_adjusters.py:118
+        ("*", "Specular IOR Level"): "スペキュラーIORレベル",
+        #: mmd_tools_append/tuners/material_adjusters.py:62 mmd_tools_append/tuners/material_adjusters.py:119 mmd_tools_append/tuners/material_tuners.py:802
         ("*", "Roughness"): "粗さ",
-        #: mmd_tools_append/tuners/material_adjusters.py:63 mmd_tools_append/tuners/panels.py:182
+        #: mmd_tools_append/tuners/material_adjusters.py:63 mmd_tools_append/tuners/panels.py:185
         ("*", "Wet"): "ウェット",
         ("Operator", "Wet"): "ウェット",
-        #: mmd_tools_append/tuners/material_adjusters.py:107
-        ("*", "Max"): "最大",
-        #: mmd_tools_append/tuners/material_adjusters.py:108
-        ("*", "Blood Color"): "血液カラー",
-        #: mmd_tools_append/tuners/material_adjusters.py:109 mmd_tools_append/tuners/panels.py:181
-        ("*", "Subsurface"): "サブサーフェス",
-        ("Operator", "Subsurface"): "サブサーフェス",
-        #: mmd_tools_append/tuners/material_adjusters.py:110
-        ("*", "Subsurface Color"): "サブサーフェスカラー",
-        #: mmd_tools_append/tuners/material_adjusters.py:154 mmd_tools_append/tuners/panels.py:183
+        #: mmd_tools_append/tuners/material_adjusters.py:120 mmd_tools_append/tuners/panels.py:186
         ("Operator", "Glitter"): "グリッター",
-        #: mmd_tools_append/tuners/material_adjusters.py:198 mmd_tools_append/tuners/material_tuners.py:440 mmd_tools_append/tuners/material_tuners.py:511 mmd_tools_append/tuners/material_tuners.py:582 mmd_tools_append/tuners/material_tuners.py:851
+        #: mmd_tools_append/tuners/material_adjusters.py:176 mmd_tools_append/tuners/material_tuners.py:574 mmd_tools_append/tuners/material_tuners.py:658 mmd_tools_append/tuners/material_tuners.py:742 mmd_tools_append/tuners/material_tuners.py:1106
         ("*", "Color"): "カラー",
-        #: mmd_tools_append/tuners/material_adjusters.py:199
+        #: mmd_tools_append/tuners/material_adjusters.py:177
         ("*", "Threshold"): "しきい値",
-        #: mmd_tools_append/tuners/material_adjusters.py:200 mmd_tools_append/tuners/material_tuners.py:446 mmd_tools_append/tuners/material_tuners.py:517 mmd_tools_append/tuners/material_tuners.py:632
+        #: mmd_tools_append/tuners/material_adjusters.py:178 mmd_tools_append/tuners/material_tuners.py:580 mmd_tools_append/tuners/material_tuners.py:664 mmd_tools_append/tuners/material_tuners.py:805
         ("*", "Strength"): "強さ",
-        #: mmd_tools_append/tuners/material_adjusters.py:201 mmd_tools_append/tuners/panels.py:184
-        ("Operator", "Emission"): "放射",
-        ("*", "Emission"): "放射",
-        #: mmd_tools_append/tuners/material_adjusters.py:202
+        #: mmd_tools_append/tuners/material_adjusters.py:179
+        ("*", "Emission Color"): "放射カラー",
+        #: mmd_tools_append/tuners/material_adjusters.py:180
         ("*", "Emission Strength"): "放射の強さ",
-        #: mmd_tools_append/tuners/material_tuners.py:48
+        #: mmd_tools_append/tuners/material_tuners.py:51
         ("*", "Transparent"): "伝播",
-        #: mmd_tools_append/tuners/material_tuners.py:73
+        #: mmd_tools_append/tuners/material_tuners.py:82
         ("*", "Eye Highlight"): "目ハイライト",
-        #: mmd_tools_append/tuners/material_tuners.py:96
+        #: mmd_tools_append/tuners/material_tuners.py:114
         ("*", "Eye White"): "白目",
-        #: mmd_tools_append/tuners/material_tuners.py:119
+        #: mmd_tools_append/tuners/material_tuners.py:146
         ("*", "Eye Iris"): "虹彩",
-        #: mmd_tools_append/tuners/material_tuners.py:147
+        #: mmd_tools_append/tuners/material_tuners.py:183
         ("*", "Eye Lash"): "まつ毛",
-        #: mmd_tools_append/tuners/material_tuners.py:173
+        #: mmd_tools_append/tuners/material_tuners.py:218
         ("*", "Hair Matte"): "髪 つや消し",
-        #: mmd_tools_append/tuners/material_tuners.py:199
+        #: mmd_tools_append/tuners/material_tuners.py:253
         ("*", "Skin Mucosa"): "粘膜",
-        #: mmd_tools_append/tuners/material_tuners.py:293
+        #: mmd_tools_append/tuners/material_tuners.py:373
         ("*", "Metal Noble"): "貴金属",
-        #: mmd_tools_append/tuners/material_tuners.py:319
+        #: mmd_tools_append/tuners/material_tuners.py:408
         ("*", "Metal Base"): "卑金属",
-        #: mmd_tools_append/tuners/material_tuners.py:344
+        #: mmd_tools_append/tuners/material_tuners.py:442
         ("*", "Stone Gem"): "石 宝石",
-        #: mmd_tools_append/tuners/material_tuners.py:404
+        #: mmd_tools_append/tuners/material_tuners.py:525
         ("*", "Fabric Wave"): "布地 波形",
-        #: mmd_tools_append/tuners/material_tuners.py:437
+        #: mmd_tools_append/tuners/material_tuners.py:571
         ("*", "Fabric Cotton"): "布地 綿",
-        #: mmd_tools_append/tuners/material_tuners.py:441 mmd_tools_append/tuners/material_tuners.py:512 mmd_tools_append/tuners/material_tuners.py:583
+        #: mmd_tools_append/tuners/material_tuners.py:575 mmd_tools_append/tuners/material_tuners.py:659 mmd_tools_append/tuners/material_tuners.py:743
         ("*", "Alpha"): "アルファ",
-        #: mmd_tools_append/tuners/material_tuners.py:442 mmd_tools_append/tuners/material_tuners.py:513 mmd_tools_append/tuners/material_tuners.py:585 mmd_tools_append/tuners/material_tuners.py:634
+        #: mmd_tools_append/tuners/material_tuners.py:576 mmd_tools_append/tuners/material_tuners.py:660 mmd_tools_append/tuners/material_tuners.py:745 mmd_tools_append/tuners/material_tuners.py:807
         ("*", "Vector"): "ベクトル",
-        #: mmd_tools_append/tuners/material_tuners.py:443 mmd_tools_append/tuners/material_tuners.py:514
+        #: mmd_tools_append/tuners/material_tuners.py:577 mmd_tools_append/tuners/material_tuners.py:661
         ("*", "Impurity"): "不純物",
-        #: mmd_tools_append/tuners/material_tuners.py:444 mmd_tools_append/tuners/material_tuners.py:515 mmd_tools_append/tuners/material_tuners.py:587 mmd_tools_append/tuners/material_tuners.py:631 mmd_tools_append/tuners/material_tuners.py:852
+        #: mmd_tools_append/tuners/material_tuners.py:578 mmd_tools_append/tuners/material_tuners.py:662 mmd_tools_append/tuners/material_tuners.py:747 mmd_tools_append/tuners/material_tuners.py:804 mmd_tools_append/tuners/material_tuners.py:1107
         ("*", "Scale"): "スケール",
-        #: mmd_tools_append/tuners/material_tuners.py:445 mmd_tools_append/tuners/material_tuners.py:516
+        #: mmd_tools_append/tuners/material_tuners.py:579 mmd_tools_append/tuners/material_tuners.py:663
         ("*", "Angle"): "角度",
-        #: mmd_tools_append/tuners/material_tuners.py:447 mmd_tools_append/tuners/material_tuners.py:518 mmd_tools_append/tuners/material_tuners.py:584
+        #: mmd_tools_append/tuners/material_tuners.py:581 mmd_tools_append/tuners/material_tuners.py:665 mmd_tools_append/tuners/material_tuners.py:744
         ("*", "Hole Alpha"): "穴アルファ",
-        #: mmd_tools_append/tuners/material_tuners.py:448 mmd_tools_append/tuners/material_tuners.py:519
+        #: mmd_tools_append/tuners/material_tuners.py:582 mmd_tools_append/tuners/material_tuners.py:666
         ("*", "Gaps"): "すき間",
-        #: mmd_tools_append/tuners/material_tuners.py:449 mmd_tools_append/tuners/material_tuners.py:520
+        #: mmd_tools_append/tuners/material_tuners.py:583 mmd_tools_append/tuners/material_tuners.py:667
         ("*", "Warp"): "縦糸",
-        #: mmd_tools_append/tuners/material_tuners.py:450 mmd_tools_append/tuners/material_tuners.py:521
+        #: mmd_tools_append/tuners/material_tuners.py:584 mmd_tools_append/tuners/material_tuners.py:668
         ("*", "Woof"): "横糸",
-        #: mmd_tools_append/tuners/material_tuners.py:451 mmd_tools_append/tuners/material_tuners.py:522
+        #: mmd_tools_append/tuners/material_tuners.py:585 mmd_tools_append/tuners/material_tuners.py:669
         ("*", "Distortion"): "歪み",
-        #: mmd_tools_append/tuners/material_tuners.py:452 mmd_tools_append/tuners/material_tuners.py:523
+        #: mmd_tools_append/tuners/material_tuners.py:586 mmd_tools_append/tuners/material_tuners.py:670
         ("*", "Fibers"): "繊維",
-        #: mmd_tools_append/tuners/material_tuners.py:453 mmd_tools_append/tuners/material_tuners.py:524
+        #: mmd_tools_append/tuners/material_tuners.py:587 mmd_tools_append/tuners/material_tuners.py:671
         ("*", "Fuzziness"): "曖昧さ",
-        #: mmd_tools_append/tuners/material_tuners.py:454 mmd_tools_append/tuners/material_tuners.py:525
+        #: mmd_tools_append/tuners/material_tuners.py:588 mmd_tools_append/tuners/material_tuners.py:672
         ("*", "Errors"): "誤差",
-        #: mmd_tools_append/tuners/material_tuners.py:508
+        #: mmd_tools_append/tuners/material_tuners.py:655
         ("*", "Fabric Silk"): "布地 絹",
-        #: mmd_tools_append/tuners/material_tuners.py:579
+        #: mmd_tools_append/tuners/material_tuners.py:739
         ("*", "Fabric Knit"): "編物",
-        #: mmd_tools_append/tuners/material_tuners.py:586
+        #: mmd_tools_append/tuners/material_tuners.py:746
         ("*", "Random Hue"): "ランダム色相",
-        #: mmd_tools_append/tuners/material_tuners.py:588
+        #: mmd_tools_append/tuners/material_tuners.py:748
         ("*", "X Compression"): "X圧縮",
-        #: mmd_tools_append/tuners/material_tuners.py:624
+        #: mmd_tools_append/tuners/material_tuners.py:797
         ("*", "Fabric Leather"): "革",
-        #: mmd_tools_append/tuners/material_tuners.py:627
+        #: mmd_tools_append/tuners/material_tuners.py:800
         ("*", "Primary Color"): "プライマリーカラー",
-        #: mmd_tools_append/tuners/material_tuners.py:628
+        #: mmd_tools_append/tuners/material_tuners.py:801
         ("*", "Secondary Color"): "セカンダリーカラー",
-        #: mmd_tools_append/tuners/material_tuners.py:630
+        #: mmd_tools_append/tuners/material_tuners.py:803
         ("*", "Old/New"): "古い/新しい",
-        #: mmd_tools_append/tuners/material_tuners.py:633
+        #: mmd_tools_append/tuners/material_tuners.py:806
         ("*", "Tartiary Detail"): "詳細さ",
-        #: mmd_tools_append/tuners/material_tuners.py:673
+        #: mmd_tools_append/tuners/material_tuners.py:859
         ("*", "Plastic Gloss"): "プラスチック 光沢",
-        #: mmd_tools_append/tuners/material_tuners.py:699
+        #: mmd_tools_append/tuners/material_tuners.py:894
         ("*", "Plastic Bump"): "プラスチック 凹凸",
-        #: mmd_tools_append/tuners/material_tuners.py:731
+        #: mmd_tools_append/tuners/material_tuners.py:939
         ("*", "Plastic Matte"): "プラスチック つや消し",
-        #: mmd_tools_append/tuners/material_tuners.py:757
+        #: mmd_tools_append/tuners/material_tuners.py:974
         ("*", "Plastic Emission"): "プラスチック 発光",
-        #: mmd_tools_append/tuners/material_tuners.py:784
+        #: mmd_tools_append/tuners/material_tuners.py:1011
         ("*", "Liquid Water"): "水",
-        #: mmd_tools_append/tuners/material_tuners.py:811
+        #: mmd_tools_append/tuners/material_tuners.py:1048
         ("*", "Liquid Cloudy"): "液体 白濁",
-        #: mmd_tools_append/tuners/material_tuners.py:848
+        #: mmd_tools_append/tuners/material_tuners.py:1103
         ("*", "Artistic Watercolor"): "表現手法 水彩画",
-        #: mmd_tools_append/tuners/material_tuners.py:853
+        #: mmd_tools_append/tuners/material_tuners.py:1108
         ("*", "Background Scale"): "背景スケール",
-        #: mmd_tools_append/tuners/material_tuners.py:854
+        #: mmd_tools_append/tuners/material_tuners.py:1109
         ("*", "Bleed Strength"): "滲み強度",
-        #: mmd_tools_append/tuners/material_tuners.py:885
+        #: mmd_tools_append/tuners/material_tuners.py:1154
         ("*", "Toon Shader"): "トーンシェーダー",
-        #: mmd_tools_append/tuners/material_tuners.py:888
+        #: mmd_tools_append/tuners/material_tuners.py:1157
         ("*", "Base Color"): "ベースカラー",
-        #: mmd_tools_append/tuners/material_tuners.py:889
+        #: mmd_tools_append/tuners/material_tuners.py:1158
         ("*", "Highlight Color"): "ハイライトカラー",
-        #: mmd_tools_append/tuners/material_tuners.py:890
+        #: mmd_tools_append/tuners/material_tuners.py:1159
         ("*", "Shadow Color"): "影のカラー",
-        #: mmd_tools_append/tuners/material_tuners.py:891
+        #: mmd_tools_append/tuners/material_tuners.py:1160
         ("*", "Rim Light Strength"): "リムライト強度",
         #: mmd_tools_append/tuners/operators.py:13
         ("Operator", "Tune Lighting"): "ライト調整",
@@ -962,62 +946,61 @@ translation_dict = {
         ("Operator", "Attach Material Adjuster"): "マテリアル調整器を付加",
         #: mmd_tools_append/tuners/operators.py:82
         ("Operator", "Detach Material Adjuster"): "マテリアル調整器を除去",
-        #: mmd_tools_append/tuners/operators.py:102
+        #: mmd_tools_append/tuners/operators.py:101
         ("Operator", "Tune Geometry Nodes"): "ジオメトリノードを調整",
-        #: mmd_tools_append/tuners/panels.py:20
+        #: mmd_tools_append/tuners/panels.py:23
         ("*", "MMD Append Sky"): "MMD Append Sky",
-        #: mmd_tools_append/tuners/panels.py:30
+        #: mmd_tools_append/tuners/panels.py:33
         ("*", "Light Strength"): "照明強度",
-        #: mmd_tools_append/tuners/panels.py:31
+        #: mmd_tools_append/tuners/panels.py:34
         ("*", "Image Strength"): "表示強度",
-        #: mmd_tools_append/tuners/panels.py:43
+        #: mmd_tools_append/tuners/panels.py:46
         ("*", "MMD Append World not found."): "MMD Appendワールドが見つからない",
-        #: mmd_tools_append/tuners/panels.py:48
+        #: mmd_tools_append/tuners/panels.py:51
         ("*", "IrradianceVolume not found. Please add it."): "イラディアンスボリュームが見つからないので追加してください",
-        #: mmd_tools_append/tuners/panels.py:53
+        #: mmd_tools_append/tuners/panels.py:56
         ("*", "for Eevee lighting, check Render Properties."): "Eevee照明用レンダープロパティを確認",
-        #: mmd_tools_append/tuners/panels.py:58
+        #: mmd_tools_append/tuners/panels.py:61
         ("*", "Bake Indirect Lighting"): "間接照明をベイク",
-        #: mmd_tools_append/tuners/panels.py:76
+        #: mmd_tools_append/tuners/panels.py:79
         ("*", "MMD Append Lighting"): "MMD Append照明",
-        #: mmd_tools_append/tuners/panels.py:115
+        #: mmd_tools_append/tuners/panels.py:118
         ("*", "MMD Append Material"): "MMD Appendマテリアル",
-        #: mmd_tools_append/tuners/panels.py:151
+        #: mmd_tools_append/tuners/panels.py:154
         ("*", "MMD Append Material Adjuster"): "MMD Appendマテリアル調整器",
-        #: mmd_tools_append/tuners/panels.py:168
-        ("*", "{material_name} is unsupported. Select other material to be output from Principled BSDF."): "{material_name}は未未対応です。プリンシプルBSDFから出力のある他のマテリアルを選択してください。",
-        #: mmd_tools_append/tuners/panels.py:200
+        #: mmd_tools_append/tuners/panels.py:172
+        ("*", "{material_name} is unsupported. Select other material to be output from Principled BSDF."): "{material_name}は未対応です。プリンシプルBSDFから出力のある他のマテリアルを選択してください。",
+        #: mmd_tools_append/tuners/panels.py:187
+        ("Operator", "Emission"): "放射",
+        ("*", "Emission"): "放射",
+        #: mmd_tools_append/tuners/panels.py:202
         ("*", "MMD Append Geometry Nodes"): "MMD Appendジオメトリノード",
-        #: mmd_tools_append/tuners/properties.py:17
+        #: mmd_tools_append/tuners/properties.py:18
         ("*", "Choose the lighting you want to use"): "照明を選択",
-        #: mmd_tools_append/tuners/properties.py:38
+        #: mmd_tools_append/tuners/properties.py:39
         ("*", "Choose the material you want to use"): "マテリアルを選択",
-        #: mmd_tools_append/tuners/properties.py:63
+        #: mmd_tools_append/tuners/properties.py:65
         ("*", "Choose the geometry nodes you want to use"): "ジオメトリノードを選択",
-        #: mmd_tools_append/utilities.py:76
+        #: mmd_tools_append/utilities.py:100
         (
             "*",
-            "MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Append Tools depends on MMD Tools.",
+            "MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools.",
         ): "MMD Toolsが正しくインストールされていません。MMD Append ToolsはMMD Toolsに依存しているので、正しい手順でMMD Toolsを再インストールしてください。",
-        #: mmd_tools_append/utilities.py:93
+        #: mmd_tools_append/utilities.py:125
         ("*", "MMD Tools Append is not installed correctly. Please reinstall MMD Tools Append using the correct steps."): "MMD Tools Appendが正しくインストールされていません。正しい手順でMMD Tools Appendを再インストールしてください。",
     },
-    "zh_CN": {
-        #: mmd_tools_append/__init__.py:41
-        ("*", "Utility tools for MMD model & scene editing by Uuu(/>ω<)/Nyaa!."): "用于MMD模型和场景编辑的实用工具。by Uuu(/>ω<)/Nyaa!",
-        #: mmd_tools_append/__init__.py:42
-        ("*", "View3D > Sidebar > MMD Tools Panel"): "3D视图 > 侧栏 > MMD Tools面板",
-        #: mmd_tools_append/asset_search/actions.py:73
+    "zh_HANS": {
+        #: mmd_tools_append/asset_search/actions.py:85
         ("*", "Failed to download assets from SmutBase. The response format may have changed."): "从SmutBase下载资产失败。响应格式可能已经改变。",
-        #: mmd_tools_append/asset_search/actions.py:100
+        #: mmd_tools_append/asset_search/actions.py:112
         ("*", "Failed to download assets from BowlRoll. Incorrect download key."): "从BowlRoll下载资产失败。下载密钥不正确。",
-        #: mmd_tools_append/asset_search/actions.py:116
+        #: mmd_tools_append/asset_search/actions.py:128
         ("*", "Failed to download assets from Google Drive. Incorrect download key."): "从Google Drive下载资产失败。下载密钥不正确。",
-        #: mmd_tools_append/asset_search/actions.py:141
+        #: mmd_tools_append/asset_search/actions.py:149
         ("*", "Failed to download assets from OneDrive. Incorrect download key."): "从OneDrive下载资产失败。下载密钥不正确。",
-        #: mmd_tools_append/asset_search/actions.py:155
+        #: mmd_tools_append/asset_search/actions.py:159
         ("*", "Failed to download assets from uploader.jp. The response format may have changed."): "从uploader.jp下载资产失败。响应格式可能已经改变。",
-        #: mmd_tools_append/asset_search/actions.py:424
+        #: mmd_tools_append/asset_search/actions.py:416
         ("*", "The file path is too long. This can be alleviated to some extent by shortening the Asset Extract Root Folder in the Add-on Preferences."): "文件路径太长。这可以通过缩短插件首选项中的资产提取根文件夹来在一定程度上缓解。",
         #: mmd_tools_append/asset_search/assets.py:33
         ("*", "All"): "全部",
@@ -1035,893 +1018,847 @@ translation_dict = {
         ("*", "Material"): "材质",
         #: mmd_tools_append/asset_search/assets.py:40
         ("*", "World (.blend)"): "世界环境 (.blend)",
-        #: mmd_tools_append/asset_search/operators.py:13
+        #: mmd_tools_append/asset_search/operators.py:14
         ("Operator", "Reload Asset JSONs"): "重新加载资产JSONs",
-        #: mmd_tools_append/asset_search/operators.py:23
+        #: mmd_tools_append/asset_search/operators.py:24
         ("Operator", "Update Assets JSON"): "更新资产JSON",
-        #: mmd_tools_append/asset_search/operators.py:40
+        #: mmd_tools_append/asset_search/operators.py:38
         ("Operator", "Update Debug Asset JSON"): "更新调试资产JSON",
-        #: mmd_tools_append/asset_search/operators.py:57
+        #: mmd_tools_append/asset_search/operators.py:52
         ("Operator", "Delete Debug Asset JSON"): "删除调试资产JSON",
-        #: mmd_tools_append/asset_search/operators.py:72
+        #: mmd_tools_append/asset_search/operators.py:67
         ("Operator", "Delete Asset Cached Files"): "删除资产缓存的文件",
-        #: mmd_tools_append/asset_search/panels.py:266
+        #: mmd_tools_append/asset_search/panels.py:261
         ("*", "Type:"): "类型:",
-        #: mmd_tools_append/asset_search/panels.py:267
+        #: mmd_tools_append/asset_search/panels.py:262
         ("*", "ID:"): "ID:",
-        #: mmd_tools_append/asset_search/panels.py:269
+        #: mmd_tools_append/asset_search/panels.py:264
         ("*", "Name:"): "名称:",
-        #: mmd_tools_append/asset_search/panels.py:270
+        #: mmd_tools_append/asset_search/panels.py:265
         ("*", "Aliases:"): "别称:",
-        #: mmd_tools_append/asset_search/panels.py:271 mmd_tools_append/asset_search/panels.py:348
+        #: mmd_tools_append/asset_search/panels.py:266 mmd_tools_append/asset_search/panels.py:332
         ("*", "Tags:"): "标签:",
-        #: mmd_tools_append/asset_search/panels.py:272
+        #: mmd_tools_append/asset_search/panels.py:267
         ("*", "Updated at:"): "更新时刻:",
-        #: mmd_tools_append/asset_search/panels.py:273
+        #: mmd_tools_append/asset_search/panels.py:268
         ("*", "Note:"): "说明:",
-        #: mmd_tools_append/asset_search/panels.py:275
+        #: mmd_tools_append/asset_search/panels.py:270
         ("*", "Source:"): "来源:",
-        #: mmd_tools_append/asset_search/panels.py:280
+        #: mmd_tools_append/asset_search/panels.py:275
         ("Operator", "Download"): "下载",
-        #: mmd_tools_append/asset_search/panels.py:283
-        ("*", "Downloading"): "现在下载",
-        #: mmd_tools_append/asset_search/panels.py:283 mmd_tools_append/asset_search/panels.py:287 mmd_tools_append/converters/physics/cloth.py:177
+        #: mmd_tools_append/asset_search/panels.py:280 mmd_tools_append/asset_search/panels.py:286 mmd_tools_append/converters/physics/cloth.py:247
         ("*", "Cache:"): "缓存:",
-        #: mmd_tools_append/asset_search/panels.py:284
+        #: mmd_tools_append/asset_search/panels.py:281
+        ("*", "Downloading"): "现在下载",
+        #: mmd_tools_append/asset_search/panels.py:283
         ("Operator", "Cancel"): "取消",
-        #: mmd_tools_append/asset_search/panels.py:288 mmd_tools_append/asset_search/panels.py:300
+        #: mmd_tools_append/asset_search/panels.py:287 mmd_tools_append/asset_search/panels.py:295
         ("*", "Path:"): "路径:",
-        #: mmd_tools_append/asset_search/panels.py:295 mmd_tools_append/asset_search/panels.py:301
+        #: mmd_tools_append/asset_search/panels.py:290 mmd_tools_append/asset_search/panels.py:296
         ("Operator", "Import"): "导入",
-        #: mmd_tools_append/asset_search/panels.py:304 mmd_tools_append/asset_search/panels.py:307
+        #: mmd_tools_append/asset_search/panels.py:299 mmd_tools_append/asset_search/panels.py:302
         ("Operator", "Retry"): "重试",
-        #: mmd_tools_append/asset_search/panels.py:331
+        #: mmd_tools_append/asset_search/panels.py:315
         ("*", "MMD Append Asset Search"): "MMD Append资产搜索",
-        #: mmd_tools_append/asset_search/panels.py:343
+        #: mmd_tools_append/asset_search/panels.py:327
         ("*", "Asset type"): "资产类型",
-        #: mmd_tools_append/asset_search/panels.py:344 mmd_tools_append/asset_search/panels.py:485
+        #: mmd_tools_append/asset_search/panels.py:328 mmd_tools_append/asset_search/panels.py:472
         ("*", "Query"): "查询",
-        #: mmd_tools_append/asset_search/panels.py:351
+        #: mmd_tools_append/asset_search/panels.py:335
         ("*", "Cached"): "缓存了",
-        #: mmd_tools_append/asset_search/panels.py:364
+        #: mmd_tools_append/asset_search/panels.py:352
         ("*", "{search_result_count} of {search_result_hit_count} results"): "{search_result_count} 项 / {search_result_hit_count} 项中",
-        #: mmd_tools_append/asset_search/panels.py:410
+        #: mmd_tools_append/asset_search/panels.py:399
         ("*", "Invalid search result, Please search again."): "Invalid search result, Please search again.",
-        #: mmd_tools_append/asset_search/panels.py:417
+        #: mmd_tools_append/asset_search/panels.py:406
         ("*", "Loading {loading_count} item{plural_form_suffix}..."): "正在加载{loading_count}个项目...",
-        #: mmd_tools_append/asset_search/panels.py:437
+        #: mmd_tools_append/asset_search/panels.py:423
         ("*", "MMD Append Assets Operator"): "MMD Append资产操作项",
-        #: mmd_tools_append/asset_search/panels.py:448
+        #: mmd_tools_append/asset_search/panels.py:434
         ("*", "Reload local asset JSON files"): "重新加载本地资产JSON文件",
-        #: mmd_tools_append/asset_search/panels.py:454
+        #: mmd_tools_append/asset_search/panels.py:440
         ("*", "Download and Update to the latest assets"): "下载并更新到最新的资产",
-        #: mmd_tools_append/asset_search/panels.py:468
+        #: mmd_tools_append/asset_search/panels.py:455
         ("*", "Debug"): "调试",
-        #: mmd_tools_append/asset_search/panels.py:474
+        #: mmd_tools_append/asset_search/panels.py:461
         ("*", "Fetch an asset for debug"): "取出一个资产进行调试",
-        #: mmd_tools_append/asset_search/panels.py:475
+        #: mmd_tools_append/asset_search/panels.py:462
         ("*", "issue #"): "issue编号",
-        #: mmd_tools_append/asset_search/panels.py:482
+        #: mmd_tools_append/asset_search/panels.py:469
         ("*", "Download and Update to the latest filtered assets for debug"): "下载并更新到最新的过滤资产进行调试",
-        #: mmd_tools_append/asset_search/panels.py:484
+        #: mmd_tools_append/asset_search/panels.py:471
         ("*", "Repository"): "仓库",
-        #: mmd_tools_append/asset_search/panels.py:486
+        #: mmd_tools_append/asset_search/panels.py:473
         ("*", "Write to"): "写给",
-        #: mmd_tools_append/asset_search/panels.py:488
+        #: mmd_tools_append/asset_search/panels.py:475
         ("Operator", "Update Assets JSON by query"): "通过查询更新资产JSON",
-        #: mmd_tools_append/checkers/operators.py:15
-        ("Status", "Good"): "良好",
         #: mmd_tools_append/checkers/operators.py:16
-        ("Status", "Average"): "平均",
+        ("Status", "Good"): "良好",
         #: mmd_tools_append/checkers/operators.py:17
-        ("Status", "Warning"): "警告",
+        ("Status", "Average"): "平均",
         #: mmd_tools_append/checkers/operators.py:18
-        ("Status", "Poor"): "不好",
+        ("Status", "Warning"): "警告",
         #: mmd_tools_append/checkers/operators.py:19
-        ("Status", "Bad"): "不良",
+        ("Status", "Poor"): "不好",
         #: mmd_tools_append/checkers/operators.py:20
+        ("Status", "Bad"): "不良",
+        #: mmd_tools_append/checkers/operators.py:21
         ("Status", "Unknown"): "未知",
-        #: mmd_tools_append/checkers/operators.py:69
+        #: mmd_tools_append/checkers/operators.py:70
         ("Operator", "Check Eevee Rendering Performance"): "检查Eevee的渲染性能",
-        #: mmd_tools_append/checkers/operators.py:81
+        #: mmd_tools_append/checkers/operators.py:82
         ("*", "Blender Version"): "Blender版本",
-        #: mmd_tools_append/checkers/operators.py:85
+        #: mmd_tools_append/checkers/operators.py:86
         ("*", ">= 2.93 LTS is Good"): ">= 2.93 LTS是良好",
-        #: mmd_tools_append/checkers/operators.py:92
+        #: mmd_tools_append/checkers/operators.py:93
         ("*", "Render Engine"): "渲染引擎",
-        #: mmd_tools_append/checkers/operators.py:96
+        #: mmd_tools_append/checkers/operators.py:97
         ("*", "= Eevee is Good"): "= Eevee是良好",
-        #: mmd_tools_append/checkers/operators.py:114
+        #: mmd_tools_append/checkers/operators.py:115
         ("*", "Render Samples"): "渲染采样",
-        #: mmd_tools_append/checkers/operators.py:118 mmd_tools_append/checkers/operators.py:129 mmd_tools_append/checkers/operators.py:182
+        #: mmd_tools_append/checkers/operators.py:119 mmd_tools_append/checkers/operators.py:130 mmd_tools_append/checkers/operators.py:163
         ("*", "<= 16 is Good"): "<= 16是良好",
-        #: mmd_tools_append/checkers/operators.py:125
+        #: mmd_tools_append/checkers/operators.py:126
         ("*", "Viewport Samples"): "视图采样",
-        #: mmd_tools_append/checkers/operators.py:136
-        ("*", "Use Ambient Occlusion"): "使用环境光遮蔽 (AO)",
-        #: mmd_tools_append/checkers/operators.py:140 mmd_tools_append/checkers/operators.py:150 mmd_tools_append/checkers/operators.py:160 mmd_tools_append/checkers/operators.py:214 mmd_tools_append/checkers/operators.py:235 mmd_tools_append/checkers/operators.py:248 mmd_tools_append/checkers/operators.py:261 mmd_tools_append/checkers/operators.py:274 mmd_tools_append/checkers/operators.py:284 mmd_tools_append/checkers/operators.py:294 mmd_tools_append/checkers/operators.py:304 mmd_tools_append/checkers/operators.py:314 mmd_tools_append/checkers/operators.py:324 mmd_tools_append/checkers/operators.py:334 mmd_tools_append/checkers/operators.py:344 mmd_tools_append/checkers/operators.py:354 mmd_tools_append/checkers/operators.py:364 mmd_tools_append/checkers/operators.py:377 mmd_tools_append/checkers/operators.py:387 mmd_tools_append/checkers/operators.py:397 mmd_tools_append/checkers/operators.py:407
-        ("*", "= False is Good"): "= False是良好",
-        #: mmd_tools_append/checkers/operators.py:146 mmd_tools_append/editors/operators.py:49 mmd_tools_append/editors/operators.py:126
-        ("*", "Use Bloom"): "使用辉光",
-        #: mmd_tools_append/checkers/operators.py:156 mmd_tools_append/editors/operators.py:50 mmd_tools_append/editors/operators.py:127
+        #: mmd_tools_append/checkers/operators.py:137 mmd_tools_append/editors/operators.py:24 mmd_tools_append/editors/operators.py:79
         ("*", "Use Motion Blur"): "使用运动模糊",
-        #: mmd_tools_append/checkers/operators.py:178
+        #: mmd_tools_append/checkers/operators.py:141 mmd_tools_append/checkers/operators.py:173 mmd_tools_append/checkers/operators.py:186 mmd_tools_append/checkers/operators.py:199 mmd_tools_append/checkers/operators.py:212 mmd_tools_append/checkers/operators.py:222 mmd_tools_append/checkers/operators.py:232 mmd_tools_append/checkers/operators.py:242 mmd_tools_append/checkers/operators.py:252 mmd_tools_append/checkers/operators.py:262 mmd_tools_append/checkers/operators.py:272 mmd_tools_append/checkers/operators.py:282 mmd_tools_append/checkers/operators.py:292 mmd_tools_append/checkers/operators.py:305 mmd_tools_append/checkers/operators.py:315 mmd_tools_append/checkers/operators.py:325 mmd_tools_append/checkers/operators.py:335
+        ("*", "= False is Good"): "= False是良好",
+        #: mmd_tools_append/checkers/operators.py:159
         ("*", "Depth of Field Max Size"): "景深最大尺寸",
-        #: mmd_tools_append/checkers/operators.py:200
-        ("*", "Subsurface Scattering Samples"): "次表面散射采样",
-        #: mmd_tools_append/checkers/operators.py:204
-        ("*", "<= 4 is Good"): "<= 4是良好",
-        #: mmd_tools_append/checkers/operators.py:210
-        ("*", "Use Screen Space Refraction"): "使用屏幕空间折射",
-        #: mmd_tools_append/checkers/operators.py:220
-        ("*", "Use Half Res Trace"): "使用半精度追踪",
-        #: mmd_tools_append/checkers/operators.py:224
-        ("*", "= True is Good"): "= True是良好",
-        #: mmd_tools_append/checkers/operators.py:231
+        #: mmd_tools_append/checkers/operators.py:169
         ("*", "Use Compositing"): "使用合成处理",
-        #: mmd_tools_append/checkers/operators.py:244
+        #: mmd_tools_append/checkers/operators.py:182
         ("*", "Pass Cryptomatte Object"): "Cryptomatte物体通道",
-        #: mmd_tools_append/checkers/operators.py:257
+        #: mmd_tools_append/checkers/operators.py:195
         ("*", "Pass Cryptomatte Material"): "Cryptomatte材质通道",
-        #: mmd_tools_append/checkers/operators.py:270
+        #: mmd_tools_append/checkers/operators.py:208
         ("*", "Pass Cryptomatte Asset"): "Cryptomatte资源通道",
-        #: mmd_tools_append/checkers/operators.py:280
+        #: mmd_tools_append/checkers/operators.py:218
         ("*", "Pass Glossy Light"): "高光灯光通道",
-        #: mmd_tools_append/checkers/operators.py:290
+        #: mmd_tools_append/checkers/operators.py:228
         ("*", "Pass Diffuse Light"): "漫射灯光通道",
-        #: mmd_tools_append/checkers/operators.py:300
+        #: mmd_tools_append/checkers/operators.py:238
         ("*", "Pass Emit"): "自发光(发射)通道",
-        #: mmd_tools_append/checkers/operators.py:310
+        #: mmd_tools_append/checkers/operators.py:248
         ("*", "Pass Glossy Color"): "高光颜色通道",
-        #: mmd_tools_append/checkers/operators.py:320
+        #: mmd_tools_append/checkers/operators.py:258
         ("*", "Pass Diffuse Color"): "漫射颜色通道",
-        #: mmd_tools_append/checkers/operators.py:330
+        #: mmd_tools_append/checkers/operators.py:268
         ("*", "Pass Shadow"): "阴影通道",
-        #: mmd_tools_append/checkers/operators.py:340
+        #: mmd_tools_append/checkers/operators.py:278
         ("*", "Pass Ambient Occlusion"): "环境光遮蔽 (AO)通道",
-        #: mmd_tools_append/checkers/operators.py:350
+        #: mmd_tools_append/checkers/operators.py:288
         ("*", "Pass Normal"): "法向通道",
-        #: mmd_tools_append/checkers/operators.py:360
-        ("*", "Pass Bloom"): "辉光通道",
-        #: mmd_tools_append/checkers/operators.py:373
+        #: mmd_tools_append/checkers/operators.py:301
         ("*", "Pass Volume Light"): "体积灯光通道",
-        #: mmd_tools_append/checkers/operators.py:383
+        #: mmd_tools_append/checkers/operators.py:311
         ("*", "Pass Z"): "Z通道",
-        #: mmd_tools_append/checkers/operators.py:393
+        #: mmd_tools_append/checkers/operators.py:321
         ("*", "Pass Environment"): "环境通道",
-        #: mmd_tools_append/checkers/operators.py:403
+        #: mmd_tools_append/checkers/operators.py:331
         ("*", "Use Sequencer"): "使用序列编辑器",
-        #: mmd_tools_append/checkers/operators.py:432
+        #: mmd_tools_append/checkers/operators.py:360
         ("*", "= JPEG is Good"): "= JPEG是良好",
-        #: mmd_tools_append/checkers/operators.py:432
+        #: mmd_tools_append/checkers/operators.py:360
         ("*", "File Format"): "文件格式",
-        #: mmd_tools_append/checkers/operators.py:468
-        ("*", "Meshes Use Auto Smooth"): "网格使用自动平滑",
-        #: mmd_tools_append/checkers/operators.py:472 mmd_tools_append/checkers/operators.py:507
-        ("*", "= 0 is Good"): "= 0是良好",
-        #: mmd_tools_append/checkers/operators.py:503
-        ("*", "Materials Use Alpha Hashed"): "纹理使用Alpha Hashed",
-        #: mmd_tools_append/checkers/operators.py:513
+        #: mmd_tools_append/checkers/operators.py:375
         ("*", "Eevee Rendering Performance Checker"): "Eevee的渲染性能检查器",
-        #: mmd_tools_append/checkers/operators.py:573
+        #: mmd_tools_append/checkers/operators.py:424
         ("*", "<= 0% is Good"): "<= 0%是良好",
-        #: mmd_tools_append/checkers/operators.py:573
+        #: mmd_tools_append/checkers/operators.py:424
         ("*", "Total Performance Impact"): "总的性能影响",
-        #: mmd_tools_append/checkers/operators.py:601
+        #: mmd_tools_append/checkers/operators.py:452
         ("*", "Object with Impact Selection:"): "有影响的物体选:",
-        #: mmd_tools_append/checkers/operators.py:616
-        ("Operator", "Select Mesh Objects with Use Auto Smooth"): "选择使用自动平滑的网格物体",
-        #: mmd_tools_append/checkers/operators.py:639
+        #: mmd_tools_append/checkers/operators.py:466
         ("Operator", "Select Mesh Objects with Use Alpha Hashed"): "选择使用Alpha Hashed的网格物体",
         #: mmd_tools_append/converters/armatures/operators.py:19
         ("Operator", "Add Human (metarig) from MMD Armature"): "从MMD骨架添加 Human (metarig)",
-        #: mmd_tools_append/converters/armatures/operators.py:22
-        ("Operator", "Clean Armature"): "清洁骨架",
         #: mmd_tools_append/converters/armatures/operators.py:23
+        ("Operator", "Clean Armature"): "清洁骨架",
+        #: mmd_tools_append/converters/armatures/operators.py:24
         ("Operator", "Clean Koikatsu Armature"): "清洁Koikatsu骨架",
-        #: mmd_tools_append/converters/armatures/operators.py:227
+        #: mmd_tools_append/converters/armatures/operators.py:220
         ("Operator", "MMD compatibility focused Integrate"): "注重MMD兼容性的整合",
-        #: mmd_tools_append/converters/armatures/operators.py:230 mmd_tools_append/converters/armatures/operators.py:282
+        #: mmd_tools_append/converters/armatures/operators.py:225 mmd_tools_append/converters/armatures/operators.py:277
         ("Operator", "Join Armatures"): "合并骨架",
-        #: mmd_tools_append/converters/armatures/operators.py:230 mmd_tools_append/converters/armatures/operators.py:282
+        #: mmd_tools_append/converters/armatures/operators.py:226 mmd_tools_append/converters/armatures/operators.py:278
         ("*", "Join MMD and Rigify armatures"): "合并Rigify和MMD骨架",
-        #: mmd_tools_append/converters/armatures/operators.py:231 mmd_tools_append/converters/armatures/operators.py:283
-        ("*", "MMD main bone layer"): "MMD主骨骼层",
-        #: mmd_tools_append/converters/armatures/operators.py:232 mmd_tools_append/converters/armatures/operators.py:284
-        ("*", "MMD others bone layer"): "MMD其他骨骼层",
-        #: mmd_tools_append/converters/armatures/operators.py:233 mmd_tools_append/converters/armatures/operators.py:285
-        ("*", "MMD shadow bone layer"): "MMD阴影骨骼层",
-        #: mmd_tools_append/converters/armatures/operators.py:234 mmd_tools_append/converters/armatures/operators.py:286
-        ("*", "MMD dummy bone layer"): "MMD伪骨骼层",
-        #: mmd_tools_append/converters/armatures/operators.py:279
+        #: mmd_tools_append/converters/armatures/operators.py:272
         ("Operator", "Rigify operability focused Integrate"): "注重Rigify操作性的整合",
-        #: mmd_tools_append/converters/armatures/operators.py:287
+        #: mmd_tools_append/converters/armatures/operators.py:281
+        ("*", "MMD main bone layer"): "MMD主骨骼层",
+        #: mmd_tools_append/converters/armatures/operators.py:282
+        ("*", "MMD others bone layer"): "MMD其他骨骼层",
+        #: mmd_tools_append/converters/armatures/operators.py:283
+        ("*", "MMD shadow bone layer"): "MMD阴影骨骼层",
+        #: mmd_tools_append/converters/armatures/operators.py:284
+        ("*", "MMD dummy bone layer"): "MMD伪骨骼层",
+        #: mmd_tools_append/converters/armatures/operators.py:285
         ("*", "Rename MMD bones"): "重命名MMD骨骼",
-        #: mmd_tools_append/converters/armatures/operators.py:333
+        #: mmd_tools_append/converters/armatures/operators.py:346
         ("Operator", "Convert Rigify Armature to MMD compatible"): "将Rigify骨架转换为MMD兼容",
-        #: mmd_tools_append/converters/armatures/operators.py:337
+        #: mmd_tools_append/converters/armatures/operators.py:350
         ("*", "Upper Body2 as"): "上半身2为",
-        #: mmd_tools_append/converters/armatures/operators.py:347
+        #: mmd_tools_append/converters/armatures/operators.py:360
         ("*", "Lower Body as"): "下半身为",
-        #: mmd_tools_append/converters/armatures/operators.py:383 mmd_tools_append/converters/armatures/operators.py:452 mmd_tools_append/panels.py:76 mmd_tools_append/panels.py:81
+        #: mmd_tools_append/converters/armatures/operators.py:475 mmd_tools_append/converters/armatures/operators.py:550 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:113
         ("Operator", "Apply MMD Rest Pose"): "应用MMD静置姿态",
-        #: mmd_tools_append/converters/armatures/operators.py:386 mmd_tools_append/converters/armatures/operators.py:455
+        #: mmd_tools_append/converters/armatures/operators.py:479 mmd_tools_append/converters/armatures/operators.py:554
         ("*", "Iterations"): "迭代",
-        #: mmd_tools_append/converters/armatures/operators.py:386 mmd_tools_append/converters/armatures/operators.py:455
+        #: mmd_tools_append/converters/armatures/operators.py:480 mmd_tools_append/converters/armatures/operators.py:555
         ("*", "Number of solving iterations"): "解算迭代的次数",
-        #: mmd_tools_append/converters/armatures/operators.py:387 mmd_tools_append/converters/armatures/operators.py:456
+        #: mmd_tools_append/converters/armatures/operators.py:485 mmd_tools_append/converters/armatures/operators.py:560
         ("*", "Pose arms"): "姿势手臂",
-        #: mmd_tools_append/converters/armatures/operators.py:388 mmd_tools_append/converters/armatures/operators.py:457
+        #: mmd_tools_append/converters/armatures/operators.py:486 mmd_tools_append/converters/armatures/operators.py:561
         ("*", "Pose legs"): "姿势腿",
-        #: mmd_tools_append/converters/armatures/operators.py:389 mmd_tools_append/converters/armatures/operators.py:458
+        #: mmd_tools_append/converters/armatures/operators.py:487 mmd_tools_append/converters/armatures/operators.py:562
         ("*", "Pose fingers"): "姿势手指",
-        #: mmd_tools_append/converters/armatures/operators.py:424
+        #: mmd_tools_append/converters/armatures/operators.py:522
         ("Operator", "Convert AutoRig Armature to MMD compatible"): "将AutoRig骨架转换为MMD兼容",
-        #: mmd_tools_append/converters/armatures/panels.py:14
+        #: mmd_tools_append/converters/armatures/panels.py:17
         ("*", "MMD Append Rigify"): "MMD Append Rigify",
-        #: mmd_tools_append/converters/armatures/panels.py:50
+        #: mmd_tools_append/converters/armatures/panels.py:56
         ("*", "MMD-Rigify:"): "MMD-Rigify",
-        #: mmd_tools_append/converters/armatures/panels.py:52 mmd_tools_append/converters/armatures/panels.py:121
+        #: mmd_tools_append/converters/armatures/panels.py:58 mmd_tools_append/converters/armatures/panels.py:183
         ("*", "Integrated armature is not selected."): "未选择整合骨架",
-        #: mmd_tools_append/converters/armatures/panels.py:54
+        #: mmd_tools_append/converters/armatures/panels.py:63
         ("*", "Bind"): "绑定",
-        #: mmd_tools_append/converters/armatures/panels.py:55 mmd_tools_append/converters/armatures/panels.py:123
+        #: mmd_tools_append/converters/armatures/panels.py:69 mmd_tools_append/converters/armatures/panels.py:188
         ("*", "Eyes"): "两眼",
-        #: mmd_tools_append/converters/armatures/panels.py:57 mmd_tools_append/converters/armatures/panels.py:68 mmd_tools_append/converters/armatures/panels.py:125 mmd_tools_append/converters/armatures/panels.py:133
+        #: mmd_tools_append/converters/armatures/panels.py:76 mmd_tools_append/converters/armatures/panels.py:117 mmd_tools_append/converters/armatures/panels.py:195 mmd_tools_append/converters/armatures/panels.py:223
         ("*", "Leg.L"): "腿.L",
-        #: mmd_tools_append/converters/armatures/panels.py:58 mmd_tools_append/converters/armatures/panels.py:69 mmd_tools_append/converters/armatures/panels.py:126 mmd_tools_append/converters/armatures/panels.py:134
+        #: mmd_tools_append/converters/armatures/panels.py:82 mmd_tools_append/converters/armatures/panels.py:123 mmd_tools_append/converters/armatures/panels.py:201 mmd_tools_append/converters/armatures/panels.py:229
         ("*", "Leg.R"): "腿.R",
-        #: mmd_tools_append/converters/armatures/panels.py:60
+        #: mmd_tools_append/converters/armatures/panels.py:89
         ("*", "Toe.L"): "脚趾.L",
-        #: mmd_tools_append/converters/armatures/panels.py:61
+        #: mmd_tools_append/converters/armatures/panels.py:95
         ("*", "Toe.R"): "脚趾.R",
-        #: mmd_tools_append/converters/armatures/panels.py:63 mmd_tools_append/converters/armatures/panels.py:128
+        #: mmd_tools_append/converters/armatures/panels.py:99 mmd_tools_append/converters/armatures/panels.py:205
         ("*", "IK-FK:"): "IK-FK",
-        #: mmd_tools_append/converters/armatures/panels.py:65 mmd_tools_append/converters/armatures/panels.py:130
+        #: mmd_tools_append/converters/armatures/panels.py:104 mmd_tools_append/converters/armatures/panels.py:210
         ("*", "Arm.L"): "手臂.L",
-        #: mmd_tools_append/converters/armatures/panels.py:66 mmd_tools_append/converters/armatures/panels.py:131
+        #: mmd_tools_append/converters/armatures/panels.py:110 mmd_tools_append/converters/armatures/panels.py:216
         ("*", "Arm.R"): "手臂.R",
-        #: mmd_tools_append/converters/armatures/panels.py:74
+        #: mmd_tools_append/converters/armatures/panels.py:133
         ("*", "MMD Layers:"): "MMD层:",
-        #: mmd_tools_append/converters/armatures/panels.py:76 mmd_tools_append/converters/armatures/panels.py:138
-        ("*", "Main"): "主",
-        #: mmd_tools_append/converters/armatures/panels.py:79
-        ("*", "Others"): "其他",
-        #: mmd_tools_append/converters/armatures/panels.py:82
-        ("*", "Shadow"): "阴影",
-        #: mmd_tools_append/converters/armatures/panels.py:85
-        ("*", "Dummy"): "伪",
-        #: mmd_tools_append/converters/armatures/panels.py:90
+        #: mmd_tools_append/converters/armatures/panels.py:152
         ("*", "MMD Append AutoRig"): "MMD Append AutoRig",
-        #: mmd_tools_append/converters/armatures/panels.py:117
+        #: mmd_tools_append/converters/armatures/panels.py:179
         ("*", "MMD-AutoRig:"): "MMD-AutoRig:",
-        #: mmd_tools_append/converters/armatures/panels.py:136
+        #: mmd_tools_append/converters/armatures/panels.py:233
         ("*", "Layers:"): "层:",
-        #: mmd_tools_append/converters/armatures/panels.py:141
+        #: mmd_tools_append/converters/armatures/panels.py:235
+        ("*", "Main"): "主",
+        #: mmd_tools_append/converters/armatures/panels.py:238
         ("*", "Sub"): "次级",
-        #: mmd_tools_append/converters/armatures/panels.py:144
+        #: mmd_tools_append/converters/armatures/panels.py:241
         ("*", "Spine"): "脊柱",
-        #: mmd_tools_append/converters/armatures/panels.py:147
+        #: mmd_tools_append/converters/armatures/panels.py:244
         ("*", "Limbs"): "肢体",
-        #: mmd_tools_append/converters/physics/cloth.py:60 mmd_tools_append/converters/physics/collision.py:25 mmd_tools_append/converters/physics/dynamic_paint.py:63
+        #: mmd_tools_append/converters/physics/cloth.py:126 mmd_tools_append/converters/physics/collision.py:26 mmd_tools_append/converters/physics/dynamic_paint.py:64
         ("*", "Nothing"): "无",
-        #: mmd_tools_append/converters/physics/cloth.py:73
+        #: mmd_tools_append/converters/physics/cloth.py:139
         ("*", "Cotton"): "棉布",
-        #: mmd_tools_append/converters/physics/cloth.py:96
+        #: mmd_tools_append/converters/physics/cloth.py:162
         ("*", "Silk"): "丝绸",
-        #: mmd_tools_append/converters/physics/cloth.py:119
+        #: mmd_tools_append/converters/physics/cloth.py:185
         ("*", "Breast Pyramid"): "胸部金字塔",
-        #: mmd_tools_append/converters/physics/cloth.py:145
+        #: mmd_tools_append/converters/physics/cloth.py:211
         ("*", "MMD Append Cloth Adjuster"): "MMD Append布料调整器",
-        #: mmd_tools_append/converters/physics/cloth.py:167
+        #: mmd_tools_append/converters/physics/cloth.py:233
         ("*", "Collision:"): "碰撞:",
-        #: mmd_tools_append/converters/physics/cloth.py:173 mmd_tools_append/converters/physics/cloth_pyramid.py:969 mmd_tools_append/converters/physics/collision.py:78 mmd_tools_append/converters/physics/rigid_body.py:29
+        #: mmd_tools_append/converters/physics/cloth.py:239 mmd_tools_append/converters/physics/cloth_pyramid.py:1064 mmd_tools_append/converters/physics/collision.py:79 mmd_tools_append/converters/physics/rigid_body.py:30
         ("*", "Batch Operation:"): "批量操作:",
-        #: mmd_tools_append/converters/physics/cloth.py:174 mmd_tools_append/converters/physics/cloth_pyramid.py:970 mmd_tools_append/converters/physics/collision.py:79 mmd_tools_append/converters/physics/rigid_body.py:30
+        #: mmd_tools_append/converters/physics/cloth.py:242 mmd_tools_append/converters/physics/cloth_pyramid.py:1067 mmd_tools_append/converters/physics/collision.py:80 mmd_tools_append/converters/physics/rigid_body.py:31
         ("Operator", "Copy to Selected"): "复制到选定项",
-        #: mmd_tools_append/converters/physics/cloth.py:179 mmd_tools_append/converters/physics/cloth.py:472 mmd_tools_append/converters/physics/dynamic_paint.py:48
+        #: mmd_tools_append/converters/physics/cloth.py:249 mmd_tools_append/converters/physics/cloth.py:573 mmd_tools_append/converters/physics/dynamic_paint.py:49
         ("*", "Simulation Start"): "模拟起始帧",
-        #: mmd_tools_append/converters/physics/cloth.py:180 mmd_tools_append/converters/physics/cloth.py:478 mmd_tools_append/converters/physics/dynamic_paint.py:49
+        #: mmd_tools_append/converters/physics/cloth.py:250 mmd_tools_append/converters/physics/cloth.py:585 mmd_tools_append/converters/physics/dynamic_paint.py:50
         ("*", "Simulation End"): "模拟结束帧",
-        #: mmd_tools_append/converters/physics/cloth.py:186
+        #: mmd_tools_append/converters/physics/cloth.py:256
         ("*", "Subdivision:"): "细分:",
-        #: mmd_tools_append/converters/physics/cloth.py:187 mmd_tools_append/converters/physics/cloth.py:327 mmd_tools_append/converters/physics/cloth.py:536
+        #: mmd_tools_append/converters/physics/cloth.py:257 mmd_tools_append/converters/physics/cloth.py:400 mmd_tools_append/converters/physics/cloth.py:644
         ("*", "Subdivision Levels"): "细分级别",
-        #: mmd_tools_append/converters/physics/cloth.py:192
+        #: mmd_tools_append/converters/physics/cloth.py:262
         ("*", "Copy Cloth Adjuster Settings"): "复制布料调整器设置",
-        #: mmd_tools_append/converters/physics/cloth.py:227
+        #: mmd_tools_append/converters/physics/cloth.py:297
         ("Operator", "Select Cloth Mesh"): "选择布料网格",
-        #: mmd_tools_append/converters/physics/cloth.py:230 mmd_tools_append/converters/physics/collision.py:120
+        #: mmd_tools_append/converters/physics/cloth.py:300 mmd_tools_append/converters/physics/collision.py:121
         ("*", "Same MMD Model"): "相同的MMD模型",
-        #: mmd_tools_append/converters/physics/cloth.py:231 mmd_tools_append/converters/physics/collision.py:121
+        #: mmd_tools_append/converters/physics/cloth.py:301 mmd_tools_append/converters/physics/collision.py:122
         ("*", "Same Physics Settings"): "相同的物理设置",
-        #: mmd_tools_append/converters/physics/cloth.py:232
+        #: mmd_tools_append/converters/physics/cloth.py:302
         ("*", "Same Cache Settings"): "相同的缓存设置",
-        #: mmd_tools_append/converters/physics/cloth.py:286
+        #: mmd_tools_append/converters/physics/cloth.py:359
         ("Operator", "Remove Mesh Cloth"): "移除网格布料",
-        #: mmd_tools_append/converters/physics/cloth.py:323
+        #: mmd_tools_append/converters/physics/cloth.py:396
         ("Operator", "Convert Rigid Body to Cloth"): "将刚体转换为布料",
-        #: mmd_tools_append/converters/physics/cloth.py:324
+        #: mmd_tools_append/converters/physics/cloth.py:397
         ("*", "Select both the mesh to be deformed and the rigid body"): "选择要变形的网格和刚体",
-        #: mmd_tools_append/converters/physics/cloth.py:328
+        #: mmd_tools_append/converters/physics/cloth.py:401
         ("*", "Ribbon Stiffness"): "丝带硬度",
-        #: mmd_tools_append/converters/physics/cloth.py:330
+        #: mmd_tools_append/converters/physics/cloth.py:403
         ("*", "Physics Mode"): "物理模式",
-        #: mmd_tools_append/converters/physics/cloth.py:335
+        #: mmd_tools_append/converters/physics/cloth.py:407
         ("*", "Extend Ribbon Area"): "扩展丝带区域",
-        #: mmd_tools_append/converters/physics/cloth.py:385
+        #: mmd_tools_append/converters/physics/cloth.py:455
         ("*", "Multiple MMD models selected. Please select single model at a time."): "选择了多个MMD模型。请一次选择单一型号。",
-        #: mmd_tools_append/converters/physics/cloth.py:415 mmd_tools_append/converters/physics/collision.py:209 mmd_tools_append/converters/physics/dynamic_paint.py:178
+        #: mmd_tools_append/converters/physics/cloth.py:485 mmd_tools_append/converters/physics/collision.py:209 mmd_tools_append/converters/physics/dynamic_paint.py:175
         ("*", "Presets"): "预设",
-        #: mmd_tools_append/converters/physics/cloth.py:422
+        #: mmd_tools_append/converters/physics/cloth.py:492
         ("*", "Vertex Mass"): "顶点质量",
-        #: mmd_tools_append/converters/physics/cloth.py:435
+        #: mmd_tools_append/converters/physics/cloth.py:509
         ("*", "Stiffness"): "硬度",
-        #: mmd_tools_append/converters/physics/cloth.py:448 mmd_tools_append/converters/physics/collision.py:216
+        #: mmd_tools_append/converters/physics/cloth.py:527 mmd_tools_append/converters/physics/collision.py:212
         ("*", "Damping"): "阻尼",
-        #: mmd_tools_append/converters/physics/cloth.py:454
+        #: mmd_tools_append/converters/physics/cloth.py:537
         ("*", "Collision Quality"): "碰撞质量",
-        #: mmd_tools_append/converters/physics/cloth.py:460
+        #: mmd_tools_append/converters/physics/cloth.py:553
         ("*", "Minimum Distance"): "最小距离",
-        #: mmd_tools_append/converters/physics/cloth.py:466
+        #: mmd_tools_append/converters/physics/cloth.py:563
         ("*", "Impulse Clamping"): "冲量钳制",
-        #: mmd_tools_append/converters/physics/cloth_bone.py:15 mmd_tools_append/panels.py:143
+        #: mmd_tools_append/converters/physics/cloth_bone.py:16 mmd_tools_append/panels.py:191
         ("Operator", "Stretch Bone to Vertex"): "拉伸骨骼到顶点",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:160
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:181
         ("*", "Target bones not found."): "没有找到目标骨骼",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:775
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:868
         ("*", "Add Pyramid Mesh by Breast Bone"): "从胸骨骼上添加金字塔网格",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:778
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:872
         ("*", "Head/Tail"): "头 / 尾",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:779
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:873
         ("*", "String Length Ratio"): "弦长比",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:780
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:874
         ("*", "Base Area Factor"): "基底面积系数",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:781
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:875
         ("*", "Project Base Vertices Vertically"): "垂直投影基底顶点",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:822
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:916
         ("Operator", "Convert Pyramid Mesh to Cloth"): "将金字塔网格转换为布料",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:825 mmd_tools_append/converters/physics/cloth_pyramid.py:890
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:920 mmd_tools_append/converters/physics/cloth_pyramid.py:985
         ("*", "Boundary Expansion Hop Count"): "边界扩展跳数",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:887
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:982
         ("Operator", "Assign Pyramid Weights"): "分配金字塔权重",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:942
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1037
         ("*", "MMD Append Pyramid Cloth Adjuster"): "MMD Append金字塔布料调整器",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:959
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1054
         ("*", "Weights:"): "权重:",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:965
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1060
         ("*", "Cloth Physics:"): "布料物理:",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:975
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1074
         ("*", "Copy Pyramid Cloth Adjuster Settings"): "复制金字塔布料调整器设置",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1004
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1103
         ("*", "String Pin Weight"): "弦钉固权重",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1010
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1113
         ("*", "Apex Pin Weight"): "顶峰钉固权重",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1016
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1123
         ("*", "Base Pin Weight"): "基底钉固权重",
-        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1022
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:1133
         ("*", "Speed Multiplier"): "速率倍增",
-        #: mmd_tools_append/converters/physics/collision.py:38
+        #: mmd_tools_append/converters/physics/collision.py:39
         ("*", "Thin Smooth"): "薄型平滑",
-        #: mmd_tools_append/converters/physics/collision.py:56
+        #: mmd_tools_append/converters/physics/collision.py:57
         ("*", "MMD Append Collision Adjuster"): "MMD Append碰撞调整器",
-        #: mmd_tools_append/converters/physics/collision.py:84
+        #: mmd_tools_append/converters/physics/collision.py:85
         ("Operator", "Copy Collision Adjuster Settings"): "复制碰撞调整器设置",
-        #: mmd_tools_append/converters/physics/collision.py:117
+        #: mmd_tools_append/converters/physics/collision.py:118
         ("Operator", "Select Collision Mesh"): "选择碰撞网格",
-        #: mmd_tools_append/converters/physics/collision.py:168
+        #: mmd_tools_append/converters/physics/collision.py:169
         ("Operator", "Remove Mesh Collision"): "移除碰撞网格",
-        #: mmd_tools_append/converters/physics/collision.py:222
+        #: mmd_tools_append/converters/physics/collision.py:221
         ("*", "Thickness Outer"): "外部厚度",
-        #: mmd_tools_append/converters/physics/collision.py:228
+        #: mmd_tools_append/converters/physics/collision.py:230
         ("*", "Thickness Inner"): "内部厚度",
-        #: mmd_tools_append/converters/physics/collision.py:234
+        #: mmd_tools_append/converters/physics/collision.py:239
         ("*", "Cloth Friction"): "摩擦",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:13
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:14
         ("*", "MMD Append Dynamic Paint Adjuster"): "MMD Append动态绘画调整器",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:39
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:40
         ("*", "Cache"): "缓存",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:76
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:77
         ("*", "Canvas Skin Press"): "画布 压迫皮肤",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:111
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:112
         ("*", "Brush Default"): "笔刷 默认",
-        #: mmd_tools_append/converters/physics/dynamic_paint.py:185
+        #: mmd_tools_append/converters/physics/dynamic_paint.py:178
         ("*", "Active Surface"): "活动表面",
-        #: mmd_tools_append/converters/physics/rigid_body.py:15
+        #: mmd_tools_append/converters/physics/rigid_body.py:16
         ("*", "MMD Append Rigid Body Adjuster"): "MMD Append刚体调整器",
-        #: mmd_tools_append/converters/physics/rigid_body.py:35
+        #: mmd_tools_append/converters/physics/rigid_body.py:36
         ("Operator", "Select Rigid Body Mesh"): "刚体网格选",
-        #: mmd_tools_append/converters/physics/rigid_body.py:38
-        ("*", "Only in the MMD Model"): "仅在MMD模型中",
         #: mmd_tools_append/converters/physics/rigid_body.py:39
+        ("*", "Only in the MMD Model"): "仅在MMD模型中",
+        #: mmd_tools_append/converters/physics/rigid_body.py:40
         ("*", "Only the same Settings"): "只有相同的设置",
-        #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:25
-        ("*", "Auto"): "自动",
         #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:26
-        ("*", "Bone Constraint"): "骨骼约束",
+        ("*", "Auto"): "自动",
         #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:27
+        ("*", "Bone Constraint"): "骨骼约束",
+        #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:28
         ("*", "Surface Deform"): "表面形变",
-        #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:76
+        #: mmd_tools_append/converters/physics/rigid_body_to_cloth.py:73
         ("*", "No bones related with {rigid_body_name}, Please relate a bone to the Rigid Body."): "没有与{rigid_body_name}有关的骨骼，请将骨骼与刚体联系起来。",
         #: mmd_tools_append/editors/geometry_nodes.py:50
         ("*", "Point Random Rotation"): "点随机旋转",
         #: mmd_tools_append/editors/geometry_nodes.py:53
         ("*", "Random Rotation Point Instance"): "随机旋转点实例",
-        #: mmd_tools_append/editors/menus.py:15 mmd_tools_append/editors/menus.py:35 mmd_tools_append/editors/menus.py:55
+        #: mmd_tools_append/editors/menus.py:18 mmd_tools_append/editors/menus.py:38 mmd_tools_append/editors/menus.py:58 mmd_tools_append/generators/skin_hair.py:170
         ("*", "MMD Append"): "MMD Append",
-        #: mmd_tools_append/editors/menus.py:75
+        #: mmd_tools_append/editors/menus.py:78
         ("*", "Select Moved"): "选择移动过",
-        #: mmd_tools_append/editors/menus.py:80
+        #: mmd_tools_append/editors/menus.py:83
         ("Operator", "Moved"): "移动过",
         ("*", "Moved"): "移动过",
-        #: mmd_tools_append/editors/menus.py:85 mmd_tools_append/editors/operators.py:455
+        #: mmd_tools_append/editors/menus.py:88 mmd_tools_append/editors/operators.py:385
         ("Operator", "Rotated"): "旋转过",
         ("*", "Rotated"): "旋转过",
-        #: mmd_tools_append/editors/menus.py:90 mmd_tools_append/editors/operators.py:456
+        #: mmd_tools_append/editors/menus.py:93 mmd_tools_append/editors/operators.py:386
         ("Operator", "Translated"): "平移过",
         ("*", "Translated"): "平移过",
-        #: mmd_tools_append/editors/menus.py:95 mmd_tools_append/editors/operators.py:457
+        #: mmd_tools_append/editors/menus.py:98 mmd_tools_append/editors/operators.py:387
         ("Operator", "Scaled"): "缩放过",
         ("*", "Scaled"): "缩放过",
-        #: mmd_tools_append/editors/nodes.py:237
+        #: mmd_tools_append/editors/nodes.py:260
         ("*", "Skin Color Adjust"): "皮肤色调整",
-        #: mmd_tools_append/editors/nodes.py:240 mmd_tools_append/tuners/material_tuners.py:251
+        #: mmd_tools_append/editors/nodes.py:263 mmd_tools_append/tuners/material_tuners.py:319
         ("*", "Skin Bump"): "皮肤 凹凸",
-        #: mmd_tools_append/editors/nodes.py:243
+        #: mmd_tools_append/editors/nodes.py:266
         ("*", "Fabric Woven Texture"): "织物编织纹理",
-        #: mmd_tools_append/editors/nodes.py:246 mmd_tools_append/tuners/material_tuners.py:373
+        #: mmd_tools_append/editors/nodes.py:269 mmd_tools_append/tuners/material_tuners.py:481
         ("*", "Fabric Bump"): "织物 凹凸",
-        #: mmd_tools_append/editors/nodes.py:249
+        #: mmd_tools_append/editors/nodes.py:272
         ("*", "Wave Bump"): "波浪凹凸",
-        #: mmd_tools_append/editors/nodes.py:252
+        #: mmd_tools_append/editors/nodes.py:275
         ("*", "Magic Bump"): "迷幻凹凸",
-        #: mmd_tools_append/editors/nodes.py:255
+        #: mmd_tools_append/editors/nodes.py:278
         ("*", "Shadowless BSDF"): "无影BSDF",
-        #: mmd_tools_append/editors/nodes.py:258
+        #: mmd_tools_append/editors/nodes.py:281
         ("*", "Gem BSDF"): "宝石BSDF",
-        #: mmd_tools_append/editors/nodes.py:261
+        #: mmd_tools_append/editors/nodes.py:284
         ("*", "Liquid BSDF"): "液体BSDF",
-        #: mmd_tools_append/editors/nodes.py:264
+        #: mmd_tools_append/editors/nodes.py:287
         ("*", "Knit Texture"): "针织纹理",
-        #: mmd_tools_append/editors/nodes.py:267
+        #: mmd_tools_append/editors/nodes.py:290
         ("*", "Leather Texture"): "皮革纹理",
-        #: mmd_tools_append/editors/nodes.py:270
+        #: mmd_tools_append/editors/nodes.py:293
         ("*", "Watercolor Texture"): "水彩画纹理",
-        #: mmd_tools_append/editors/nodes.py:273
+        #: mmd_tools_append/editors/nodes.py:296
         ("*", "Toon Shader Texture"): "卡通着色器纹理",
-        #: mmd_tools_append/editors/nodes.py:276
+        #: mmd_tools_append/editors/nodes.py:299
         ("*", "MMDTexUV"): "MMDTexUV",
-        #: mmd_tools_append/editors/nodes.py:279 mmd_tools_append/tuners/material_adjusters.py:103
+        #: mmd_tools_append/editors/nodes.py:302
         ("*", "Subsurface Adjuster"): "次表面调整器",
-        #: mmd_tools_append/editors/nodes.py:282 mmd_tools_append/tuners/material_adjusters.py:58
+        #: mmd_tools_append/editors/nodes.py:305 mmd_tools_append/tuners/material_adjusters.py:58
         ("*", "Wet Adjuster"): "湿润调整器",
-        #: mmd_tools_append/editors/nodes.py:285 mmd_tools_append/tuners/material_adjusters.py:195
+        #: mmd_tools_append/editors/nodes.py:308 mmd_tools_append/tuners/material_adjusters.py:173
         ("*", "Emission Adjuster"): "发射调整器",
-        #: mmd_tools_append/editors/nodes.py:288 mmd_tools_append/tuners/material_adjusters.py:149
+        #: mmd_tools_append/editors/nodes.py:311 mmd_tools_append/tuners/material_adjusters.py:115
         ("*", "Glitter Adjuster"): "闪耀调整器",
-        #: mmd_tools_append/editors/nodes.py:330
+        #: mmd_tools_append/editors/nodes.py:354
         ("*", "Sun Direction"): "太阳方向",
-        #: mmd_tools_append/editors/operators.py:21
-        ("Operator", "Convert Materials for Eevee"): "转换材质给Eevee",
-        #: mmd_tools_append/editors/operators.py:22
-        ("*", "Convert materials of selected objects for Eevee."): "为Eevee转换选物体的材质",
-        #: mmd_tools_append/editors/operators.py:45
+        #: mmd_tools_append/editors/operators.py:20
         ("Operator", "Setup Render Engine for Eevee"): "为Eevee设置渲染引擎",
-        #: mmd_tools_append/editors/operators.py:46
+        #: mmd_tools_append/editors/operators.py:21
         ("*", "Setup render engine properties for Eevee."): "为Eevee设置渲染引擎属性",
-        #: mmd_tools_append/editors/operators.py:51 mmd_tools_append/editors/operators.py:129 mmd_tools_append/editors/operators.py:206
+        #: mmd_tools_append/editors/operators.py:25 mmd_tools_append/editors/operators.py:81 mmd_tools_append/editors/operators.py:137
         ("*", "Use Film Transparent"): "使用胶片透明",
-        #: mmd_tools_append/editors/operators.py:122
+        #: mmd_tools_append/editors/operators.py:75
         ("Operator", "Setup Render Engine for Toon Eevee"): "为卡通Eevee设置渲染引擎",
-        #: mmd_tools_append/editors/operators.py:123
+        #: mmd_tools_append/editors/operators.py:76
         ("*", "Setup render engine properties for Toon Eevee."): "为卡通Eevee设置渲染引擎属性",
-        #: mmd_tools_append/editors/operators.py:128
-        ("*", "Use Soft Shadows"): "使用柔和阴影",
-        #: mmd_tools_append/editors/operators.py:200
-        ("Operator", "Setup Render Engine for Workbench"): "为Workbench设置渲染引擎",
-        #: mmd_tools_append/editors/operators.py:201
-        ("*", "Setup render engine properties for Workbench."): "为Workbench设置渲染引擎属性",
-        #: mmd_tools_append/editors/operators.py:204
+        #: mmd_tools_append/editors/operators.py:80 mmd_tools_append/editors/operators.py:135
         ("*", "Use Shadow"): "使用阴影",
-        #: mmd_tools_append/editors/operators.py:205
+        #: mmd_tools_append/editors/operators.py:131
+        ("Operator", "Setup Render Engine for Workbench"): "为Workbench设置渲染引擎",
+        #: mmd_tools_append/editors/operators.py:132
+        ("*", "Setup render engine properties for Workbench."): "为Workbench设置渲染引擎属性",
+        #: mmd_tools_append/editors/operators.py:136
         ("*", "Use Depth of Field"): "使用景深",
-        #: mmd_tools_append/editors/operators.py:250
+        #: mmd_tools_append/editors/operators.py:181
         ("Operator", "Show Message Box"): "显示信息框",
-        #: mmd_tools_append/editors/operators.py:271
+        #: mmd_tools_append/editors/operators.py:202
         ("Operator", "Remove Unused Vertex Groups"): "删除未用到的顶点组",
-        #: mmd_tools_append/editors/operators.py:272
+        #: mmd_tools_append/editors/operators.py:203
         ("*", "Remove unused vertex groups from the active meshes"): "从活动网格中删除未用到的顶点组",
-        #: mmd_tools_append/editors/operators.py:275
+        #: mmd_tools_append/editors/operators.py:206
         ("*", "Weight Threshold"): "权重阈值",
-        #: mmd_tools_append/editors/operators.py:339
+        #: mmd_tools_append/editors/operators.py:270
         ("Operator", "Select Shape Key Target Vertices"): "选择形态键目标顶点",
-        #: mmd_tools_append/editors/operators.py:340
+        #: mmd_tools_append/editors/operators.py:271
         ("*", "Select shape key target vertices from the active meshes"): "从活动网格中删选择形态键目标顶点",
-        #: mmd_tools_append/editors/operators.py:343 mmd_tools_append/editors/operators.py:390
+        #: mmd_tools_append/editors/operators.py:274 mmd_tools_append/editors/operators.py:321
         ("*", "Distance Threshold"): "距离阈值",
-        #: mmd_tools_append/editors/operators.py:386
+        #: mmd_tools_append/editors/operators.py:317
         ("Operator", "Remove Unused Shape Keys"): "删除未用到的形态键",
-        #: mmd_tools_append/editors/operators.py:387
+        #: mmd_tools_append/editors/operators.py:318
         ("*", "Remove unused shape keys from the active meshes"): "从活动网格中删除未用到的形态键",
-        #: mmd_tools_append/editors/operators.py:452
+        #: mmd_tools_append/editors/operators.py:382
         ("Operator", "Select Moved Pose Bones"): "选择移动过的姿态骨骼",
-        #: mmd_tools_append/editors/operators.py:459
+        #: mmd_tools_append/editors/operators.py:389
         ("*", "Tolerance"): "容差",
-        #: mmd_tools_append/editors/operators.py:503
+        #: mmd_tools_append/editors/operators.py:433
         ("*", "Auto Segmentation"): "自动分割",
         ("Operator", "Auto Segmentation"): "自动分割",
-        #: mmd_tools_append/editors/operators.py:506 mmd_tools_append/panels.py:257
+        #: mmd_tools_append/editors/operators.py:436 mmd_tools_append/panels.py:304
         ("*", "Cost Threshold"): "费用阈值",
-        #: mmd_tools_append/editors/operators.py:508 mmd_tools_append/panels.py:259
+        #: mmd_tools_append/editors/operators.py:439 mmd_tools_append/panels.py:306
         ("*", "Maximum Area Threshold"): "最大面积阈值",
-        #: mmd_tools_append/editors/operators.py:509 mmd_tools_append/panels.py:260
+        #: mmd_tools_append/editors/operators.py:447 mmd_tools_append/panels.py:307
         ("*", "Minimum Area Threshold"): "最小面积阈值",
-        #: mmd_tools_append/editors/operators.py:511 mmd_tools_append/panels.py:262
+        #: mmd_tools_append/editors/operators.py:455 mmd_tools_append/panels.py:309
         ("*", "Face Angle Cost Factor"): "面夹角费用系数",
-        #: mmd_tools_append/editors/operators.py:512 mmd_tools_append/panels.py:263
+        #: mmd_tools_append/editors/operators.py:456 mmd_tools_append/panels.py:310
         ("*", "Perimeter Cost Factor"): "外围费用系数",
-        #: mmd_tools_append/editors/operators.py:513 mmd_tools_append/panels.py:264
+        #: mmd_tools_append/editors/operators.py:457 mmd_tools_append/panels.py:311
         ("*", "Material Change Cost Factor"): "材质变化费用系数",
-        #: mmd_tools_append/editors/operators.py:514 mmd_tools_append/panels.py:265
+        #: mmd_tools_append/editors/operators.py:458 mmd_tools_append/panels.py:312
         ("*", "Edge Sharp Cost Factor"): "锐边费用系数",
-        #: mmd_tools_append/editors/operators.py:515 mmd_tools_append/panels.py:266
+        #: mmd_tools_append/editors/operators.py:459 mmd_tools_append/panels.py:313
         ("*", "Edge Seam Cost Factor"): "缝合边费用系数",
-        #: mmd_tools_append/editors/operators.py:516 mmd_tools_append/panels.py:267
+        #: mmd_tools_append/editors/operators.py:461 mmd_tools_append/panels.py:314
         ("*", "Vertex Group Weight Cost Factor"): "顶点组权重费用系数",
-        #: mmd_tools_append/editors/operators.py:517 mmd_tools_append/panels.py:268
+        #: mmd_tools_append/editors/operators.py:468 mmd_tools_append/panels.py:315
         ("*", "Vertex Group Change Cost Factor"): "顶点组变化费用系数",
-        #: mmd_tools_append/editors/operators.py:519 mmd_tools_append/panels.py:270
+        #: mmd_tools_append/editors/operators.py:475 mmd_tools_append/panels.py:317
         ("*", "Edge Length Factor"): "边长度系数",
-        #: mmd_tools_append/editors/operators.py:521 mmd_tools_append/panels.py:272
+        #: mmd_tools_append/editors/operators.py:477 mmd_tools_append/panels.py:319
         ("*", "Segmentation Vertex Color Random Seed"): "分割顶点颜色随机种",
-        #: mmd_tools_append/editors/operators.py:522 mmd_tools_append/editors/operators.py:614 mmd_tools_append/panels.py:273
+        #: mmd_tools_append/editors/operators.py:478 mmd_tools_append/editors/operators.py:576 mmd_tools_append/panels.py:320
         ("*", "Segmentation Vertex Color Attribute Name"): "分割顶点颜色属性名称",
-        #: mmd_tools_append/editors/operators.py:567
+        #: mmd_tools_append/editors/operators.py:525
         ("*", "There is no target segment; In Edit Mode, select the faces you want to paint."): "没有目标段；在编辑模式下，选择你要画的面。",
-        #: mmd_tools_append/editors/operators.py:610
+        #: mmd_tools_append/editors/operators.py:572
         ("Operator", "Paint Selected Faces"): "对选中的面执行绘制",
-        #: mmd_tools_append/editors/operators.py:613
+        #: mmd_tools_append/editors/operators.py:575
         ("*", "Random Color"): "随机色彩",
-        #: mmd_tools_append/editors/operators.py:651
+        #: mmd_tools_append/editors/operators.py:613
         ("Operator", "Setup Segmentation Color Palette"): "设置分割调色板",
-        #: mmd_tools_append/editors/operators.py:675
+        #: mmd_tools_append/editors/operators.py:637
         ("Operator", "Restore Segmentation Color Palette"): "恢复分割调色板",
-        #: mmd_tools_append/generators/physics.py:13 mmd_tools_append/panels.py:144
+        #: mmd_tools_append/generators/physics.py:14 mmd_tools_append/panels.py:192
         ("Operator", "Add Center of Gravity"): "添加重心",
-        #: mmd_tools_append/generators/physics.py:16
+        #: mmd_tools_append/generators/physics.py:17
         ("*", "Radius"): "半径",
-        #: mmd_tools_append/generators/skin_hair.py:117
+        #: mmd_tools_append/generators/skin_hair.py:107
         ("*", "Add Skin Hair Mesh"): "添加体毛网格",
-        #: mmd_tools_append/generators/skin_hair.py:118
+        #: mmd_tools_append/generators/skin_hair.py:108
         ("*", "Construct a skin hair mesh"): "创建一个体毛网格",
-        #: mmd_tools_append/generators/skin_hair.py:134
+        #: mmd_tools_append/generators/skin_hair.py:124
         ("*", "Align"): "对齐",
-        #: mmd_tools_append/generators/skin_hair.py:136
+        #: mmd_tools_append/generators/skin_hair.py:126
         ("*", "Align the new object to the world"): "将新建的物体与世界对齐",
-        #: mmd_tools_append/generators/skin_hair.py:136
+        #: mmd_tools_append/generators/skin_hair.py:126
         ("*", "World"): "世界环境",
-        #: mmd_tools_append/generators/skin_hair.py:137
+        #: mmd_tools_append/generators/skin_hair.py:127
         ("*", "Align the new object to the view"): "将新建的物体对齐到视图角度",
-        #: mmd_tools_append/generators/skin_hair.py:137
+        #: mmd_tools_append/generators/skin_hair.py:127
         ("*", "View"): "视图",
-        #: mmd_tools_append/generators/skin_hair.py:138
+        #: mmd_tools_append/generators/skin_hair.py:128
         ("*", "3D Cursor"): "3D游标",
-        #: mmd_tools_append/generators/skin_hair.py:138
+        #: mmd_tools_append/generators/skin_hair.py:128
         ("*", "Use the 3D cursor orientation for the new object"): "对新物体使用3D游标方位",
-        #: mmd_tools_append/generators/skin_hair.py:145
+        #: mmd_tools_append/generators/skin_hair.py:135
         ("*", "Location"): "位置",
-        #: mmd_tools_append/generators/skin_hair.py:149
+        #: mmd_tools_append/generators/skin_hair.py:139
         ("*", "Rotation"): "旋转",
-        #: mmd_tools_append/generators/skin_hair.py:180
-        ("*", "MMD Append"): "MMD Append",
-        #: mmd_tools_append/generators/skin_hair.py:184
+        #: mmd_tools_append/generators/skin_hair.py:174
         ("Operator", "Skin Hair"): "体毛",
-        #: mmd_tools_append/generators/skin_hair.py:188
+        #: mmd_tools_append/generators/skin_hair.py:178
         ("*", "MMD Append Extras"): "MMD Append其他项",
-        #: mmd_tools_append/panels.py:34
+        #: mmd_tools_append/panels.py:43
+        ("*", "Install MMD Tools"): "安装MMD Tools",
+        #: mmd_tools_append/panels.py:59
         ("*", "MMD Append Operator"): "MMD Append操作项",
-        #: mmd_tools_append/panels.py:44
+        #: mmd_tools_append/panels.py:69
+        ("*", "MMD Tools is not installed."): "MMD Tools未安装。",
+        #: mmd_tools_append/panels.py:74
         ("*", "Render:"): "渲染:",
-        #: mmd_tools_append/panels.py:52
+        #: mmd_tools_append/panels.py:82
         ("*", "MMD to Rigify:"): "MMD到Rigify:",
-        #: mmd_tools_append/panels.py:56
-        ("Operator", "Add Metarig"): "添加Metarig",
-        #: mmd_tools_append/panels.py:73
-        ("*", "Rigify to MMD:"): "Rigify到MMD:",
-        #: mmd_tools_append/panels.py:75 mmd_tools_append/panels.py:80
-        ("Operator", "Convert to MMD compatible"): "转换为MMD兼容",
-        #: mmd_tools_append/panels.py:78
-        ("*", "(Experimental) Auto-Rig to MMD:"): "(实验的) Auto-Rig到MMD:",
         #: mmd_tools_append/panels.py:86
-        ("*", "MMD Append Physics"): "MMD Append物理计算",
-        #: mmd_tools_append/panels.py:95
-        ("*", "Relevant Selection:"): "相关选:",
-        #: mmd_tools_append/panels.py:98
-        ("*", "Collision Mesh"): "碰撞网格",
-        #: mmd_tools_append/panels.py:105
-        ("*", "MMD Model is not selected."): "未选择MMD模型",
+        ("Operator", "Add Metarig"): "添加Metarig",
+        #: mmd_tools_append/panels.py:103
+        ("*", "Rigify to MMD:"): "Rigify到MMD:",
+        #: mmd_tools_append/panels.py:105 mmd_tools_append/panels.py:112
+        ("Operator", "Convert to MMD compatible"): "转换为MMD兼容",
         #: mmd_tools_append/panels.py:110
-        ("*", "Rigid Body"): "刚体",
-        #: mmd_tools_append/panels.py:119
-        ("*", "Cloth Mesh"): "布料网格",
-        #: mmd_tools_append/panels.py:125
-        ("*", "Converter:"): "转换器:",
-        #: mmd_tools_append/panels.py:129
-        ("Operator", "Rigid Body to Cloth"): "将刚体转换为布料",
+        ("*", "(Experimental) Auto-Rig to MMD:"): "(实验的) Auto-Rig到MMD:",
+        #: mmd_tools_append/panels.py:118
+        ("*", "MMD Append Physics"): "MMD Append物理计算",
+        #: mmd_tools_append/panels.py:131
+        ("*", "Relevant Selection:"): "相关选:",
         #: mmd_tools_append/panels.py:134
-        ("*", "Pyramid Cloth:"): "金字塔布料:",
-        #: mmd_tools_append/panels.py:136
-        ("Operator", "Add Pyramid"): "添加金字塔",
-        #: mmd_tools_append/panels.py:137
-        ("Operator", "Pyramid to Cloth"): "将金字塔转换为布料",
-        #: mmd_tools_append/panels.py:138
-        ("Operator", "Repaint Weight"): "重新权重绘制",
+        ("*", "Collision Mesh"): "碰撞网格",
         #: mmd_tools_append/panels.py:141
+        ("*", "MMD Model is not selected."): "未选择MMD模型",
+        #: mmd_tools_append/panels.py:146
+        ("*", "Rigid Body"): "刚体",
+        #: mmd_tools_append/panels.py:161
+        ("*", "Cloth Mesh"): "布料网格",
+        #: mmd_tools_append/panels.py:173
+        ("*", "Converter:"): "转换器:",
+        #: mmd_tools_append/panels.py:177
+        ("Operator", "Rigid Body to Cloth"): "将刚体转换为布料",
+        #: mmd_tools_append/panels.py:182
+        ("*", "Pyramid Cloth:"): "金字塔布料:",
+        #: mmd_tools_append/panels.py:184
+        ("Operator", "Add Pyramid"): "添加金字塔",
+        #: mmd_tools_append/panels.py:185
+        ("Operator", "Pyramid to Cloth"): "将金字塔转换为布料",
+        #: mmd_tools_append/panels.py:186
+        ("Operator", "Repaint Weight"): "重新权重绘制",
+        #: mmd_tools_append/panels.py:189
         ("*", "Misc:"): "杂项",
-        #: mmd_tools_append/panels.py:175
+        #: mmd_tools_append/panels.py:222
         ("*", "MMD Append Segmentation"): "MMD Append分割",
-        #: mmd_tools_append/panels.py:190
+        #: mmd_tools_append/panels.py:237
         ("*", "Color Layer&AOV Name"): "颜色层&AOV名",
-        #: mmd_tools_append/panels.py:204
+        #: mmd_tools_append/panels.py:251
         ("*", "Auto Segmentation:"): "自动分割:",
-        #: mmd_tools_append/panels.py:207
+        #: mmd_tools_append/panels.py:254
         ("*", "Thresholds:"): "阈值:",
-        #: mmd_tools_append/panels.py:209
+        #: mmd_tools_append/panels.py:256
         ("*", "Cost"): "费用",
-        #: mmd_tools_append/panels.py:211
+        #: mmd_tools_append/panels.py:258
         ("*", "Area Max"): "面积最大",
-        #: mmd_tools_append/panels.py:212 mmd_tools_append/tuners/material_adjusters.py:106
+        #: mmd_tools_append/panels.py:259
         ("*", "Min"): "最小",
-        #: mmd_tools_append/panels.py:214
+        #: mmd_tools_append/panels.py:261
         ("*", "Cost Factors:"): "费用系数:",
-        #: mmd_tools_append/panels.py:217
+        #: mmd_tools_append/panels.py:264
         ("*", "Face Angle"): "面夹角",
-        #: mmd_tools_append/panels.py:218
+        #: mmd_tools_append/panels.py:265
         ("*", "Perimeter"): "外围",
-        #: mmd_tools_append/panels.py:219
+        #: mmd_tools_append/panels.py:266
         ("*", "Material Change"): "材质变化",
-        #: mmd_tools_append/panels.py:223
+        #: mmd_tools_append/panels.py:270
         ("*", "Edge "): "边 ",
-        #: mmd_tools_append/panels.py:224
+        #: mmd_tools_append/panels.py:271
         ("*", "Sharp"): "锐边",
-        #: mmd_tools_append/panels.py:225
+        #: mmd_tools_append/panels.py:272
         ("*", "Seam"): "缝合边",
-        #: mmd_tools_append/panels.py:229
+        #: mmd_tools_append/panels.py:276
         ("*", "Vertex Group "): "顶点组 ",
-        #: mmd_tools_append/panels.py:230
+        #: mmd_tools_append/panels.py:277
         ("*", "Weight"): "权重",
-        #: mmd_tools_append/panels.py:231
+        #: mmd_tools_append/panels.py:278
         ("*", "Change"): "变化",
-        #: mmd_tools_append/panels.py:233
+        #: mmd_tools_append/panels.py:280
         ("*", "Other Parameters:"): "其他参数",
-        #: mmd_tools_append/panels.py:236
+        #: mmd_tools_append/panels.py:283
         ("*", "Color Random Seed"): "颜色随机种",
-        #: mmd_tools_append/panels.py:238
+        #: mmd_tools_append/panels.py:285
         ("Operator", "Execute Auto Segmentation"): "执行自动分割",
-        #: mmd_tools_append/preferences.py:22
+        #: mmd_tools_append/preferences.py:21
         ("*", "Asset Search Results Max. Display Count"): "显示的资产搜索结果的最大数量",
-        #: mmd_tools_append/preferences.py:23
+        #: mmd_tools_append/preferences.py:22
         ("*", "Larger value is slower"): "数值越大越慢",
-        #: mmd_tools_append/preferences.py:30
+        #: mmd_tools_append/preferences.py:29
         ("*", "Asset JSONs Folder"): "资产JSONs文件夹",
-        #: mmd_tools_append/preferences.py:31
+        #: mmd_tools_append/preferences.py:30
         ("*", "Path to asset list JSON files"): "资产清单JSON文件的路径",
-        #: mmd_tools_append/preferences.py:37
+        #: mmd_tools_append/preferences.py:36
         ("*", "Asset JSON Update Repository"): "资产JSON更新仓库",
-        #: mmd_tools_append/preferences.py:38
+        #: mmd_tools_append/preferences.py:37
         ("*", "Specify the github repository which to retrieve the assets"): "指定要检索资产的github仓库",
-        #: mmd_tools_append/preferences.py:43
+        #: mmd_tools_append/preferences.py:42
         ("*", "Asset JSON Update Query"): "资产JSON更新查询",
-        #: mmd_tools_append/preferences.py:44
+        #: mmd_tools_append/preferences.py:43
         ("*", "Specify the filter conditions for retrieving assets"): "指定检索资产的过滤条件",
-        #: mmd_tools_append/preferences.py:49
+        #: mmd_tools_append/preferences.py:47
         ("*", "Asset JSON Auto Update on Startup"): "资产JSON在启动时自动更新",
-        #: mmd_tools_append/preferences.py:54
+        #: mmd_tools_append/preferences.py:50
         ("*", "Asset Cache Folder"): "资产缓存的文件夹",
-        #: mmd_tools_append/preferences.py:55
+        #: mmd_tools_append/preferences.py:51
         ("*", "Path to asset cache folder"): "资产缓存的文件夹的路径",
-        #: mmd_tools_append/preferences.py:61
+        #: mmd_tools_append/preferences.py:57
         ("*", "Asset Max. Cache Size (MB)"): "最大的资产缓存大小(MB)",
-        #: mmd_tools_append/preferences.py:62
+        #: mmd_tools_append/preferences.py:58
         ("*", "Maximum size (Mega bytes) of the asset cache folder"): "资产缓存文件夹的最大尺寸(兆字节)",
-        #: mmd_tools_append/preferences.py:69
+        #: mmd_tools_append/preferences.py:65
         ("*", "Asset Extract Root Folder"): "资产提取根文件夹",
-        #: mmd_tools_append/preferences.py:70
+        #: mmd_tools_append/preferences.py:66
         ("*", "Path to extract the cached assets"): "提取缓存资产的路径",
-        #: mmd_tools_append/preferences.py:76
+        #: mmd_tools_append/preferences.py:72
         ("*", "Asset Extract Folder"): "资产提取文件夹",
-        #: mmd_tools_append/preferences.py:83
+        #: mmd_tools_append/preferences.py:78
         ("*", "Asset Extract JSON"): "资产提取JSON",
-        #: mmd_tools_append/preferences.py:129
+        #: mmd_tools_append/preferences.py:86
         ("Operator", "Check now for mmd_tools_append update"): "立即检查mmd_tools_append的更新",
-        #: mmd_tools_append/preferences.py:130
+        #: mmd_tools_append/preferences.py:87
         ("*", "Auto-check for Update"): "自动检查更新",
-        #: mmd_tools_append/preferences.py:131
+        #: mmd_tools_append/preferences.py:88
         ("*", "Last check: Never"): "Last check: 未检查",
-        #: mmd_tools_append/preferences.py:132
+        #: mmd_tools_append/preferences.py:89
         ("Operator", "Addon is up to date"): "插件是最新的",
-        #: mmd_tools_append/preferences.py:133
+        #: mmd_tools_append/preferences.py:90
         ("Operator", "Checking..."): "检查...",
-        #: mmd_tools_append/preferences.py:134
+        #: mmd_tools_append/preferences.py:91
         ("*", "Choose 'Update Now' & press OK to install, "): "选择「立即更新」&确定进行安装。",
-        #: mmd_tools_append/preferences.py:135
+        #: mmd_tools_append/preferences.py:92
         ("*", "or click outside window to defer"): "或在窗口外点击推迟",
-        #: mmd_tools_append/preferences.py:136
+        #: mmd_tools_append/preferences.py:93
         ("*", "No updates available"): "没有更新",
-        #: mmd_tools_append/preferences.py:137
+        #: mmd_tools_append/preferences.py:94
         ("*", "Press okay to dismiss dialog"): "按确定关闭对话框",
-        #: mmd_tools_append/preferences.py:138
+        #: mmd_tools_append/preferences.py:95
         ("*", "Check for update now?"): "立即检查更新？",
-        #: mmd_tools_append/preferences.py:139
+        #: mmd_tools_append/preferences.py:96
         ("*", "Process update"): "更新过程",
-        #: mmd_tools_append/preferences.py:140
+        #: mmd_tools_append/preferences.py:97
         ("*", "Decide to install, ignore, or defer new addon update"): "选择更新、忽略或推迟该插件",
-        #: mmd_tools_append/preferences.py:141
+        #: mmd_tools_append/preferences.py:98
         ("*", "Update Now"): "立即更新",
-        #: mmd_tools_append/preferences.py:142
+        #: mmd_tools_append/preferences.py:99
         ("*", "Install update now"): "立即安装更新",
-        #: mmd_tools_append/preferences.py:143
+        #: mmd_tools_append/preferences.py:100
         ("*", "Ignore"): "忽略",
-        #: mmd_tools_append/preferences.py:144
+        #: mmd_tools_append/preferences.py:101
         ("*", "Ignore this update to prevent future popups"): "忽略此更新，以防止今后的弹出窗口",
-        #: mmd_tools_append/preferences.py:145
+        #: mmd_tools_append/preferences.py:102
         ("*", "Defer"): "推迟",
-        #: mmd_tools_append/preferences.py:146
+        #: mmd_tools_append/preferences.py:103
         ("*", "Defer choice till next blender session"): "推迟到下次启动时再做选择",
-        #: mmd_tools_append/preferences.py:160
+        #: mmd_tools_append/preferences.py:117
         ("*", "Browse Assets"): "浏览资产",
-        #: mmd_tools_append/preferences.py:164
+        #: mmd_tools_append/preferences.py:121
         ("*", "Query Examples"): "查询实例",
-        #: mmd_tools_append/preferences.py:172
+        #: mmd_tools_append/preferences.py:129
         ("*", "Asset Cache Usage:"): "资产缓存使用情况",
-        #: mmd_tools_append/preferences.py:189
-        ("*", "(Experimental) Add-on Update"): "(实验的) 插件更新",
-        #: mmd_tools_append/preferences.py:194
+        #: mmd_tools_append/preferences.py:147
         ("*", "Credits:"): "版权:",
-        #: mmd_tools_append/preferences.py:198
+        #: mmd_tools_append/preferences.py:151
         ("*", "Rigid body Physics to Cloth Physics feature is the work of 小威廉伯爵."): "刚体物理到布料物理的功能是小威廉伯爵的工作。",
-        #: mmd_tools_append/preferences.py:200
+        #: mmd_tools_append/preferences.py:153
         ("*", "It was ported with his permission."): "这是经他许可的移植。",
-        #: mmd_tools_append/tuners/geometry_nodes_tuners.py:43 mmd_tools_append/tuners/lighting_tuners.py:53 mmd_tools_append/tuners/material_tuners.py:25
+        #: mmd_tools_append/tuners/geometry_nodes_tuners.py:44 mmd_tools_append/tuners/lighting_tuners.py:51 mmd_tools_append/tuners/material_tuners.py:24
         ("*", "Reset"): "重置",
-        #: mmd_tools_append/tuners/geometry_nodes_tuners.py:58
+        #: mmd_tools_append/tuners/geometry_nodes_tuners.py:63
         ("*", "Sequins"): "亮片",
-        #: mmd_tools_append/tuners/lighting_tuners.py:66
+        #: mmd_tools_append/tuners/lighting_tuners.py:64
         ("*", "Left Accent"): "左侧重点",
-        #: mmd_tools_append/tuners/lighting_tuners.py:80
+        #: mmd_tools_append/tuners/lighting_tuners.py:78
         ("*", "Double Side Accent"): "双侧重点",
-        #: mmd_tools_append/tuners/lighting_tuners.py:94
+        #: mmd_tools_append/tuners/lighting_tuners.py:92
         ("*", "God Ray"): "上帝之光",
-        #: mmd_tools_append/tuners/lighting_tuners.py:108
+        #: mmd_tools_append/tuners/lighting_tuners.py:106
         ("*", "Backlight"): "背光",
-        #: mmd_tools_append/tuners/lighting_tuners.py:122
+        #: mmd_tools_append/tuners/lighting_tuners.py:120
         ("*", "Light Probe Grid"): "辐射体积",
-        #: mmd_tools_append/tuners/lighting_tuners.py:136
+        #: mmd_tools_append/tuners/lighting_tuners.py:134
         ("*", "Shadowless"): "无影",
-        #: mmd_tools_append/tuners/material_adjusters.py:61 mmd_tools_append/tuners/material_adjusters.py:152
-        ("*", "Specular"): "高光",
-        #: mmd_tools_append/tuners/material_adjusters.py:62 mmd_tools_append/tuners/material_adjusters.py:153 mmd_tools_append/tuners/material_tuners.py:629
+        #: mmd_tools_append/tuners/material_adjusters.py:61 mmd_tools_append/tuners/material_adjusters.py:118
+        ("*", "Specular IOR Level"): "高光IOR等级",
+        #: mmd_tools_append/tuners/material_adjusters.py:62 mmd_tools_append/tuners/material_adjusters.py:119 mmd_tools_append/tuners/material_tuners.py:802
         ("*", "Roughness"): "糙度",
-        #: mmd_tools_append/tuners/material_adjusters.py:63 mmd_tools_append/tuners/panels.py:182
+        #: mmd_tools_append/tuners/material_adjusters.py:63 mmd_tools_append/tuners/panels.py:185
         ("*", "Wet"): "湿润",
         ("Operator", "Wet"): "湿润",
-        #: mmd_tools_append/tuners/material_adjusters.py:107
-        ("*", "Max"): "最大",
-        #: mmd_tools_append/tuners/material_adjusters.py:108
-        ("*", "Blood Color"): "血液颜色",
-        #: mmd_tools_append/tuners/material_adjusters.py:109 mmd_tools_append/tuners/panels.py:181
-        ("*", "Subsurface"): "次表面",
-        ("Operator", "Subsurface"): "次表面",
-        #: mmd_tools_append/tuners/material_adjusters.py:110
-        ("*", "Subsurface Color"): "次表面颜色",
-        #: mmd_tools_append/tuners/material_adjusters.py:154 mmd_tools_append/tuners/panels.py:183
+        #: mmd_tools_append/tuners/material_adjusters.py:120 mmd_tools_append/tuners/panels.py:186
         ("Operator", "Glitter"): "闪耀",
-        #: mmd_tools_append/tuners/material_adjusters.py:198 mmd_tools_append/tuners/material_tuners.py:440 mmd_tools_append/tuners/material_tuners.py:511 mmd_tools_append/tuners/material_tuners.py:582 mmd_tools_append/tuners/material_tuners.py:851
+        #: mmd_tools_append/tuners/material_adjusters.py:176 mmd_tools_append/tuners/material_tuners.py:574 mmd_tools_append/tuners/material_tuners.py:658 mmd_tools_append/tuners/material_tuners.py:742 mmd_tools_append/tuners/material_tuners.py:1106
         ("*", "Color"): "颜色",
-        #: mmd_tools_append/tuners/material_adjusters.py:199
+        #: mmd_tools_append/tuners/material_adjusters.py:177
         ("*", "Threshold"): "阈值",
-        #: mmd_tools_append/tuners/material_adjusters.py:200 mmd_tools_append/tuners/material_tuners.py:446 mmd_tools_append/tuners/material_tuners.py:517 mmd_tools_append/tuners/material_tuners.py:632
+        #: mmd_tools_append/tuners/material_adjusters.py:178 mmd_tools_append/tuners/material_tuners.py:580 mmd_tools_append/tuners/material_tuners.py:664 mmd_tools_append/tuners/material_tuners.py:805
         ("*", "Strength"): "强度/力度",
-        #: mmd_tools_append/tuners/material_adjusters.py:201 mmd_tools_append/tuners/panels.py:184
-        ("*", "Emission"): "发射",
-        ("Operator", "Emission"): "发射",
-        #: mmd_tools_append/tuners/material_adjusters.py:202
+        #: mmd_tools_append/tuners/material_adjusters.py:179
+        ("*", "Emission Color"): "发射颜色",
+        #: mmd_tools_append/tuners/material_adjusters.py:180
         ("*", "Emission Strength"): "发射强度",
-        #: mmd_tools_append/tuners/material_tuners.py:48
+        #: mmd_tools_append/tuners/material_tuners.py:51
         ("*", "Transparent"): "透明",
-        #: mmd_tools_append/tuners/material_tuners.py:73
+        #: mmd_tools_append/tuners/material_tuners.py:82
         ("*", "Eye Highlight"): "眼高亮",
-        #: mmd_tools_append/tuners/material_tuners.py:96
+        #: mmd_tools_append/tuners/material_tuners.py:114
         ("*", "Eye White"): "眼白",
-        #: mmd_tools_append/tuners/material_tuners.py:119
+        #: mmd_tools_append/tuners/material_tuners.py:146
         ("*", "Eye Iris"): "眼睛虹膜",
-        #: mmd_tools_append/tuners/material_tuners.py:147
+        #: mmd_tools_append/tuners/material_tuners.py:183
         ("*", "Eye Lash"): "眼睫毛",
-        #: mmd_tools_append/tuners/material_tuners.py:173
+        #: mmd_tools_append/tuners/material_tuners.py:218
         ("*", "Hair Matte"): "头发 哑光",
-        #: mmd_tools_append/tuners/material_tuners.py:199
+        #: mmd_tools_append/tuners/material_tuners.py:253
         ("*", "Skin Mucosa"): "粘膜",
-        #: mmd_tools_append/tuners/material_tuners.py:293
+        #: mmd_tools_append/tuners/material_tuners.py:373
         ("*", "Metal Noble"): "贵重金属",
-        #: mmd_tools_append/tuners/material_tuners.py:319
+        #: mmd_tools_append/tuners/material_tuners.py:408
         ("*", "Metal Base"): "基本金属",
-        #: mmd_tools_append/tuners/material_tuners.py:344
+        #: mmd_tools_append/tuners/material_tuners.py:442
         ("*", "Stone Gem"): "石头 宝石",
-        #: mmd_tools_append/tuners/material_tuners.py:404
+        #: mmd_tools_append/tuners/material_tuners.py:525
         ("*", "Fabric Wave"): "织物 波浪",
-        #: mmd_tools_append/tuners/material_tuners.py:437
+        #: mmd_tools_append/tuners/material_tuners.py:571
         ("*", "Fabric Cotton"): "织物 棉布",
-        #: mmd_tools_append/tuners/material_tuners.py:441 mmd_tools_append/tuners/material_tuners.py:512 mmd_tools_append/tuners/material_tuners.py:583
+        #: mmd_tools_append/tuners/material_tuners.py:575 mmd_tools_append/tuners/material_tuners.py:659 mmd_tools_append/tuners/material_tuners.py:743
         ("*", "Alpha"): "Alpha",
-        #: mmd_tools_append/tuners/material_tuners.py:442 mmd_tools_append/tuners/material_tuners.py:513 mmd_tools_append/tuners/material_tuners.py:585 mmd_tools_append/tuners/material_tuners.py:634
+        #: mmd_tools_append/tuners/material_tuners.py:576 mmd_tools_append/tuners/material_tuners.py:660 mmd_tools_append/tuners/material_tuners.py:745 mmd_tools_append/tuners/material_tuners.py:807
         ("*", "Vector"): "矢量",
-        #: mmd_tools_append/tuners/material_tuners.py:443 mmd_tools_append/tuners/material_tuners.py:514
+        #: mmd_tools_append/tuners/material_tuners.py:577 mmd_tools_append/tuners/material_tuners.py:661
         ("*", "Impurity"): "杂质",
-        #: mmd_tools_append/tuners/material_tuners.py:444 mmd_tools_append/tuners/material_tuners.py:515 mmd_tools_append/tuners/material_tuners.py:587 mmd_tools_append/tuners/material_tuners.py:631 mmd_tools_append/tuners/material_tuners.py:852
+        #: mmd_tools_append/tuners/material_tuners.py:578 mmd_tools_append/tuners/material_tuners.py:662 mmd_tools_append/tuners/material_tuners.py:747 mmd_tools_append/tuners/material_tuners.py:804 mmd_tools_append/tuners/material_tuners.py:1107
         ("*", "Scale"): "缩放",
-        #: mmd_tools_append/tuners/material_tuners.py:445 mmd_tools_append/tuners/material_tuners.py:516
+        #: mmd_tools_append/tuners/material_tuners.py:579 mmd_tools_append/tuners/material_tuners.py:663
         ("*", "Angle"): "角度",
-        #: mmd_tools_append/tuners/material_tuners.py:447 mmd_tools_append/tuners/material_tuners.py:518 mmd_tools_append/tuners/material_tuners.py:584
+        #: mmd_tools_append/tuners/material_tuners.py:581 mmd_tools_append/tuners/material_tuners.py:665 mmd_tools_append/tuners/material_tuners.py:744
         ("*", "Hole Alpha"): "孔Alpha",
-        #: mmd_tools_append/tuners/material_tuners.py:448 mmd_tools_append/tuners/material_tuners.py:519
+        #: mmd_tools_append/tuners/material_tuners.py:582 mmd_tools_append/tuners/material_tuners.py:666
         ("*", "Gaps"): "差距",
-        #: mmd_tools_append/tuners/material_tuners.py:449 mmd_tools_append/tuners/material_tuners.py:520
+        #: mmd_tools_append/tuners/material_tuners.py:583 mmd_tools_append/tuners/material_tuners.py:667
         ("*", "Warp"): "经线",
-        #: mmd_tools_append/tuners/material_tuners.py:450 mmd_tools_append/tuners/material_tuners.py:521
+        #: mmd_tools_append/tuners/material_tuners.py:584 mmd_tools_append/tuners/material_tuners.py:668
         ("*", "Woof"): "纬线",
-        #: mmd_tools_append/tuners/material_tuners.py:451 mmd_tools_append/tuners/material_tuners.py:522
+        #: mmd_tools_append/tuners/material_tuners.py:585 mmd_tools_append/tuners/material_tuners.py:669
         ("*", "Distortion"): "畸变",
-        #: mmd_tools_append/tuners/material_tuners.py:452 mmd_tools_append/tuners/material_tuners.py:523
+        #: mmd_tools_append/tuners/material_tuners.py:586 mmd_tools_append/tuners/material_tuners.py:670
         ("*", "Fibers"): "纤维",
-        #: mmd_tools_append/tuners/material_tuners.py:453 mmd_tools_append/tuners/material_tuners.py:524
+        #: mmd_tools_append/tuners/material_tuners.py:587 mmd_tools_append/tuners/material_tuners.py:671
         ("*", "Fuzziness"): "模糊性",
-        #: mmd_tools_append/tuners/material_tuners.py:454 mmd_tools_append/tuners/material_tuners.py:525
+        #: mmd_tools_append/tuners/material_tuners.py:588 mmd_tools_append/tuners/material_tuners.py:672
         ("*", "Errors"): "錯誤",
-        #: mmd_tools_append/tuners/material_tuners.py:508
+        #: mmd_tools_append/tuners/material_tuners.py:655
         ("*", "Fabric Silk"): "织物 丝绸",
-        #: mmd_tools_append/tuners/material_tuners.py:579
+        #: mmd_tools_append/tuners/material_tuners.py:739
         ("*", "Fabric Knit"): "织物 针织",
-        #: mmd_tools_append/tuners/material_tuners.py:586
+        #: mmd_tools_append/tuners/material_tuners.py:746
         ("*", "Random Hue"): "随机色相",
-        #: mmd_tools_append/tuners/material_tuners.py:588
+        #: mmd_tools_append/tuners/material_tuners.py:748
         ("*", "X Compression"): "X压缩",
-        #: mmd_tools_append/tuners/material_tuners.py:624
+        #: mmd_tools_append/tuners/material_tuners.py:797
         ("*", "Fabric Leather"): "织物 皮革",
-        #: mmd_tools_append/tuners/material_tuners.py:627
+        #: mmd_tools_append/tuners/material_tuners.py:800
         ("*", "Primary Color"): "主色",
-        #: mmd_tools_append/tuners/material_tuners.py:628
+        #: mmd_tools_append/tuners/material_tuners.py:801
         ("*", "Secondary Color"): "二次色",
-        #: mmd_tools_append/tuners/material_tuners.py:630
+        #: mmd_tools_append/tuners/material_tuners.py:803
         ("*", "Old/New"): "旧 / 新",
-        #: mmd_tools_append/tuners/material_tuners.py:633
+        #: mmd_tools_append/tuners/material_tuners.py:806
         ("*", "Tartiary Detail"): "详细性",
-        #: mmd_tools_append/tuners/material_tuners.py:673
+        #: mmd_tools_append/tuners/material_tuners.py:859
         ("*", "Plastic Gloss"): "塑胶 光泽",
-        #: mmd_tools_append/tuners/material_tuners.py:699
+        #: mmd_tools_append/tuners/material_tuners.py:894
         ("*", "Plastic Bump"): "塑胶 凹凸",
-        #: mmd_tools_append/tuners/material_tuners.py:731
+        #: mmd_tools_append/tuners/material_tuners.py:939
         ("*", "Plastic Matte"): "塑胶 哑光",
-        #: mmd_tools_append/tuners/material_tuners.py:757
+        #: mmd_tools_append/tuners/material_tuners.py:974
         ("*", "Plastic Emission"): "塑胶 发射",
-        #: mmd_tools_append/tuners/material_tuners.py:784
+        #: mmd_tools_append/tuners/material_tuners.py:1011
         ("*", "Liquid Water"): "液体 水",
-        #: mmd_tools_append/tuners/material_tuners.py:811
+        #: mmd_tools_append/tuners/material_tuners.py:1048
         ("*", "Liquid Cloudy"): "液体 多云",
-        #: mmd_tools_append/tuners/material_tuners.py:848
+        #: mmd_tools_append/tuners/material_tuners.py:1103
         ("*", "Artistic Watercolor"): "艺术性的 水彩画",
-        #: mmd_tools_append/tuners/material_tuners.py:853
+        #: mmd_tools_append/tuners/material_tuners.py:1108
         ("*", "Background Scale"): "背景缩放",
-        #: mmd_tools_append/tuners/material_tuners.py:854
+        #: mmd_tools_append/tuners/material_tuners.py:1109
         ("*", "Bleed Strength"): "渗水强度",
-        #: mmd_tools_append/tuners/material_tuners.py:885
+        #: mmd_tools_append/tuners/material_tuners.py:1154
         ("*", "Toon Shader"): "卡通着色器",
-        #: mmd_tools_append/tuners/material_tuners.py:888
+        #: mmd_tools_append/tuners/material_tuners.py:1157
         ("*", "Base Color"): "基础色",
-        #: mmd_tools_append/tuners/material_tuners.py:889
+        #: mmd_tools_append/tuners/material_tuners.py:1158
         ("*", "Highlight Color"): "高亮色",
-        #: mmd_tools_append/tuners/material_tuners.py:890
+        #: mmd_tools_append/tuners/material_tuners.py:1159
         ("*", "Shadow Color"): "阴影色",
-        #: mmd_tools_append/tuners/material_tuners.py:891
+        #: mmd_tools_append/tuners/material_tuners.py:1160
         ("*", "Rim Light Strength"): "边缘光强度",
         #: mmd_tools_append/tuners/operators.py:13
         ("Operator", "Tune Lighting"): "照明调整",
@@ -1933,41 +1870,44 @@ translation_dict = {
         ("Operator", "Attach Material Adjuster"): "附上材质调整器",
         #: mmd_tools_append/tuners/operators.py:82
         ("Operator", "Detach Material Adjuster"): "分离材质调整器",
-        #: mmd_tools_append/tuners/operators.py:102
+        #: mmd_tools_append/tuners/operators.py:101
         ("Operator", "Tune Geometry Nodes"): "几何节点调整",
-        #: mmd_tools_append/tuners/panels.py:20
+        #: mmd_tools_append/tuners/panels.py:23
         ("*", "MMD Append Sky"): "MMD Append天空",
-        #: mmd_tools_append/tuners/panels.py:30
+        #: mmd_tools_append/tuners/panels.py:33
         ("*", "Light Strength"): "光照强度",
-        #: mmd_tools_append/tuners/panels.py:31
+        #: mmd_tools_append/tuners/panels.py:34
         ("*", "Image Strength"): "表示强度",
-        #: mmd_tools_append/tuners/panels.py:43
+        #: mmd_tools_append/tuners/panels.py:46
         ("*", "MMD Append World not found."): "没有找到MMD Append世界环境",
-        #: mmd_tools_append/tuners/panels.py:48
+        #: mmd_tools_append/tuners/panels.py:51
         ("*", "IrradianceVolume not found. Please add it."): "没有找到辐射体积。请添加它。",
-        #: mmd_tools_append/tuners/panels.py:53
+        #: mmd_tools_append/tuners/panels.py:56
         ("*", "for Eevee lighting, check Render Properties."): "对于Eevee照明，请检查渲染属性。",
-        #: mmd_tools_append/tuners/panels.py:58
+        #: mmd_tools_append/tuners/panels.py:61
         ("*", "Bake Indirect Lighting"): "烘焙间接光照明",
-        #: mmd_tools_append/tuners/panels.py:76
+        #: mmd_tools_append/tuners/panels.py:79
         ("*", "MMD Append Lighting"): "MMD Append照明",
-        #: mmd_tools_append/tuners/panels.py:115
+        #: mmd_tools_append/tuners/panels.py:118
         ("*", "MMD Append Material"): "MMD Append材质",
-        #: mmd_tools_append/tuners/panels.py:151
+        #: mmd_tools_append/tuners/panels.py:154
         ("*", "MMD Append Material Adjuster"): "MMD Append材质调整器",
-        #: mmd_tools_append/tuners/panels.py:168
+        #: mmd_tools_append/tuners/panels.py:172
         ("*", "{material_name} is unsupported. Select other material to be output from Principled BSDF."): "{material_name}是不支持的。选择要从原理化BSDF输出的其他材质。",
-        #: mmd_tools_append/tuners/panels.py:200
+        #: mmd_tools_append/tuners/panels.py:187
+        ("*", "Emission"): "发射",
+        ("Operator", "Emission"): "发射",
+        #: mmd_tools_append/tuners/panels.py:202
         ("*", "MMD Append Geometry Nodes"): "MMD Append几何节点调整器",
-        #: mmd_tools_append/tuners/properties.py:17
+        #: mmd_tools_append/tuners/properties.py:18
         ("*", "Choose the lighting you want to use"): "选择你的照明",
-        #: mmd_tools_append/tuners/properties.py:38
+        #: mmd_tools_append/tuners/properties.py:39
         ("*", "Choose the material you want to use"): "选择你的材质",
-        #: mmd_tools_append/tuners/properties.py:63
+        #: mmd_tools_append/tuners/properties.py:65
         ("*", "Choose the geometry nodes you want to use"): "选择你的几何节点",
-        #: mmd_tools_append/utilities.py:76
-        ("*", "MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Append Tools depends on MMD Tools."): "MMD Tools安装不正确。请使用正确的步骤安装MMD Tools，因为MMD Append Tools依赖于MMD Tools。",
-        #: mmd_tools_append/utilities.py:93
+        #: mmd_tools_append/utilities.py:100
+        ("*", "MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools."): "MMD Tools安装不正确。请使用正确的步骤安装MMD Tools，因为MMD Append Tools依赖于MMD Tools。",
+        #: mmd_tools_append/utilities.py:125
         ("*", "MMD Tools Append is not installed correctly. Please reinstall MMD Tools Append using the correct steps."): "MMD Tools Append安装不正确。请使用正确的程序重新安装MMD Tools Append。",
     },
 }
