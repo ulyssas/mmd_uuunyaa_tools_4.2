@@ -255,34 +255,36 @@ translation_dict = {
         #: mmd_tools_append/converters/armatures/operators.py:402
         ("*", "Remove Bone Constraints"): "ボーンコンストレイントを削除",
         #: mmd_tools_append/converters/armatures/operators.py:403
+        ("*", "Remove all drivers in Armature"): "ドライバーを全て削除",
+        #: mmd_tools_append/converters/armatures/operators.py:404
         ("*", "Remove Rigify prefixes"): "Rigify接頭辞を削除",
-        #: mmd_tools_append/converters/armatures/operators.py:403
-        ("*", "Remove Rigify prefixes (DEF-)."): "Rigifyボーン名につくDEF等の接頭辞を削除します",
         #: mmd_tools_append/converters/armatures/operators.py:404
+        ("*", "Remove Rigify prefixes (DEF-)"): "Rigifyボーン名につくDEF等の接頭辞を削除します",
+        #: mmd_tools_append/converters/armatures/operators.py:405
         ("*", "Fix Rigify Bone structure"): "Rigifyボーン構造を修正",
-        #: mmd_tools_append/converters/armatures/operators.py:404
-        ("*", "Only works for Rigify."): "Rigify専用です",
         #: mmd_tools_append/converters/armatures/operators.py:405
+        ("*", "Only works for Rigify"): "Rigify専用です",
+        #: mmd_tools_append/converters/armatures/operators.py:406
         ("*", "Unlock Bones"): "トランスフォームのロック解除",
-        #: mmd_tools_append/converters/armatures/operators.py:405
+        #: mmd_tools_append/converters/armatures/operators.py:406
         ("*", "Unlock all bone transformations (translations, rotations, scales)"): "ボーンの位置, 回転, スケールの制限を解除します",
-        #: mmd_tools_append/converters/armatures/operators.py:441
-        ("Operator", "Translate Rigify names to MMD"): "Rigifyボーン名をMMDに翻訳",
         #: mmd_tools_append/converters/armatures/operators.py:442
+        ("Operator", "Translate Rigify names to MMD"): "Rigifyボーン名をMMDに翻訳",
+        #: mmd_tools_append/converters/armatures/operators.py:443
         ("*", "Translate Rigify metarig bone names to MMD."): "Rigifyメタリグに存在するボーン名をMMD用に翻訳します",
-        #: mmd_tools_append/converters/armatures/operators.py:475 mmd_tools_append/converters/armatures/operators.py:550 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:113
+        #: mmd_tools_append/converters/armatures/operators.py:479 mmd_tools_append/converters/armatures/operators.py:554 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:113
         ("Operator", "Apply MMD Rest Pose"): "MMDレストポーズを適用",
-        #: mmd_tools_append/converters/armatures/operators.py:479 mmd_tools_append/converters/armatures/operators.py:554
+        #: mmd_tools_append/converters/armatures/operators.py:483 mmd_tools_append/converters/armatures/operators.py:558
         ("*", "Iterations"): "反復",
-        #: mmd_tools_append/converters/armatures/operators.py:480 mmd_tools_append/converters/armatures/operators.py:555
+        #: mmd_tools_append/converters/armatures/operators.py:484 mmd_tools_append/converters/armatures/operators.py:559
         ("*", "Number of solving iterations"): "反復解決回数",
-        #: mmd_tools_append/converters/armatures/operators.py:485 mmd_tools_append/converters/armatures/operators.py:560
+        #: mmd_tools_append/converters/armatures/operators.py:489 mmd_tools_append/converters/armatures/operators.py:564
         ("*", "Pose arms"): "腕をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:486 mmd_tools_append/converters/armatures/operators.py:561
+        #: mmd_tools_append/converters/armatures/operators.py:490 mmd_tools_append/converters/armatures/operators.py:565
         ("*", "Pose legs"): "脚をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:487 mmd_tools_append/converters/armatures/operators.py:562
+        #: mmd_tools_append/converters/armatures/operators.py:491 mmd_tools_append/converters/armatures/operators.py:566
         ("*", "Pose fingers"): "指をポーズ",
-        #: mmd_tools_append/converters/armatures/operators.py:522
+        #: mmd_tools_append/converters/armatures/operators.py:526
         ("Operator", "Convert AutoRig Armature to MMD compatible"): "AutoRigアーマチュアをMMD互換に変換",
         #: mmd_tools_append/converters/armatures/panels.py:17
         ("*", "MMD Append Rigify"): "MMD Append Rigify",
@@ -1202,19 +1204,19 @@ translation_dict = {
         ("*", "Upper Body2 as"): "上半身2为",
         #: mmd_tools_append/converters/armatures/operators.py:360
         ("*", "Lower Body as"): "下半身为",
-        #: mmd_tools_append/converters/armatures/operators.py:475 mmd_tools_append/converters/armatures/operators.py:550 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:113
+        #: mmd_tools_append/converters/armatures/operators.py:479 mmd_tools_append/converters/armatures/operators.py:554 mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:113
         ("Operator", "Apply MMD Rest Pose"): "应用MMD静置姿态",
-        #: mmd_tools_append/converters/armatures/operators.py:479 mmd_tools_append/converters/armatures/operators.py:554
+        #: mmd_tools_append/converters/armatures/operators.py:483 mmd_tools_append/converters/armatures/operators.py:558
         ("*", "Iterations"): "迭代",
-        #: mmd_tools_append/converters/armatures/operators.py:480 mmd_tools_append/converters/armatures/operators.py:555
+        #: mmd_tools_append/converters/armatures/operators.py:484 mmd_tools_append/converters/armatures/operators.py:559
         ("*", "Number of solving iterations"): "解算迭代的次数",
-        #: mmd_tools_append/converters/armatures/operators.py:485 mmd_tools_append/converters/armatures/operators.py:560
+        #: mmd_tools_append/converters/armatures/operators.py:489 mmd_tools_append/converters/armatures/operators.py:564
         ("*", "Pose arms"): "姿势手臂",
-        #: mmd_tools_append/converters/armatures/operators.py:486 mmd_tools_append/converters/armatures/operators.py:561
+        #: mmd_tools_append/converters/armatures/operators.py:490 mmd_tools_append/converters/armatures/operators.py:565
         ("*", "Pose legs"): "姿势腿",
-        #: mmd_tools_append/converters/armatures/operators.py:487 mmd_tools_append/converters/armatures/operators.py:562
+        #: mmd_tools_append/converters/armatures/operators.py:491 mmd_tools_append/converters/armatures/operators.py:566
         ("*", "Pose fingers"): "姿势手指",
-        #: mmd_tools_append/converters/armatures/operators.py:522
+        #: mmd_tools_append/converters/armatures/operators.py:526
         ("Operator", "Convert AutoRig Armature to MMD compatible"): "将AutoRig骨架转换为MMD兼容",
         #: mmd_tools_append/converters/armatures/panels.py:17
         ("*", "MMD Append Rigify"): "MMD Append Rigify",

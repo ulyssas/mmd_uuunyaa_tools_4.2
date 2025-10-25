@@ -1190,7 +1190,14 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
             dependency_graph.update()
 
-    def derig(self, remove_constraints: bool, remove_prefix: bool, cleanup: bool) -> int:
+    def derig(
+        self,
+        remove_constraints: bool,
+        remove_driver: bool,
+        remove_prefix: bool,
+        cleanup: bool,
+        unlock_bones: bool,
+    ) -> int:
         """Remove non-deform bones. Returns how many bones were removed."""
         armature = self.raw_armature
         bones = armature.edit_bones
@@ -1212,6 +1219,13 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
                 for c in list(pbone.constraints):
                     pbone.constraints.remove(c)
 
+        if remove_driver:
+            self._remove_all_driver()
+            self._reset_bone_transform()
+
+        if unlock_bones:
+            self._unlock_bones()
+
         for bone in to_delete:
             bones.remove(bone)
 
@@ -1229,7 +1243,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
         return removed_count
 
-    def unlock_bones(self):
+    def _unlock_bones(self):
         """Unlocks positions, rotations and scales of all bones."""
         pose_bones = self.pose_bones
         for pbone in pose_bones:
@@ -1237,6 +1251,23 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
             pbone.lock_rotation_w = False
             pbone.lock_rotation = [False, False, False]
             pbone.lock_scale = [False, False, False]
+
+    def _remove_all_driver(self):
+        """Removes all driver."""
+        arm = self.raw_object
+        ad = arm.animation_data
+        if ad and ad.drivers:
+            for drv in list(ad.drivers):
+                ad.drivers.remove(drv)
+
+    def _reset_bone_transform(self):
+        """Resets positions, rotations and scales of all bones."""
+        pose_bones = self.pose_bones
+        for pbone in pose_bones:
+            pbone.location = [0.0, 0.0, 0.0]
+            pbone.rotation_euler = [0.0, 0.0, 0.0]
+            pbone.rotation_quaternion = [1.0, 0.0, 0.0, 0.0]
+            pbone.scale = [1.0, 1.0, 1.0]
 
     def _cleanup_derigged_rigify(self, parent_map: dict):
         """
