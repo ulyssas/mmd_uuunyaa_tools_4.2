@@ -3,6 +3,8 @@
 # This file is part of MMD Tools Append.
 
 import math
+import re
+from difflib import get_close_matches
 from typing import Dict, Set, Tuple
 
 import bpy
@@ -1275,6 +1277,16 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         """
         armature = self.raw_armature
         bones = armature.edit_bones
+        is_rigify = bool(armature.get("rig_id"))
+
+        def normalize_name(name: str):
+            """Remove prefixes & suffixes from names for accurate comparison."""
+
+            name = re.sub(r"^(DEF-|ORG-|MCH-)", "", name)
+            name = re.sub(r"\.\d+$", "", name)  # .001, .002
+            name = re.sub(r"\.[LR]$", "", name)  # .L, .R
+            name = re.sub(r"\.[A-Z]\.[LR]$", "", name)  # .T.L, .B.R
+            return name.lower()
 
         def get_def_parent(child_name: str):
             """
@@ -1284,29 +1296,48 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
             if not parent_name:
                 return None
 
-            # Use DEF if it already exists
-            if parent_name.startswith("DEF-") and parent_name in bones:
-                return bones[parent_name]
+            # Rigify specific structure, so check if it's actually Rigify.
+            if is_rigify:
+                # Use DEF if it already exists
+                if parent_name.startswith("DEF-") and parent_name in bones:
+                    return bones[parent_name]
 
-            # Use DEF counterpart if it's ORG
-            if parent_name.startswith("ORG-"):
-                # skip bones without prefixes
-                if "-" not in child_name:
-                    return get_def_parent(parent_name)
+                # Use DEF counterpart if it's ORG
+                if parent_name.startswith("ORG-"):
+                    # skip bones without prefixes
+                    if "-" not in child_name:
+                        return get_def_parent(parent_name)
 
-                # skip if the current parent use the same name
-                base = parent_name.split("-", 1)[1]
-                def_name = f"DEF-{base}"
-                if base == child_name.split("-", 1)[1]:
-                    return get_def_parent(parent_name)
-                if def_name in bones:
-                    return bones[def_name]
+                    # skip if the current parent use the same name
+                    base = parent_name.split("-", 1)[1]
+                    def_name = f"DEF-{base}"
+                    if base == child_name.split("-", 1)[1]:
+                        return get_def_parent(parent_name)
+                    if def_name in bones:
+                        return bones[def_name]
+
+            # find best parent from parent's siblings.
+            if not is_rigify and parent_name not in bones:
+                try:
+                    parent_of_parent = parent_map.get(parent_name)
+                    if parent_of_parent:
+                        siblings = [c for c, p in parent_map.items() if p == parent_of_parent and c in bones]
+                        if siblings:
+                            norm_siblings = [normalize_name(n) for n in siblings]
+                            matches = get_close_matches(normalize_name(child_name), norm_siblings, n=1, cutoff=0.6)
+                            if matches:
+                                return bones[siblings[norm_siblings.index(matches[0])]]
+                except ValueError:
+                    print("De-rig cleaner: Could not locate the normalized name")
 
             # Go higher in the hierarchy
             return get_def_parent(parent_name)
 
         for bone in bones:
-            if not bone.use_deform or not bone.name.startswith("DEF-"):
+            if not bone.use_deform:
+                continue
+
+            if is_rigify and not bone.name.startswith("DEF-"):
                 continue
 
             parent = get_def_parent(bone.name)
