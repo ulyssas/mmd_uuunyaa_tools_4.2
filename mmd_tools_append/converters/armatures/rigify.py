@@ -194,7 +194,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
     @staticmethod
     def copy_eye(pose_bone, target_object, subtarget, influence_data_path):
-        PoseBoneEditor.add_copy_rotation_constraint(pose_bone, target_object, subtarget, "LOCAL", influence_data_path)
+        PoseBoneEditor.add_copy_rotation_constraint(pose_bone, target_object, subtarget, "LOCAL_OWNER_ORIENT", influence_data_path)
 
     @staticmethod
     def copy_root(pose_bone, target_object, subtarget, influence_data_path):

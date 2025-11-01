@@ -152,7 +152,7 @@ class PoseBoneEditor(ABC):
             target=target_object,
             subtarget=subtarget,
             target_space=space,
-            owner_space=space,
+            owner_space="LOCAL" if space == "LOCAL_OWNER_ORIENT" else space,
             **kwargs,
         )
         if influence_data_path:
