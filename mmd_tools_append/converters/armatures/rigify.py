@@ -3,6 +3,8 @@
 # This file is part of MMD Tools Append.
 
 import math
+import re
+from difflib import get_close_matches
 from typing import Dict, Set, Tuple
 
 import bpy
@@ -95,7 +97,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         MMDBindInfo(MMDBoneInfo.左ひざD, None, "DEF-shin.L", GroupType.LEG_L, MMDBindType.COPY_LEG_D),
         MMDBindInfo(MMDBoneInfo.左ひざ, "shin_fk.L", "DEF-shin.L", GroupType.LEG_L, MMDBindType.COPY_PARENT),
         MMDBindInfo(MMDBoneInfo.左足首D, None, "DEF-foot.L", GroupType.LEG_L, MMDBindType.COPY_LEG_D),
-        MMDBindInfo(MMDBoneInfo.左足首, "foot_fk.L", "DEF-foot.L", GroupType.LEG_L, MMDBindType.COPY_POSE),
+        MMDBindInfo(MMDBoneInfo.左足首, "foot_fk.L", "DEF-foot.L", GroupType.LEG_L, MMDBindType.COPY_LOCAL),
         MMDBindInfo(MMDBoneInfo.左足ＩＫ, "foot_ik.L", "foot_ik.L", GroupType.LEG_L, MMDBindType.COPY_POSE),
         MMDBindInfo(MMDBoneInfo.左足先EX, "toe.L", "DEF-toe.L", GroupType.LEG_L, MMDBindType.COPY_TOE),
         MMDBindInfo(MMDBoneInfo.右足D, None, "DEF-thigh.R", GroupType.LEG_R, MMDBindType.COPY_LEG_D),
@@ -103,7 +105,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         MMDBindInfo(MMDBoneInfo.右ひざD, None, "DEF-shin.R", GroupType.LEG_R, MMDBindType.COPY_LEG_D),
         MMDBindInfo(MMDBoneInfo.右ひざ, "shin_fk.R", "DEF-shin.R", GroupType.LEG_R, MMDBindType.COPY_PARENT),
         MMDBindInfo(MMDBoneInfo.右足首D, None, "DEF-foot.R", GroupType.LEG_R, MMDBindType.COPY_LEG_D),
-        MMDBindInfo(MMDBoneInfo.右足首, "foot_fk.R", "DEF-foot.R", GroupType.LEG_R, MMDBindType.COPY_POSE),
+        MMDBindInfo(MMDBoneInfo.右足首, "foot_fk.R", "DEF-foot.R", GroupType.LEG_R, MMDBindType.COPY_LOCAL),
         MMDBindInfo(MMDBoneInfo.右足ＩＫ, "foot_ik.R", "foot_ik.R", GroupType.LEG_R, MMDBindType.COPY_POSE),
         MMDBindInfo(MMDBoneInfo.右足先EX, "toe.R", "DEF-toe.R", GroupType.LEG_R, MMDBindType.COPY_TOE),
         MMDBindInfo(MMDBoneInfo.左つま先ＩＫ, "mmd_append_toe_ik.L", "mmd_append_toe_ik.L", GroupType.LEG_L, MMDBindType.COPY_PARENT),
@@ -192,7 +194,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
     @staticmethod
     def copy_eye(pose_bone, target_object, subtarget, influence_data_path):
-        PoseBoneEditor.add_copy_rotation_constraint(pose_bone, target_object, subtarget, "LOCAL", influence_data_path)
+        PoseBoneEditor.add_copy_rotation_constraint(pose_bone, target_object, subtarget, "LOCAL_OWNER_ORIENT", influence_data_path)
 
     @staticmethod
     def copy_root(pose_bone, target_object, subtarget, influence_data_path):
@@ -1190,7 +1192,14 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
             dependency_graph.update()
 
-    def derig(self, remove_constraints: bool, remove_prefix: bool, cleanup: bool) -> int:
+    def derig(
+        self,
+        remove_constraints: bool,
+        remove_driver: bool,
+        remove_prefix: bool,
+        cleanup: bool,
+        unlock_bones: bool,
+    ) -> int:
         """Remove non-deform bones. Returns how many bones were removed."""
         armature = self.raw_armature
         bones = armature.edit_bones
@@ -1212,6 +1221,13 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
                 for c in list(pbone.constraints):
                     pbone.constraints.remove(c)
 
+        if remove_driver:
+            self._remove_all_driver()
+            self._reset_bone_transform()
+
+        if unlock_bones:
+            self._unlock_bones()
+
         for bone in to_delete:
             bones.remove(bone)
 
@@ -1229,7 +1245,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
         return removed_count
 
-    def unlock_bones(self):
+    def _unlock_bones(self):
         """Unlocks positions, rotations and scales of all bones."""
         pose_bones = self.pose_bones
         for pbone in pose_bones:
@@ -1238,12 +1254,39 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
             pbone.lock_rotation = [False, False, False]
             pbone.lock_scale = [False, False, False]
 
+    def _remove_all_driver(self):
+        """Removes all driver."""
+        arm = self.raw_object
+        ad = arm.animation_data
+        if ad and ad.drivers:
+            for drv in list(ad.drivers):
+                ad.drivers.remove(drv)
+
+    def _reset_bone_transform(self):
+        """Resets positions, rotations and scales of all bones."""
+        pose_bones = self.pose_bones
+        for pbone in pose_bones:
+            pbone.location = [0.0, 0.0, 0.0]
+            pbone.rotation_euler = [0.0, 0.0, 0.0]
+            pbone.rotation_quaternion = [1.0, 0.0, 0.0, 0.0]
+            pbone.scale = [1.0, 1.0, 1.0]
+
     def _cleanup_derigged_rigify(self, parent_map: dict):
         """
         Fix broken DEF bone parents in derigged Rigify rigs. parent_map is {child_name: parent_name}.
         """
         armature = self.raw_armature
         bones = armature.edit_bones
+        is_rigify = bool(armature.get("rig_id"))
+
+        def normalize_name(name: str):
+            """Remove prefixes & suffixes from names for accurate comparison."""
+
+            name = re.sub(r"^(DEF-|ORG-|MCH-)", "", name)
+            name = re.sub(r"\.\d+$", "", name)  # .001, .002
+            name = re.sub(r"\.[LR]$", "", name)  # .L, .R
+            name = re.sub(r"\.[A-Z]\.[LR]$", "", name)  # .T.L, .B.R
+            return name.lower()
 
         def get_def_parent(child_name: str):
             """
@@ -1253,29 +1296,48 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
             if not parent_name:
                 return None
 
-            # Use DEF if it already exists
-            if parent_name.startswith("DEF-") and parent_name in bones:
-                return bones[parent_name]
+            # Rigify specific structure, so check if it's actually Rigify.
+            if is_rigify:
+                # Use DEF if it already exists
+                if parent_name.startswith("DEF-") and parent_name in bones:
+                    return bones[parent_name]
 
-            # Use DEF counterpart if it's ORG
-            if parent_name.startswith("ORG-"):
-                # skip bones without prefixes
-                if "-" not in child_name:
-                    return get_def_parent(parent_name)
+                # Use DEF counterpart if it's ORG
+                if parent_name.startswith("ORG-"):
+                    # skip bones without prefixes
+                    if "-" not in child_name:
+                        return get_def_parent(parent_name)
 
-                # skip if the current parent use the same name
-                base = parent_name.split("-", 1)[1]
-                def_name = f"DEF-{base}"
-                if base == child_name.split("-", 1)[1]:
-                    return get_def_parent(parent_name)
-                if def_name in bones:
-                    return bones[def_name]
+                    # skip if the current parent use the same name
+                    base = parent_name.split("-", 1)[1]
+                    def_name = f"DEF-{base}"
+                    if base == child_name.split("-", 1)[1]:
+                        return get_def_parent(parent_name)
+                    if def_name in bones:
+                        return bones[def_name]
+
+            # find best parent from parent's siblings.
+            if not is_rigify and parent_name not in bones:
+                try:
+                    parent_of_parent = parent_map.get(parent_name)
+                    if parent_of_parent:
+                        siblings = [c for c, p in parent_map.items() if p == parent_of_parent and c in bones]
+                        if siblings:
+                            norm_siblings = [normalize_name(n) for n in siblings]
+                            matches = get_close_matches(normalize_name(child_name), norm_siblings, n=1, cutoff=0.6)
+                            if matches:
+                                return bones[siblings[norm_siblings.index(matches[0])]]
+                except ValueError:
+                    print("De-rig cleaner: Could not locate the normalized name")
 
             # Go higher in the hierarchy
             return get_def_parent(parent_name)
 
         for bone in bones:
-            if not bone.use_deform or not bone.name.startswith("DEF-"):
+            if not bone.use_deform:
+                continue
+
+            if is_rigify and not bone.name.startswith("DEF-"):
                 continue
 
             parent = get_def_parent(bone.name)
