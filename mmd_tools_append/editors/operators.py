@@ -29,8 +29,11 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
         return True
 
     def execute(self, context):
-        if context.scene.render.engine != "BLENDER_EEVEE_NEXT":
-            context.scene.render.engine = "BLENDER_EEVEE_NEXT"
+        if context.scene.render.engine not in ["BLENDER_EEVEE_NEXT", "BLENDER_EEVEE"]:
+            try:
+                context.scene.render.engine = "BLENDER_EEVEE_NEXT"
+            except TypeError:
+                context.scene.render.engine = "BLENDER_EEVEE"
 
         eevee = context.scene.eevee
 
@@ -39,11 +42,6 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
         eevee.taa_render_samples = 16
         # > Viewport: 8
         eevee.taa_samples = 16
-
-        # Ambient Occlusion: enable
-        eevee.use_gtao = True
-        # > Distance: 0.1 m
-        eevee.gtao_distance = 0.100
 
         # Depth of Field
         # > Max Size: 16 px
@@ -57,6 +55,12 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
 
         # Ray-tracing: True
         eevee.use_raytracing = True
+
+        # Ambient Occlusion: enable (Fast GI with AO mode)
+        eevee.use_fast_gi = True
+        eevee.fast_gi_method = "AMBIENT_OCCLUSION_ONLY"
+        # > Distance: 0.1 m
+        eevee.fast_gi_distance = 0.100
 
         # Film > Transparent
         context.scene.render.film_transparent = self.film_transparent
@@ -85,8 +89,11 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
         return True
 
     def execute(self, context):
-        if context.scene.render.engine != "BLENDER_EEVEE_NEXT":
-            context.scene.render.engine = "BLENDER_EEVEE_NEXT"
+        if context.scene.render.engine not in ["BLENDER_EEVEE_NEXT", "BLENDER_EEVEE"]:
+            try:
+                context.scene.render.engine = "BLENDER_EEVEE_NEXT"
+            except TypeError:
+                context.scene.render.engine = "BLENDER_EEVEE"
 
         eevee = context.scene.eevee
 
@@ -95,11 +102,6 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
         eevee.taa_render_samples = 8
         # > Viewport: 8
         eevee.taa_samples = 8
-
-        # Ambient Occlusion: enable
-        eevee.use_gtao = True
-        # > Distance: 0.1 m
-        eevee.gtao_distance = 0.100
 
         # Depth of Field
         # > Max Size: 16 px
