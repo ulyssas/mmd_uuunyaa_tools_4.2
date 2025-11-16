@@ -4,7 +4,7 @@
 
 import os
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Iterable, Optional, Tuple, Union
+from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 
 import bpy
 
@@ -91,11 +91,17 @@ class NodeEditor(ABC):
 
         return self.new_node(node_type, label, name)
 
-    def get_node_frame(self, label: str = None, name: str = "mmd_append_node_frame") -> bpy.types.NodeFrame:
-        return self.get_node(bpy.types.NodeFrame, label=label, name=name)
+    def get_node_frame(self, label: str = None, names: List[str] = ["mmd_append_node_frame", "uuunyaa_node_frame"]) -> bpy.types.NodeFrame:
+        for name in names:
+            node = self.get_node(bpy.types.NodeFrame, label=label, name=name)
+            if node:
+                return node
 
-    def find_node_frame(self, label: str = None, name: str = "mmd_append_node_frame") -> bpy.types.NodeFrame:
-        return self.find_node(bpy.types.NodeFrame, label=label, name=name)
+    def find_node_frame(self, label: str = None, names: List[str] = ["mmd_append_node_frame", "uuunyaa_node_frame"]) -> bpy.types.NodeFrame:
+        for name in names:
+            node = self.find_node(bpy.types.NodeFrame, label=label, name=name)
+            if node:
+                return node
 
     def remove_node_frame(self, node_frame: bpy.types.NodeFrame):
         for node in self.list_nodes(node_frame=node_frame):
@@ -129,13 +135,13 @@ class NodeEditor(ABC):
         return node
 
     _adjusters_node_frame_label = "MMD Append Adjusters"
-    _adjusters_node_frame_name = "mmd_append_adjusters_node_frame"
+    _adjusters_node_frame_name = ["mmd_append_adjusters_node_frame", "uuunyaa_adjusters_node_frame"]
 
     def find_adjusters_node_frame(self) -> bpy.types.NodeFrame:
-        return self.find_node_frame(label=self._adjusters_node_frame_label, name=self._adjusters_node_frame_name)
+        return self.find_node_frame(label=self._adjusters_node_frame_label, names=self._adjusters_node_frame_name)
 
     def get_adjusters_node_frame(self) -> bpy.types.NodeFrame:
-        return self.get_node_frame(label=self._adjusters_node_frame_label, name=self._adjusters_node_frame_name)
+        return self.get_node_frame(label=self._adjusters_node_frame_label, names=self._adjusters_node_frame_name)
 
 
 class MaterialEditor(NodeEditor):
