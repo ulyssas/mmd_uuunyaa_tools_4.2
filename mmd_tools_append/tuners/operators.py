@@ -61,6 +61,38 @@ class TuneMaterial(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class BatchTuneMaterial(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.batch_tune_material"
+    bl_label = _("Batch Tune Material")
+    bl_description = _("Apply selected material to all selected objects and their materials.")
+    bl_options = {"REGISTER", "UNDO"}
+
+    material: bpy.props.EnumProperty(
+        items=material_tuners.TUNERS.to_enum_property_items(),
+    )
+
+    @classmethod
+    def poll(cls, context):
+        return any(x.type == "MESH" and x.active_material for x in context.selected_objects)
+
+    def execute(self, context):
+        for obj in context.selected_objects:
+            for i in obj.material_slots:
+                # usual checks
+                if not i.material:
+                    continue
+                if not i.material.use_nodes:
+                    i.material.use_nodes = True
+
+                mat = i.material
+                material_tuners.TUNERS[self.material](mat).execute()
+
+                # this calls TuneMaterial (updates MaterialPropertyGroup)
+                mat.mmd_tools_append_material.thumbnails = self.material
+
+        return {"FINISHED"}
+
+
 class AttachMaterialAdjuster(bpy.types.Operator):
     bl_idname = "mmd_tools_append.attach_material_adjuster"
     bl_label = _("Attach Material Adjuster")

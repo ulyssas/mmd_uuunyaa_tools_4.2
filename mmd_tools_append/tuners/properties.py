@@ -50,6 +50,22 @@ class MaterialPropertyGroup(bpy.types.PropertyGroup):
         del bpy.types.Material.mmd_tools_append_material
 
 
+class BatchMaterialPropertyGroup(bpy.types.PropertyGroup):
+    thumbnails: bpy.props.EnumProperty(
+        items=material_tuners.TUNERS.to_enum_property_items(),
+        description=_("Choose the material you want to apply to all selected objects"),
+    )
+
+    @staticmethod
+    def register():
+        # pylint: disable=assignment-from-no-return
+        bpy.types.Scene.mmd_tools_append_batch_material = bpy.props.PointerProperty(type=BatchMaterialPropertyGroup)
+
+    @staticmethod
+    def unregister():
+        del bpy.types.Scene.mmd_tools_append_batch_material
+
+
 try:
     from bpy.types import GeometryNodeTree
 
