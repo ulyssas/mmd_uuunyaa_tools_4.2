@@ -25,7 +25,6 @@ from .converters.physics.cloth_pyramid import (
     ConvertPyramidMeshToClothOperator,
 )
 from .converters.physics.collision import RemoveMeshCollision, SelectCollisionMesh
-from .editors.nodes import MaterialEditor
 from .editors.operators import (
     AutoSegmentationOperator,
     PaintSelectedFacesOperator,
@@ -37,7 +36,6 @@ from .editors.operators import (
 )
 from .generators.physics import AddCenterOfGravityObject
 from .m17n import _
-from .tuners.operators import BatchTuneMaterial
 from .utilities import import_mmd_tools, is_mmd_tools_installed
 
 
@@ -218,57 +216,6 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
     @staticmethod
     def unregister():
         del bpy.types.Object.mmd_tools_append_show_cloths
-
-
-class MMDAppendBatchMaterialPanel(bpy.types.Panel):
-    bl_idname = "MMD_APPEND_PT_batch_material"
-    bl_label = _("MMD Append Batch Material")
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "MMD"
-
-    @classmethod
-    def poll(cls, context: bpy.types.Context):
-        if context.mode != "OBJECT":
-            return False
-
-        obj = context.active_object
-        if obj is None:
-            return False
-
-        return is_mmd_tools_installed()
-
-    def draw(self, context):
-        if not any(x.type == "MESH" and x.active_material for x in context.selected_objects):
-            self.layout.label(text=_("Select a mesh"))
-            return
-
-        # material = context.active_object.active_material
-        batch_material = context.scene.mmd_tools_append_batch_material
-
-        layout = self.layout
-        col = layout.column(align=True)
-
-        # Previews
-        row = col.row()
-        row.template_icon_view(batch_material, "thumbnails", show_labels=True)
-
-        # Material Name
-        row = col.row(align=True)
-        row.alignment = "CENTER"
-        row.label(text=row.enum_item_name(batch_material, "thumbnails", batch_material.thumbnails))
-
-        row = col.row(align=True)
-        batch_op = row.operator(BatchTuneMaterial.bl_idname, text=_("Apply Material"), icon="MATSPHERE")
-        batch_op.material = batch_material.thumbnails
-
-        # utilities = MaterialEditor(material)
-        # node_frame = utilities.find_node_frame()
-        # if node_frame is None:
-        #    return
-
-        ## Append Material Settings
-        # utilities.draw_setting_shader_node_properties(layout, utilities.list_nodes(node_type=bpy.types.ShaderNodeGroup, node_frame=node_frame))
 
 
 class MMDAppendSegmentationPanel(bpy.types.Panel):

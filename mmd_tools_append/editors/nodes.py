@@ -366,3 +366,25 @@ class MaterialEditor(NodeEditor):
                     if node_input.is_linked:
                         continue
                     col.prop(node_input, "default_value", text=node_input.name)
+
+    def copy_node_group_inputs(self, source):
+        src_editor = MaterialEditor(source)
+
+        dst_node_frame = self.find_node_frame()
+        src_node_frame = src_editor.find_node_frame()
+        if src_node_frame is None or dst_node_frame is None:
+            return
+
+        src_groups = list(src_editor.list_nodes(node_type=bpy.types.ShaderNodeGroup, node_frame=src_node_frame))
+        dst_groups = list(self.list_nodes(node_type=bpy.types.ShaderNodeGroup, node_frame=dst_node_frame))
+
+        src_dict = {node.name: node for node in src_groups}
+        for dst_node in dst_groups:
+            src_node = src_dict.get(dst_node.name)
+            if src_node is None:
+                continue
+            for src_input, dst_input in zip(src_node.inputs, dst_node.inputs):
+                try:
+                    dst_input.default_value = src_input.default_value
+                except Exception:
+                    pass
