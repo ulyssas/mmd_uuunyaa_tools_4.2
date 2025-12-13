@@ -20,6 +20,7 @@ class MMDArmatureAddMetarig(bpy.types.Operator):
     bl_description = _("Generate Human (metarig) from MMD Armature.")
     bl_options = {"REGISTER", "UNDO"}
 
+    use_mmd_orientation: bpy.props.BoolProperty(name=_("Align to MMD orientation"), description=_("Adjust bone rolls to fit common MMD arm and finger orientations"), default=True)
     is_clean_armature: bpy.props.BoolProperty(name=_("Clean Armature"), default=True)
     is_clean_koikatsu_armature: bpy.props.BoolProperty(name=_("Clean Koikatsu Armature"), default=False)
 
@@ -82,7 +83,7 @@ class MMDArmatureAddMetarig(bpy.types.Operator):
         if not mmd_armature_object.has_face_bones():
             metarig_object.remove_face_bones()
 
-        metarig_object.fit_bones(mmd_armature_object)
+        metarig_object.fit_bones(mmd_armature_object, self.use_mmd_orientation)
 
         bpy.ops.object.mode_set(mode="POSE")
         metarig_object.set_rigify_parameters(mmd_armature_object)

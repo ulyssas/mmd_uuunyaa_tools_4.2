@@ -780,6 +780,11 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         bones["mmd_append_shoulder_cancel.L"].hide = True
         bones["mmd_append_shoulder_cancel.R"].hide = True
 
+        # Blender 5.0 (https://developer.blender.org/docs/release_notes/5.0/python_api/#animation-rigging)
+        if bpy.app.version >= (5, 0, 0):
+            pose_bones["mmd_append_shoulder_cancel.L"].hide = True
+            pose_bones["mmd_append_shoulder_cancel.R"].hide = True
+
         # arms
         pose_bones["mmd_append_upper_arm_twist_fk.L"].lock_location = [
             True,
@@ -1757,10 +1762,13 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
 
     def _hide_bones(self, hide_bone_names: Set[str]):
         rig_bones: bpy.types.ArmatureBones = self.bones
+        pose_bones: Dict[str, bpy.types.PoseBone] = self.pose_bones
         for hide_bone_name in hide_bone_names:
             if hide_bone_name not in rig_bones:
                 continue
             rig_bones[hide_bone_name].hide = True
+            if bpy.app.version >= (5, 0, 0):
+                pose_bones[hide_bone_name].hide = True
 
     def fit_bone_rotations(self, mmd_armature_object: MMDArmatureObject):
         rig_edit_bones: bpy.types.ArmatureEditBones = self.edit_bones

@@ -558,6 +558,9 @@ class AutoRigArmatureObject(MMDBindArmatureObjectABC):
         bones = self.bones
         bones["mmd_append_shoulder_cancel.l"].hide = True
         bones["mmd_append_shoulder_cancel.r"].hide = True
+        if bpy.app.version >= (5, 0, 0):
+            pose_bones["mmd_append_shoulder_cancel.l"].hide = True
+            pose_bones["mmd_append_shoulder_cancel.r"].hide = True
 
         # arms
         pose_bones["mmd_append_upper_arm_twist_fk.l"].lock_location = [True, True, True]
