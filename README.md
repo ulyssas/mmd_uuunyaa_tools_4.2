@@ -6,8 +6,8 @@ MMD Tools Appendは[MMD-Blender/blender_mmd_tools](https://github.com/MMD-Blende
 
 ## Version Compatibility
 | Blender Version | MMD Tools Append Version | Branch      |
-|-----------------|---------------------------|-------------|
-| Blender 4.5 LTS | MMD Tools Append v4.x    | [main](https://github.com/MMD-Blender/blender_mmd_tools_append) |
+|-----------------|--------------------------|-------------|
+| Blender 4.2-5.0 | MMD Tools Append v4.x    | [main](https://github.com/MMD-Blender/blender_mmd_tools_append) |
 | Blender 3.6 LTS | MMD Tools Append v1.x    | [blender-v3](https://github.com/MMD-Blender/blender_mmd_tools_append/tree/blender-v3) |
 
 
