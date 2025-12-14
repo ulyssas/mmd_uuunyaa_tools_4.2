@@ -386,5 +386,5 @@ class MaterialEditor(NodeEditor):
             for src_input, dst_input in zip(src_node.inputs, dst_node.inputs):
                 try:
                     dst_input.default_value = src_input.default_value
-                except Exception:
-                    pass
+                except Exception as e:
+                    print(f"WARNING: skipped copying node value due to an exception: {e}")
