@@ -254,6 +254,8 @@ translation_dict = {
         ("*", "Lower Body as"): "下半身として",
         #: mmd_tools_append/converters/armatures/operators.py:399
         ("Operator", "Remove rig from armature"): "アーマチュアからリグを削除",
+        #: mmd_tools_append/converters/armatures/operators.py:400
+        ("*", "Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure."): "アーマチュアから非変形ボーンを削除します. Rigify以外のリグにも対応しています.\nボーン構造が崩れる恐れがあります",
         #: mmd_tools_append/converters/armatures/operators.py:403
         ("*", "Remove Bone Constraints"): "ボーンコンストレイントを削除",
         #: mmd_tools_append/converters/armatures/operators.py:404
@@ -1194,12 +1196,20 @@ translation_dict = {
         ("Operator", "Select Mesh Objects with Use Alpha Hashed"): "选择使用Alpha Hashed的网格物体",
         #: mmd_tools_append/converters/armatures/operators.py:19
         ("Operator", "Add Human (metarig) from MMD Armature"): "从MMD骨架添加 Human (metarig)",
+        #: mmd_tools_append/converters/armatures/operators.py:20
+        ("*", "Generate Human (metarig) from MMD Armature."): "",
+        #: mmd_tools_append/converters/armatures/operators.py:23
+        ("*", "Adjust bone rolls to fit common MMD arm and finger orientations"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:23
+        ("*", "Align to MMD orientation"): "",
         #: mmd_tools_append/converters/armatures/operators.py:24
         ("*", "Clean Armature"): "清洁骨架",
         #: mmd_tools_append/converters/armatures/operators.py:25
         ("*", "Clean Koikatsu Armature"): "清洁Koikatsu骨架",
         #: mmd_tools_append/converters/armatures/operators.py:221
         ("Operator", "MMD compatibility focused Integrate"): "注重MMD兼容性的整合",
+        #: mmd_tools_append/converters/armatures/operators.py:222 mmd_tools_append/converters/armatures/operators.py:274
+        ("*", "Combine Rigify rig and MMD armature."): "",
         #: mmd_tools_append/converters/armatures/operators.py:226 mmd_tools_append/converters/armatures/operators.py:278
         ("Operator", "Join Armatures"): "合并骨架",
         #: mmd_tools_append/converters/armatures/operators.py:227 mmd_tools_append/converters/armatures/operators.py:279
@@ -1222,6 +1232,30 @@ translation_dict = {
         ("*", "Upper Body2 as"): "上半身2为",
         #: mmd_tools_append/converters/armatures/operators.py:361
         ("*", "Lower Body as"): "下半身为",
+        #: mmd_tools_append/converters/armatures/operators.py:399
+        ("Operator", "Remove rig from armature"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:400
+        ("*", "Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure."): "",
+        #: mmd_tools_append/converters/armatures/operators.py:403
+        ("*", "Remove Bone Constraints"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:404
+        ("*", "Remove all drivers in Armature"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:405
+        ("*", "Remove Rigify prefixes"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:405
+        ("*", "Remove Rigify prefixes (DEF-)"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:406
+        ("*", "Fix Rigify Bone structure"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:406
+        ("*", "Only works for Rigify"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:407
+        ("*", "Unlock Bones"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:407
+        ("*", "Unlock all bone transformations (translations, rotations, scales)"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:443
+        ("Operator", "Translate Rigify names to MMD"): "",
+        #: mmd_tools_append/converters/armatures/operators.py:444
+        ("*", "Translate Rigify metarig bone names to MMD."): "",
         #: mmd_tools_append/converters/armatures/operators.py:480 mmd_tools_append/converters/armatures/operators.py:555 mmd_tools_append/panels.py:107 mmd_tools_append/panels.py:114
         ("Operator", "Apply MMD Rest Pose"): "应用MMD静置姿态",
         #: mmd_tools_append/converters/armatures/operators.py:484 mmd_tools_append/converters/armatures/operators.py:559
@@ -1344,6 +1378,8 @@ translation_dict = {
         ("*", "Target bones not found."): "没有找到目标骨骼",
         #: mmd_tools_append/converters/physics/cloth_pyramid.py:868
         ("*", "Add Pyramid Mesh by Breast Bone"): "从胸骨骼上添加金字塔网格",
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:869
+        ("*", "Add pyramid meshes from selected breast bones."): "",
         #: mmd_tools_append/converters/physics/cloth_pyramid.py:872
         ("*", "Head/Tail"): "头 / 尾",
         #: mmd_tools_append/converters/physics/cloth_pyramid.py:873
@@ -1354,6 +1390,8 @@ translation_dict = {
         ("*", "Project Base Vertices Vertically"): "垂直投影基底顶点",
         #: mmd_tools_append/converters/physics/cloth_pyramid.py:916
         ("Operator", "Convert Pyramid Mesh to Cloth"): "将金字塔网格转换为布料",
+        #: mmd_tools_append/converters/physics/cloth_pyramid.py:917
+        ("*", "Convert pyramid meshes to cloth simulation."): "",
         #: mmd_tools_append/converters/physics/cloth_pyramid.py:920 mmd_tools_append/converters/physics/cloth_pyramid.py:985
         ("*", "Boundary Expansion Hop Count"): "边界扩展跳数",
         #: mmd_tools_append/converters/physics/cloth_pyramid.py:982
@@ -1599,6 +1637,10 @@ translation_dict = {
         ("*", "Rigify to MMD:"): "Rigify到MMD:",
         #: mmd_tools_append/panels.py:106 mmd_tools_append/panels.py:113
         ("Operator", "Convert to MMD compatible"): "转换为MMD兼容",
+        #: mmd_tools_append/panels.py:108
+        ("Operator", "De-rig armature"): "",
+        #: mmd_tools_append/panels.py:109
+        ("Operator", "Translate Rigify to MMD"): "",
         #: mmd_tools_append/panels.py:111
         ("*", "(Experimental) Auto-Rig to MMD:"): "(实验的) Auto-Rig到MMD:",
         #: mmd_tools_append/panels.py:119
@@ -1886,6 +1928,18 @@ translation_dict = {
         ("Operator", "Freeze Lighting"): "照明冻结",
         #: mmd_tools_append/tuners/operators.py:49
         ("Operator", "Tune Material"): "材质调整",
+        #: mmd_tools_append/tuners/operators.py:67
+        ("Operator", "Copy Append Material"): "",
+        #: mmd_tools_append/tuners/operators.py:68
+        ("*", "Apply current Append material to materials of the selected objects."): "",
+        #: mmd_tools_append/tuners/operators.py:71
+        ("*", "Apply Append material to materials in active object"): "",
+        #: mmd_tools_append/tuners/operators.py:71
+        ("*", "Apply to active object"): "",
+        #: mmd_tools_append/tuners/operators.py:72
+        ("*", "Apply Append material to materials in selected object"): "",
+        #: mmd_tools_append/tuners/operators.py:72
+        ("*", "Apply to selection"): "",
         #: mmd_tools_append/tuners/operators.py:111
         ("Operator", "Attach Material Adjuster"): "附上材质调整器",
         #: mmd_tools_append/tuners/operators.py:127
@@ -1910,6 +1964,8 @@ translation_dict = {
         ("*", "MMD Append Lighting"): "MMD Append照明",
         #: mmd_tools_append/tuners/panels.py:118
         ("*", "MMD Append Material"): "MMD Append材质",
+        #: mmd_tools_append/tuners/panels.py:148
+        ("Operator", "Copy to Active"): "",
         #: mmd_tools_append/tuners/panels.py:166
         ("*", "MMD Append Material Adjuster"): "MMD Append材质调整器",
         #: mmd_tools_append/tuners/panels.py:184
@@ -1921,6 +1977,8 @@ translation_dict = {
         ("*", "MMD Append Geometry Nodes"): "MMD Append几何节点调整器",
         #: mmd_tools_append/tuners/properties.py:18
         ("*", "Choose the lighting you want to use"): "选择你的照明",
+        #: mmd_tools_append/tuners/properties.py:38
+        ("*", "Whether or not to update active material"): "",
         #: mmd_tools_append/tuners/properties.py:41
         ("*", "Choose the material you want to use"): "选择你的材质",
         #: mmd_tools_append/tuners/properties.py:67
