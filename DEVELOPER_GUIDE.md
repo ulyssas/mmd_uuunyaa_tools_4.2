@@ -53,6 +53,9 @@ blender_mmd_tools_append/
   ```
 - Follow [MMD Tools Python Style](https://github.com/MMD-Blender/blender_mmd_tools/blob/main/DEVELOPER_GUIDE.md#python-style)
 
+### Translating the Extension
+We use [Manage UI translations Addon](https://developer.blender.org/docs/handbook/translating/translator_guide/#manage-ui-translations-add-on) suggested by Blender. For more details, check out [MMD Tools Developer Guide](https://github.com/MMD-Blender/blender_mmd_tools/blob/main/DEVELOPER_GUIDE.md#translating-the-extension).
+
 ## Release Process
 Currently, only @UuuNyaa has permission to perform release tasks:
 
