@@ -28,7 +28,7 @@ class MetarigArmatureObject(ArmatureEditor):
 
         metarig_edit_bones.remove(metarig_face_bone)
 
-    def fit_bones(self, mmd_armature_object: MMDArmatureObject):
+    def fit_bones(self, mmd_armature_object: MMDArmatureObject, use_mmd_orientation: bool = True):
         # pylint: disable=too-many-statements
         metarig_edit_bones = self.edit_bones
         mmd_edit_bones = mmd_armature_object.strict_edit_bones
@@ -56,61 +56,50 @@ class MetarigArmatureObject(ArmatureEditor):
         metarig_edit_bones["shoulder.R"].tail = mmd_edit_bones["右肩"].tail
         metarig_edit_bones["upper_arm.L"].head = mmd_edit_bones["左腕"].head
         metarig_edit_bones["upper_arm.R"].head = mmd_edit_bones["右腕"].head
-        metarig_edit_bones["upper_arm.L"].roll = mmd_edit_bones["左腕"].roll + math.radians(+90)
-        metarig_edit_bones["upper_arm.R"].roll = mmd_edit_bones["右腕"].roll + math.radians(+90)
         metarig_edit_bones["forearm.L"].head = mmd_edit_bones["左ひじ"].head
         metarig_edit_bones["forearm.L"].tail = mmd_edit_bones["左ひじ"].tail
         metarig_edit_bones["forearm.R"].head = mmd_edit_bones["右ひじ"].head
         metarig_edit_bones["forearm.R"].tail = mmd_edit_bones["右ひじ"].tail
-        metarig_edit_bones["forearm.L"].roll = mmd_edit_bones["左ひじ"].roll + math.radians(+90)
-        metarig_edit_bones["forearm.R"].roll = mmd_edit_bones["右ひじ"].roll + math.radians(+90)
-
         metarig_edit_bones["hand.L"].tail = mmd_edit_bones["左手首"].tail
         metarig_edit_bones["hand.R"].tail = mmd_edit_bones["右手首"].tail
-        metarig_edit_bones["hand.L"].roll = mmd_edit_bones["左手首"].roll + math.radians(+90)
-        metarig_edit_bones["hand.R"].roll = mmd_edit_bones["右手首"].roll + math.radians(+90)
+
+        if use_mmd_orientation:
+            metarig_edit_bones["upper_arm.L"].roll = mmd_edit_bones["左腕"].roll + math.radians(+90)
+            metarig_edit_bones["upper_arm.R"].roll = mmd_edit_bones["右腕"].roll + math.radians(+90)
+            metarig_edit_bones["forearm.L"].roll = mmd_edit_bones["左ひじ"].roll + math.radians(+90)
+            metarig_edit_bones["forearm.R"].roll = mmd_edit_bones["右ひじ"].roll + math.radians(+90)
+            metarig_edit_bones["hand.L"].roll = mmd_edit_bones["左手首"].roll + math.radians(+90)
+            metarig_edit_bones["hand.R"].roll = mmd_edit_bones["右手首"].roll + math.radians(+90)
 
         if MMDBoneType.THUMB_0 in mmd_armature_object.exist_bone_types:
             metarig_edit_bones["thumb.01.L"].head = mmd_edit_bones["左親指０"].head
             metarig_edit_bones["thumb.01.L"].tail = mmd_edit_bones["左親指０"].tail
             metarig_edit_bones["thumb.01.R"].head = mmd_edit_bones["右親指０"].head
             metarig_edit_bones["thumb.01.R"].tail = mmd_edit_bones["右親指０"].tail
-            metarig_edit_bones["thumb.01.L"].roll = mmd_edit_bones["左親指０"].roll + math.radians(-90)
-            metarig_edit_bones["thumb.01.R"].roll = mmd_edit_bones["右親指０"].roll + math.radians(-90)
         else:
             metarig_edit_bones["thumb.01.L"].head = mmd_edit_bones["左親指１"].head - mmd_edit_bones["左親指１"].vector
             metarig_edit_bones["thumb.01.L"].tail = mmd_edit_bones["左親指１"].head
             metarig_edit_bones["thumb.01.R"].head = mmd_edit_bones["右親指１"].head - mmd_edit_bones["右親指１"].vector
             metarig_edit_bones["thumb.01.R"].tail = mmd_edit_bones["右親指１"].head
-            metarig_edit_bones["thumb.01.L"].roll = mmd_edit_bones["左親指１"].roll + math.radians(-90)
-            metarig_edit_bones["thumb.01.R"].roll = mmd_edit_bones["右親指１"].roll + math.radians(-90)
 
         metarig_edit_bones["thumb.02.L"].tail = mmd_edit_bones["左親指１"].tail
         metarig_edit_bones["thumb.02.R"].tail = mmd_edit_bones["右親指１"].tail
         metarig_edit_bones["thumb.03.L"].tail = mmd_edit_bones["左親指２"].tail
         metarig_edit_bones["thumb.03.R"].tail = mmd_edit_bones["右親指２"].tail
-        metarig_edit_bones["thumb.02.L"].roll = mmd_edit_bones["左親指１"].roll + math.radians(-90)
-        metarig_edit_bones["thumb.03.L"].roll = mmd_edit_bones["左親指２"].roll + math.radians(-90)
-        metarig_edit_bones["thumb.02.R"].roll = mmd_edit_bones["右親指１"].roll + math.radians(-90)
-        metarig_edit_bones["thumb.03.R"].roll = mmd_edit_bones["右親指２"].roll + math.radians(-90)
 
         if "左人指０" in mmd_edit_bones:
             metarig_edit_bones["palm.01.L"].head = mmd_edit_bones["左人指０"].head
             metarig_edit_bones["palm.01.L"].tail = mmd_edit_bones["左人指０"].tail
-            metarig_edit_bones["palm.01.L"].roll = mmd_edit_bones["左人指０"].roll + math.radians(+180)
         else:
             metarig_edit_bones["palm.01.L"].head = self.to_stretch(mmd_edit_bones["左ひじ"].tail, mmd_edit_bones["左人指１"].head, 0.99)
             metarig_edit_bones["palm.01.L"].tail = mmd_edit_bones["左人指１"].head
-            metarig_edit_bones["palm.01.L"].roll = mmd_edit_bones["左人指１"].roll + math.radians(+180)
 
         if "右人指０" in mmd_edit_bones:
             metarig_edit_bones["palm.01.R"].head = mmd_edit_bones["右人指０"].head
             metarig_edit_bones["palm.01.R"].tail = mmd_edit_bones["右人指０"].tail
-            metarig_edit_bones["palm.01.R"].roll = mmd_edit_bones["右人指０"].roll + math.radians(+0)
         else:
             metarig_edit_bones["palm.01.R"].head = self.to_stretch(mmd_edit_bones["右ひじ"].tail, mmd_edit_bones["右人指１"].head, 0.99)
             metarig_edit_bones["palm.01.R"].tail = mmd_edit_bones["右人指１"].head
-            metarig_edit_bones["palm.01.R"].roll = mmd_edit_bones["右人指１"].roll + math.radians(+0)
 
         metarig_edit_bones["f_index.01.L"].head = mmd_edit_bones["左人指１"].head
         metarig_edit_bones["f_index.01.L"].tail = mmd_edit_bones["左人指１"].tail
@@ -120,30 +109,20 @@ class MetarigArmatureObject(ArmatureEditor):
         metarig_edit_bones["f_index.02.R"].tail = mmd_edit_bones["右人指２"].tail
         metarig_edit_bones["f_index.03.L"].tail = mmd_edit_bones["左人指３"].tail
         metarig_edit_bones["f_index.03.R"].tail = mmd_edit_bones["右人指３"].tail
-        metarig_edit_bones["f_index.01.L"].roll = mmd_edit_bones["左人指１"].roll + math.radians(+180)
-        metarig_edit_bones["f_index.02.L"].roll = mmd_edit_bones["左人指２"].roll + math.radians(+180)
-        metarig_edit_bones["f_index.03.L"].roll = mmd_edit_bones["左人指３"].roll + math.radians(+180)
-        metarig_edit_bones["f_index.01.R"].roll = mmd_edit_bones["右人指１"].roll + math.radians(+0)
-        metarig_edit_bones["f_index.02.R"].roll = mmd_edit_bones["右人指２"].roll + math.radians(+0)
-        metarig_edit_bones["f_index.03.R"].roll = mmd_edit_bones["右人指３"].roll + math.radians(+0)
 
         if "左中指０" in mmd_edit_bones:
             metarig_edit_bones["palm.02.L"].head = mmd_edit_bones["左中指０"].head
             metarig_edit_bones["palm.02.L"].tail = mmd_edit_bones["左中指０"].tail
-            metarig_edit_bones["palm.02.L"].roll = mmd_edit_bones["左中指０"].roll + math.radians(+180)
         else:
             metarig_edit_bones["palm.02.L"].head = self.to_stretch(mmd_edit_bones["左ひじ"].tail, mmd_edit_bones["左中指１"].head, 0.99)
             metarig_edit_bones["palm.02.L"].tail = mmd_edit_bones["左中指１"].head
-            metarig_edit_bones["palm.02.L"].roll = mmd_edit_bones["左中指１"].roll + math.radians(+180)
 
         if "右中指０" in mmd_edit_bones:
             metarig_edit_bones["palm.02.R"].head = mmd_edit_bones["右中指０"].head
             metarig_edit_bones["palm.02.R"].tail = mmd_edit_bones["右中指０"].tail
-            metarig_edit_bones["palm.02.R"].roll = mmd_edit_bones["右中指０"].roll + math.radians(+0)
         else:
             metarig_edit_bones["palm.02.R"].head = self.to_stretch(mmd_edit_bones["右ひじ"].tail, mmd_edit_bones["右中指１"].head, 0.99)
             metarig_edit_bones["palm.02.R"].tail = mmd_edit_bones["右中指１"].head
-            metarig_edit_bones["palm.02.R"].roll = mmd_edit_bones["右中指１"].roll + math.radians(+0)
 
         metarig_edit_bones["f_middle.01.L"].head = mmd_edit_bones["左中指１"].head
         metarig_edit_bones["f_middle.01.L"].tail = mmd_edit_bones["左中指１"].tail
@@ -153,30 +132,20 @@ class MetarigArmatureObject(ArmatureEditor):
         metarig_edit_bones["f_middle.02.R"].tail = mmd_edit_bones["右中指２"].tail
         metarig_edit_bones["f_middle.03.L"].tail = mmd_edit_bones["左中指３"].tail
         metarig_edit_bones["f_middle.03.R"].tail = mmd_edit_bones["右中指３"].tail
-        metarig_edit_bones["f_middle.01.L"].roll = mmd_edit_bones["左中指１"].roll + math.radians(+180)
-        metarig_edit_bones["f_middle.02.L"].roll = mmd_edit_bones["左中指２"].roll + math.radians(+180)
-        metarig_edit_bones["f_middle.03.L"].roll = mmd_edit_bones["左中指３"].roll + math.radians(+180)
-        metarig_edit_bones["f_middle.01.R"].roll = mmd_edit_bones["右中指１"].roll + math.radians(+0)
-        metarig_edit_bones["f_middle.02.R"].roll = mmd_edit_bones["右中指２"].roll + math.radians(+0)
-        metarig_edit_bones["f_middle.03.R"].roll = mmd_edit_bones["右中指３"].roll + math.radians(+0)
 
         if "左薬指０" in mmd_edit_bones:
             metarig_edit_bones["palm.03.L"].head = mmd_edit_bones["左薬指０"].head
             metarig_edit_bones["palm.03.L"].tail = mmd_edit_bones["左薬指０"].tail
-            metarig_edit_bones["palm.03.L"].roll = mmd_edit_bones["左薬指０"].roll + math.radians(+180)
         else:
             metarig_edit_bones["palm.03.L"].head = self.to_stretch(mmd_edit_bones["左ひじ"].tail, mmd_edit_bones["左薬指１"].head, 0.99)
             metarig_edit_bones["palm.03.L"].tail = mmd_edit_bones["左薬指１"].head
-            metarig_edit_bones["palm.03.L"].roll = mmd_edit_bones["左薬指１"].roll + math.radians(+180)
 
         if "右薬指０" in mmd_edit_bones:
             metarig_edit_bones["palm.03.R"].head = mmd_edit_bones["右薬指０"].head
             metarig_edit_bones["palm.03.R"].tail = mmd_edit_bones["右薬指０"].tail
-            metarig_edit_bones["palm.03.R"].roll = mmd_edit_bones["右薬指０"].roll + math.radians(+0)
         else:
             metarig_edit_bones["palm.03.R"].head = self.to_stretch(mmd_edit_bones["右ひじ"].tail, mmd_edit_bones["右薬指１"].head, 0.99)
             metarig_edit_bones["palm.03.R"].tail = mmd_edit_bones["右薬指１"].head
-            metarig_edit_bones["palm.03.R"].roll = mmd_edit_bones["右薬指１"].roll + math.radians(+0)
 
         metarig_edit_bones["f_ring.01.L"].head = mmd_edit_bones["左薬指１"].head
         metarig_edit_bones["f_ring.01.L"].tail = mmd_edit_bones["左薬指１"].tail
@@ -186,30 +155,20 @@ class MetarigArmatureObject(ArmatureEditor):
         metarig_edit_bones["f_ring.02.R"].tail = mmd_edit_bones["右薬指２"].tail
         metarig_edit_bones["f_ring.03.L"].tail = mmd_edit_bones["左薬指３"].tail
         metarig_edit_bones["f_ring.03.R"].tail = mmd_edit_bones["右薬指３"].tail
-        metarig_edit_bones["f_ring.01.L"].roll = mmd_edit_bones["左薬指１"].roll + math.radians(+180)
-        metarig_edit_bones["f_ring.02.L"].roll = mmd_edit_bones["左薬指２"].roll + math.radians(+180)
-        metarig_edit_bones["f_ring.03.L"].roll = mmd_edit_bones["左薬指３"].roll + math.radians(+180)
-        metarig_edit_bones["f_ring.01.R"].roll = mmd_edit_bones["右薬指１"].roll + math.radians(+0)
-        metarig_edit_bones["f_ring.02.R"].roll = mmd_edit_bones["右薬指２"].roll + math.radians(+0)
-        metarig_edit_bones["f_ring.03.R"].roll = mmd_edit_bones["右薬指３"].roll + math.radians(+0)
 
         if "左小指０" in mmd_edit_bones:
             metarig_edit_bones["palm.04.L"].head = mmd_edit_bones["左小指０"].head
             metarig_edit_bones["palm.04.L"].tail = mmd_edit_bones["左小指０"].tail
-            metarig_edit_bones["palm.04.L"].roll = mmd_edit_bones["左小指０"].roll + math.radians(+180)
         else:
             metarig_edit_bones["palm.04.L"].head = self.to_stretch(mmd_edit_bones["左ひじ"].tail, mmd_edit_bones["左小指１"].head, 0.99)
             metarig_edit_bones["palm.04.L"].tail = mmd_edit_bones["左小指１"].head
-            metarig_edit_bones["palm.04.L"].roll = mmd_edit_bones["左小指１"].roll + math.radians(+180)
 
         if "右小指０" in mmd_edit_bones:
             metarig_edit_bones["palm.04.R"].head = mmd_edit_bones["右小指０"].head
             metarig_edit_bones["palm.04.R"].tail = mmd_edit_bones["右小指０"].tail
-            metarig_edit_bones["palm.04.R"].roll = mmd_edit_bones["右小指０"].roll + math.radians(+0)
         else:
             metarig_edit_bones["palm.04.R"].head = self.to_stretch(mmd_edit_bones["右ひじ"].tail, mmd_edit_bones["右小指１"].head, 0.99)
             metarig_edit_bones["palm.04.R"].tail = mmd_edit_bones["右小指１"].head
-            metarig_edit_bones["palm.04.R"].roll = mmd_edit_bones["右小指１"].roll + math.radians(+0)
 
         metarig_edit_bones["f_pinky.01.L"].head = mmd_edit_bones["左小指１"].head
         metarig_edit_bones["f_pinky.01.L"].tail = mmd_edit_bones["左小指１"].tail
@@ -219,12 +178,6 @@ class MetarigArmatureObject(ArmatureEditor):
         metarig_edit_bones["f_pinky.02.R"].tail = mmd_edit_bones["右小指２"].tail
         metarig_edit_bones["f_pinky.03.L"].tail = mmd_edit_bones["左小指３"].tail
         metarig_edit_bones["f_pinky.03.R"].tail = mmd_edit_bones["右小指３"].tail
-        metarig_edit_bones["f_pinky.01.L"].roll = mmd_edit_bones["左小指１"].roll + math.radians(+180)
-        metarig_edit_bones["f_pinky.02.L"].roll = mmd_edit_bones["左小指２"].roll + math.radians(+180)
-        metarig_edit_bones["f_pinky.03.L"].roll = mmd_edit_bones["左小指３"].roll + math.radians(+180)
-        metarig_edit_bones["f_pinky.01.R"].roll = mmd_edit_bones["右小指１"].roll + math.radians(+0)
-        metarig_edit_bones["f_pinky.02.R"].roll = mmd_edit_bones["右小指２"].roll + math.radians(+0)
-        metarig_edit_bones["f_pinky.03.R"].roll = mmd_edit_bones["右小指３"].roll + math.radians(+0)
 
         metarig_edit_bones["spine"].head = mmd_edit_bones["下半身"].tail
         metarig_edit_bones["spine.001"].head = self.to_bone_center(mmd_edit_bones["下半身"])
@@ -300,6 +253,87 @@ class MetarigArmatureObject(ArmatureEditor):
         # fix straight finger bend problem
         # https://blenderartists.org/t/rigify-fingers-issue/1218987
         # limbs.super_finger
+        if use_mmd_orientation:
+
+            def add_finger_zero_roll(metarig, mmd, amount):
+                """Adds roll to finger 0 if it exists. Otherwise it adds roll to finger 1."""
+                source_bone = mmd_edit_bones.get(f"{mmd}０") or mmd_edit_bones[f"{mmd}１"]
+                metarig_edit_bones[metarig].roll = source_bone.roll + math.radians(amount)
+
+            add_finger_zero_roll("thumb.01.L", "左親指", -90)
+            add_finger_zero_roll("palm.01.L", "左人指", +180)
+            add_finger_zero_roll("palm.02.L", "左中指", +180)
+            add_finger_zero_roll("palm.03.L", "左薬指", +180)
+            add_finger_zero_roll("palm.04.L", "左小指", +180)
+
+            add_finger_zero_roll("thumb.01.R", "右親指", -90)
+            add_finger_zero_roll("palm.01.R", "右人指", +0)
+            add_finger_zero_roll("palm.02.R", "右中指", +0)
+            add_finger_zero_roll("palm.03.R", "右薬指", +0)
+            add_finger_zero_roll("palm.04.R", "右小指", +0)
+
+            metarig_edit_bones["thumb.02.L"].roll = mmd_edit_bones["左親指１"].roll + math.radians(-90)
+            metarig_edit_bones["thumb.03.L"].roll = mmd_edit_bones["左親指２"].roll + math.radians(-90)
+            metarig_edit_bones["f_middle.01.L"].roll = mmd_edit_bones["左中指１"].roll + math.radians(+180)
+            metarig_edit_bones["f_middle.02.L"].roll = mmd_edit_bones["左中指２"].roll + math.radians(+180)
+            metarig_edit_bones["f_middle.03.L"].roll = mmd_edit_bones["左中指３"].roll + math.radians(+180)
+            metarig_edit_bones["f_ring.01.L"].roll = mmd_edit_bones["左薬指１"].roll + math.radians(+180)
+            metarig_edit_bones["f_ring.02.L"].roll = mmd_edit_bones["左薬指２"].roll + math.radians(+180)
+            metarig_edit_bones["f_ring.03.L"].roll = mmd_edit_bones["左薬指３"].roll + math.radians(+180)
+            metarig_edit_bones["f_ring.01.L"].roll = mmd_edit_bones["左薬指１"].roll + math.radians(+180)
+            metarig_edit_bones["f_ring.02.L"].roll = mmd_edit_bones["左薬指２"].roll + math.radians(+180)
+            metarig_edit_bones["f_ring.03.L"].roll = mmd_edit_bones["左薬指３"].roll + math.radians(+180)
+            metarig_edit_bones["f_pinky.01.L"].roll = mmd_edit_bones["左小指１"].roll + math.radians(+180)
+            metarig_edit_bones["f_pinky.02.L"].roll = mmd_edit_bones["左小指２"].roll + math.radians(+180)
+            metarig_edit_bones["f_pinky.03.L"].roll = mmd_edit_bones["左小指３"].roll + math.radians(+180)
+
+            metarig_edit_bones["thumb.02.R"].roll = mmd_edit_bones["右親指１"].roll + math.radians(-90)
+            metarig_edit_bones["thumb.03.R"].roll = mmd_edit_bones["右親指２"].roll + math.radians(-90)
+            metarig_edit_bones["f_middle.01.R"].roll = mmd_edit_bones["右中指１"].roll + math.radians(+0)
+            metarig_edit_bones["f_middle.02.R"].roll = mmd_edit_bones["右中指２"].roll + math.radians(+0)
+            metarig_edit_bones["f_middle.03.R"].roll = mmd_edit_bones["右中指３"].roll + math.radians(+0)
+            metarig_edit_bones["f_ring.01.R"].roll = mmd_edit_bones["右薬指１"].roll + math.radians(+0)
+            metarig_edit_bones["f_ring.02.R"].roll = mmd_edit_bones["右薬指２"].roll + math.radians(+0)
+            metarig_edit_bones["f_ring.03.R"].roll = mmd_edit_bones["右薬指３"].roll + math.radians(+0)
+            metarig_edit_bones["f_ring.01.R"].roll = mmd_edit_bones["右薬指１"].roll + math.radians(+0)
+            metarig_edit_bones["f_ring.02.R"].roll = mmd_edit_bones["右薬指２"].roll + math.radians(+0)
+            metarig_edit_bones["f_ring.03.R"].roll = mmd_edit_bones["右薬指３"].roll + math.radians(+0)
+            metarig_edit_bones["f_pinky.01.R"].roll = mmd_edit_bones["右小指１"].roll + math.radians(+0)
+            metarig_edit_bones["f_pinky.02.R"].roll = mmd_edit_bones["右小指２"].roll + math.radians(+0)
+            metarig_edit_bones["f_pinky.03.R"].roll = mmd_edit_bones["右小指３"].roll + math.radians(+0)
+
+        else:
+            metarig_edit_bones["thumb.01.L"].roll += math.radians(-45)
+            metarig_edit_bones["thumb.02.L"].roll += math.radians(-45)
+            metarig_edit_bones["thumb.03.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_index.01.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_index.02.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_index.03.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_middle.01.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_middle.02.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_middle.03.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_ring.01.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_ring.02.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_ring.03.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_pinky.01.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_pinky.02.L"].roll += math.radians(-45)
+            metarig_edit_bones["f_pinky.03.L"].roll += math.radians(-45)
+
+            metarig_edit_bones["thumb.01.R"].roll += math.radians(+45)
+            metarig_edit_bones["thumb.02.R"].roll += math.radians(+45)
+            metarig_edit_bones["thumb.03.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_index.01.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_index.02.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_index.03.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_middle.01.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_middle.02.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_middle.03.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_ring.01.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_ring.02.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_ring.03.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_pinky.01.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_pinky.02.R"].roll += math.radians(+45)
+            metarig_edit_bones["f_pinky.03.R"].roll += math.radians(+45)
 
         # fix elbow pole problem
         # https://blenderartists.org/t/rigify-elbow-problem/565285

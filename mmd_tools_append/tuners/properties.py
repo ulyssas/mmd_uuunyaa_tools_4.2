@@ -32,8 +32,10 @@ class LightingPropertyGroup(bpy.types.PropertyGroup):
 class MaterialPropertyGroup(bpy.types.PropertyGroup):
     @staticmethod
     def update_material_thumbnails(prop: "MaterialPropertyGroup", _):
-        bpy.ops.mmd_tools_append.tune_material(material=prop.thumbnails)  # pylint: disable=no-member
+        if prop.update:
+            bpy.ops.mmd_tools_append.tune_material(material=prop.thumbnails)  # pylint: disable=no-member
 
+    update: bpy.props.BoolProperty(description=_("Whether or not to update active material"), default=True)
     thumbnails: bpy.props.EnumProperty(
         items=material_tuners.TUNERS.to_enum_property_items(),
         description=_("Choose the material you want to use"),

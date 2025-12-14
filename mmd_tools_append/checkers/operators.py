@@ -91,7 +91,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
     def check_render_engine(context: bpy.types.Context):
         return CheckResult(
             _("Render Engine"),
-            CheckResultStatus.GOOD if context.scene.render.engine == "BLENDER_EEVEE_NEXT" else CheckResultStatus.BAD,
+            CheckResultStatus.GOOD if context.scene.render.engine in ["BLENDER_EEVEE_NEXT", "BLENDER_EEVEE"] else CheckResultStatus.BAD,
             0,
             "scene.render.engine",
             _("= Eevee is Good"),

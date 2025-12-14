@@ -30,7 +30,15 @@ auto_load.init(PACKAGE_NAME)
 
 
 def register():
+    import bpy
+
     auto_load.register()
+
+    # pylint: disable=import-outside-toplevel
+    from .m17n import translations_dict
+
+    bpy.app.translations.register(PACKAGE_NAME, translations_dict)
+
     for hook in REGISTER_HOOKS:
         try:
             hook()
@@ -39,9 +47,14 @@ def register():
 
 
 def unregister():
+    import bpy
+
     for hook in UNREGISTER_HOOKS:
         try:
             hook()
         except:  # noqa: E722
             traceback.print_exc()
+
+    bpy.app.translations.unregister(PACKAGE_NAME)
+
     auto_load.unregister()

@@ -5,7 +5,6 @@
 
 import bpy
 
-from ..utilities import is_mmd_tools_installed
 from ..editors.nodes import MaterialEditor
 from ..m17n import _, iface_
 from ..tuners.lighting_tuners import LightingUtilities
@@ -15,7 +14,8 @@ from ..tuners.material_adjusters import (
     MaterialAdjusterUtilities,
     WetAdjuster,
 )
-from ..tuners.operators import AttachMaterialAdjuster, DetachMaterialAdjuster, FreezeLighting
+from ..tuners.operators import AttachMaterialAdjuster, CopyTuneMaterialSettings, DetachMaterialAdjuster, FreezeLighting
+from ..utilities import is_mmd_tools_installed
 
 
 class SkyPanel(bpy.types.Panel):
@@ -140,6 +140,18 @@ class MaterialPanel(bpy.types.Panel):
         row = col.row(align=True)
         row.alignment = "CENTER"
         row.label(text=row.enum_item_name(mmd_tools_append_material, "thumbnails", mmd_tools_append_material.thumbnails))
+
+        col = layout.column(align=True)
+        col.label(text=_("Batch Operation:"))
+        grid = col.grid_flow(row_major=True)
+
+        op = grid.row(align=True).operator(CopyTuneMaterialSettings.bl_idname, text=_("Copy to Active"), icon="DUPLICATE")
+        op.to_active = True
+        op.to_selection = False
+
+        op = grid.row(align=True).operator(CopyTuneMaterialSettings.bl_idname, text=_("Copy to Selected"), icon="DUPLICATE")
+        op.to_active = False
+        op.to_selection = True
 
         utilities = MaterialEditor(material)
         node_frame = utilities.find_node_frame()

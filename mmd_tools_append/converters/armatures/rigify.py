@@ -293,8 +293,8 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
             "ORG-eye.L",
             "ORG-eye.R",
             "ORG-face",
-            "master_eye.L",
-            "master_eye.R",
+            "eye_master.L",
+            "eye_master.R",
         }
         return len(require_bone_names - set(self.bones.keys())) == 0
 
@@ -445,21 +445,21 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         rig_eyes_fk_bone.tail = rig_eyes_fk_bone.head - Vector([0, rig_edit_bones["ORG-eye.L"].length * 2, 0])
         self.bone_collections["Face"].assign(rig_eyes_fk_bone)
         rig_eyes_fk_bone.parent = rig_edit_bones["ORG-face"]
-        self.fit_edit_bone_rotation(rig_eyes_fk_bone, rig_edit_bones["master_eye.L"])
+        self.fit_edit_bone_rotation(rig_eyes_fk_bone, rig_edit_bones["eye_master.L"])
 
         rig_eye_fk_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_append_eye_fk.L")
-        rig_eye_fk_l_bone.head = rig_edit_bones["master_eye.L"].head
-        rig_eye_fk_l_bone.tail = rig_edit_bones["master_eye.L"].tail
+        rig_eye_fk_l_bone.head = rig_edit_bones["eye_master.L"].head
+        rig_eye_fk_l_bone.tail = rig_edit_bones["eye_master.L"].tail
         self.bone_collections["Face"].assign(rig_eye_fk_l_bone)
         rig_eye_fk_l_bone.parent = rig_edit_bones["ORG-face"]
-        self.fit_edit_bone_rotation(rig_eye_fk_l_bone, rig_edit_bones["master_eye.L"])
+        self.fit_edit_bone_rotation(rig_eye_fk_l_bone, rig_edit_bones["eye_master.L"])
 
         rig_eye_fk_r_bone = self.get_or_create_bone(rig_edit_bones, "mmd_append_eye_fk.R")
-        rig_eye_fk_r_bone.head = rig_edit_bones["master_eye.R"].head
-        rig_eye_fk_r_bone.tail = rig_edit_bones["master_eye.R"].tail
+        rig_eye_fk_r_bone.head = rig_edit_bones["eye_master.R"].head
+        rig_eye_fk_r_bone.tail = rig_edit_bones["eye_master.R"].tail
         self.bone_collections["Face"].assign(rig_eye_fk_r_bone)
         rig_eye_fk_r_bone.parent = rig_edit_bones["ORG-face"]
-        self.fit_edit_bone_rotation(rig_eye_fk_r_bone, rig_edit_bones["master_eye.R"])
+        self.fit_edit_bone_rotation(rig_eye_fk_r_bone, rig_edit_bones["eye_master.R"])
 
         return rig_eye_fk_l_bone, rig_eye_fk_r_bone, rig_eyes_fk_bone
 
@@ -779,6 +779,11 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         bones = self.bones
         bones["mmd_append_shoulder_cancel.L"].hide = True
         bones["mmd_append_shoulder_cancel.R"].hide = True
+
+        # Blender 5.0 (https://developer.blender.org/docs/release_notes/5.0/python_api/#animation-rigging)
+        if bpy.app.version >= (5, 0, 0):
+            pose_bones["mmd_append_shoulder_cancel.L"].hide = True
+            pose_bones["mmd_append_shoulder_cancel.R"].hide = True
 
         # arms
         pose_bones["mmd_append_upper_arm_twist_fk.L"].lock_location = [
@@ -1628,11 +1633,11 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
         self.move_bone(rig_edit_bones["ORG-eye.R"], head=mmd_edit_bones["右目"].head)
         self._fit_bone(rig_edit_bones["ORG-eye.R"], mmd_edit_bones, "右目")
 
-        rig_edit_bones["eyes"].translate(eye_height_translation_vector)
+        rig_edit_bones["eye_common"].translate(eye_height_translation_vector)
         rig_edit_bones["eye.L"].translate(eye_height_translation_vector)
         rig_edit_bones["eye.R"].translate(eye_height_translation_vector)
-        rig_edit_bones["master_eye.L"].translate(eye_height_translation_vector)
-        rig_edit_bones["master_eye.R"].translate(eye_height_translation_vector)
+        rig_edit_bones["eye_master.L"].translate(eye_height_translation_vector)
+        rig_edit_bones["eye_master.R"].translate(eye_height_translation_vector)
         rig_edit_bones["MCH-eye.R"].translate(eye_height_translation_vector)
         rig_edit_bones["MCH-eye.L"].translate(eye_height_translation_vector)
 
@@ -1720,11 +1725,11 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
         # remove unused face bones
         use_bone_names = {
             "MCH-eyes_parent",
-            "eyes",
+            "eye_common",
             "eye.L",
             "eye.R",
-            "master_eye.L",
-            "master_eye.R",
+            "eye_master.L",
+            "eye_master.R",
             "MCH-eye.L",
             "MCH-eye.R",
             "ORG-eye.L",
@@ -1757,10 +1762,13 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
 
     def _hide_bones(self, hide_bone_names: Set[str]):
         rig_bones: bpy.types.ArmatureBones = self.bones
+        pose_bones: Dict[str, bpy.types.PoseBone] = self.pose_bones
         for hide_bone_name in hide_bone_names:
             if hide_bone_name not in rig_bones:
                 continue
             rig_bones[hide_bone_name].hide = True
+            if bpy.app.version >= (5, 0, 0):
+                pose_bones[hide_bone_name].hide = True
 
     def fit_bone_rotations(self, mmd_armature_object: MMDArmatureObject):
         rig_edit_bones: bpy.types.ArmatureEditBones = self.edit_bones

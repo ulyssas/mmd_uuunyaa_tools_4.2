@@ -4,6 +4,7 @@
 
 import bpy
 
+from ..editors.nodes import MaterialEditor
 from ..m17n import _
 from ..tuners import lighting_tuners, material_adjusters, material_tuners
 
@@ -58,6 +59,50 @@ class TuneMaterial(bpy.types.Operator):
 
     def execute(self, context):
         material_tuners.TUNERS[self.material](context.object.active_material).execute()
+        return {"FINISHED"}
+
+
+class CopyTuneMaterialSettings(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.copy_tune_material_settings"
+    bl_label = _("Copy Append Material")
+    bl_description = _("Apply current Append material to materials of the selected objects.")
+    bl_options = {"REGISTER", "UNDO"}
+
+    to_active: bpy.props.BoolProperty(name=_("Apply to active object"), description=_("Apply Append material to materials in active object"), default=False)
+    to_selection: bpy.props.BoolProperty(name=_("Apply to selection"), description=_("Apply Append material to materials in selected object"), default=False)
+
+    @classmethod
+    def poll(cls, context):
+        return context.object.active_material
+
+    def execute(self, context):
+        active = context.object.active_material
+        for obj in context.selected_objects:
+            if obj == context.active_object and not self.to_active:
+                continue
+
+            if obj != context.active_object and not self.to_selection:
+                continue
+
+            for i in obj.material_slots:
+                # usual checks
+                if not i.material or i.material == active:
+                    continue
+                if not i.material.use_nodes:
+                    i.material.use_nodes = True
+
+                mat = i.material
+                material_tuners.TUNERS[active.mmd_tools_append_material.thumbnails](mat).execute()
+
+                # disable update to keep active material
+                mat.mmd_tools_append_material.update = False
+                mat.mmd_tools_append_material.thumbnails = active.mmd_tools_append_material.thumbnails
+                mat.mmd_tools_append_material.update = True
+
+                # copy values from active material
+                mat_editor = MaterialEditor(mat)
+                mat_editor.copy_node_group_inputs(active)
+
         return {"FINISHED"}
 
 
