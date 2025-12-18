@@ -11,7 +11,7 @@ from ..m17n import _
 
 class AddCenterOfGravityObject(bpy.types.Operator):
     bl_idname = "mmd_tools_append.add_center_of_gravity_object"
-    bl_label = _("Add Center of Gravity")
+    bl_label = "Add Center of Gravity"
     bl_options = {"REGISTER", "UNDO"}
 
     radius: bpy.props.FloatProperty(name=_("Radius"), default=0.1, min=0.0, precision=4, unit="LENGTH")

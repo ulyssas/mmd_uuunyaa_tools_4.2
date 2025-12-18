@@ -11,7 +11,7 @@ from ...tuners import TunerABC, TunerRegistry
 
 class MMDAppendDynamicPaintAdjuster(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_pyramid_dynamic_paint_adjuster"
-    bl_label = _("MMD Append Dynamic Paint Adjuster")
+    bl_label = "MMD Append Dynamic Paint Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"

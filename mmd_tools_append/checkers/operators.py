@@ -67,7 +67,7 @@ class CheckResult:
 
 class CheckEeveeRenderingPerformance(bpy.types.Operator):
     bl_idname = "mmd_tools_append.check_eevee_rendering_performance"
-    bl_label = _("Check Eevee Rendering Performance")
+    bl_label = "Check Eevee Rendering Performance"
     bl_options = {"REGISTER"}
 
     @classmethod
@@ -463,7 +463,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
 
 class SelectMeshObjectsWithSlowMaterial(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_mesh_objects_with_slow_material"
-    bl_label = _("Select Mesh Objects with Use Alpha Hashed")
+    bl_label = "Select Mesh Objects with Use Alpha Hashed"
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, context: bpy.types.Context):

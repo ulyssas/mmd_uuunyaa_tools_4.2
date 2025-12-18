@@ -865,8 +865,8 @@ def to_targets(
 
 class AddPyramidMeshByBreastBoneOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.add_pyramid_mesh_by_breast_bone"
-    bl_label = _("Add Pyramid Mesh by Breast Bone")
-    bl_description = _("Add pyramid meshes from selected breast bones.")
+    bl_label = "Add Pyramid Mesh by Breast Bone"
+    bl_description = "Add pyramid meshes from selected breast bones."
     bl_options = {"REGISTER", "UNDO"}
 
     head_tail: bpy.props.FloatProperty(name=_("Head/Tail"), default=0.5, min=0.0, max=1.0, step=10)
@@ -913,8 +913,8 @@ class AddPyramidMeshByBreastBoneOperator(bpy.types.Operator):
 
 class ConvertPyramidMeshToClothOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.convert_pyramid_mesh_to_cloth"
-    bl_label = _("Convert Pyramid Mesh to Cloth")
-    bl_description = _("Convert pyramid meshes to cloth simulation.")
+    bl_label = "Convert Pyramid Mesh to Cloth"
+    bl_description = "Convert pyramid meshes to cloth simulation."
     bl_options = {"REGISTER", "UNDO"}
 
     boundary_expansion_hop_count: bpy.props.IntProperty(name=_("Boundary Expansion Hop Count"), default=0, min=0, max=5)
@@ -979,7 +979,7 @@ class ConvertPyramidMeshToClothOperator(bpy.types.Operator):
 
 class AssignPyramidWeightsOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.assign_pyramid_weights"
-    bl_label = _("Assign Pyramid Weights")
+    bl_label = "Assign Pyramid Weights"
     bl_options = {"REGISTER", "UNDO"}
 
     boundary_expansion_hop_count: bpy.props.IntProperty(name=_("Boundary Expansion Hop Count"), default=0, min=0, max=5)
@@ -1034,7 +1034,7 @@ class AssignPyramidWeightsOperator(bpy.types.Operator):
 
 class MMDAppendPyramidClothAdjuster(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_pyramid_cloth_adjuster"
-    bl_label = _("MMD Append Pyramid Cloth Adjuster")
+    bl_label = "MMD Append Pyramid Cloth Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"
@@ -1071,7 +1071,7 @@ class MMDAppendPyramidClothAdjuster(bpy.types.Panel):
 
 class CopyPyramidClothAdjusterSettings(bpy.types.Operator):
     bl_idname = "mmd_tools_append.copy_pyramid_cloth_adjuster_settings"
-    bl_label = _("Copy Pyramid Cloth Adjuster Settings")
+    bl_label = "Copy Pyramid Cloth Adjuster Settings"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod

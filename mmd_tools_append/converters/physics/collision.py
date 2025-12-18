@@ -54,7 +54,7 @@ TUNERS = TunerRegistry(
 
 class MMDAppendCollisionAdjusterPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_collision_adjuster"
-    bl_label = _("MMD Append Collision Adjuster")
+    bl_label = "MMD Append Collision Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"
@@ -82,7 +82,7 @@ class MMDAppendCollisionAdjusterPanel(bpy.types.Panel):
 
 class CopyCollisionAdjusterSettings(bpy.types.Operator):
     bl_idname = "mmd_tools_append.copy_collision_adjuster_settings"
-    bl_label = _("Copy Collision Adjuster Settings")
+    bl_label = "Copy Collision Adjuster Settings"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -115,7 +115,7 @@ class CopyCollisionAdjusterSettings(bpy.types.Operator):
 
 class SelectCollisionMesh(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_collision_mesh"
-    bl_label = _("Select Collision Mesh")
+    bl_label = "Select Collision Mesh"
     bl_options = {"REGISTER", "UNDO"}
 
     same_mmd_model: bpy.props.BoolProperty(name=_("Same MMD Model"))
@@ -166,7 +166,7 @@ class SelectCollisionMesh(bpy.types.Operator):
 
 class RemoveMeshCollision(bpy.types.Operator):
     bl_idname = "mmd_tools_append.remove_mesh_collision"
-    bl_label = _("Remove Mesh Collision")
+    bl_label = "Remove Mesh Collision"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod

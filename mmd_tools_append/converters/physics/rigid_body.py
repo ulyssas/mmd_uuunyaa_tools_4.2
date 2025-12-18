@@ -13,7 +13,7 @@ from ...utilities import import_mmd_tools
 
 class MMDAppendRigidBodyAdjusterPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_rigid_body_adjuster"
-    bl_label = _("MMD Append Rigid Body Adjuster")
+    bl_label = "MMD Append Rigid Body Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"
@@ -33,7 +33,7 @@ class MMDAppendRigidBodyAdjusterPanel(bpy.types.Panel):
 
 class SelectMeshRigidBody(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_rigid_body_mesh"
-    bl_label = _("Select Rigid Body Mesh")
+    bl_label = "Select Rigid Body Mesh"
     bl_options = {"REGISTER", "UNDO"}
 
     only_in_mmd_model: bpy.props.BoolProperty(name=_("Only in the MMD Model"))

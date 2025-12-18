@@ -41,7 +41,7 @@ from .utilities import import_mmd_tools, is_mmd_tools_installed
 
 class InstallMMDTools(bpy.types.Operator):
     bl_idname = "mmd_tools_append.install_mmd_tools"
-    bl_label = _("Install MMD Tools")
+    bl_label = "Install MMD Tools"
     bl_options = {"REGISTER"}
 
     @classmethod
@@ -57,7 +57,7 @@ class InstallMMDTools(bpy.types.Operator):
 
 class OperatorPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_operator_panel"
-    bl_label = _("MMD Append Operator")
+    bl_label = "MMD Append Operator"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MMD"
@@ -116,7 +116,7 @@ class OperatorPanel(bpy.types.Panel):
 
 class MMDAppendPhysicsPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_physics"
-    bl_label = _("MMD Append Physics")
+    bl_label = "MMD Append Physics"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "MMD"
@@ -220,7 +220,7 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
 
 class MMDAppendSegmentationPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_segmentation"
-    bl_label = _("MMD Append Segmentation")
+    bl_label = "MMD Append Segmentation"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Tool"

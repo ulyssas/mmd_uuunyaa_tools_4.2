@@ -104,8 +104,8 @@ def create_skin_hair(  # pylint: disable=too-many-arguments
 
 class AddSkinHairMesh(bpy.types.Operator):
     bl_idname = "mmd_tools_append.add_skin_hair_mesh"
-    bl_label = _("Add Skin Hair Mesh")
-    bl_description = _("Construct a skin hair mesh")
+    bl_label = "Add Skin Hair Mesh"
+    bl_description = "Construct a skin hair mesh"
     bl_options = {"REGISTER", "UNDO"}
 
     width: bpy.props.FloatProperty(default=0.006, min=0.0, precision=4, unit="LENGTH")
@@ -167,7 +167,7 @@ class AddSkinHairMesh(bpy.types.Operator):
 
 class MMDAppendMeshExtrasMenu(bpy.types.Menu):
     bl_idname = "VIEW3D_MT_mmd_append_mesh_extras"
-    bl_label = _("MMD Append")
+    bl_label = "MMD Append"
 
     def draw(self, _context):
         self.layout.operator_context = "INVOKE_REGION_WIN"

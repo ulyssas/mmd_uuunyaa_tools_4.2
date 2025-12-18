@@ -9,7 +9,7 @@ import bpy
 from ...editors.meshes import MeshEditor
 from ...m17n import _
 from ...tuners import TunerABC, TunerRegistry
-from ...utilities import MessageException, MMD_TOOLS_IMPORT_HOOKS, import_mmd_tools
+from ...utilities import MMD_TOOLS_IMPORT_HOOKS, MessageException, import_mmd_tools
 from .rigid_body_to_cloth import (
     PhysicsMode,
     RigidBodyToClothConverter,
@@ -208,7 +208,7 @@ TUNERS = TunerRegistry(
 
 class MMDAppendClothAdjuster(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_cloth_adjuster"
-    bl_label = _("MMD Append Cloth Adjuster")
+    bl_label = "MMD Append Cloth Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"
@@ -259,7 +259,7 @@ class MMDAppendClothAdjuster(bpy.types.Panel):
 
 class CopyClothAdjusterSettings(bpy.types.Operator):
     bl_idname = "mmd_tools_append.copy_cloth_adjuster_settings"
-    bl_label = _("Copy Cloth Adjuster Settings")
+    bl_label = "Copy Cloth Adjuster Settings"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -294,7 +294,7 @@ class CopyClothAdjusterSettings(bpy.types.Operator):
 
 class SelectClothMesh(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_cloth_mesh"
-    bl_label = _("Select Cloth Mesh")
+    bl_label = "Select Cloth Mesh"
     bl_options = {"REGISTER", "UNDO"}
 
     only_in_mmd_model: bpy.props.BoolProperty(name=_("Same MMD Model"))
@@ -356,7 +356,7 @@ class SelectClothMesh(bpy.types.Operator):
 
 class RemoveMeshCloth(bpy.types.Operator):
     bl_idname = "mmd_tools_append.remove_mesh_cloth"
-    bl_label = _("Remove Mesh Cloth")
+    bl_label = "Remove Mesh Cloth"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -393,8 +393,8 @@ class RemoveMeshCloth(bpy.types.Operator):
 
 class ConvertRigidBodyToClothOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.convert_rigid_body_to_cloth"
-    bl_label = _("Convert Rigid Body to Cloth")
-    bl_description = _("Select both the mesh to be deformed and the rigid body")
+    bl_label = "Convert Rigid Body to Cloth"
+    bl_description = "Select both the mesh to be deformed and the rigid body"
     bl_options = {"REGISTER", "UNDO"}
 
     subdivision_level: bpy.props.IntProperty(name=_("Subdivision Levels"), min=0, max=5, default=0)

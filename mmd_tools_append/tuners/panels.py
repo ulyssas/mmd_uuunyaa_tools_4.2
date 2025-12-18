@@ -20,7 +20,7 @@ from ..utilities import is_mmd_tools_installed
 
 class SkyPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_sky_panel"
-    bl_label = _("MMD Append Sky")
+    bl_label = "MMD Append Sky"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "world"
@@ -76,7 +76,7 @@ class SkyPanel(bpy.types.Panel):
 
 class LightingPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_lighting_panel"
-    bl_label = _("MMD Append Lighting")
+    bl_label = "MMD Append Lighting"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "world"
@@ -115,7 +115,7 @@ class LightingPanel(bpy.types.Panel):
 
 class MaterialPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_material_panel"
-    bl_label = _("MMD Append Material")
+    bl_label = "MMD Append Material"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "material"
@@ -163,7 +163,7 @@ class MaterialPanel(bpy.types.Panel):
 
 class MaterialAdjusterPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_material_adjuster_panel"
-    bl_label = _("MMD Append Material Adjuster")
+    bl_label = "MMD Append Material Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "material"
@@ -211,7 +211,7 @@ try:
 
     class GeometryNodesPanel(bpy.types.Panel):
         bl_idname = "MMD_APPEND_PT_geometry_nodes_panel"
-        bl_label = _("MMD Append Geometry Nodes")
+        bl_label = "MMD Append Geometry Nodes"
         bl_space_type = "PROPERTIES"
         bl_region_type = "WINDOW"
         bl_context = "modifier"

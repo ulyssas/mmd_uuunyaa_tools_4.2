@@ -16,8 +16,8 @@ from .rigify import MMDRigifyArmatureObject, RigifyArmatureObject
 
 class MMDArmatureAddMetarig(bpy.types.Operator):
     bl_idname = "mmd_tools_append.mmd_armature_add_metarig"
-    bl_label = _("Add Human (metarig) from MMD Armature")
-    bl_description = _("Generate Human (metarig) from MMD Armature.")
+    bl_label = "Add Human (metarig) from MMD Armature"
+    bl_description = "Generate Human (metarig) from MMD Armature."
     bl_options = {"REGISTER", "UNDO"}
 
     use_mmd_orientation: bpy.props.BoolProperty(name=_("Align to MMD orientation"), description=_("Adjust bone rolls to fit common MMD arm and finger orientations"), default=True)
@@ -218,8 +218,8 @@ class MMDRigifyOperatorABC:
 
 class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
     bl_idname = "mmd_tools_append.mmd_rigify_mmd_focused_integrate"
-    bl_label = _("MMD compatibility focused Integrate")
-    bl_description = _("Combine Rigify rig and MMD armature.")
+    bl_label = "MMD compatibility focused Integrate"
+    bl_description = "Combine Rigify rig and MMD armature."
     bl_options = {"REGISTER", "UNDO"}
 
     is_join_armatures: bpy.props.BoolProperty(
@@ -270,8 +270,8 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
 
 class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
     bl_idname = "mmd_tools_append.mmd_rigify_rigify_focused_integrate"
-    bl_label = _("Rigify operability focused Integrate")
-    bl_description = _("Combine Rigify rig and MMD armature.")
+    bl_label = "Rigify operability focused Integrate"
+    bl_description = "Combine Rigify rig and MMD armature."
     bl_options = {"REGISTER", "UNDO"}
 
     is_join_armatures: bpy.props.BoolProperty(
@@ -344,7 +344,7 @@ class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
 
 class MMDRigifyConvert(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_to_mmd_compatible"
-    bl_label = _("Convert Rigify Armature to MMD compatible")
+    bl_label = "Convert Rigify Armature to MMD compatible"
     bl_options = {"REGISTER", "UNDO"}
 
     upper_body2_bind_bone: bpy.props.EnumProperty(
@@ -396,8 +396,8 @@ class MMDRigifyConvert(bpy.types.Operator):
 
 class MMDRigifyDerigger(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_derigger"
-    bl_label = _("Remove rig from armature")
-    bl_description = _("Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure.")
+    bl_label = "Remove rig from armature"
+    bl_description = "Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure."
     bl_options = {"REGISTER", "UNDO"}
 
     remove_constraints: bpy.props.BoolProperty(name=_("Remove Bone Constraints"), default=True)
@@ -440,8 +440,8 @@ class MMDRigifyDerigger(bpy.types.Operator):
 
 class MMDRigifyTranslator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_translator"
-    bl_label = _("Translate Rigify names to MMD")
-    bl_description = _("Translate Rigify metarig bone names to MMD.")
+    bl_label = "Translate Rigify names to MMD"
+    bl_description = "Translate Rigify metarig bone names to MMD."
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -477,7 +477,7 @@ class MMDRigifyTranslator(bpy.types.Operator):
 
 class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_apply_mmd_rest_pose"
-    bl_label = _("Apply MMD Rest Pose")
+    bl_label = "Apply MMD Rest Pose"
     bl_options = {"REGISTER", "UNDO"}
 
     iterations: bpy.props.IntProperty(
@@ -524,7 +524,7 @@ class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
 
 class MMDAutoRigConvert(bpy.types.Operator):
     bl_idname = "mmd_tools_append.autorig_to_mmd_compatible"
-    bl_label = _("Convert AutoRig Armature to MMD compatible")
+    bl_label = "Convert AutoRig Armature to MMD compatible"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -552,7 +552,7 @@ class MMDAutoRigConvert(bpy.types.Operator):
 
 class MMDAutoRigApplyMMDRestPose(bpy.types.Operator):
     bl_idname = "mmd_tools_append.autorig_apply_mmd_rest_pose"
-    bl_label = _("Apply MMD Rest Pose")
+    bl_label = "Apply MMD Rest Pose"
     bl_options = {"REGISTER", "UNDO"}
 
     iterations: bpy.props.IntProperty(

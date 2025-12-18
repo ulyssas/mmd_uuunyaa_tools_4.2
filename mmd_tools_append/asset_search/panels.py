@@ -312,7 +312,7 @@ class AssetSearchQueryTags(bpy.types.UIList):
 
 class AssetSearchPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_mmd_tools_append_asset_search"
-    bl_label = _("MMD Append Asset Search")
+    bl_label = "MMD Append Asset Search"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Assets"
@@ -420,7 +420,7 @@ class AssetSearchPanel(bpy.types.Panel):
 
 class AssetsOperatorPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_assets_operator_panel"
-    bl_label = _("MMD Append Assets Operator")
+    bl_label = "MMD Append Assets Operator"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Assets"

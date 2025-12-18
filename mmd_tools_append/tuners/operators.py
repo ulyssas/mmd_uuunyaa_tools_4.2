@@ -11,7 +11,7 @@ from ..tuners import lighting_tuners, material_adjusters, material_tuners
 
 class TuneLighting(bpy.types.Operator):
     bl_idname = "mmd_tools_append.tune_lighting"
-    bl_label = _("Tune Lighting")
+    bl_label = "Tune Lighting"
     bl_options = {"REGISTER", "UNDO"}
 
     lighting: bpy.props.EnumProperty(
@@ -29,7 +29,7 @@ class TuneLighting(bpy.types.Operator):
 
 class FreezeLighting(bpy.types.Operator):
     bl_idname = "mmd_tools_append.freeze_lighting"
-    bl_label = _("Freeze Lighting")
+    bl_label = "Freeze Lighting"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -46,7 +46,7 @@ class FreezeLighting(bpy.types.Operator):
 
 class TuneMaterial(bpy.types.Operator):
     bl_idname = "mmd_tools_append.tune_material"
-    bl_label = _("Tune Material")
+    bl_label = "Tune Material"
     bl_options = {"REGISTER", "UNDO"}
 
     material: bpy.props.EnumProperty(
@@ -64,8 +64,8 @@ class TuneMaterial(bpy.types.Operator):
 
 class CopyTuneMaterialSettings(bpy.types.Operator):
     bl_idname = "mmd_tools_append.copy_tune_material_settings"
-    bl_label = _("Copy Append Material")
-    bl_description = _("Apply current Append material to materials of the selected objects.")
+    bl_label = "Copy Append Material"
+    bl_description = "Apply current Append material to materials of the selected objects."
     bl_options = {"REGISTER", "UNDO"}
 
     to_active: bpy.props.BoolProperty(name=_("Apply to active object"), description=_("Apply Append material to materials in active object"), default=False)
@@ -108,7 +108,7 @@ class CopyTuneMaterialSettings(bpy.types.Operator):
 
 class AttachMaterialAdjuster(bpy.types.Operator):
     bl_idname = "mmd_tools_append.attach_material_adjuster"
-    bl_label = _("Attach Material Adjuster")
+    bl_label = "Attach Material Adjuster"
     bl_options = {"REGISTER", "UNDO"}
 
     adjuster_name: bpy.props.StringProperty()
@@ -124,7 +124,7 @@ class AttachMaterialAdjuster(bpy.types.Operator):
 
 class DetachMaterialAdjuster(bpy.types.Operator):
     bl_idname = "mmd_tools_append.detach_material_adjuster"
-    bl_label = _("Detach Material Adjuster")
+    bl_label = "Detach Material Adjuster"
     bl_options = {"REGISTER", "UNDO"}
 
     adjuster_name: bpy.props.StringProperty()
@@ -143,7 +143,7 @@ try:
 
     class TuneGeometryNodes(bpy.types.Operator):
         bl_idname = "mmd_tools_append.tune_geometry_nodes"
-        bl_label = _("Tune Geometry Nodes")
+        bl_label = "Tune Geometry Nodes"
         bl_options = {"REGISTER", "UNDO"}
 
         geometry_nodes: bpy.props.EnumProperty(

@@ -4,9 +4,8 @@
 
 import bpy
 
-from ...utilities import is_mmd_tools_installed
-
 from ...m17n import _
+from ...utilities import is_mmd_tools_installed
 from .autorig import AutoRigArmatureObject
 from .mmd_bind import ControlType
 from .rigify import MMDRigifyArmatureObject
@@ -14,7 +13,7 @@ from .rigify import MMDRigifyArmatureObject
 
 class MMDRigifyPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_mmd_rigify"
-    bl_label = _("MMD Append Rigify")
+    bl_label = "MMD Append Rigify"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Item"
@@ -149,7 +148,7 @@ class MMDRigifyPanel(bpy.types.Panel):
 
 class AutoRigPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_mmd_autorig"
-    bl_label = _("MMD Append AutoRig")
+    bl_label = "MMD Append AutoRig"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Tool"
