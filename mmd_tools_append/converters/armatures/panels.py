@@ -52,74 +52,74 @@ class MMDRigifyPanel(bpy.types.Panel):
 
         is_mmd_integrated_object: bool = MMDRigifyArmatureObject.is_mmd_integrated_object(active_object)
 
-        col.label(text=_("MMD-Rigify:"))
+        col.label(text="MMD-Rigify:")
         if not is_mmd_integrated_object:
-            col.label(text=_("Integrated armature is not selected."))
+            col.label(text="Integrated armature is not selected.")
         else:
             col.prop(
                 pose_bones[bind_mmd_rigify.bone_name],
                 bind_mmd_rigify.prop_data_path,
-                text=_("Bind"),
+                text="Bind",
                 slider=True,
             )
             col.prop(
                 pose_bones[eye_mmd_rigify.bone_name],
                 eye_mmd_rigify.prop_data_path,
-                text=_("Eyes"),
+                text="Eyes",
                 slider=True,
             )
             row = col.row()
             row.prop(
                 pose_bones[leg_l_mmd_rigify.bone_name],
                 leg_l_mmd_rigify.prop_data_path,
-                text=_("Leg.L"),
+                text="Leg.L",
                 slider=True,
             )
             row.prop(
                 pose_bones[leg_r_mmd_rigify.bone_name],
                 leg_r_mmd_rigify.prop_data_path,
-                text=_("Leg.R"),
+                text="Leg.R",
                 slider=True,
             )
             row = col.row()
             row.prop(
                 pose_bones[toe_l_mmd_rigify.bone_name],
                 toe_l_mmd_rigify.prop_data_path,
-                text=_("Toe.L"),
+                text="Toe.L",
                 slider=True,
             )
             row.prop(
                 pose_bones[toe_r_mmd_rigify.bone_name],
                 toe_r_mmd_rigify.prop_data_path,
-                text=_("Toe.R"),
+                text="Toe.R",
                 slider=True,
             )
 
-        col.label(text=_("IK-FK:"))
+        col.label(text="IK-FK:")
         row = col.row()
         row.prop(
             pose_bones[arm_l_ik_fk.bone_name],
             arm_l_ik_fk.prop_data_path,
-            text=_("Arm.L"),
+            text="Arm.L",
             slider=True,
         )
         row.prop(
             pose_bones[arm_r_ik_fk.bone_name],
             arm_r_ik_fk.prop_data_path,
-            text=_("Arm.R"),
+            text="Arm.R",
             slider=True,
         )
         row = col.row()
         row.prop(
             pose_bones[leg_l_ik_fk.bone_name],
             leg_l_ik_fk.prop_data_path,
-            text=_("Leg.L"),
+            text="Leg.L",
             slider=True,
         )
         row.prop(
             pose_bones[leg_r_ik_fk.bone_name],
             leg_r_ik_fk.prop_data_path,
-            text=_("Leg.R"),
+            text="Leg.R",
             slider=True,
         )
 
@@ -129,7 +129,7 @@ class MMDRigifyPanel(bpy.types.Panel):
         bone_collections = rigify_armature_object.bone_collections
         bone_collection_category: dict[str, list[str]] = rigify_armature_object.MMDBColCategory
 
-        col.label(text=_("MMD Layers:"))
+        col.label(text="MMD Layers:")
         for category, collection_names in bone_collection_category.items():
             if not collection_names:  # if empty
                 continue
@@ -175,69 +175,69 @@ class AutoRigPanel(bpy.types.Panel):
         layout = self.layout
         col = layout.column()
 
-        col.label(text=_("MMD-AutoRig:"))
+        col.label(text="MMD-AutoRig:")
 
         prop_storage_bone = pose_bones[AutoRigArmatureObject.prop_storage_bone_name]
         if AutoRigArmatureObject.prop_name_mmd_append_bind_mmd_autorig not in prop_storage_bone:
-            col.label(text=_("Integrated armature is not selected."))
+            col.label(text="Integrated armature is not selected.")
         else:
             col.prop(
                 pose_bones[eye_mmd_autorig.bone_name],
                 eye_mmd_autorig.prop_data_path,
-                text=_("Eyes"),
+                text="Eyes",
                 slider=True,
             )
             row = col.row()
             row.prop(
                 pose_bones[leg_l_mmd_autorig.bone_name],
                 leg_l_mmd_autorig.prop_data_path,
-                text=_("Leg.L"),
+                text="Leg.L",
                 slider=True,
             )
             row.prop(
                 pose_bones[leg_r_mmd_autorig.bone_name],
                 leg_r_mmd_autorig.prop_data_path,
-                text=_("Leg.R"),
+                text="Leg.R",
                 slider=True,
             )
 
-        col.label(text=_("IK-FK:"))
+        col.label(text="IK-FK:")
         row = col.row()
         row.prop(
             pose_bones[arm_l_ik_fk.bone_name],
             arm_l_ik_fk.prop_data_path,
-            text=_("Arm.L"),
+            text="Arm.L",
             slider=True,
         )
         row.prop(
             pose_bones[arm_r_ik_fk.bone_name],
             arm_r_ik_fk.prop_data_path,
-            text=_("Arm.R"),
+            text="Arm.R",
             slider=True,
         )
         row = col.row()
         row.prop(
             pose_bones[leg_l_ik_fk.bone_name],
             leg_l_ik_fk.prop_data_path,
-            text=_("Leg.L"),
+            text="Leg.L",
             slider=True,
         )
         row.prop(
             pose_bones[leg_r_ik_fk.bone_name],
             leg_r_ik_fk.prop_data_path,
-            text=_("Leg.R"),
+            text="Leg.R",
             slider=True,
         )
 
-        col.label(text=_("Layers:"))
+        col.label(text="Layers:")
         row = col.row()
-        row.prop(context.active_object.data, "layers", index=0, toggle=True, text=_("Main"))
+        row.prop(context.active_object.data, "layers", index=0, toggle=True, text="Main")
 
         row = col.row()
-        row.prop(context.active_object.data, "layers", index=1, toggle=True, text=_("Sub"))
+        row.prop(context.active_object.data, "layers", index=1, toggle=True, text="Sub")
 
         row = col.row()
-        row.prop(context.active_object.data, "layers", index=8, toggle=True, text=_("Spine"))
+        row.prop(context.active_object.data, "layers", index=8, toggle=True, text="Spine")
 
         row = col.row()
-        row.prop(context.active_object.data, "layers", index=10, toggle=True, text=_("Limbs"))
+        row.prop(context.active_object.data, "layers", index=10, toggle=True, text="Limbs")

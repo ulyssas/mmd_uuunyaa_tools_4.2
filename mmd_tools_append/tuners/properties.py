@@ -15,7 +15,7 @@ class LightingPropertyGroup(bpy.types.PropertyGroup):
 
     thumbnails: bpy.props.EnumProperty(
         items=lighting_tuners.TUNERS.to_enum_property_items(),
-        description=_("Choose the lighting you want to use"),
+        description="Choose the lighting you want to use",
         update=update_lighting_thumbnails.__func__,
     )
 
@@ -35,10 +35,10 @@ class MaterialPropertyGroup(bpy.types.PropertyGroup):
         if prop.update:
             bpy.ops.mmd_tools_append.tune_material(material=prop.thumbnails)  # pylint: disable=no-member
 
-    update: bpy.props.BoolProperty(description=_("Whether or not to update active material"), default=True)
+    update: bpy.props.BoolProperty(description="Whether or not to update active material", default=True)
     thumbnails: bpy.props.EnumProperty(
         items=material_tuners.TUNERS.to_enum_property_items(),
-        description=_("Choose the material you want to use"),
+        description="Choose the material you want to use",
         update=update_material_thumbnails.__func__,
     )
 
@@ -64,7 +64,7 @@ try:
 
         thumbnails: bpy.props.EnumProperty(
             items=geometry_nodes_tuners.TUNERS.to_enum_property_items(),
-            description=_("Choose the geometry nodes you want to use"),
+            description="Choose the geometry nodes you want to use",
             update=update_geometry_nodes_thumbnails.__func__,
         )
 

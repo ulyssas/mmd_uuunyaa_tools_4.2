@@ -67,12 +67,12 @@ class OperatorPanel(bpy.types.Panel):
         layout = self.layout
 
         if not is_mmd_tools_installed():
-            layout.label(text=_("MMD Tools is not installed."), icon="ERROR")
+            layout.label(text="MMD Tools is not installed.", icon="ERROR")
             layout.operator(InstallMMDTools.bl_idname, icon="IMPORT")
             return
 
         col = layout.column(align=True)
-        col.label(text=_("Render:"), icon="SCENE_DATA")
+        col.label(text="Render:", icon="SCENE_DATA")
         grid = col.grid_flow(row_major=True, align=True)
         grid.row(align=True).operator(SetupRenderEngineForEevee.bl_idname, icon="SCENE")
         grid.row(align=True).operator(SetupRenderEngineForWorkbench.bl_idname, icon="SCENE")
@@ -80,38 +80,38 @@ class OperatorPanel(bpy.types.Panel):
         grid.row(align=True).operator(CheckEeveeRenderingPerformance.bl_idname, icon="MOD_TIME")
 
         col = layout.column(align=True)
-        col.label(text=_("MMD to Rigify:"), icon="OUTLINER_OB_ARMATURE")
+        col.label(text="MMD to Rigify:", icon="OUTLINER_OB_ARMATURE")
         grid = col.grid_flow(row_major=True, align=True)
         row = grid.row(align=True)
         row.operator_context = "EXEC_DEFAULT"
-        row.operator(MMDArmatureAddMetarig.bl_idname, text=_("Add Metarig"), icon="ADD").is_clean_armature = True
+        row.operator(MMDArmatureAddMetarig.bl_idname, text="Add Metarig", icon="ADD").is_clean_armature = True
         row.operator_context = "INVOKE_DEFAULT"
-        row.operator(MMDArmatureAddMetarig.bl_idname, text=_(""), icon="WINDOW")
+        row.operator(MMDArmatureAddMetarig.bl_idname, text="", icon="WINDOW")
 
         row = grid.row(align=True)
         row.operator_context = "EXEC_DEFAULT"
         row.operator(MMDRigifyIntegrateFocusOnMMD.bl_idname, icon="GROUP_BONE").is_join_armatures = True
         row.operator_context = "INVOKE_DEFAULT"
-        row.operator(MMDRigifyIntegrateFocusOnMMD.bl_idname, text=_(""), icon="WINDOW")
+        row.operator(MMDRigifyIntegrateFocusOnMMD.bl_idname, text="", icon="WINDOW")
 
         row = grid.row(align=True)
         row.operator_context = "EXEC_DEFAULT"
         row.operator(MMDRigifyIntegrateFocusOnRigify.bl_idname, icon="GROUP_BONE").is_join_armatures = True
         row.operator_context = "INVOKE_DEFAULT"
-        row.operator(MMDRigifyIntegrateFocusOnRigify.bl_idname, text=_(""), icon="WINDOW")
+        row.operator(MMDRigifyIntegrateFocusOnRigify.bl_idname, text="", icon="WINDOW")
 
         col = layout.column(align=True)
-        col.label(text=_("Rigify to MMD:"), icon="OUTLINER_OB_ARMATURE")
+        col.label(text="Rigify to MMD:", icon="OUTLINER_OB_ARMATURE")
         grid = col.grid_flow(row_major=True, align=True)
-        grid.row(align=True).operator(MMDRigifyConvert.bl_idname, text=_("Convert to MMD compatible"), icon="ARMATURE_DATA")
-        grid.row(align=True).operator(MMDRigifyApplyMMDRestPose.bl_idname, text=_("Apply MMD Rest Pose"))
-        grid.row(align=True).operator(MMDRigifyDerigger.bl_idname, text=_("De-rig armature"), icon="OUTLINER_OB_ARMATURE")
-        grid.row(align=True).operator(MMDRigifyTranslator.bl_idname, text=_("Translate Rigify to MMD"), icon="HELP")
+        grid.row(align=True).operator(MMDRigifyConvert.bl_idname, text="Convert to MMD compatible", icon="ARMATURE_DATA")
+        grid.row(align=True).operator(MMDRigifyApplyMMDRestPose.bl_idname, text="Apply MMD Rest Pose")
+        grid.row(align=True).operator(MMDRigifyDerigger.bl_idname, text="De-rig armature", icon="OUTLINER_OB_ARMATURE")
+        grid.row(align=True).operator(MMDRigifyTranslator.bl_idname, text="Translate Rigify to MMD", icon="HELP")
 
-        col.label(text=_("(Experimental) Auto-Rig to MMD:"), icon="OUTLINER_OB_ARMATURE")
+        col.label(text="(Experimental) Auto-Rig to MMD:", icon="OUTLINER_OB_ARMATURE")
         grid = col.grid_flow(row_major=True, align=True)
-        grid.row(align=True).operator(MMDAutoRigConvert.bl_idname, text=_("Convert to MMD compatible"), icon="ARMATURE_DATA")
-        grid.row(align=True).operator(MMDAutoRigApplyMMDRestPose.bl_idname, text=_("Apply MMD Rest Pose"))
+        grid.row(align=True).operator(MMDAutoRigConvert.bl_idname, text="Convert to MMD compatible", icon="ARMATURE_DATA")
+        grid.row(align=True).operator(MMDAutoRigApplyMMDRestPose.bl_idname, text="Apply MMD Rest Pose")
 
 
 class MMDAppendPhysicsPanel(bpy.types.Panel):
@@ -129,24 +129,24 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
         layout = self.layout
 
         col = layout.column(align=True)
-        col.label(text=_("Relevant Selection:"), icon="RESTRICT_SELECT_OFF")
+        col.label(text="Relevant Selection:", icon="RESTRICT_SELECT_OFF")
         grid = col.grid_flow(row_major=True)
         row = grid.row(align=True)
-        row.label(text=_("Collision Mesh"), icon="MOD_PHYSICS")
-        row.operator(SelectCollisionMesh.bl_idname, text=_(""), icon="RESTRICT_SELECT_OFF")
-        row.operator(RemoveMeshCollision.bl_idname, text=_(""), icon="TRASH")
+        row.label(text="Collision Mesh", icon="MOD_PHYSICS")
+        row.operator(SelectCollisionMesh.bl_idname, text="", icon="RESTRICT_SELECT_OFF")
+        row.operator(RemoveMeshCollision.bl_idname, text="", icon="TRASH")
 
         mmd_root_object = import_mmd_tools().core.model.FnModel.find_root_object(context.active_object)
         if mmd_root_object is None:
             col = layout.column(align=True)
-            col.label(text=_("MMD Model is not selected."), icon="ERROR")
+            col.label(text="MMD Model is not selected.", icon="ERROR")
         else:
             mmd_root = mmd_root_object.mmd_root
 
             row = grid.row(align=True)
-            row.label(text=_("Rigid Body"), icon="RIGID_BODY")
+            row.label(text="Rigid Body", icon="RIGID_BODY")
             row.operator_context = "EXEC_DEFAULT"
-            operator = row.operator("mmd_tools.rigid_body_select", text=_(""), icon="RESTRICT_SELECT_OFF")
+            operator = row.operator("mmd_tools.rigid_body_select", text="", icon="RESTRICT_SELECT_OFF")
             operator.properties = set(["collision_group_number", "shape"])
             row.operator_context = "INVOKE_DEFAULT"
             row.prop(
@@ -156,11 +156,11 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
                 icon_only=True,
                 icon="HIDE_OFF" if mmd_root.show_rigid_bodies else "HIDE_ON",
             )
-            row.operator("rigidbody.objects_remove", text=_(""), icon="TRASH")
+            row.operator("rigidbody.objects_remove", text="", icon="TRASH")
 
             row = grid.row(align=True)
-            row.label(text=_("Cloth Mesh"), icon="MOD_CLOTH")
-            row.operator(SelectClothMesh.bl_idname, text=_(""), icon="RESTRICT_SELECT_OFF")
+            row.label(text="Cloth Mesh", icon="MOD_CLOTH")
+            row.operator(SelectClothMesh.bl_idname, text="", icon="RESTRICT_SELECT_OFF")
             row.prop(
                 mmd_root_object,
                 "mmd_tools_append_show_cloths",
@@ -168,29 +168,29 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
                 icon_only=True,
                 icon="HIDE_OFF" if mmd_root_object.mmd_tools_append_show_cloths else "HIDE_ON",
             )
-            row.operator(RemoveMeshCloth.bl_idname, text=_(""), icon="TRASH")
+            row.operator(RemoveMeshCloth.bl_idname, text="", icon="TRASH")
 
             col = layout.column(align=True)
-            col.label(text=_("Converter:"), icon="SHADERFX")
+            col.label(text="Converter:", icon="SHADERFX")
 
             row = col.row(align=True)
             row.operator_context = "EXEC_DEFAULT"
-            row.operator(ConvertRigidBodyToClothOperator.bl_idname, text=_("Rigid Body to Cloth"), icon="MATCLOTH")
+            row.operator(ConvertRigidBodyToClothOperator.bl_idname, text="Rigid Body to Cloth", icon="MATCLOTH")
             row.operator_context = "INVOKE_DEFAULT"
-            row.operator(ConvertRigidBodyToClothOperator.bl_idname, text=_(""), icon="WINDOW")
+            row.operator(ConvertRigidBodyToClothOperator.bl_idname, text="", icon="WINDOW")
 
         col = layout.column(align=True)
-        col.label(text=_("Pyramid Cloth:"), icon="MESH_CONE")
+        col.label(text="Pyramid Cloth:", icon="MESH_CONE")
         grid = col.grid_flow(row_major=True, align=True)
-        grid.row(align=True).operator(AddPyramidMeshByBreastBoneOperator.bl_idname, text=_("Add Pyramid"), icon="CONE")
-        grid.row(align=True).operator(ConvertPyramidMeshToClothOperator.bl_idname, text=_("Pyramid to Cloth"), icon="MOD_CLOTH")
-        grid.row(align=True).operator(AssignPyramidWeightsOperator.bl_idname, text=_("Repaint Weight"), icon="WPAINT_HLT")
+        grid.row(align=True).operator(AddPyramidMeshByBreastBoneOperator.bl_idname, text="Add Pyramid", icon="CONE")
+        grid.row(align=True).operator(ConvertPyramidMeshToClothOperator.bl_idname, text="Pyramid to Cloth", icon="MOD_CLOTH")
+        grid.row(align=True).operator(AssignPyramidWeightsOperator.bl_idname, text="Repaint Weight", icon="WPAINT_HLT")
 
         col = layout.column(align=True)
-        col.label(text=_("Misc:"), icon="BLENDER")
+        col.label(text="Misc:", icon="BLENDER")
         grid = col.grid_flow(row_major=True)
-        grid.row(align=True).operator(StretchBoneToVertexOperator.bl_idname, text=_("Stretch Bone to Vertex"), icon="CONSTRAINT_BONE")
-        grid.row(align=True).operator(AddCenterOfGravityObject.bl_idname, text=_("Add Center of Gravity"), icon="ORIENTATION_CURSOR")
+        grid.row(align=True).operator(StretchBoneToVertexOperator.bl_idname, text="Stretch Bone to Vertex", icon="CONSTRAINT_BONE")
+        grid.row(align=True).operator(AddCenterOfGravityObject.bl_idname, text="Add Center of Gravity", icon="ORIENTATION_CURSOR")
 
     @staticmethod
     def _toggle_visibility_of_cloths(obj, context):
@@ -235,7 +235,7 @@ class MMDAppendSegmentationPanel(bpy.types.Panel):
         mmd_tools_append_segmentation = context.scene.mmd_tools_append_segmentation
 
         col = layout.column()
-        col.prop(mmd_tools_append_segmentation, "segmentation_vertex_color_attribute_name", text=_("Color Layer&AOV Name"))
+        col.prop(mmd_tools_append_segmentation, "segmentation_vertex_color_attribute_name", text="Color Layer&AOV Name")
         if SetupSegmentationColorPaletteOperator.poll(context):
             col.operator(SetupSegmentationColorPaletteOperator.bl_idname, icon="RESTRICT_COLOR_ON")
         else:
@@ -249,41 +249,41 @@ class MMDAppendSegmentationPanel(bpy.types.Panel):
             op.segmentation_vertex_color_attribute_name = mmd_tools_append_segmentation.segmentation_vertex_color_attribute_name
             op.random_color = True
 
-        col.label(text=_("Auto Segmentation:"), icon="MOD_EXPLODE")
+        col.label(text="Auto Segmentation:", icon="MOD_EXPLODE")
         box = col.box().column(align=True)
 
-        box.label(text=_("Thresholds:"))
+        box.label(text="Thresholds:")
         flow = box.grid_flow()
-        flow.row(align=True).prop(mmd_tools_append_segmentation, "cost_threshold", text=_("Cost"))
+        flow.row(align=True).prop(mmd_tools_append_segmentation, "cost_threshold", text="Cost")
         row = flow.row(align=True)
-        row.prop(mmd_tools_append_segmentation, "maximum_area_threshold", text=_("Area Max"))
-        row.prop(mmd_tools_append_segmentation, "minimum_area_threshold", text=_("Min"))
+        row.prop(mmd_tools_append_segmentation, "maximum_area_threshold", text="Area Max")
+        row.prop(mmd_tools_append_segmentation, "minimum_area_threshold", text="Min")
 
-        box.label(text=_("Cost Factors:"))
+        box.label(text="Cost Factors:")
         flow = box.grid_flow()
         row = flow.row(align=True)
-        row.row().prop(mmd_tools_append_segmentation, "face_angle_cost_factor", text=_("Face Angle"))
-        row.row().prop(mmd_tools_append_segmentation, "perimeter_cost_factor", text=_("Perimeter"))
-        row.row().prop(mmd_tools_append_segmentation, "material_change_cost_factor", text=_("Material Change"))
+        row.row().prop(mmd_tools_append_segmentation, "face_angle_cost_factor", text="Face Angle")
+        row.row().prop(mmd_tools_append_segmentation, "perimeter_cost_factor", text="Perimeter")
+        row.row().prop(mmd_tools_append_segmentation, "material_change_cost_factor", text="Material Change")
 
         row = flow.row(align=True)
         row.alignment = "RIGHT"
-        row.label(text=_("Edge "))
-        row.prop(mmd_tools_append_segmentation, "edge_sharp_cost_factor", text=_("Sharp"))
-        row.prop(mmd_tools_append_segmentation, "edge_seam_cost_factor", text=_("Seam"))
+        row.label(text="Edge ")
+        row.prop(mmd_tools_append_segmentation, "edge_sharp_cost_factor", text="Sharp")
+        row.prop(mmd_tools_append_segmentation, "edge_seam_cost_factor", text="Seam")
 
         row = flow.row(align=True)
         row.alignment = "RIGHT"
-        row.label(text=_("Vertex Group "))
-        row.prop(mmd_tools_append_segmentation, "vertex_group_weight_cost_factor", text=_("Weight"))
-        row.prop(mmd_tools_append_segmentation, "vertex_group_change_cost_factor", text=_("Change"))
+        row.label(text="Vertex Group ")
+        row.prop(mmd_tools_append_segmentation, "vertex_group_weight_cost_factor", text="Weight")
+        row.prop(mmd_tools_append_segmentation, "vertex_group_change_cost_factor", text="Change")
 
-        box.label(text=_("Other Parameters:"))
+        box.label(text="Other Parameters:")
         flow = box.grid_flow()
         flow.row().prop(mmd_tools_append_segmentation, "edge_length_factor")
-        flow.row().prop(mmd_tools_append_segmentation, "segmentation_vertex_color_random_seed", text=_("Color Random Seed"))
+        flow.row().prop(mmd_tools_append_segmentation, "segmentation_vertex_color_random_seed", text="Color Random Seed")
 
-        op = col.operator(AutoSegmentationOperator.bl_idname, text=_("Execute Auto Segmentation"), icon="BRUSH_DATA")
+        op = col.operator(AutoSegmentationOperator.bl_idname, text="Execute Auto Segmentation", icon="BRUSH_DATA")
         op.cost_threshold = mmd_tools_append_segmentation.cost_threshold
         op.maximum_area_threshold = mmd_tools_append_segmentation.maximum_area_threshold
         op.minimum_area_threshold = mmd_tools_append_segmentation.minimum_area_threshold

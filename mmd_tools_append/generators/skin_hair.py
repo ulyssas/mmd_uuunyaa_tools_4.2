@@ -171,11 +171,11 @@ class MMDAppendMeshExtrasMenu(bpy.types.Menu):
 
     def draw(self, _context):
         self.layout.operator_context = "INVOKE_REGION_WIN"
-        self.layout.operator(AddSkinHairMesh.bl_idname, text=_("Skin Hair"))
+        self.layout.operator(AddSkinHairMesh.bl_idname, text="Skin Hair")
 
     @staticmethod
     def draw_menu(this, _context):
-        this.layout.menu(MMDAppendMeshExtrasMenu.bl_idname, text=_("MMD Append Extras"))
+        this.layout.menu(MMDAppendMeshExtrasMenu.bl_idname, text="MMD Append Extras")
 
     @staticmethod
     def register():

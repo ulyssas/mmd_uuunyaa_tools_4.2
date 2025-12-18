@@ -1051,20 +1051,20 @@ class MMDAppendPyramidClothAdjuster(bpy.types.Panel):
         box = layout.box()
 
         col = box.column()
-        col.label(text=_("Weights:"))
+        col.label(text="Weights:")
         col.prop(pyramid_cloth_settings, "string_pin_weight")
         col.prop(pyramid_cloth_settings, "apex_pin_weight")
         col.prop(pyramid_cloth_settings, "base_pin_weight")
 
         col = box.column()
-        col.label(text=_("Cloth Physics:"))
+        col.label(text="Cloth Physics:")
         col.prop(pyramid_cloth_settings, "time_scale")
 
         col = box.column()
-        col.label(text=_("Batch Operation:"))
+        col.label(text="Batch Operation:")
         col.operator(
             CopyPyramidClothAdjusterSettings.bl_idname,
-            text=_("Copy to Selected"),
+            text="Copy to Selected",
             icon="DUPLICATE",
         )
 

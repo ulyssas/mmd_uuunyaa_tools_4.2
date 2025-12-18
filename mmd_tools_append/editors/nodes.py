@@ -357,7 +357,7 @@ class MaterialEditor(NodeEditor):
                     col.prop(node_output, "default_value", text=node_output.name)
             elif isinstance(node, bpy.types.ShaderNodeTexSky):
                 if node.sky_type == "HOSEK_WILKIE":
-                    col.label(text=_("Sun Direction"))
+                    col.label(text="Sun Direction")
                     col.prop(node, "sun_direction", text="")
                     col.prop(node, "turbidity")
                     col.prop(node, "ground_albedo")

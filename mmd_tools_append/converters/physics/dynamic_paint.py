@@ -37,7 +37,7 @@ class MMDAppendDynamicPaintAdjuster(bpy.types.Panel):
             return
 
         col = layout.column()
-        col.prop(dynamic_paint_settings, "active_surface", text=_("Cache"))
+        col.prop(dynamic_paint_settings, "active_surface", text="Cache")
 
         active_surface_index = modifier.canvas_settings.canvas_surfaces.find(dynamic_paint_settings.active_surface)
         if active_surface_index == -1:
@@ -46,8 +46,8 @@ class MMDAppendDynamicPaintAdjuster(bpy.types.Panel):
         active_surface = modifier.canvas_settings.canvas_surfaces[active_surface_index]
 
         row = col.row(align=True)
-        row.prop(active_surface, "frame_start", text=_("Simulation Start"))
-        row.prop(active_surface, "frame_end", text=_("Simulation End"))
+        row.prop(active_surface, "frame_start", text="Simulation Start")
+        row.prop(active_surface, "frame_end", text="Simulation End")
 
 
 class DynamicPaintTunerABC(TunerABC, MeshEditor):

@@ -372,7 +372,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
 
     def draw(self, context: bpy.types.Context):
         layout: bpy.types.UILayout = self.layout
-        layout.label(text=_("Eevee Rendering Performance Checker"), icon="MOD_TIME")
+        layout.label(text="Eevee Rendering Performance Checker", icon="MOD_TIME")
 
         results = list(
             filter(
@@ -449,7 +449,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
             draw_check_result(col, result)
 
         col = layout.column(align=True)
-        col.label(text=_("Object with Impact Selection:"), icon="RESTRICT_SELECT_OFF")
+        col.label(text="Object with Impact Selection:", icon="RESTRICT_SELECT_OFF")
         col.operator(SelectMeshObjectsWithSlowMaterial.bl_idname, icon="MATERIAL")
 
     # results: List[CheckResult] = []

@@ -43,22 +43,22 @@ class SkyPanel(bpy.types.Panel):
 
         node_frame = utilities.find_node_frame()
         if node_frame is None:
-            layout.label(text=_("MMD Append World not found."))
+            layout.label(text="MMD Append World not found.")
             return
 
         scene_has_irradiance_volumes = self._scene_has_irradiance_volumes()
         if not scene_has_irradiance_volumes:
-            layout.label(text=_("IrradianceVolume not found. Please add it."), icon="ERROR")
+            layout.label(text="IrradianceVolume not found. Please add it.", icon="ERROR")
 
         utilities.draw_setting_shader_node_properties(layout, utilities.list_nodes(node_frame=node_frame))
 
         col = layout.column(align=True)
-        col.label(text=_("for Eevee lighting, check Render Properties."))
+        col.label(text="for Eevee lighting, check Render Properties.")
 
         if not scene_has_irradiance_volumes:
             return
 
-        col.operator("scene.light_cache_bake", text=_("Bake Indirect Lighting"), icon="RENDER_STILL")
+        col.operator("scene.light_cache_bake", text="Bake Indirect Lighting", icon="RENDER_STILL")
 
     @staticmethod
     def _scene_has_irradiance_volumes():
@@ -142,14 +142,14 @@ class MaterialPanel(bpy.types.Panel):
         row.label(text=row.enum_item_name(mmd_tools_append_material, "thumbnails", mmd_tools_append_material.thumbnails))
 
         col = layout.column(align=True)
-        col.label(text=_("Batch Operation:"))
+        col.label(text="Batch Operation:")
         grid = col.grid_flow(row_major=True)
 
-        op = grid.row(align=True).operator(CopyTuneMaterialSettings.bl_idname, text=_("Copy to Active"), icon="DUPLICATE")
+        op = grid.row(align=True).operator(CopyTuneMaterialSettings.bl_idname, text="Copy to Active", icon="DUPLICATE")
         op.to_active = True
         op.to_selection = False
 
-        op = grid.row(align=True).operator(CopyTuneMaterialSettings.bl_idname, text=_("Copy to Selected"), icon="DUPLICATE")
+        op = grid.row(align=True).operator(CopyTuneMaterialSettings.bl_idname, text="Copy to Selected", icon="DUPLICATE")
         op.to_active = False
         op.to_selection = True
 
@@ -194,9 +194,9 @@ class MaterialAdjusterPanel(bpy.types.Panel):
             else:
                 layout.operator(AttachMaterialAdjuster.bl_idname, text=text, icon=icon).adjuster_name = class_.get_name()
 
-        draw_operator(grid, WetAdjuster, text=_("Wet"), icon="MOD_FLUIDSIM")
-        draw_operator(grid, GlitterAdjuster, text=_("Glitter"), icon="PMARKER_ACT")
-        draw_operator(grid, EmissionAdjuster, text=_("Emission"), icon="LIGHT")
+        draw_operator(grid, WetAdjuster, text="Wet", icon="MOD_FLUIDSIM")
+        draw_operator(grid, GlitterAdjuster, text="Glitter", icon="PMARKER_ACT")
+        draw_operator(grid, EmissionAdjuster, text="Emission", icon="LIGHT")
 
         node_frame = utilities.find_adjusters_node_frame()
         if node_frame is None:

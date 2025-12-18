@@ -20,7 +20,7 @@ class MMDArmatureAddMetarig(bpy.types.Operator):
     bl_description = "Generate Human (metarig) from MMD Armature."
     bl_options = {"REGISTER", "UNDO"}
 
-    use_mmd_orientation: bpy.props.BoolProperty(name=_("Align to MMD orientation"), description=_("Adjust bone rolls to fit common MMD arm and finger orientations"), default=True)
+    use_mmd_orientation: bpy.props.BoolProperty(name=_("Align to MMD orientation"), description="Adjust bone rolls to fit common MMD arm and finger orientations", default=True)
     is_clean_armature: bpy.props.BoolProperty(name=_("Clean Armature"), default=True)
     is_clean_koikatsu_armature: bpy.props.BoolProperty(name=_("Clean Koikatsu Armature"), default=False)
 
@@ -224,7 +224,7 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
 
     is_join_armatures: bpy.props.BoolProperty(
         name=_("Join Armatures"),
-        description=_("Join MMD and Rigify armatures"),
+        description="Join MMD and Rigify armatures",
         default=True,
     )
 
@@ -276,7 +276,7 @@ class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
 
     is_join_armatures: bpy.props.BoolProperty(
         name=_("Join Armatures"),
-        description=_("Join MMD and Rigify armatures"),
+        description="Join MMD and Rigify armatures",
         default=True,
     )
     mmd_main_bone_layer: bpy.props.IntProperty(name=_("MMD main bone layer"), default=24, min=0, max=31)
@@ -402,9 +402,9 @@ class MMDRigifyDerigger(bpy.types.Operator):
 
     remove_constraints: bpy.props.BoolProperty(name=_("Remove Bone Constraints"), default=True)
     remove_driver: bpy.props.BoolProperty(name=_("Remove all drivers in Armature"), default=True)
-    remove_prefix: bpy.props.BoolProperty(name=_("Remove Rigify prefixes"), description=_("Remove Rigify prefixes (DEF-)"), default=True)
-    cleanup: bpy.props.BoolProperty(name=_("Fix Rigify Bone structure"), description=_("Only works for Rigify"), default=True)
-    unlock_bones: bpy.props.BoolProperty(name=_("Unlock Bones"), description=_("Unlock all bone transformations (translations, rotations, scales)"), default=True)
+    remove_prefix: bpy.props.BoolProperty(name=_("Remove Rigify prefixes"), description="Remove Rigify prefixes (DEF-)", default=True)
+    cleanup: bpy.props.BoolProperty(name=_("Fix Rigify Bone structure"), description="Only works for Rigify", default=True)
+    unlock_bones: bpy.props.BoolProperty(name=_("Unlock Bones"), description="Unlock all bone transformations (translations, rotations, scales)", default=True)
 
     @classmethod
     def poll(cls, context):
@@ -482,7 +482,7 @@ class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
 
     iterations: bpy.props.IntProperty(
         name=_("Iterations"),
-        description=_("Number of solving iterations"),
+        description="Number of solving iterations",
         default=7,
         min=1,
         max=100,
@@ -557,7 +557,7 @@ class MMDAutoRigApplyMMDRestPose(bpy.types.Operator):
 
     iterations: bpy.props.IntProperty(
         name=_("Iterations"),
-        description=_("Number of solving iterations"),
+        description="Number of solving iterations",
         default=7,
         min=1,
         max=100,

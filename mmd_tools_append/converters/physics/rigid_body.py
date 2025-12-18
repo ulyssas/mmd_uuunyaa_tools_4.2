@@ -27,8 +27,8 @@ class MMDAppendRigidBodyAdjusterPanel(bpy.types.Panel):
         layout = self.layout
 
         col = layout.column()
-        col.label(text=_("Batch Operation:"))
-        col.operator("rigidbody.object_settings_copy", text=_("Copy to Selected"), icon="DUPLICATE")
+        col.label(text="Batch Operation:")
+        col.operator("rigidbody.object_settings_copy", text="Copy to Selected", icon="DUPLICATE")
 
 
 class SelectMeshRigidBody(bpy.types.Operator):

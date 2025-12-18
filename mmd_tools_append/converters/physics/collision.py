@@ -76,8 +76,8 @@ class MMDAppendCollisionAdjusterPanel(bpy.types.Panel):
         col.prop(collision_settings, "cloth_friction")
 
         col = layout.column()
-        col.label(text=_("Batch Operation:"))
-        col.operator(CopyCollisionAdjusterSettings.bl_idname, text=_("Copy to Selected"), icon="DUPLICATE")
+        col.label(text="Batch Operation:")
+        col.operator(CopyCollisionAdjusterSettings.bl_idname, text="Copy to Selected", icon="DUPLICATE")
 
 
 class CopyCollisionAdjusterSettings(bpy.types.Operator):

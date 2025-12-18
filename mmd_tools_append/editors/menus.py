@@ -80,22 +80,22 @@ class SelectMovedPoseBonesMenu(bpy.types.Menu):
     def draw(self, _context):
         layout = self.layout
 
-        operator = layout.operator(SelectMovedPoseBones.bl_idname, text=_("Moved"))
+        operator = layout.operator(SelectMovedPoseBones.bl_idname, text="Moved")
         operator.select_rotated = True
         operator.select_translated = True
         operator.select_scaled = True
 
-        operator = layout.operator(SelectMovedPoseBones.bl_idname, text=_("Rotated"))
+        operator = layout.operator(SelectMovedPoseBones.bl_idname, text="Rotated")
         operator.select_rotated = True
         operator.select_translated = False
         operator.select_scaled = False
 
-        operator = layout.operator(SelectMovedPoseBones.bl_idname, text=_("Translated"))
+        operator = layout.operator(SelectMovedPoseBones.bl_idname, text="Translated")
         operator.select_rotated = False
         operator.select_translated = True
         operator.select_scaled = False
 
-        operator = layout.operator(SelectMovedPoseBones.bl_idname, text=_("Scaled"))
+        operator = layout.operator(SelectMovedPoseBones.bl_idname, text="Scaled")
         operator.select_rotated = False
         operator.select_translated = False
         operator.select_scaled = True

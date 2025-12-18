@@ -230,31 +230,31 @@ class MMDAppendClothAdjuster(bpy.types.Panel):
         col.prop(cloth_settings, "damping")
 
         col = box.column()
-        col.label(text=_("Collision:"))
+        col.label(text="Collision:")
         col.prop(cloth_settings, "collision_quality")
         col.prop(cloth_settings, "distance_min", slider=True)
         col.prop(cloth_settings, "impulse_clamp")
 
         col = box.column()
-        col.label(text=_("Batch Operation:"))
+        col.label(text="Batch Operation:")
         col.operator(
             CopyClothAdjusterSettings.bl_idname,
-            text=_("Copy to Selected"),
+            text="Copy to Selected",
             icon="DUPLICATE",
         )
 
         col = layout.column(align=True)
-        col.label(text=_("Cache:"))
+        col.label(text="Cache:")
         row = col.row(align=True)
-        row.prop(cloth_settings, "frame_start", text=_("Simulation Start"))
-        row.prop(cloth_settings, "frame_end", text=_("Simulation End"))
+        row.prop(cloth_settings, "frame_start", text="Simulation Start")
+        row.prop(cloth_settings, "frame_end", text="Simulation End")
 
         if MeshEditor(mesh_object).find_subsurface_modifier("physics_cloth_subsurface") is None:
             return
 
         col = layout.column(align=True)
-        col.label(text=_("Subdivision:"))
-        col.prop(cloth_settings, "subdivision_levels", text=_("Subdivision Levels"))
+        col.label(text="Subdivision:")
+        col.prop(cloth_settings, "subdivision_levels", text="Subdivision Levels")
 
 
 class CopyClothAdjusterSettings(bpy.types.Operator):
