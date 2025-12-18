@@ -61,7 +61,7 @@ class NothingDynamicPaintTuner(DynamicPaintTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Nothing")
+        return "Nothing"
 
     def execute(self):
         pass
@@ -74,7 +74,7 @@ class CanvasSkinPressDynamicPaintTuner(DynamicPaintTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Canvas Skin Press")
+        return "Canvas Skin Press"
 
     SKIN_PRESS_SURFACE_NAME = "Skin Press Surface"
 
@@ -109,7 +109,7 @@ class BrushDefaultDynamicPaintTuner(DynamicPaintTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Brush Default")
+        return "Brush Default"
 
     def execute(self):
         modifier = self.find_dynamic_paint_modifier()

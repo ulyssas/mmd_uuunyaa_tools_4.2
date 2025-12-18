@@ -48,7 +48,7 @@ class ResetLightingTuner(LightingTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Reset")
+        return "Reset"
 
     def execute(self):
         self.reset()
@@ -61,7 +61,7 @@ class LeftAccentLightingTuner(LightingTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Left Accent")
+        return "Left Accent"
 
     def execute(self):
         self.reset()
@@ -75,7 +75,7 @@ class DoubleSideAccentLightingTuner(LightingTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Double Side Accent")
+        return "Double Side Accent"
 
     def execute(self):
         self.reset()
@@ -89,7 +89,7 @@ class GodRayLightingTuner(LightingTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("God Ray")
+        return "God Ray"
 
     def execute(self):
         self.reset()
@@ -103,7 +103,7 @@ class BacklightLightingTuner(LightingTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Backlight")
+        return "Backlight"
 
     def execute(self):
         self.reset()
@@ -117,7 +117,7 @@ class LightProbeGridLightingTuner(LightingTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Light Probe Grid")
+        return "Light Probe Grid"
 
     def execute(self):
         self.reset()
@@ -131,7 +131,7 @@ class ShadowlessLightingTuner(LightingTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Shadowless")
+        return "Shadowless"
 
     def execute(self):
         self.reset()

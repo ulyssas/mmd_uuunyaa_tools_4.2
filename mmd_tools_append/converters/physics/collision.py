@@ -23,7 +23,7 @@ class NothingCollisionTuner(CollisionTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Nothing")
+        return "Nothing"
 
     def execute(self):
         pass
@@ -36,7 +36,7 @@ class ThinSmoothCollisionTuner(CollisionTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Thin Smooth")
+        return "Thin Smooth"
 
     def execute(self):
         collision_settings: bpy.types.CollisionSettings = self.find_collision_settings()

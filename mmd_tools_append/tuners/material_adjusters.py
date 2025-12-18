@@ -55,7 +55,7 @@ class WetAdjuster(MaterialAdjusterABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Wet Adjuster")
+        return "Wet Adjuster"
 
     translation_properties = [
         _("Specular IOR Level"),
@@ -112,7 +112,7 @@ class GlitterAdjuster(MaterialAdjusterABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Glitter Adjuster")
+        return "Glitter Adjuster"
 
     translation_properties = [
         _("Specular IOR Level"),
@@ -170,7 +170,7 @@ class EmissionAdjuster(MaterialAdjusterABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Emission Adjuster")
+        return "Emission Adjuster"
 
     translation_properties = [
         _("Color"),

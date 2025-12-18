@@ -41,7 +41,7 @@ try:
 
         @classmethod
         def get_name(cls) -> str:
-            return _("Reset")
+            return "Reset"
 
         def execute(self):
             self.reset()
@@ -60,7 +60,7 @@ try:
 
         @classmethod
         def get_name(cls) -> str:
-            return _("Sequins")
+            return "Sequins"
 
         def execute(self):
             self.reset()

@@ -123,7 +123,7 @@ class NothingClothTuner(ClothTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Nothing")
+        return "Nothing"
 
     def execute(self):
         pass
@@ -136,7 +136,7 @@ class CottonClothTuner(ClothTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Cotton")
+        return "Cotton"
 
     def execute(self):
         cloth_settings: bpy.types.ClothSettings = self.find_cloth_settings()
@@ -159,7 +159,7 @@ class SilkClothTuner(ClothTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Silk")
+        return "Silk"
 
     def execute(self):
         cloth_settings: bpy.types.ClothSettings = self.find_cloth_settings()
@@ -182,7 +182,7 @@ class BreastPyramidClothTuner(ClothTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Breast Pyramid")
+        return "Breast Pyramid"
 
     def execute(self):
         cloth_settings: bpy.types.ClothSettings = self.find_cloth_settings()
