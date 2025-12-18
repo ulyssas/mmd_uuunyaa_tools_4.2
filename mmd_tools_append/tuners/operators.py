@@ -68,8 +68,8 @@ class CopyTuneMaterialSettings(bpy.types.Operator):
     bl_description = "Apply current Append material to materials of the selected objects."
     bl_options = {"REGISTER", "UNDO"}
 
-    to_active: bpy.props.BoolProperty(name=_("Apply to active object"), description="Apply Append material to materials in active object", default=False)
-    to_selection: bpy.props.BoolProperty(name=_("Apply to selection"), description="Apply Append material to materials in selected object", default=False)
+    to_active: bpy.props.BoolProperty(name="Apply to active object", description="Apply Append material to materials in active object", default=False)
+    to_selection: bpy.props.BoolProperty(name="Apply to selection", description="Apply Append material to materials in selected object", default=False)
 
     @classmethod
     def poll(cls, context):

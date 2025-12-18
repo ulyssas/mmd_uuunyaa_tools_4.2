@@ -18,7 +18,7 @@ class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
     bl_idname = __package__
 
     asset_search_results_max_display_count: bpy.props.IntProperty(
-        name=_("Asset Search Results Max. Display Count"),
+        name="Asset Search Results Max. Display Count",
         description="Larger value is slower",
         min=10,
         soft_max=200,
@@ -26,35 +26,35 @@ class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
     )
 
     asset_jsons_folder: bpy.props.StringProperty(
-        name=_("Asset JSONs Folder"),
+        name="Asset JSONs Folder",
         description="Path to asset list JSON files",
         subtype="DIR_PATH",
         default=os.path.join(os.path.dirname(__file__), "asset_jsons"),
     )
 
     asset_json_update_repo: bpy.props.StringProperty(
-        name=_("Asset JSON Update Repository"),
+        name="Asset JSON Update Repository",
         description="Specify the github repository which to retrieve the assets",
         default=AssetUpdater.default_repo,
     )
 
     asset_json_update_query: bpy.props.StringProperty(
-        name=_("Asset JSON Update Query"),
+        name="Asset JSON Update Query",
         description="Specify the filter conditions for retrieving assets",
         default=AssetUpdater.default_query,
     )
 
-    asset_json_update_on_startup_enabled: bpy.props.BoolProperty(name=_("Asset JSON Auto Update on Startup"), default=True)
+    asset_json_update_on_startup_enabled: bpy.props.BoolProperty(name="Asset JSON Auto Update on Startup", default=True)
 
     asset_cache_folder: bpy.props.StringProperty(
-        name=_("Asset Cache Folder"),
+        name="Asset Cache Folder",
         description="Path to asset cache folder",
         subtype="DIR_PATH",
         default=os.path.join(tempfile.gettempdir(), "mmd_tools_append_cache"),
     )
 
     asset_max_cache_size: bpy.props.IntProperty(
-        name=_("Asset Max. Cache Size (MB)"),
+        name="Asset Max. Cache Size (MB)",
         description="Maximum size (Mega bytes) of the asset cache folder",
         min=100,
         soft_max=1_000_000,
@@ -62,20 +62,20 @@ class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
     )
 
     asset_extract_root_folder: bpy.props.StringProperty(
-        name=_("Asset Extract Root Folder"),
+        name="Asset Extract Root Folder",
         description="Path to extract the cached assets",
         subtype="DIR_PATH",
         default=os.path.join(pathlib.Path.home(), "BlenderAssets"),
     )
 
     asset_extract_folder: bpy.props.StringProperty(
-        name=_("Asset Extract Folder"),
+        name="Asset Extract Folder",
         description="Path to assets. Create it under the Asset Extract Root Folder.\nThe following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}",
         default="{type}/{id}.{name}",
     )
 
     asset_extract_json: bpy.props.StringProperty(
-        name=_("Asset Extract JSON"),
+        name="Asset Extract JSON",
         description="Name to assets marker JSON. Create it under the Asset Extract Folder.\nThe presence of this file is used to determine the existence of the asset.\nThe following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}",
         default="{id}.json",
     )

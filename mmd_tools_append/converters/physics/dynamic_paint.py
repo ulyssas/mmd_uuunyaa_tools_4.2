@@ -172,10 +172,10 @@ class DynamicPaintAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
 
         modifier.canvas_settings.canvas_surfaces.active_index = index
 
-    presets: bpy.props.EnumProperty(name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
+    presets: bpy.props.EnumProperty(name="Presets", items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
 
     active_surface: bpy.props.EnumProperty(
-        name=_("Active Surface"),
+        name="Active Surface",
         items=_surface_items.__func__,
         get=_get_active_surface.__func__,
         set=_set_active_surface.__func__,

@@ -302,23 +302,23 @@ class MMDAppendSegmentationPanel(bpy.types.Panel):
 
 
 class SegmentationPropertyGroup(bpy.types.PropertyGroup):
-    cost_threshold: bpy.props.FloatProperty(name=_("Cost Threshold"), default=2.5, min=0, soft_max=3.0, step=1)
+    cost_threshold: bpy.props.FloatProperty(name="Cost Threshold", default=2.5, min=0, soft_max=3.0, step=1)
 
-    maximum_area_threshold: bpy.props.FloatProperty(name=_("Maximum Area Threshold"), default=0.500, min=0, soft_max=1.0, precision=3, step=1)
-    minimum_area_threshold: bpy.props.FloatProperty(name=_("Minimum Area Threshold"), default=0.001, min=0, soft_max=1.0, precision=3, step=1)
+    maximum_area_threshold: bpy.props.FloatProperty(name="Maximum Area Threshold", default=0.500, min=0, soft_max=1.0, precision=3, step=1)
+    minimum_area_threshold: bpy.props.FloatProperty(name="Minimum Area Threshold", default=0.001, min=0, soft_max=1.0, precision=3, step=1)
 
-    face_angle_cost_factor: bpy.props.FloatProperty(name=_("Face Angle Cost Factor"), default=1.0, min=0, soft_max=2.0, step=1)
-    perimeter_cost_factor: bpy.props.FloatProperty(name=_("Perimeter Cost Factor"), default=0.0, min=0, soft_max=10.0, step=1)
-    material_change_cost_factor: bpy.props.FloatProperty(name=_("Material Change Cost Factor"), default=0.3, min=0, soft_max=1.0, step=1)
-    edge_sharp_cost_factor: bpy.props.FloatProperty(name=_("Edge Sharp Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
-    edge_seam_cost_factor: bpy.props.FloatProperty(name=_("Edge Seam Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
-    vertex_group_weight_cost_factor: bpy.props.FloatProperty(name=_("Vertex Group Weight Cost Factor"), default=0.1, min=0, soft_max=1.0, step=1)
-    vertex_group_change_cost_factor: bpy.props.FloatProperty(name=_("Vertex Group Change Cost Factor"), default=0.5, min=0, soft_max=1.0, step=1)
+    face_angle_cost_factor: bpy.props.FloatProperty(name="Face Angle Cost Factor", default=1.0, min=0, soft_max=2.0, step=1)
+    perimeter_cost_factor: bpy.props.FloatProperty(name="Perimeter Cost Factor", default=0.0, min=0, soft_max=10.0, step=1)
+    material_change_cost_factor: bpy.props.FloatProperty(name="Material Change Cost Factor", default=0.3, min=0, soft_max=1.0, step=1)
+    edge_sharp_cost_factor: bpy.props.FloatProperty(name="Edge Sharp Cost Factor", default=0.0, min=0, soft_max=1.0, step=1)
+    edge_seam_cost_factor: bpy.props.FloatProperty(name="Edge Seam Cost Factor", default=0.0, min=0, soft_max=1.0, step=1)
+    vertex_group_weight_cost_factor: bpy.props.FloatProperty(name="Vertex Group Weight Cost Factor", default=0.1, min=0, soft_max=1.0, step=1)
+    vertex_group_change_cost_factor: bpy.props.FloatProperty(name="Vertex Group Change Cost Factor", default=0.5, min=0, soft_max=1.0, step=1)
 
-    edge_length_factor: bpy.props.FloatProperty(name=_("Edge Length Factor"), default=1.0, min=0, soft_max=1.0, step=1)
+    edge_length_factor: bpy.props.FloatProperty(name="Edge Length Factor", default=1.0, min=0, soft_max=1.0, step=1)
 
-    segmentation_vertex_color_random_seed: bpy.props.IntProperty(name=_("Segmentation Vertex Color Random Seed"), default=0, min=0)
-    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name=_("Segmentation Vertex Color Attribute Name"), default="Segmentation")
+    segmentation_vertex_color_random_seed: bpy.props.IntProperty(name="Segmentation Vertex Color Random Seed", default=0, min=0)
+    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name="Segmentation Vertex Color Attribute Name", default="Segmentation")
 
     @staticmethod
     def register():

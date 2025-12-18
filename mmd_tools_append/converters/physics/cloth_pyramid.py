@@ -869,10 +869,10 @@ class AddPyramidMeshByBreastBoneOperator(bpy.types.Operator):
     bl_description = "Add pyramid meshes from selected breast bones."
     bl_options = {"REGISTER", "UNDO"}
 
-    head_tail: bpy.props.FloatProperty(name=_("Head/Tail"), default=0.5, min=0.0, max=1.0, step=10)
-    string_length_ratio: bpy.props.FloatProperty(name=_("String Length Ratio"), default=2.0, min=1.0, max=100.0, step=10)
-    base_area_factor: bpy.props.FloatProperty(name=_("Base Area Factor"), default=0.1, min=0.0, max=100.0, step=10)
-    project_vertically: bpy.props.BoolProperty(name=_("Project Base Vertices Vertically"), default=False)
+    head_tail: bpy.props.FloatProperty(name="Head/Tail", default=0.5, min=0.0, max=1.0, step=10)
+    string_length_ratio: bpy.props.FloatProperty(name="String Length Ratio", default=2.0, min=1.0, max=100.0, step=10)
+    base_area_factor: bpy.props.FloatProperty(name="Base Area Factor", default=0.1, min=0.0, max=100.0, step=10)
+    project_vertically: bpy.props.BoolProperty(name="Project Base Vertices Vertically", default=False)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -917,7 +917,7 @@ class ConvertPyramidMeshToClothOperator(bpy.types.Operator):
     bl_description = "Convert pyramid meshes to cloth simulation."
     bl_options = {"REGISTER", "UNDO"}
 
-    boundary_expansion_hop_count: bpy.props.IntProperty(name=_("Boundary Expansion Hop Count"), default=0, min=0, max=5)
+    boundary_expansion_hop_count: bpy.props.IntProperty(name="Boundary Expansion Hop Count", default=0, min=0, max=5)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -982,7 +982,7 @@ class AssignPyramidWeightsOperator(bpy.types.Operator):
     bl_label = "Assign Pyramid Weights"
     bl_options = {"REGISTER", "UNDO"}
 
-    boundary_expansion_hop_count: bpy.props.IntProperty(name=_("Boundary Expansion Hop Count"), default=0, min=0, max=5)
+    boundary_expansion_hop_count: bpy.props.IntProperty(name="Boundary Expansion Hop Count", default=0, min=0, max=5)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -1100,7 +1100,7 @@ class CopyPyramidClothAdjusterSettings(bpy.types.Operator):
 
 class PyramidClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     string_pin_weight: bpy.props.FloatProperty(
-        name=_("String Pin Weight"),
+        name="String Pin Weight",
         min=0.0,
         max=1.0,
         precision=3,
@@ -1110,7 +1110,7 @@ class PyramidClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     apex_pin_weight: bpy.props.FloatProperty(
-        name=_("Apex Pin Weight"),
+        name="Apex Pin Weight",
         min=0.0,
         max=1.0,
         precision=3,
@@ -1120,7 +1120,7 @@ class PyramidClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     base_pin_weight: bpy.props.FloatProperty(
-        name=_("Base Pin Weight"),
+        name="Base Pin Weight",
         min=0.0,
         max=1.0,
         precision=3,
@@ -1130,7 +1130,7 @@ class PyramidClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     time_scale: bpy.props.FloatProperty(
-        name=_("Speed Multiplier"),
+        name="Speed Multiplier",
         min=0.0,
         soft_max=10.0,
         precision=3,

@@ -21,8 +21,8 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
     bl_description = "Setup render engine properties for Eevee."
     bl_options = {"REGISTER", "UNDO"}
 
-    use_motion_blur: bpy.props.BoolProperty(name=_("Use Motion Blur"), default=False)
-    film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
+    use_motion_blur: bpy.props.BoolProperty(name="Use Motion Blur", default=False)
+    film_transparent: bpy.props.BoolProperty(name="Use Film Transparent", default=False)
 
     @classmethod
     def poll(cls, context):
@@ -80,9 +80,9 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
     bl_description = "Setup render engine properties for Toon Eevee."
     bl_options = {"REGISTER", "UNDO"}
 
-    use_motion_blur: bpy.props.BoolProperty(name=_("Use Motion Blur"), default=False)
-    use_shadows: bpy.props.BoolProperty(name=_("Use Shadow"), default=True)
-    film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
+    use_motion_blur: bpy.props.BoolProperty(name="Use Motion Blur", default=False)
+    use_shadows: bpy.props.BoolProperty(name="Use Shadow", default=True)
+    film_transparent: bpy.props.BoolProperty(name="Use Film Transparent", default=False)
 
     @classmethod
     def poll(cls, context):
@@ -134,9 +134,9 @@ class SetupRenderEngineForWorkbench(bpy.types.Operator):
     bl_description = "Setup render engine properties for Workbench."
     bl_options = {"REGISTER", "UNDO"}
 
-    use_shadow: bpy.props.BoolProperty(name=_("Use Shadow"), default=True)
-    use_dof: bpy.props.BoolProperty(name=_("Use Depth of Field"), default=True)
-    film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
+    use_shadow: bpy.props.BoolProperty(name="Use Shadow", default=True)
+    use_dof: bpy.props.BoolProperty(name="Use Depth of Field", default=True)
+    film_transparent: bpy.props.BoolProperty(name="Use Film Transparent", default=False)
 
     @classmethod
     def poll(cls, _context):
@@ -205,7 +205,7 @@ class RemoveUnusedVertexGroups(bpy.types.Operator):
     bl_description = "Remove unused vertex groups from the active meshes"
     bl_options = {"REGISTER", "UNDO"}
 
-    weight_threshold: bpy.props.FloatProperty(name=_("Weight Threshold"), default=0.0, min=0.0, max=1.0)
+    weight_threshold: bpy.props.FloatProperty(name="Weight Threshold", default=0.0, min=0.0, max=1.0)
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -273,7 +273,7 @@ class SelectShapeKeyTargetVertices(bpy.types.Operator):
     bl_description = "Select shape key target vertices from the active meshes"
     bl_options = {"REGISTER", "UNDO"}
 
-    distance_threshold: bpy.props.FloatProperty(name=_("Distance Threshold"), default=0.0, min=0.0)
+    distance_threshold: bpy.props.FloatProperty(name="Distance Threshold", default=0.0, min=0.0)
 
     @classmethod
     def poll(cls, context):
@@ -320,7 +320,7 @@ class RemoveUnusedShapeKeys(bpy.types.Operator):
     bl_description = "Remove unused shape keys from the active meshes"
     bl_options = {"REGISTER", "UNDO"}
 
-    distance_threshold: bpy.props.FloatProperty(name=_("Distance Threshold"), default=0.0, min=0.0)
+    distance_threshold: bpy.props.FloatProperty(name="Distance Threshold", default=0.0, min=0.0)
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -384,11 +384,11 @@ class SelectMovedPoseBones(bpy.types.Operator):
     bl_label = "Select Moved Pose Bones"
     bl_options = {"REGISTER", "UNDO"}
 
-    select_rotated: bpy.props.BoolProperty(name=_("Rotated"), default=False)
-    select_translated: bpy.props.BoolProperty(name=_("Translated"), default=False)
-    select_scaled: bpy.props.BoolProperty(name=_("Scaled"), default=False)
+    select_rotated: bpy.props.BoolProperty(name="Rotated", default=False)
+    select_translated: bpy.props.BoolProperty(name="Translated", default=False)
+    select_scaled: bpy.props.BoolProperty(name="Scaled", default=False)
 
-    tolerance: bpy.props.FloatProperty(name=_("Tolerance"), default=1e-07)
+    tolerance: bpy.props.FloatProperty(name="Tolerance", default=1e-07)
 
     def execute(self, context):
         tolerance = self.tolerance
@@ -435,10 +435,10 @@ class AutoSegmentationOperator(bpy.types.Operator):
     bl_label = "Auto Segmentation"
     bl_options = {"REGISTER", "UNDO"}
 
-    cost_threshold: bpy.props.FloatProperty(name=_("Cost Threshold"), default=2.5, min=0, soft_max=3.0, step=1)
+    cost_threshold: bpy.props.FloatProperty(name="Cost Threshold", default=2.5, min=0, soft_max=3.0, step=1)
 
     maximum_area_threshold: bpy.props.FloatProperty(
-        name=_("Maximum Area Threshold"),
+        name="Maximum Area Threshold",
         default=0.500,
         min=0,
         soft_max=1.0,
@@ -446,7 +446,7 @@ class AutoSegmentationOperator(bpy.types.Operator):
         step=1,
     )
     minimum_area_threshold: bpy.props.FloatProperty(
-        name=_("Minimum Area Threshold"),
+        name="Minimum Area Threshold",
         default=0.001,
         min=0,
         soft_max=1.0,
@@ -454,30 +454,30 @@ class AutoSegmentationOperator(bpy.types.Operator):
         step=1,
     )
 
-    face_angle_cost_factor: bpy.props.FloatProperty(name=_("Face Angle Cost Factor"), default=1.0, min=0, soft_max=2.0, step=1)
-    perimeter_cost_factor: bpy.props.FloatProperty(name=_("Perimeter Cost Factor"), default=0.0, min=0, soft_max=10.0, step=1)
-    material_change_cost_factor: bpy.props.FloatProperty(name=_("Material Change Cost Factor"), default=0.3, min=0, soft_max=1.0, step=1)
-    edge_sharp_cost_factor: bpy.props.FloatProperty(name=_("Edge Sharp Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
-    edge_seam_cost_factor: bpy.props.FloatProperty(name=_("Edge Seam Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
+    face_angle_cost_factor: bpy.props.FloatProperty(name="Face Angle Cost Factor", default=1.0, min=0, soft_max=2.0, step=1)
+    perimeter_cost_factor: bpy.props.FloatProperty(name="Perimeter Cost Factor", default=0.0, min=0, soft_max=10.0, step=1)
+    material_change_cost_factor: bpy.props.FloatProperty(name="Material Change Cost Factor", default=0.3, min=0, soft_max=1.0, step=1)
+    edge_sharp_cost_factor: bpy.props.FloatProperty(name="Edge Sharp Cost Factor", default=0.0, min=0, soft_max=1.0, step=1)
+    edge_seam_cost_factor: bpy.props.FloatProperty(name="Edge Seam Cost Factor", default=0.0, min=0, soft_max=1.0, step=1)
     vertex_group_weight_cost_factor: bpy.props.FloatProperty(
-        name=_("Vertex Group Weight Cost Factor"),
+        name="Vertex Group Weight Cost Factor",
         default=0.1,
         min=0,
         soft_max=1.0,
         step=1,
     )
     vertex_group_change_cost_factor: bpy.props.FloatProperty(
-        name=_("Vertex Group Change Cost Factor"),
+        name="Vertex Group Change Cost Factor",
         default=0.5,
         min=0,
         soft_max=1.0,
         step=1,
     )
 
-    edge_length_factor: bpy.props.FloatProperty(name=_("Edge Length Factor"), default=1.0, min=0, soft_max=1.0, step=1)
+    edge_length_factor: bpy.props.FloatProperty(name="Edge Length Factor", default=1.0, min=0, soft_max=1.0, step=1)
 
-    segmentation_vertex_color_random_seed: bpy.props.IntProperty(name=_("Segmentation Vertex Color Random Seed"), default=0, min=0)
-    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name=_("Segmentation Vertex Color Attribute Name"), default="Segmentation")
+    segmentation_vertex_color_random_seed: bpy.props.IntProperty(name="Segmentation Vertex Color Random Seed", default=0, min=0)
+    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name="Segmentation Vertex Color Attribute Name", default="Segmentation")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -574,8 +574,8 @@ class PaintSelectedFacesOperator(bpy.types.Operator):
     bl_label = "Paint Selected Faces"
     bl_options = {"REGISTER", "UNDO"}
 
-    random_color: bpy.props.BoolProperty(name=_("Random Color"), default=False)
-    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name=_("Segmentation Vertex Color Attribute Name"), default="Segmentation")
+    random_color: bpy.props.BoolProperty(name="Random Color", default=False)
+    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name="Segmentation Vertex Color Attribute Name", default="Segmentation")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):

@@ -297,9 +297,9 @@ class SelectClothMesh(bpy.types.Operator):
     bl_label = "Select Cloth Mesh"
     bl_options = {"REGISTER", "UNDO"}
 
-    only_in_mmd_model: bpy.props.BoolProperty(name=_("Same MMD Model"))
-    only_physics_equals: bpy.props.BoolProperty(name=_("Same Physics Settings"))
-    only_cache_equals: bpy.props.BoolProperty(name=_("Same Cache Settings"))
+    only_in_mmd_model: bpy.props.BoolProperty(name="Same MMD Model")
+    only_physics_equals: bpy.props.BoolProperty(name="Same Physics Settings")
+    only_cache_equals: bpy.props.BoolProperty(name="Same Cache Settings")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -397,14 +397,14 @@ class ConvertRigidBodyToClothOperator(bpy.types.Operator):
     bl_description = "Select both the mesh to be deformed and the rigid body"
     bl_options = {"REGISTER", "UNDO"}
 
-    subdivision_level: bpy.props.IntProperty(name=_("Subdivision Levels"), min=0, max=5, default=0)
-    ribbon_stiffness: bpy.props.FloatProperty(name=_("Ribbon Stiffness"), min=0, max=1, default=0.2)
+    subdivision_level: bpy.props.IntProperty(name="Subdivision Levels", min=0, max=5, default=0)
+    ribbon_stiffness: bpy.props.FloatProperty(name="Ribbon Stiffness", min=0, max=1, default=0.2)
     physics_mode: bpy.props.EnumProperty(
-        name=_("Physics Mode"),
+        name="Physics Mode",
         items=[(m.name, m.value, "") for m in PhysicsMode],
         default=PhysicsMode.AUTO.name,
     )
-    extend_ribbon_area: bpy.props.BoolProperty(name=_("Extend Ribbon Area"), default=True)
+    extend_ribbon_area: bpy.props.BoolProperty(name="Extend Ribbon Area", default=True)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -482,14 +482,14 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         TUNERS[prop.presets](prop.id_data).execute()
 
     presets: bpy.props.EnumProperty(
-        name=_("Presets"),
+        name="Presets",
         items=TUNERS.to_enum_property_items(),
         update=_update_presets.__func__,
         default=None,
     )
 
     mass: bpy.props.FloatProperty(
-        name=_("Vertex Mass"),
+        name="Vertex Mass",
         min=0,
         soft_max=10,
         step=10,
@@ -506,7 +506,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         cloth_settings.shear_stiffness = value
 
     stiffness: bpy.props.FloatProperty(
-        name=_("Stiffness"),
+        name="Stiffness",
         min=0,
         soft_max=50,
         max=10000,
@@ -524,7 +524,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         cloth_settings.shear_damping = value
 
     damping: bpy.props.FloatProperty(
-        name=_("Damping"),
+        name="Damping",
         min=0,
         max=50,
         precision=3,
@@ -534,7 +534,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     collision_quality: bpy.props.IntProperty(
-        name=_("Collision Quality"),
+        name="Collision Quality",
         min=1,
         max=20,
         get=lambda p: getattr(
@@ -550,7 +550,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     distance_min: bpy.props.FloatProperty(
-        name=_("Minimum Distance"),
+        name="Minimum Distance",
         min=0.001,
         max=1.000,
         step=10,
@@ -560,7 +560,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     impulse_clamp: bpy.props.FloatProperty(
-        name=_("Impulse Clamping"),
+        name="Impulse Clamping",
         min=0,
         max=100,
         precision=3,
@@ -570,7 +570,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     frame_start: bpy.props.IntProperty(
-        name=_("Simulation Start"),
+        name="Simulation Start",
         min=0,
         max=1048574,
         get=lambda p: getattr(
@@ -582,7 +582,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     frame_end: bpy.props.IntProperty(
-        name=_("Simulation End"),
+        name="Simulation End",
         min=1,
         max=1048574,
         get=lambda p: getattr(
@@ -641,7 +641,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         set_bind_modifiers(target_mesh_modifiers, True)
 
     subdivision_levels: bpy.props.IntProperty(
-        name=_("Subdivision Levels"),
+        name="Subdivision Levels",
         min=0,
         soft_max=2,
         max=6,

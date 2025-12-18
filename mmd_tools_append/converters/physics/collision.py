@@ -118,8 +118,8 @@ class SelectCollisionMesh(bpy.types.Operator):
     bl_label = "Select Collision Mesh"
     bl_options = {"REGISTER", "UNDO"}
 
-    same_mmd_model: bpy.props.BoolProperty(name=_("Same MMD Model"))
-    same_physics_settings: bpy.props.BoolProperty(name=_("Same Physics Settings"))
+    same_mmd_model: bpy.props.BoolProperty(name="Same MMD Model")
+    same_physics_settings: bpy.props.BoolProperty(name="Same Physics Settings")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -206,10 +206,10 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     def _update_presets(prop, _):
         TUNERS[prop.presets](prop.id_data).execute()
 
-    presets: bpy.props.EnumProperty(name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
+    presets: bpy.props.EnumProperty(name="Presets", items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
 
     damping: bpy.props.FloatProperty(
-        name=_("Damping"),
+        name="Damping",
         min=0.000,
         max=1.000,
         precision=3,
@@ -218,7 +218,7 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     thickness_outer: bpy.props.FloatProperty(
-        name=_("Thickness Outer"),
+        name="Thickness Outer",
         min=0.001,
         max=1.000,
         precision=3,
@@ -227,7 +227,7 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     thickness_inner: bpy.props.FloatProperty(
-        name=_("Thickness Inner"),
+        name="Thickness Inner",
         min=0.001,
         max=1.000,
         precision=3,
@@ -236,7 +236,7 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     cloth_friction: bpy.props.FloatProperty(
-        name=_("Cloth Friction"),
+        name="Cloth Friction",
         min=0.000,
         max=80.000,
         step=10,

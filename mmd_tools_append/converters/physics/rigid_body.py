@@ -36,8 +36,8 @@ class SelectMeshRigidBody(bpy.types.Operator):
     bl_label = "Select Rigid Body Mesh"
     bl_options = {"REGISTER", "UNDO"}
 
-    only_in_mmd_model: bpy.props.BoolProperty(name=_("Only in the MMD Model"))
-    only_same_settings: bpy.props.BoolProperty(name=_("Only the same Settings"))
+    only_in_mmd_model: bpy.props.BoolProperty(name="Only in the MMD Model")
+    only_same_settings: bpy.props.BoolProperty(name="Only the same Settings")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):

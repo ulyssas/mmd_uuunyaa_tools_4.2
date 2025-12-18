@@ -20,9 +20,9 @@ class MMDArmatureAddMetarig(bpy.types.Operator):
     bl_description = "Generate Human (metarig) from MMD Armature."
     bl_options = {"REGISTER", "UNDO"}
 
-    use_mmd_orientation: bpy.props.BoolProperty(name=_("Align to MMD orientation"), description="Adjust bone rolls to fit common MMD arm and finger orientations", default=True)
-    is_clean_armature: bpy.props.BoolProperty(name=_("Clean Armature"), default=True)
-    is_clean_koikatsu_armature: bpy.props.BoolProperty(name=_("Clean Koikatsu Armature"), default=False)
+    use_mmd_orientation: bpy.props.BoolProperty(name="Align to MMD orientation", description="Adjust bone rolls to fit common MMD arm and finger orientations", default=True)
+    is_clean_armature: bpy.props.BoolProperty(name="Clean Armature", default=True)
+    is_clean_koikatsu_armature: bpy.props.BoolProperty(name="Clean Koikatsu Armature", default=False)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -223,7 +223,7 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
 
     is_join_armatures: bpy.props.BoolProperty(
-        name=_("Join Armatures"),
+        name="Join Armatures",
         description="Join MMD and Rigify armatures",
         default=True,
     )
@@ -275,15 +275,15 @@ class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
 
     is_join_armatures: bpy.props.BoolProperty(
-        name=_("Join Armatures"),
+        name="Join Armatures",
         description="Join MMD and Rigify armatures",
         default=True,
     )
-    mmd_main_bone_layer: bpy.props.IntProperty(name=_("MMD main bone layer"), default=24, min=0, max=31)
-    mmd_others_bone_layer: bpy.props.IntProperty(name=_("MMD others bone layer"), default=25, min=0, max=31)
-    mmd_shadow_bone_layer: bpy.props.IntProperty(name=_("MMD shadow bone layer"), default=26, min=0, max=31)
-    mmd_dummy_bone_layer: bpy.props.IntProperty(name=_("MMD dummy bone layer"), default=27, min=0, max=31)
-    rename_mmd_bones: bpy.props.BoolProperty(name=_("Rename MMD bones"), default=False)
+    mmd_main_bone_layer: bpy.props.IntProperty(name="MMD main bone layer", default=24, min=0, max=31)
+    mmd_others_bone_layer: bpy.props.IntProperty(name="MMD others bone layer", default=25, min=0, max=31)
+    mmd_shadow_bone_layer: bpy.props.IntProperty(name="MMD shadow bone layer", default=26, min=0, max=31)
+    mmd_dummy_bone_layer: bpy.props.IntProperty(name="MMD dummy bone layer", default=27, min=0, max=31)
+    rename_mmd_bones: bpy.props.BoolProperty(name="Rename MMD bones", default=False)
 
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):
@@ -348,7 +348,7 @@ class MMDRigifyConvert(bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
 
     upper_body2_bind_bone: bpy.props.EnumProperty(
-        name=_("Upper Body2 as"),
+        name="Upper Body2 as",
         items=[
             ("spine_fk.002", "spine_fk.002", ""),
             ("spine_fk.003", "spine_fk.003", ""),
@@ -358,7 +358,7 @@ class MMDRigifyConvert(bpy.types.Operator):
     )
 
     lower_body_bind_bone: bpy.props.EnumProperty(
-        name=_("Lower Body as"),
+        name="Lower Body as",
         items=[
             ("spine_fk", "spine_fk", ""),
             ("hips", "hips", ""),
@@ -400,11 +400,11 @@ class MMDRigifyDerigger(bpy.types.Operator):
     bl_description = "Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure."
     bl_options = {"REGISTER", "UNDO"}
 
-    remove_constraints: bpy.props.BoolProperty(name=_("Remove Bone Constraints"), default=True)
-    remove_driver: bpy.props.BoolProperty(name=_("Remove all drivers in Armature"), default=True)
-    remove_prefix: bpy.props.BoolProperty(name=_("Remove Rigify prefixes"), description="Remove Rigify prefixes (DEF-)", default=True)
-    cleanup: bpy.props.BoolProperty(name=_("Fix Rigify Bone structure"), description="Only works for Rigify", default=True)
-    unlock_bones: bpy.props.BoolProperty(name=_("Unlock Bones"), description="Unlock all bone transformations (translations, rotations, scales)", default=True)
+    remove_constraints: bpy.props.BoolProperty(name="Remove Bone Constraints", default=True)
+    remove_driver: bpy.props.BoolProperty(name="Remove all drivers in Armature", default=True)
+    remove_prefix: bpy.props.BoolProperty(name="Remove Rigify prefixes", description="Remove Rigify prefixes (DEF-)", default=True)
+    cleanup: bpy.props.BoolProperty(name="Fix Rigify Bone structure", description="Only works for Rigify", default=True)
+    unlock_bones: bpy.props.BoolProperty(name="Unlock Bones", description="Unlock all bone transformations (translations, rotations, scales)", default=True)
 
     @classmethod
     def poll(cls, context):
@@ -481,15 +481,15 @@ class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
 
     iterations: bpy.props.IntProperty(
-        name=_("Iterations"),
+        name="Iterations",
         description="Number of solving iterations",
         default=7,
         min=1,
         max=100,
     )
-    pose_arms: bpy.props.BoolProperty(name=_("Pose arms"), default=True)
-    pose_legs: bpy.props.BoolProperty(name=_("Pose legs"), default=True)
-    pose_fingers: bpy.props.BoolProperty(name=_("Pose fingers"), default=False)
+    pose_arms: bpy.props.BoolProperty(name="Pose arms", default=True)
+    pose_legs: bpy.props.BoolProperty(name="Pose legs", default=True)
+    pose_fingers: bpy.props.BoolProperty(name="Pose fingers", default=False)
 
     @classmethod
     def poll(cls, context):
@@ -556,15 +556,15 @@ class MMDAutoRigApplyMMDRestPose(bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
 
     iterations: bpy.props.IntProperty(
-        name=_("Iterations"),
+        name="Iterations",
         description="Number of solving iterations",
         default=7,
         min=1,
         max=100,
     )
-    pose_arms: bpy.props.BoolProperty(name=_("Pose arms"), default=True)
-    pose_legs: bpy.props.BoolProperty(name=_("Pose legs"), default=True)
-    pose_fingers: bpy.props.BoolProperty(name=_("Pose fingers"), default=False)
+    pose_arms: bpy.props.BoolProperty(name="Pose arms", default=True)
+    pose_legs: bpy.props.BoolProperty(name="Pose legs", default=True)
+    pose_fingers: bpy.props.BoolProperty(name="Pose fingers", default=False)
 
     @classmethod
     def poll(cls, context):

@@ -121,7 +121,7 @@ class AddSkinHairMesh(bpy.types.Operator):
     segments: bpy.props.IntProperty(default=3, min=3)
 
     align: bpy.props.EnumProperty(
-        name=_("Align"),
+        name="Align",
         items=(
             ("WORLD", _("World"), _("Align the new object to the world")),
             ("VIEW", _("View"), _("Align the new object to the view")),
@@ -132,11 +132,11 @@ class AddSkinHairMesh(bpy.types.Operator):
     )
 
     location: bpy.props.FloatVectorProperty(
-        name=_("Location"),
+        name="Location",
         subtype="TRANSLATION",
     )
     rotation: bpy.props.FloatVectorProperty(
-        name=_("Rotation"),
+        name="Rotation",
         subtype="EULER",
     )
 
