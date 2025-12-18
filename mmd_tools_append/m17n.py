@@ -3624,13 +3624,13 @@ translations_tuple = (
         ("zh_HANS", "糙度", (False, ())),
     ),
     (
-        ("*", "Wet"),
+        ("Operator", "Wet"),
         (("extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:63", "extensions/user_default/mmd_tools_append/tuners/panels.py:197"), ()),
         ("ja_JP", "ウェット", (False, ())),
         ("zh_HANS", "湿润", (False, ())),
     ),
     (
-        ("*", "Glitter"),
+        ("Operator", "Glitter"),
         (("extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:120", "extensions/user_default/mmd_tools_append/tuners/panels.py:198"), ()),
         ("ja_JP", "グリッター", (False, ())),
         ("zh_HANS", "闪耀", (False, ())),
@@ -3994,7 +3994,7 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
-        ("*", "Emission"),
+        ("Operator", "Emission"),
         (("extensions/user_default/mmd_tools_append/tuners/panels.py:199",), ()),
         ("ja_JP", "放射", (False, ())),
         ("zh_HANS", "发射", (False, ())),
