@@ -29,7 +29,7 @@ class SkyPanel(bpy.types.Panel):
     def poll(cls, context):
         return context.scene.world is not None
 
-    translation_properties = [
+    _translation_properties = [
         _("Light Strength"),
         _("Image Strength"),
     ]

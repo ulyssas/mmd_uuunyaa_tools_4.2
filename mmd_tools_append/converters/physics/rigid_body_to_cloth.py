@@ -22,7 +22,7 @@ class PhysicsMode(Enum):
     SURFACE_DEFORM = "Surface Deform"
 
 
-translation_properties = [
+_translation_properties = [
     _("Auto"),
     _("Bone Constraint"),
     _("Surface Deform"),

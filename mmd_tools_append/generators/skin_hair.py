@@ -123,9 +123,9 @@ class AddSkinHairMesh(bpy.types.Operator):
     align: bpy.props.EnumProperty(
         name="Align",
         items=(
-            ("WORLD", _("World"), _("Align the new object to the world")),
-            ("VIEW", _("View"), _("Align the new object to the view")),
-            ("CURSOR", _("3D Cursor"), _("Use the 3D cursor orientation for the new object")),
+            ("WORLD", "World", "Align the new object to the world"),
+            ("VIEW", "View", "Align the new object to the view"),
+            ("CURSOR", "3D Cursor", "Use the 3D cursor orientation for the new object"),
         ),
         default="WORLD",
         update=lambda p, _: p.rotation.zero() if p.align == "WORLD" else None,

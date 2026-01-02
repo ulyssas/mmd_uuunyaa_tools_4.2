@@ -29,7 +29,7 @@ class AssetType(Enum):
     WORLD_BLENDER = "World (.blend)"
 
 
-translation_properties = [
+_translation_properties = [
     _("All"),
     _("Model (.pmx)"),
     _("Model (.blend)"),

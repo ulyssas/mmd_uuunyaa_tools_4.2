@@ -570,7 +570,7 @@ class FabricCottonMaterialTuner(MaterialTunerABC):
     def get_name(cls) -> str:
         return "Fabric Cotton"
 
-    translation_properties = [
+    _translation_properties = [
         _("Color"),
         _("Alpha"),
         _("Vector"),
@@ -654,7 +654,7 @@ class FabricSilkMaterialTuner(MaterialTunerABC):
     def get_name(cls) -> str:
         return "Fabric Silk"
 
-    translation_properties = [
+    _translation_properties = [
         _("Color"),
         _("Alpha"),
         _("Vector"),
@@ -738,7 +738,7 @@ class FabricKnitMaterialTuner(MaterialTunerABC):
     def get_name(cls) -> str:
         return "Fabric Knit"
 
-    translation_properties = [
+    _translation_properties = [
         _("Color"),
         _("Alpha"),
         _("Hole Alpha"),
@@ -796,7 +796,7 @@ class FabricLeatherMaterialTuner(MaterialTunerABC):
     def get_name(cls) -> str:
         return "Fabric Leather"
 
-    translation_properties = [
+    _translation_properties = [
         _("Primary Color"),
         _("Secondary Color"),
         _("Roughness"),
@@ -1102,7 +1102,7 @@ class ArtisticWatercolorMaterialTuner(MaterialTunerABC):
     def get_name(cls) -> str:
         return "Artistic Watercolor"
 
-    translation_properties = [
+    _translation_properties = [
         _("Color"),
         _("Scale"),
         _("Background Scale"),
@@ -1153,7 +1153,7 @@ class ToonShaderMaterialTuner(MaterialTunerABC):
     def get_name(cls) -> str:
         return "Toon Shader"
 
-    translation_properties = [
+    _translation_properties = [
         _("Base Color"),
         _("Highlight Color"),
         _("Shadow Color"),
