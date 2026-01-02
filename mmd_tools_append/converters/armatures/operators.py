@@ -5,8 +5,8 @@
 from typing import Iterable, Optional, Tuple
 
 import bpy
+from bpy.app.translations import pgettext as _
 
-from ...m17n import _
 from ...utilities import MessageException, import_mmd_tools
 from .autorig import AutoRigArmatureObject
 from .metarig import MetarigArmatureObject

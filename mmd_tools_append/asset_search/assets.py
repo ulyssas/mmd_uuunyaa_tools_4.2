@@ -12,9 +12,9 @@ from enum import Enum
 from typing import Any, Dict, ItemsView, Tuple, ValuesView
 
 import requests
+from bpy.app.translations import pgettext as _
 
 from .. import PACKAGE_PATH, REGISTER_HOOKS
-from ..m17n import _
 from ..utilities import get_preferences, import_from_file
 
 

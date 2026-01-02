@@ -10,9 +10,10 @@ from typing import Dict, Iterable, List, Optional, Set, Tuple
 
 import bmesh
 import bpy
+from bpy.app.translations import pgettext as _
+from bpy.app.translations import pgettext_iface as iface_
 
 from ...editors.meshes import MeshEditor
-from ...m17n import _, iface_
 from ...utilities import MessageException, import_mmd_tools
 
 

@@ -4,9 +4,10 @@
 
 
 import bpy
+from bpy.app.translations import pgettext as _
+from bpy.app.translations import pgettext_iface as iface_
 
 from ..editors.nodes import MaterialEditor
-from ..m17n import _, iface_
 from ..tuners.lighting_tuners import LightingUtilities
 from ..tuners.material_adjusters import (
     EmissionAdjuster,

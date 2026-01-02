@@ -5,9 +5,9 @@
 from abc import abstractmethod
 
 import bpy
+from bpy.app.translations import pgettext as _
 
 from ..editors.nodes import MaterialEditor
-from ..m17n import _
 
 
 class MaterialAdjusterUtilities(MaterialEditor):

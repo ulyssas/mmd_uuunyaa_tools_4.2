@@ -12,11 +12,11 @@ import bmesh
 import bpy
 import mathutils
 import numpy as np
+from bpy.app.translations import pgettext as _
 from mathutils import Matrix, Vector
 
 from ...editors.armatures import ArmatureEditor
 from ...editors.meshes import MeshEditor
-from ...m17n import _
 from ...utilities import MessageException
 
 

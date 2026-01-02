@@ -10,9 +10,10 @@ from typing import List, Optional, Tuple
 
 import bpy
 import bpy.utils.previews
+from bpy.app.translations import pgettext as _
+from bpy.app.translations import pgettext_iface as iface_
 
 from .. import PACKAGE_PATH
-from ..m17n import _, iface_
 from ..utilities import get_preferences, is_mmd_tools_installed, label_multiline, to_human_friendly_text, to_int32
 from .actions import ImportActionExecutor, MessageException
 from .assets import ASSETS, AssetDescription, AssetType

@@ -7,11 +7,11 @@ import pathlib
 import tempfile
 
 import bpy
+from bpy.app.translations import pgettext as _
 
 from . import utilities
 from .asset_search.assets import AssetUpdater
 from .asset_search.operators import DeleteCachedFiles
-from .m17n import _
 
 
 class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):

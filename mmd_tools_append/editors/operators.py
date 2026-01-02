@@ -9,9 +9,9 @@ from typing import Set
 
 import bmesh
 import bpy
+from bpy.app.translations import pgettext as _
 
 from ..editors import segmentation
-from ..m17n import _
 from ..utilities import label_multiline
 
 

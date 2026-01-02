@@ -4,8 +4,9 @@
 
 # pylint: disable=too-many-lines
 
+from bpy.app.translations import pgettext as _
+
 from ..editors.nodes import MaterialEditor
-from ..m17n import _
 from ..tuners import TunerABC, TunerRegistry
 from ..tuners.material_adjusters import WetAdjuster
 

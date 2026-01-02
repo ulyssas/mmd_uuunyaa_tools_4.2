@@ -5,9 +5,9 @@
 from typing import Iterable, Iterator, List
 
 import bpy
+from bpy.app.translations import pgettext as _
 
 from ...editors.meshes import MeshEditor
-from ...m17n import _
 from ...tuners import TunerABC, TunerRegistry
 from ...utilities import MMD_TOOLS_IMPORT_HOOKS, MessageException, import_mmd_tools
 from .rigid_body_to_cloth import (

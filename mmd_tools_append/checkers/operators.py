@@ -8,8 +8,8 @@ from enum import Enum
 from typing import Optional, Set, Tuple
 
 import bpy
-
-from ..m17n import _, iface_
+from bpy.app.translations import pgettext as _
+from bpy.app.translations import pgettext_iface as iface_
 
 
 class CheckResultStatus(Enum):

@@ -10,8 +10,7 @@ import re
 import sys
 
 import bpy
-
-from .m17n import _
+from bpy.app.translations import pgettext as _
 
 
 def to_int32(value: int) -> int:
