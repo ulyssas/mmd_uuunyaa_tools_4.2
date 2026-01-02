@@ -10,7 +10,6 @@ from ..editors.operators import (
     SelectMovedPoseBones,
     SelectShapeKeyTargetVertices,
 )
-from ..m17n import _
 
 
 class RemoveUnusedVertexGroupsMenu(bpy.types.Menu):

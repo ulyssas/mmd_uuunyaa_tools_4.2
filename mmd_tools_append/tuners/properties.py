@@ -4,7 +4,6 @@
 
 import bpy
 
-from ..m17n import _
 from ..tuners import geometry_nodes_tuners, lighting_tuners, material_tuners
 
 

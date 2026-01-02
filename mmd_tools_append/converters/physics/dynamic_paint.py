@@ -5,7 +5,6 @@
 import bpy
 
 from ...editors.meshes import MeshEditor
-from ...m17n import _
 from ...tuners import TunerABC, TunerRegistry
 
 

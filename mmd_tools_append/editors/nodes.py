@@ -9,7 +9,6 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 import bpy
 
 from .. import PACKAGE_PATH
-from ..m17n import _
 from ..utilities import raise_installation_error
 
 PATH_BLENDS_MMD_APPEND_MATERIALS = os.path.join(PACKAGE_PATH, "blends", "MMDAppend_Materials.blend")

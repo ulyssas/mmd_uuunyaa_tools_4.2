@@ -9,7 +9,6 @@ import bpy
 
 from .. import PACKAGE_PATH
 from ..editors.nodes import NodeEditor
-from ..m17n import _
 
 try:
     from bpy.types import (

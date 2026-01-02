@@ -6,8 +6,6 @@ from typing import List
 
 import bpy
 
-from ..m17n import _
-
 
 class AddCenterOfGravityObject(bpy.types.Operator):
     bl_idname = "mmd_tools_append.add_center_of_gravity_object"

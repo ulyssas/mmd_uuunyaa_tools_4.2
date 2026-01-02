@@ -6,7 +6,6 @@ from typing import Optional
 
 import bpy
 
-from ..m17n import _
 from ..tuners import TunerABC, TunerRegistry
 
 try:

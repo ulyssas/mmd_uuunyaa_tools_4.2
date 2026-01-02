@@ -5,7 +5,6 @@
 import bpy
 
 from ..editors.nodes import MaterialEditor
-from ..m17n import _
 from ..tuners import lighting_tuners, material_adjusters, material_tuners
 
 

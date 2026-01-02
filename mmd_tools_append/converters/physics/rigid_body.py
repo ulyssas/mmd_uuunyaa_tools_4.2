@@ -7,7 +7,6 @@ from typing import Iterable
 import bpy
 
 from ...editors.meshes import MeshEditor
-from ...m17n import _
 from ...utilities import import_mmd_tools
 
 

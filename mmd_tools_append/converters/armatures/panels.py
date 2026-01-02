@@ -4,7 +4,6 @@
 
 import bpy
 
-from ...m17n import _
 from ...utilities import is_mmd_tools_installed
 from .autorig import AutoRigArmatureObject
 from .mmd_bind import ControlType

@@ -4,7 +4,6 @@
 
 import bpy
 
-from ..m17n import _
 from .assets import ASSETS, AssetUpdater
 from .cache import CONTENT_CACHE
 

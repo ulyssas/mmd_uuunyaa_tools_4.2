@@ -8,7 +8,6 @@ from typing import Optional
 import bpy
 
 from .. import PACKAGE_PATH
-from ..m17n import _
 from ..tuners import TunerABC, TunerRegistry
 from ..tuners.utilities import ObjectAppender, ObjectMarker
 

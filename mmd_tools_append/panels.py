@@ -35,7 +35,6 @@ from .editors.operators import (
     SetupSegmentationColorPaletteOperator,
 )
 from .generators.physics import AddCenterOfGravityObject
-from .m17n import _
 from .utilities import import_mmd_tools, is_mmd_tools_installed
 
 
