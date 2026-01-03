@@ -1,32 +1,30 @@
+
+msgid ""
+msgstr ""
+
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_cache_folder
-#: extensions/user_default/mmd_tools_append/preferences.py:50
 msgid "Asset Cache Folder"
 msgstr "アセットキャッシュフォルダー"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_cache_folder
-#: extensions/user_default/mmd_tools_append/preferences.py:51
 msgid "Path to asset cache folder"
 msgstr "アセットキャッシュフォルダーのパス"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_extract_folder
-#: extensions/user_default/mmd_tools_append/preferences.py:72
 msgid "Asset Extract Folder"
 msgstr "アセット展開フォルダー"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_extract_folder
-#: extensions/user_default/mmd_tools_append/preferences.py:73
 msgid ""
 "Path to assets. Create it under the Asset Extract Root Folder.\n"
 "The following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}"
 msgstr ""
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_extract_json
-#: extensions/user_default/mmd_tools_append/preferences.py:78
 msgid "Asset Extract JSON"
 msgstr "アセット展開JSON"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_extract_json
-#: extensions/user_default/mmd_tools_append/preferences.py:80
 msgid ""
 "Name to assets marker JSON. Create it under the Asset Extract Folder.\n"
 "The presence of this file is used to determine the existence of the asset.\n"
@@ -34,72 +32,59 @@ msgid ""
 msgstr ""
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_extract_root_folder
-#: extensions/user_default/mmd_tools_append/preferences.py:65
 msgid "Asset Extract Root Folder"
 msgstr "アセット展開ルートフォルダー"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_extract_root_folder
-#: extensions/user_default/mmd_tools_append/preferences.py:66
 msgid "Path to extract the cached assets"
 msgstr "キャッシュしたアセットの展開パス"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_json_update_on_startup_enabled
-#: extensions/user_default/mmd_tools_append/preferences.py:47
 msgid "Asset JSON Auto Update on Startup"
 msgstr "起動時にアセットJSONを更新する"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_json_update_query
-#: extensions/user_default/mmd_tools_append/preferences.py:42
 msgid "Asset JSON Update Query"
 msgstr "アセットJSON更新クエリ"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_json_update_query
-#: extensions/user_default/mmd_tools_append/preferences.py:43
 msgid "Specify the filter conditions for retrieving assets"
 msgstr "アセットを取得するフィルタ条件を指定"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_json_update_repo
-#: extensions/user_default/mmd_tools_append/preferences.py:36
 msgid "Asset JSON Update Repository"
 msgstr "アセットJSON更新リポジトリ"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_json_update_repo
-#: extensions/user_default/mmd_tools_append/preferences.py:37
 msgid "Specify the github repository which to retrieve the assets"
 msgstr "アセットを取得するgithubリポジトリを指定"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_jsons_folder
-#: extensions/user_default/mmd_tools_append/preferences.py:29
 msgid "Asset JSONs Folder"
 msgstr "アセットJSONフォルダー"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_jsons_folder
-#: extensions/user_default/mmd_tools_append/preferences.py:30
 msgid "Path to asset list JSON files"
 msgstr "アセットJSONファイルのパス"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_max_cache_size
-#: extensions/user_default/mmd_tools_append/preferences.py:57
 msgid "Asset Max. Cache Size (MB)"
 msgstr "アセット最大キャッシュサイズ(MB)"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_max_cache_size
-#: extensions/user_default/mmd_tools_append/preferences.py:58
 msgid "Maximum size (Mega bytes) of the asset cache folder"
 msgstr "アセットキャッシュフォルダーの最大サイズ(メガバイト)"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_search_results_max_display_count
-#: extensions/user_default/mmd_tools_append/preferences.py:21
 msgid "Asset Search Results Max. Display Count"
 msgstr "アセットサーチ結果の最大表示件数"
 
 #. :src: bpy.types.MMDToolsAppendAddonPreferences.asset_search_results_max_display_count
-#: extensions/user_default/mmd_tools_append/preferences.py:22
 msgid "Larger value is slower"
 msgstr "大きい値ほど遅い"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_center_of_gravity_object
-#: extensions/user_default/mmd_tools_append/panels.py:193
+#: extensions/user_default/mmd_tools_append/panels.py:191
 msgctxt "Operator"
 msgid "Add Center of Gravity"
 msgstr "重心を追加"
@@ -156,8 +141,8 @@ msgstr "マテリアル調整器を付加"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_autorig_apply_mmd_rest_pose
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_apply_mmd_rest_pose
-#: extensions/user_default/mmd_tools_append/panels.py:107
-#: extensions/user_default/mmd_tools_append/panels.py:114
+#: extensions/user_default/mmd_tools_append/panels.py:105
+#: extensions/user_default/mmd_tools_append/panels.py:112
 msgctxt "Operator"
 msgid "Apply MMD Rest Pose"
 msgstr "MMDレストポーズを適用"
@@ -353,7 +338,7 @@ msgid "Show Message Box"
 msgstr "メッセージボックスを表示"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_stretch_bone_to_vertex
-#: extensions/user_default/mmd_tools_append/panels.py:192
+#: extensions/user_default/mmd_tools_append/panels.py:190
 msgctxt "Operator"
 msgid "Stretch Bone to Vertex"
 msgstr "ボーンを頂点にストレッチ"
@@ -384,82 +369,63 @@ msgid "Update Debug Asset JSON"
 msgstr "デバッグアセットJSONを更新"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_pyramid_mesh_by_breast_bone
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:869
 msgid "Add pyramid meshes from selected breast bones."
 msgstr "選択された胸ボーンからピラミッドメッシュを追加します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_pyramid_mesh_by_breast_bone.base_area_factor
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:874
 msgid "Base Area Factor"
 msgstr "底面積係数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_pyramid_mesh_by_breast_bone.project_vertically
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:875
 msgid "Project Base Vertices Vertically"
 msgstr "底面頂点を垂直に投影"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_pyramid_mesh_by_breast_bone.string_length_ratio
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:873
 msgid "String Length Ratio"
 msgstr "弦長比"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_skin_hair_mesh
-#: extensions/user_default/mmd_tools_append/generators/skin_hair.py:108
 msgid "Construct a skin hair mesh"
 msgstr "体毛メッシュを構築"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_assign_pyramid_weights.boundary_expansion_hop_count
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_convert_pyramid_mesh_to_cloth.boundary_expansion_hop_count
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:920
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:985
 msgid "Boundary Expansion Hop Count"
 msgstr "境界拡張ホップ数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_autorig_apply_mmd_rest_pose.iterations
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_apply_mmd_rest_pose.iterations
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:485
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:560
 msgid "Number of solving iterations"
 msgstr "反復解決回数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_autorig_apply_mmd_rest_pose.pose_arms
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_apply_mmd_rest_pose.pose_arms
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:490
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:565
 msgid "Pose arms"
 msgstr "腕をポーズ"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_autorig_apply_mmd_rest_pose.pose_fingers
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_apply_mmd_rest_pose.pose_fingers
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:492
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:567
 msgid "Pose fingers"
 msgstr "指をポーズ"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_autorig_apply_mmd_rest_pose.pose_legs
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_apply_mmd_rest_pose.pose_legs
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:491
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:566
 msgid "Pose legs"
 msgstr "脚をポーズ"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_convert_pyramid_mesh_to_cloth
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:917
 msgid "Convert pyramid meshes to cloth simulation."
 msgstr "ピラミッドメッシュをクロスシミュレーションに変換します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_convert_rigid_body_to_cloth
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:397
 msgid "Select both the mesh to be deformed and the rigid body"
 msgstr "変形対象メッシュとリジッドボディの両方を選択"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_convert_rigid_body_to_cloth.extend_ribbon_area
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:407
 msgid "Extend Ribbon Area"
 msgstr "リボンエリア拡張"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_convert_rigid_body_to_cloth.physics_mode
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:403
 msgid "Physics Mode"
 msgstr "物理モード"
 
@@ -469,223 +435,168 @@ msgid "Bone Constraint"
 msgstr "ボーンコンストレイント"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_convert_rigid_body_to_cloth.ribbon_stiffness
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:401
 msgid "Ribbon Stiffness"
 msgstr "リボン剛性"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_copy_tune_material_settings
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:68
 msgid "Apply current Append material to materials of the selected objects."
 msgstr "現在のAppendマテリアルを選択中のオブジェクトのマテリアルに適用します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_copy_tune_material_settings.to_active
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:71
 msgid "Apply to active object"
 msgstr "アクティブに適用"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_copy_tune_material_settings.to_active
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:71
 msgid "Apply Append material to materials in active object"
 msgstr "アクティブオブジェクトのマテリアルにAppendマテリアルを適用します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_copy_tune_material_settings.to_selection
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:72
 msgid "Apply to selection"
 msgstr "選択に適用"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_copy_tune_material_settings.to_selection
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:72
 msgid "Apply Append material to materials in selected object"
 msgstr "選択中のオブジェクトのマテリアルにAppendマテリアルを適用します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.cost_threshold
 #. :src: bpy.types.SegmentationPropertyGroup.cost_threshold
-#: extensions/user_default/mmd_tools_append/editors/operators.py:438
-#: extensions/user_default/mmd_tools_append/panels.py:305
 msgid "Cost Threshold"
 msgstr "コストしきい値"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.edge_length_factor
 #. :src: bpy.types.SegmentationPropertyGroup.edge_length_factor
-#: extensions/user_default/mmd_tools_append/editors/operators.py:477
-#: extensions/user_default/mmd_tools_append/panels.py:318
 msgid "Edge Length Factor"
 msgstr "辺の長さ係数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.edge_seam_cost_factor
 #. :src: bpy.types.SegmentationPropertyGroup.edge_seam_cost_factor
-#: extensions/user_default/mmd_tools_append/editors/operators.py:461
-#: extensions/user_default/mmd_tools_append/panels.py:314
 msgid "Edge Seam Cost Factor"
 msgstr "辺シームコスト係数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.edge_sharp_cost_factor
 #. :src: bpy.types.SegmentationPropertyGroup.edge_sharp_cost_factor
-#: extensions/user_default/mmd_tools_append/editors/operators.py:460
-#: extensions/user_default/mmd_tools_append/panels.py:313
 msgid "Edge Sharp Cost Factor"
 msgstr "辺シャープコスト係数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.face_angle_cost_factor
 #. :src: bpy.types.SegmentationPropertyGroup.face_angle_cost_factor
-#: extensions/user_default/mmd_tools_append/editors/operators.py:457
-#: extensions/user_default/mmd_tools_append/panels.py:310
 msgid "Face Angle Cost Factor"
 msgstr "面角度コスト係数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.material_change_cost_factor
 #. :src: bpy.types.SegmentationPropertyGroup.material_change_cost_factor
-#: extensions/user_default/mmd_tools_append/editors/operators.py:459
-#: extensions/user_default/mmd_tools_append/panels.py:312
 msgid "Material Change Cost Factor"
 msgstr "マテリアル変化コスト係数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.maximum_area_threshold
 #. :src: bpy.types.SegmentationPropertyGroup.maximum_area_threshold
-#: extensions/user_default/mmd_tools_append/editors/operators.py:441
-#: extensions/user_default/mmd_tools_append/panels.py:307
 msgid "Maximum Area Threshold"
 msgstr "最大面積しきい値"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.minimum_area_threshold
 #. :src: bpy.types.SegmentationPropertyGroup.minimum_area_threshold
-#: extensions/user_default/mmd_tools_append/editors/operators.py:449
-#: extensions/user_default/mmd_tools_append/panels.py:308
 msgid "Minimum Area Threshold"
 msgstr "最小面積しきい値"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.perimeter_cost_factor
 #. :src: bpy.types.SegmentationPropertyGroup.perimeter_cost_factor
-#: extensions/user_default/mmd_tools_append/editors/operators.py:458
-#: extensions/user_default/mmd_tools_append/panels.py:311
 msgid "Perimeter Cost Factor"
 msgstr "外周コスト係数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.segmentation_vertex_color_attribute_name
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_paint_selected_faces.segmentation_vertex_color_attribute_name
 #. :src: bpy.types.SegmentationPropertyGroup.segmentation_vertex_color_attribute_name
-#: extensions/user_default/mmd_tools_append/editors/operators.py:480
-#: extensions/user_default/mmd_tools_append/editors/operators.py:578
-#: extensions/user_default/mmd_tools_append/panels.py:321
 msgid "Segmentation Vertex Color Attribute Name"
 msgstr "セグメンテーション頂点カラーランダムシード属性名"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.segmentation_vertex_color_random_seed
 #. :src: bpy.types.SegmentationPropertyGroup.segmentation_vertex_color_random_seed
-#: extensions/user_default/mmd_tools_append/editors/operators.py:479
-#: extensions/user_default/mmd_tools_append/panels.py:320
 msgid "Segmentation Vertex Color Random Seed"
 msgstr "セグメンテーション頂点カラーランダムシード"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.vertex_group_change_cost_factor
 #. :src: bpy.types.SegmentationPropertyGroup.vertex_group_change_cost_factor
-#: extensions/user_default/mmd_tools_append/editors/operators.py:470
-#: extensions/user_default/mmd_tools_append/panels.py:316
 msgid "Vertex Group Change Cost Factor"
 msgstr "頂点グループ変化コスト係数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_auto_segment.vertex_group_weight_cost_factor
 #. :src: bpy.types.SegmentationPropertyGroup.vertex_group_weight_cost_factor
-#: extensions/user_default/mmd_tools_append/editors/operators.py:463
-#: extensions/user_default/mmd_tools_append/panels.py:315
 msgid "Vertex Group Weight Cost Factor"
 msgstr "頂点グループウェイトコスト係数"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mesh_paint_selected_faces.random_color
-#: extensions/user_default/mmd_tools_append/editors/operators.py:577
 msgid "Random Color"
 msgstr "ランダムカラー"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_armature_add_metarig
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:20
 msgid "Generate Human (metarig) from MMD Armature."
 msgstr "MMDアーマチュアからHuman (metarig)を生成します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_armature_add_metarig.is_clean_armature
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:24
 msgid "Clean Armature"
 msgstr "アーマチュアを整理"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_armature_add_metarig.is_clean_koikatsu_armature
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:25
 msgid "Clean Koikatsu Armature"
 msgstr "コイカツアーマチュアを整理"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_armature_add_metarig.use_mmd_orientation
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:23
 msgid "Align to MMD orientation"
 msgstr "MMDの向きに合わせる"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_armature_add_metarig.use_mmd_orientation
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:23
 msgid "Adjust bone rolls to fit common MMD arm and finger orientations"
 msgstr "ボーンを通常のMMDモデルにおける腕と指の向きに合わせます"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:222
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:274
 msgid "Combine Rigify rig and MMD armature."
 msgstr "RigifyリグとMMDアーマチュアを統合します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.is_join_armatures
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.is_join_armatures
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:226
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:278
 msgid "Join Armatures"
 msgstr "アーマチュアを結合"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.is_join_armatures
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.is_join_armatures
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:227
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:279
 msgid "Join MMD and Rigify armatures"
 msgstr "RigifyとMMDアーマチュアを結合"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_dummy_bone_layer
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:285
 msgid "MMD dummy bone layer"
 msgstr "MMDダミーボーンレイヤー"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_main_bone_layer
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:282
 msgid "MMD main bone layer"
 msgstr "MMDメインボーンレイヤー"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_others_bone_layer
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:283
 msgid "MMD others bone layer"
 msgstr "MMDその他ボーンレイヤー"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_shadow_bone_layer
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:284
 msgid "MMD shadow bone layer"
 msgstr "MMDシャドウボーンレイヤー"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.rename_mmd_bones
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:286
 msgid "Rename MMD bones"
 msgstr "MMDボーンをリネーム"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_remove_unused_shape_keys
-#: extensions/user_default/mmd_tools_append/editors/operators.py:320
 msgid "Remove unused shape keys from the active meshes"
 msgstr "アクティブメッシュから未使用シェイプキーをすべて削除"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_remove_unused_shape_keys.distance_threshold
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_shape_key_target_vertices.distance_threshold
-#: extensions/user_default/mmd_tools_append/editors/operators.py:276
-#: extensions/user_default/mmd_tools_append/editors/operators.py:323
 msgid "Distance Threshold"
 msgstr "距離しきい値"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_remove_unused_vertex_groups
-#: extensions/user_default/mmd_tools_append/editors/operators.py:205
 msgid "Remove unused vertex groups from the active meshes"
 msgstr "アクティブメッシュから未使用頂点グループをすべて削除"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_derigger
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:400
 msgid ""
 "Remove non-deform bones from armature. Works for non-Rigify rigs as well.\n"
 "May break bone structure."
@@ -694,315 +605,253 @@ msgstr ""
 "ボーン構造が崩れる恐れがあります"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_derigger.cleanup
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:406
 msgid "Fix Rigify Bone structure"
 msgstr "Rigifyボーン構造を修正"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_derigger.cleanup
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:406
 msgid "Only works for Rigify"
 msgstr "Rigify専用です"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_derigger.remove_constraints
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:403
 msgid "Remove Bone Constraints"
 msgstr "ボーンコンストレイントを削除"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_derigger.remove_driver
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:404
 msgid "Remove all drivers in Armature"
 msgstr "ドライバーを全て削除"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_derigger.remove_prefix
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:405
 msgid "Remove Rigify prefixes"
 msgstr "Rigify接頭辞を削除"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_derigger.remove_prefix
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:405
 msgid "Remove Rigify prefixes (DEF-)"
 msgstr "Rigifyボーン名につくDEF等の接頭辞を削除します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_derigger.unlock_bones
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:407
 msgid "Unlock Bones"
 msgstr "トランスフォームのロック解除"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_derigger.unlock_bones
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:407
 msgid "Unlock all bone transformations (translations, rotations, scales)"
 msgstr "ボーンの位置, 回転, スケールの制限を解除します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_to_mmd_compatible.lower_body_bind_bone
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:361
 msgid "Lower Body as"
 msgstr "下半身として"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_to_mmd_compatible.upper_body2_bind_bone
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:351
 msgid "Upper Body2 as"
 msgstr "上半身２として"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_rigify_translator
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:444
 msgid "Translate Rigify metarig bone names to MMD."
 msgstr "Rigifyメタリグに存在するボーン名をMMD用に翻訳します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_cloth_mesh.only_cache_equals
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:302
 msgid "Same Cache Settings"
 msgstr "同じキャッシュ設定"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_cloth_mesh.only_in_mmd_model
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_collision_mesh.same_mmd_model
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:300
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:121
 msgid "Same MMD Model"
 msgstr "同じMMDモデル"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_cloth_mesh.only_physics_equals
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_collision_mesh.same_physics_settings
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:301
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:122
 msgid "Same Physics Settings"
 msgstr "同じ物理設定"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_moved_pose_bones.select_rotated
-#: extensions/user_default/mmd_tools_append/editors/menus.py:88
-#: extensions/user_default/mmd_tools_append/editors/operators.py:387
 msgid "Rotated"
 msgstr "回転済"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_moved_pose_bones.select_translated
-#: extensions/user_default/mmd_tools_append/editors/menus.py:93
-#: extensions/user_default/mmd_tools_append/editors/operators.py:388
 msgid "Translated"
 msgstr "移動済"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_rigid_body_mesh.only_in_mmd_model
-#: extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:39
 msgid "Only in the MMD Model"
 msgstr "MMDモデルのみ"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_rigid_body_mesh.only_same_settings
-#: extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:40
 msgid "Only the same Settings"
 msgstr "同じ設定のみ"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_select_shape_key_target_vertices
-#: extensions/user_default/mmd_tools_append/editors/operators.py:273
 msgid "Select shape key target vertices from the active meshes"
 msgstr "アクティブメッシュのシェイプキー対象の頂点を選択"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_setup_render_engine_for_eevee
-#: extensions/user_default/mmd_tools_append/editors/operators.py:21
 msgid "Setup render engine properties for Eevee."
 msgstr "レンダーエンジンプロパティをEevee用に設定"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_setup_render_engine_for_eevee.film_transparent
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_setup_render_engine_for_toon_eevee.film_transparent
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_setup_render_engine_for_workbench.film_transparent
-#: extensions/user_default/mmd_tools_append/editors/operators.py:25
-#: extensions/user_default/mmd_tools_append/editors/operators.py:85
-#: extensions/user_default/mmd_tools_append/editors/operators.py:139
 msgid "Use Film Transparent"
 msgstr "フィルム透過を使用"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_setup_render_engine_for_toon_eevee
-#: extensions/user_default/mmd_tools_append/editors/operators.py:80
 msgid "Setup render engine properties for Toon Eevee."
 msgstr "レンダーエンジンプロパティをトーンEevee用に設定"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_setup_render_engine_for_workbench
-#: extensions/user_default/mmd_tools_append/editors/operators.py:134
 msgid "Setup render engine properties for Workbench."
 msgstr "レンダーエンジンプロパティをWorkbench用に設定"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_geometry_nodes.geometry_nodes:'GEOMETRY_SEQUINS'
 #. :src: bpy.types.GeometryNodesPropertyGroup.thumbnails:'GEOMETRY_SEQUINS'
-#: extensions/user_default/mmd_tools_append/tuners/geometry_nodes_tuners.py:63
 msgid "Sequins"
 msgstr "スパンコール"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_lighting.lighting:'LIGHTING_LEFT_ACCENT'
 #. :src: bpy.types.LightingPropertyGroup.thumbnails:'LIGHTING_LEFT_ACCENT'
-#: extensions/user_default/mmd_tools_append/tuners/lighting_tuners.py:64
 msgid "Left Accent"
 msgstr "左アクセント"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_lighting.lighting:'LIGHTING_DOUBLE_SIDE_ACCENT'
 #. :src: bpy.types.LightingPropertyGroup.thumbnails:'LIGHTING_DOUBLE_SIDE_ACCENT'
-#: extensions/user_default/mmd_tools_append/tuners/lighting_tuners.py:78
 msgid "Double Side Accent"
 msgstr "両側アクセント"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_lighting.lighting:'LIGHTING_GOD_RAY'
 #. :src: bpy.types.LightingPropertyGroup.thumbnails:'LIGHTING_GOD_RAY'
-#: extensions/user_default/mmd_tools_append/tuners/lighting_tuners.py:92
 msgid "God Ray"
 msgstr "ゴッドレイ"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_lighting.lighting:'LIGHTING_BACKLIGHT'
 #. :src: bpy.types.LightingPropertyGroup.thumbnails:'LIGHTING_BACKLIGHT'
-#: extensions/user_default/mmd_tools_append/tuners/lighting_tuners.py:106
 msgid "Backlight"
 msgstr "バックライト"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_lighting.lighting:'LIGHTING_SHADOWLESS'
 #. :src: bpy.types.LightingPropertyGroup.thumbnails:'LIGHTING_SHADOWLESS'
-#: extensions/user_default/mmd_tools_append/tuners/lighting_tuners.py:134
 msgid "Shadowless"
 msgstr "シャドウレス"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_lighting.lighting:'LIGHTING_LIGHT_PROBE_GRID'
 #. :src: bpy.types.LightingPropertyGroup.thumbnails:'LIGHTING_LIGHT_PROBE_GRID'
-#: extensions/user_default/mmd_tools_append/tuners/lighting_tuners.py:120
 msgid "Light Probe Grid"
 msgstr "イラディアンスボリューム"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_EYE_HIGHLIGHT'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_EYE_HIGHLIGHT'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:82
 msgid "Eye Highlight"
 msgstr "目ハイライト"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_EYE_WHITE'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_EYE_WHITE'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:114
 msgid "Eye White"
 msgstr "白目"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_EYE_IRIS'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_EYE_IRIS'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:146
 msgid "Eye Iris"
 msgstr "虹彩"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_EYE_LASH'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_EYE_LASH'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:183
 msgid "Eye Lash"
 msgstr "まつ毛"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_HAIR_MATTE'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_HAIR_MATTE'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:218
 msgid "Hair Matte"
 msgstr "髪 つや消し"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_SKIN_MUCOSA'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_SKIN_MUCOSA'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:253
 msgid "Skin Mucosa"
 msgstr "粘膜"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_SKIN_BUMP'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_SKIN_BUMP'
-#: extensions/user_default/mmd_tools_append/editors/nodes.py:269
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:319
 msgid "Skin Bump"
 msgstr "肌 凹凸"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FABRIC_COTTON'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FABRIC_COTTON'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:571
 msgid "Fabric Cotton"
 msgstr "布地 綿"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FABRIC_SILK'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FABRIC_SILK'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:655
 msgid "Fabric Silk"
 msgstr "布地 絹"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FABRIC_BUMP'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FABRIC_BUMP'
-#: extensions/user_default/mmd_tools_append/editors/nodes.py:275
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:481
 msgid "Fabric Bump"
 msgstr "布地 凹凸"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FABRIC_WAVE'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FABRIC_WAVE'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:525
 msgid "Fabric Wave"
 msgstr "布地 波形"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FABRIC_KNIT'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FABRIC_KNIT'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:739
 msgid "Fabric Knit"
 msgstr "編物"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FABRIC_LEATHER'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FABRIC_LEATHER'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:797
 msgid "Fabric Leather"
 msgstr "革"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_PLASTIC_GLOSS'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_PLASTIC_GLOSS'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:859
 msgid "Plastic Gloss"
 msgstr "プラスチック 光沢"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_PLASTIC_MATTE'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_PLASTIC_MATTE'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:939
 msgid "Plastic Matte"
 msgstr "プラスチック つや消し"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_PLASTIC_EMISSION'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_PLASTIC_EMISSION'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:974
 msgid "Plastic Emission"
 msgstr "プラスチック 発光"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_PLASTIC_BUMP'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_PLASTIC_BUMP'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:894
 msgid "Plastic Bump"
 msgstr "プラスチック 凹凸"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_METAL_NOBLE'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_METAL_NOBLE'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:373
 msgid "Metal Noble"
 msgstr "貴金属"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_METAL_BASE'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_METAL_BASE'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:408
 msgid "Metal Base"
 msgstr "卑金属"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_STONE_GEM'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_STONE_GEM'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:442
 msgid "Stone Gem"
 msgstr "石 宝石"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_LIQUID_WATER'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_LIQUID_WATER'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:1011
 msgid "Liquid Water"
 msgstr "水"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_LIQUID_CLOUDY'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_LIQUID_CLOUDY'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:1048
 msgid "Liquid Cloudy"
 msgstr "液体 白濁"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_ARTISTIC_WATERCOLOR'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_ARTISTIC_WATERCOLOR'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:1103
 msgid "Artistic Watercolor"
 msgstr "表現手法 水彩画"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_TOON_SHADER'
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_TOON_SHADER'
-#: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:1154
 msgid "Toon Shader"
 msgstr "トーンシェーダー"
 
@@ -1043,218 +892,179 @@ msgid "Maximum length of the string, 0 means unlimited"
 msgstr ""
 
 #. :src: bpy.types.AssetSearchQuery.type:'MODEL_MMD'
-#: extensions/user_default/mmd_tools_append/asset_search/assets.py:34
+#: extensions/user_default/mmd_tools_append/asset_search/assets.py:33
 msgid "Model (.pmx)"
 msgstr "モデル (.pmx)"
 
 #. :src: bpy.types.AssetSearchQuery.type:'MODEL_BLENDER'
-#: extensions/user_default/mmd_tools_append/asset_search/assets.py:35
+#: extensions/user_default/mmd_tools_append/asset_search/assets.py:34
 msgid "Model (.blend)"
 msgstr "モデル (.blend)"
 
 #. :src: bpy.types.AssetSearchQuery.type:'MOTION_MMD'
-#: extensions/user_default/mmd_tools_append/asset_search/assets.py:36
+#: extensions/user_default/mmd_tools_append/asset_search/assets.py:35
 msgid "Motion (.vmd)"
 msgstr "モーション (.vmd)"
 
 #. :src: bpy.types.AssetSearchQuery.type:'POSE_MMD'
-#: extensions/user_default/mmd_tools_append/asset_search/assets.py:37
+#: extensions/user_default/mmd_tools_append/asset_search/assets.py:36
 msgid "Pose (.vpd)"
 msgstr "ポーズ (.vpd)"
 
 #. :src: bpy.types.AssetSearchQuery.type:'WORLD_BLENDER'
-#: extensions/user_default/mmd_tools_append/asset_search/assets.py:40
+#: extensions/user_default/mmd_tools_append/asset_search/assets.py:39
 msgid "World (.blend)"
 msgstr "ワールド (.blend)"
 
 #. :src: bpy.types.ClothAdjusterSettingsPropertyGroup.frame_end
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:250
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:585
-#: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:50
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:249
+#: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:48
 msgid "Simulation End"
 msgstr "シミュレーション終了"
 
 #. :src: bpy.types.ClothAdjusterSettingsPropertyGroup.frame_start
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:249
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:573
-#: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:49
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:248
+#: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:47
 msgid "Simulation Start"
 msgstr "シミュレーション開始"
 
 #. :src: bpy.types.ClothAdjusterSettingsPropertyGroup.presets:'PHYSICS_CLOTH_COTTON'
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:139
 msgid "Cotton"
 msgstr "綿"
 
 #. :src: bpy.types.ClothAdjusterSettingsPropertyGroup.presets:'PHYSICS_CLOTH_SILK'
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:162
 msgid "Silk"
 msgstr "絹"
 
 #. :src: bpy.types.ClothAdjusterSettingsPropertyGroup.presets:'PHYSICS_CLOTH_BREAST_PYRAMID'
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:185
 msgid "Breast Pyramid"
 msgstr "胸ピラミッド"
 
 #. :src: bpy.types.CollisionAdjusterSettingsPropertyGroup.cloth_friction
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:239
 msgid "Cloth Friction"
 msgstr "摩擦"
 
 #. :src: bpy.types.CollisionAdjusterSettingsPropertyGroup.presets:'PHYSICS_COLLISION_THIN_SMOOTH'
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:39
 msgid "Thin Smooth"
 msgstr "薄くスムーズ"
 
 #. :src: bpy.types.CollisionAdjusterSettingsPropertyGroup.thickness_inner
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:230
 msgid "Thickness Inner"
 msgstr "内側の厚さ"
 
 #. :src: bpy.types.CollisionAdjusterSettingsPropertyGroup.thickness_outer
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:221
 msgid "Thickness Outer"
 msgstr "外側の厚さ"
 
 #. :src: bpy.types.DynamicPaintAdjusterSettingsPropertyGroup.presets:'PHYSICS_DYNAMIC_PAINT_CANVAS_SKIN_PRESS'
-#: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:77
 msgid "Canvas Skin Press"
 msgstr "キャンバス 肌圧迫"
 
 #. :src: bpy.types.DynamicPaintAdjusterSettingsPropertyGroup.presets:'PHYSICS_DYNAMIC_PAINT_BRUSH_DEFAULT'
-#: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:112
 msgid "Brush Default"
 msgstr "ブラシ デフォルト"
 
 #. :src: bpy.types.GeometryNodesPropertyGroup.thumbnails
-#: extensions/user_default/mmd_tools_append/tuners/properties.py:67
 msgid "Choose the geometry nodes you want to use"
 msgstr "ジオメトリノードを選択"
 
 #. :src: bpy.types.LightingPropertyGroup.thumbnails
-#: extensions/user_default/mmd_tools_append/tuners/properties.py:18
 msgid "Choose the lighting you want to use"
 msgstr "照明を選択"
 
 #. :src: bpy.types.MaterialPropertyGroup.thumbnails
-#: extensions/user_default/mmd_tools_append/tuners/properties.py:41
 msgid "Choose the material you want to use"
 msgstr "マテリアルを選択"
 
 #. :src: bpy.types.MaterialPropertyGroup.update
-#: extensions/user_default/mmd_tools_append/tuners/properties.py:38
 msgid "Whether or not to update active material"
 msgstr "アクティブマテリアルを更新するかしないか"
 
 #. :src: bpy.types.PyramidClothAdjusterSettingsPropertyGroup.apex_pin_weight
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1113
 msgid "Apex Pin Weight"
 msgstr "頂点固定ウェイト"
 
 #. :src: bpy.types.PyramidClothAdjusterSettingsPropertyGroup.base_pin_weight
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1123
 msgid "Base Pin Weight"
 msgstr "底面固定ウェイト"
 
 #. :src: bpy.types.PyramidClothAdjusterSettingsPropertyGroup.string_pin_weight
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1103
 msgid "String Pin Weight"
 msgstr "弦固定ウェイト"
 
 #. :src: bpy.types.PyramidClothAdjusterSettingsPropertyGroup.time_scale
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1133
 msgid "Speed Multiplier"
 msgstr "速度の乗数"
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:159
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:158
 msgid "Failed to download assets from uploader.jp. The response format may have changed."
 msgstr "uploader.jpからのアセットダウンロードに失敗しました。レスポンスフォーマットが変わっている可能性があります。"
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:85
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:84
 msgid "Failed to download assets from SmutBase. The response format may have changed."
 msgstr "SmutBaseからのアセットダウンロードに失敗しました。レスポンスフォーマットが変わっている可能性があります。"
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:112
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:111
 msgid "Failed to download assets from BowlRoll. Incorrect download key."
 msgstr "BowlRollからのアセットダウンロードに失敗しました。ダウンロードキーが正しくありません。"
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:149
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:148
 msgid "Failed to download assets from OneDrive. Incorrect download key."
 msgstr "OneDriveからのアセットダウンロードに失敗しました。ダウンロードキーが正しくありません。"
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:128
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:127
 msgid "Failed to download assets from Google Drive. Incorrect download key."
 msgstr "Google Driveからのアセットダウンロードに失敗しました。ダウンロードキーが正しくありません。"
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:243
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:242
 msgid ""
 "Failed to execute unrar or WinRAR\n"
 "Please install unrar or WinRAR and setup the PATH properly."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:263
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:262
 msgid ""
 "Failed to execute 7z\n"
 "Please install p7zip-full or 7-zip and setup the PATH properly."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:337
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:349
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:365
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:336
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:348
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:364
 msgid ""
 "Failed to invoke mmd_tools\n"
 "Please install mmd_tools."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:353
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:352
 msgid ""
 "Select an object.\n"
 "The target object for motion import is not selected."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:369
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:368
 msgid ""
 "Select an object.\n"
 "The target object for pose import is not selected."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/asset_search/actions.py:416
+#: extensions/user_default/mmd_tools_append/asset_search/actions.py:415
 msgid "The file path is too long. This can be alleviated to some extent by shortening the Asset Extract Root Folder in the Add-on Preferences."
 msgstr "ファイルパスが長すぎます。アドオンプリファレンスのアセット展開ルートフォルダーを短くすることで軽減できます。"
 
-#: extensions/user_default/mmd_tools_append/asset_search/assets.py:33
+#: extensions/user_default/mmd_tools_append/asset_search/assets.py:32
 msgid "All"
 msgstr "全て"
 
-#: extensions/user_default/mmd_tools_append/asset_search/assets.py:38
+#: extensions/user_default/mmd_tools_append/asset_search/assets.py:37
 msgid "Lighting"
 msgstr "照明"
 
-#: extensions/user_default/mmd_tools_append/asset_search/assets.py:39
+#: extensions/user_default/mmd_tools_append/asset_search/assets.py:38
 msgid "Material"
 msgstr "マテリアル"
 
-#: extensions/user_default/mmd_tools_append/asset_search/operators.py:14
-msgid "Reload Asset JSONs"
-msgstr "アセットJSONをリロード"
-
-#: extensions/user_default/mmd_tools_append/asset_search/operators.py:24
-msgid "Update Assets JSON"
-msgstr "アセットJSONを更新"
-
-#: extensions/user_default/mmd_tools_append/asset_search/operators.py:38
-msgid "Update Debug Asset JSON"
-msgstr "デバッグアセットJSONを更新"
-
-#: extensions/user_default/mmd_tools_append/asset_search/operators.py:52
-msgid "Delete Debug Asset JSON"
-msgstr "デバッグアセットJSONを削除"
-
-#: extensions/user_default/mmd_tools_append/asset_search/operators.py:67
-msgid "Delete Asset Cached Files"
-msgstr "アセットキャッシュファイルを削除"
-
-#: extensions/user_default/mmd_tools_append/asset_search/operators.py:59
+#: extensions/user_default/mmd_tools_append/asset_search/operators.py:57
 msgid " does not exist."
 msgstr ""
 
@@ -1358,10 +1168,6 @@ msgctxt "Operator"
 msgid "Download"
 msgstr "ダウンロード"
 
-#: extensions/user_default/mmd_tools_append/asset_search/panels.py:475
-msgid "Update Assets JSON by query"
-msgstr "アセットJSONをクエリで更新"
-
 #: extensions/user_default/mmd_tools_append/asset_search/panels.py:261
 msgid "Type:"
 msgstr "タイプ:"
@@ -1389,7 +1195,7 @@ msgstr "ダウンロード"
 
 #: extensions/user_default/mmd_tools_append/asset_search/panels.py:280
 #: extensions/user_default/mmd_tools_append/asset_search/panels.py:286
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:247
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:246
 msgid "Cache:"
 msgstr "キャッシュ:"
 
@@ -1428,234 +1234,189 @@ msgstr "パス:"
 msgid "Retry"
 msgstr "リトライ"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:16
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:15
 msgid "Good"
 msgstr "良い"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:17
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:16
 msgid "Average"
 msgstr "普通"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:18
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:17
 msgid "Warning"
 msgstr "警告"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:19
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:18
 msgid "Poor"
 msgstr "劣る"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:20
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:19
 msgid "Bad"
 msgstr "悪い"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:21
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:20
 msgid "Unknown"
 msgstr "不明"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:70
-msgid "Check Eevee Rendering Performance"
-msgstr "Eeveeレンダリングパフォーマンスチェック"
-
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:466
-msgid "Select Mesh Objects with Use Alpha Hashed"
-msgstr "アルファハッシュを使用するメッシュオブジェクトを選択"
-
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:375
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:374
 msgid "Eevee Rendering Performance Checker"
 msgstr "Eeveeレンダリングパフォーマンスチェッカー"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:452
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:451
 msgid "Object with Impact Selection:"
 msgstr "インパクトのあるオブジェクト選択:"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:82
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:81
 msgid "Blender Version"
 msgstr "Blenderバージョン"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:86
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:85
 msgid ">= 2.93 LTS is Good"
 msgstr ">= 2.93 LTSが良い"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:93
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:92
 msgid "Render Engine"
 msgstr "レンダーエンジン"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:97
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:96
 msgid "= Eevee is Good"
 msgstr "= Eeveeが良い"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:115
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:114
 msgid "Render Samples"
 msgstr "レンダーのサンプル数"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:119
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:130
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:163
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:118
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:129
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:162
 msgid "<= 16 is Good"
 msgstr "<= 16が良い"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:126
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:125
 msgid "Viewport Samples"
 msgstr "ビューポートのサンプル数"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:137
-#: extensions/user_default/mmd_tools_append/editors/operators.py:24
-#: extensions/user_default/mmd_tools_append/editors/operators.py:83
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:136
 msgid "Use Motion Blur"
 msgstr "モーションブラーを使用"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:141
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:173
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:186
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:199
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:212
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:222
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:232
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:242
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:252
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:262
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:272
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:282
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:292
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:305
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:315
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:325
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:335
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:140
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:172
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:185
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:198
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:211
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:221
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:231
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:241
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:251
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:261
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:271
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:281
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:291
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:304
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:314
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:324
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:334
 msgid "= False is Good"
 msgstr "= Falseが良い"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:159
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:158
 msgid "Depth of Field Max Size"
 msgstr "被写界深度最大サイズ"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:169
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:168
 msgid "Use Compositing"
 msgstr "コンポジティングを使用"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:182
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:181
 msgid "Pass Cryptomatte Object"
 msgstr "Cryptomatteオブジェクトをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:195
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:194
 msgid "Pass Cryptomatte Material"
 msgstr "Cryptomatteマテリアルをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:208
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:207
 msgid "Pass Cryptomatte Asset"
 msgstr "Cryptomatteアセットをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:218
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:217
 msgid "Pass Glossy Light"
 msgstr "スペキュラーライトをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:228
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:227
 msgid "Pass Diffuse Light"
 msgstr "ディフューズライトをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:238
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:237
 msgid "Pass Emit"
 msgstr "放射をパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:248
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:247
 msgid "Pass Glossy Color"
 msgstr "スペキュラーカラーをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:258
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:257
 msgid "Pass Diffuse Color"
 msgstr "ディフューズカラーをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:268
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:267
 msgid "Pass Shadow"
 msgstr "影をパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:278
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:277
 msgid "Pass Ambient Occlusion"
 msgstr "アンビエントオクルージョン(AO)をパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:288
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:287
 msgid "Pass Normal"
 msgstr "ノーマルをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:301
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:300
 msgid "Pass Volume Light"
 msgstr "ボリュームライトをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:311
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:310
 msgid "Pass Z"
 msgstr "Zをパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:321
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:320
 msgid "Pass Environment"
 msgstr "環境をパス"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:331
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:330
 msgid "Use Sequencer"
 msgstr "シーケンサーを使用"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:360
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:359
 msgid "File Format"
 msgstr "ファイルフォーマット"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:360
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:359
 msgid "= JPEG is Good"
 msgstr "= JPEGが良い"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:424
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:423
 msgid "Total Performance Impact"
 msgstr "合計パフォーマンスインパクト"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:424
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:423
 msgid "<= 0% is Good"
 msgstr "<= 0%が良い"
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:429
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:428
 msgid "+.2f%"
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/checkers/operators.py:442
+#: extensions/user_default/mmd_tools_append/checkers/operators.py:441
 msgid "{}: {}"
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:19
-msgid "Add Human (metarig) from MMD Armature"
-msgstr "MMDアーマチュアからHuman (metarig)を追加"
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:221
-msgid "MMD compatibility focused Integrate"
-msgstr "MMD互換性を重視して統合"
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:273
-msgid "Rigify operability focused Integrate"
-msgstr "Rigify操作性を重視して統合"
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:347
-msgid "Convert Rigify Armature to MMD compatible"
-msgstr "RigifyアーマチュアをMMD互換に変換"
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:399
-msgid "Remove rig from armature"
-msgstr "アーマチュアからリグを削除"
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:443
-msgid "Translate Rigify names to MMD"
-msgstr "Rigifyボーン名をMMDに翻訳"
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:480
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:555
-#: extensions/user_default/mmd_tools_append/panels.py:107
-#: extensions/user_default/mmd_tools_append/panels.py:114
-msgid "Apply MMD Rest Pose"
-msgstr "MMDレストポーズを適用"
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:527
-msgid "Convert AutoRig Armature to MMD compatible"
-msgstr "AutoRigアーマチュアをMMD互換に変換"
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:430
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:429
 msgid "Removed  bones."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:467
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466
 msgid "Translated  bones."
 msgstr ""
 
@@ -1664,15 +1425,15 @@ msgstr ""
 msgid "Iterations"
 msgstr "反復"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:433
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:432
 msgid "Failed to remove rig: "
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:470
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:469
 msgid "Failed to translate bones: "
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:49
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:48
 msgid ""
 "Failed to invoke Rigify\n"
 "Please enable Rigify add-on."
@@ -1686,86 +1447,86 @@ msgstr "MMD Append Rigify"
 msgid "MMD Append AutoRig"
 msgstr "MMD Append AutoRig"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:56
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:53
 msgid "MMD-Rigify:"
 msgstr "MMD-Rigify"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:99
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:205
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:96
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:202
 msgid "IK-FK:"
 msgstr "IK-FK"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:104
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:210
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:101
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:207
 msgid "Arm.L"
 msgstr "腕.L"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:110
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:216
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:107
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:213
 msgid "Arm.R"
 msgstr "腕.R"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:117
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:223
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:76
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:195
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:114
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:220
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:73
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:192
 msgid "Leg.L"
 msgstr "脚.L"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:123
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:229
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:82
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:201
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:120
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:226
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:79
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:198
 msgid "Leg.R"
 msgstr "脚.R"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:133
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:130
 msgid "MMD Layers:"
 msgstr "MMDレイヤー:"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:179
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:176
 msgid "MMD-AutoRig:"
 msgstr "MMD-AutoRig:"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:233
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:230
 msgid "Layers:"
 msgstr "レイヤー:"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:235
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:232
 msgid "Main"
 msgstr "メイン"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:238
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:235
 msgid "Sub"
 msgstr "サブ"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:241
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:238
 msgid "Spine"
 msgstr "脊柱"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:244
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:241
 msgid "Limbs"
 msgstr "肢体"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:58
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:183
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:55
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:180
 msgid "Integrated armature is not selected."
 msgstr "統合アーマチュアが未選択です。"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:63
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:60
 msgid "Bind"
 msgstr "束縛"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:69
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:188
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:66
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:185
 msgid "Eyes"
 msgstr "目"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:89
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:86
 msgid "Toe.L"
 msgstr "つま先.L"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:95
+#: extensions/user_default/mmd_tools_append/converters/armatures/panels.py:92
 msgid "Toe.R"
 msgstr "つま先.R"
 
@@ -1773,56 +1534,38 @@ msgstr "つま先.R"
 msgid "MMD Append Cloth Adjuster"
 msgstr "MMD Appendクロス調整器"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:262
-msgid "Copy Cloth Adjuster Settings"
-msgstr "クロス調整器をコピー"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:297
-msgid "Select Cloth Mesh"
-msgstr "クロスメッシュを選択"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:359
-msgid "Remove Mesh Cloth"
-msgstr "クロスを除去"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:396
-msgid "Convert Rigid Body to Cloth"
-msgstr "リジッドボディをクロスに変換"
-
 #: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:126
 #: extensions/user_default/mmd_tools_append/converters/physics/collision.py:26
 #: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:64
 msgid "Nothing"
 msgstr "なし"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:233
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:232
 msgid "Collision:"
 msgstr "コリジョン:"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:239
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1064
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:79
-#: extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:30
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:238
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1063
+#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:77
+#: extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:28
 #: extensions/user_default/mmd_tools_append/tuners/panels.py:145
 msgid "Batch Operation:"
 msgstr "一括操作:"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:242
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1067
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:80
-#: extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:31
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:241
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1066
+#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:78
+#: extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:29
 #: extensions/user_default/mmd_tools_append/tuners/panels.py:152
 msgctxt "Operator"
 msgid "Copy to Selected"
 msgstr "選択にコピー"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:256
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:255
 msgid "Subdivision:"
 msgstr "細分化:"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:257
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:400
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:644
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:256
 msgid "Subdivision Levels"
 msgstr "細分化レベル"
 
@@ -1865,44 +1608,23 @@ msgstr "撃力を制限"
 msgid "Copy to Selected"
 msgstr "選択にコピー"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:455
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth.py:454
 msgid "Multiple MMD models selected. Please select single model at a time."
 msgstr "複数のMMDモデルが選択されています。ひとつずつモデルを選択してください。"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_bone.py:16
-#: extensions/user_default/mmd_tools_append/panels.py:192
-msgid "Stretch Bone to Vertex"
-msgstr "ボーンを頂点にストレッチ"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:868
-msgid "Add Pyramid Mesh by Breast Bone"
-msgstr "胸ボーンからピラミッドメッシュを追加"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:916
-msgid "Convert Pyramid Mesh to Cloth"
-msgstr "ピラミッドメッシュをクロスに変換"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:982
-msgid "Assign Pyramid Weights"
-msgstr "ピラミッドへウェイトを割当"
 
 #: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1037
 msgid "MMD Append Pyramid Cloth Adjuster"
 msgstr "MMD Appendピラミッドクロス調整器"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1074
-msgid "Copy Pyramid Cloth Adjuster Settings"
-msgstr "ピラミッドクロス調整器をコピー"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1054
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1053
 msgid "Weights:"
 msgstr "ウエイト:"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1060
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1059
 msgid "Cloth Physics:"
 msgstr "クロス物理:"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:181
+#: extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:180
 msgid "Target bones not found."
 msgstr "対象ボーンが見つからない"
 
@@ -1914,23 +1636,11 @@ msgstr "ヘッド/テール"
 msgid "MMD Append Collision Adjuster"
 msgstr "MMD Appendコリジョン調整器"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:85
-msgid "Copy Collision Adjuster Settings"
-msgstr "コリジョン調整器をコピー"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:118
-msgid "Select Collision Mesh"
-msgstr "コリジョンメッシュを選択"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/collision.py:169
-msgid "Remove Mesh Collision"
-msgstr "コリジョンを除去"
-
 #: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:14
 msgid "MMD Append Dynamic Paint Adjuster"
 msgstr "MMD Appendダイナミックペイント調整器"
 
-#: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:40
+#: extensions/user_default/mmd_tools_append/converters/physics/dynamic_paint.py:38
 msgid "Cache"
 msgstr "キャッシュ"
 
@@ -1941,10 +1651,6 @@ msgstr "アクティブサーフェス"
 #: extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:16
 msgid "MMD Append Rigid Body Adjuster"
 msgstr "MMD Appendリジッドボディ調整器"
-
-#: extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:36
-msgid "Select Rigid Body Mesh"
-msgstr "リジッドボディメッシュを選択"
 
 #: extensions/user_default/mmd_tools_append/converters/physics/rigid_body_to_cloth.py:26
 msgid "Auto"
@@ -1977,22 +1683,22 @@ msgstr "MMD Append"
 msgid "Select Moved"
 msgstr "操作済選択"
 
-#: extensions/user_default/mmd_tools_append/editors/menus.py:83
+#: extensions/user_default/mmd_tools_append/editors/menus.py:81
 msgctxt "Operator"
 msgid "Moved"
 msgstr "操作済"
 
-#: extensions/user_default/mmd_tools_append/editors/menus.py:88
+#: extensions/user_default/mmd_tools_append/editors/menus.py:86
 msgctxt "Operator"
 msgid "Rotated"
 msgstr "回転済"
 
-#: extensions/user_default/mmd_tools_append/editors/menus.py:93
+#: extensions/user_default/mmd_tools_append/editors/menus.py:91
 msgctxt "Operator"
 msgid "Translated"
 msgstr "移動済"
 
-#: extensions/user_default/mmd_tools_append/editors/menus.py:98
+#: extensions/user_default/mmd_tools_append/editors/menus.py:96
 msgctxt "Operator"
 msgid "Scaled"
 msgstr "スケール済"
@@ -2073,57 +1779,9 @@ msgstr "放射調節器"
 msgid "Glitter Adjuster"
 msgstr "グリッター調整器"
 
-#: extensions/user_default/mmd_tools_append/editors/nodes.py:360
+#: extensions/user_default/mmd_tools_append/editors/nodes.py:358
 msgid "Sun Direction"
 msgstr "太陽の方向"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:20
-msgid "Setup Render Engine for Eevee"
-msgstr "レンダーエンジンをEevee用に設定"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:79
-msgid "Setup Render Engine for Toon Eevee"
-msgstr "レンダーエンジンをトーンEevee用に設定"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:133
-msgid "Setup Render Engine for Workbench"
-msgstr "レンダーエンジンをWorkbench用に設定"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:183
-msgid "Show Message Box"
-msgstr "メッセージボックスを表示"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:204
-msgid "Remove Unused Vertex Groups"
-msgstr "未使用頂点グループをすべて削除"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:272
-msgid "Select Shape Key Target Vertices"
-msgstr "シェイプキー対象の頂点を選択"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:319
-msgid "Remove Unused Shape Keys"
-msgstr "未使用シェイプキーをすべて削除"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:384
-msgid "Select Moved Pose Bones"
-msgstr "操作済ポーズボーンを選択"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:435
-msgid "Auto Segmentation"
-msgstr "自動セグメンテーション"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:574
-msgid "Paint Selected Faces"
-msgstr "選択した面をペイント"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:615
-msgid "Setup Segmentation Color Palette"
-msgstr "セグメンテーションカラーパレットを設定"
-
-#: extensions/user_default/mmd_tools_append/editors/operators.py:639
-msgid "Restore Segmentation Color Palette"
-msgstr "セグメンテーションカラーパレットを復元"
 
 #: extensions/user_default/mmd_tools_append/editors/operators.py:84
 #: extensions/user_default/mmd_tools_append/editors/operators.py:137
@@ -2142,7 +1800,7 @@ msgstr "ウエイトしきい値"
 msgid "Tolerance"
 msgstr "許容範囲"
 
-#: extensions/user_default/mmd_tools_append/editors/operators.py:559
+#: extensions/user_default/mmd_tools_append/editors/operators.py:558
 msgid ""
 "contact: , cost last/max: /\n"
 "segment: , area min/max: /\n"
@@ -2150,29 +1808,20 @@ msgid ""
 "operation:  secs, auto_segment  secs"
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/editors/operators.py:527
+#: extensions/user_default/mmd_tools_append/editors/operators.py:526
 msgid "There is no target segment; In Edit Mode, select the faces you want to paint."
 msgstr "対象のセグメントがありません。編集モードでペイントしたい面を選択してください。"
-
-#: extensions/user_default/mmd_tools_append/generators/physics.py:14
-#: extensions/user_default/mmd_tools_append/panels.py:193
-msgid "Add Center of Gravity"
-msgstr "重心を追加"
 
 #: extensions/user_default/mmd_tools_append/generators/physics.py:17
 msgid "Radius"
 msgstr "半径"
 
-#: extensions/user_default/mmd_tools_append/generators/skin_hair.py:107
-msgid "Add Skin Hair Mesh"
-msgstr "体毛メッシュを追加"
-
-#: extensions/user_default/mmd_tools_append/generators/skin_hair.py:174
+#: extensions/user_default/mmd_tools_append/generators/skin_hair.py:171
 msgctxt "Operator"
 msgid "Skin Hair"
 msgstr "体毛"
 
-#: extensions/user_default/mmd_tools_append/generators/skin_hair.py:178
+#: extensions/user_default/mmd_tools_append/generators/skin_hair.py:175
 msgid "MMD Append Extras"
 msgstr "MMD Appendその他"
 
@@ -2187,10 +1836,6 @@ msgstr "位置"
 #: extensions/user_default/mmd_tools_append/generators/skin_hair.py:139
 msgid "Rotation"
 msgstr "回転"
-
-#: extensions/user_default/mmd_tools_append/generators/skin_hair.py:174
-msgid "Skin Hair"
-msgstr "体毛"
 
 #: extensions/user_default/mmd_tools_append/generators/skin_hair.py:126
 msgid "World"
@@ -2232,320 +1877,275 @@ msgstr "MMD Append物理演算"
 msgid "MMD Append Segmentation"
 msgstr "MMD Appendセグメンテーション"
 
-#: extensions/user_default/mmd_tools_append/panels.py:75
+#: extensions/user_default/mmd_tools_append/panels.py:73
 msgid "Render:"
 msgstr "レンダー:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:83
+#: extensions/user_default/mmd_tools_append/panels.py:81
 msgid "MMD to Rigify:"
 msgstr "MMDからRigify:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:104
+#: extensions/user_default/mmd_tools_append/panels.py:102
 msgid "Rigify to MMD:"
 msgstr "RigifyからMMD:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:106
-#: extensions/user_default/mmd_tools_append/panels.py:113
+#: extensions/user_default/mmd_tools_append/panels.py:104
+#: extensions/user_default/mmd_tools_append/panels.py:111
 msgctxt "Operator"
 msgid "Convert to MMD compatible"
 msgstr "MMD互換に変換"
 
-#: extensions/user_default/mmd_tools_append/panels.py:108
+#: extensions/user_default/mmd_tools_append/panels.py:106
 msgctxt "Operator"
 msgid "De-rig armature"
 msgstr "リグを解除"
 
-#: extensions/user_default/mmd_tools_append/panels.py:109
+#: extensions/user_default/mmd_tools_append/panels.py:107
 msgctxt "Operator"
 msgid "Translate Rigify to MMD"
 msgstr "RigifyをMMDに翻訳"
 
-#: extensions/user_default/mmd_tools_append/panels.py:111
+#: extensions/user_default/mmd_tools_append/panels.py:109
 msgid "(Experimental) Auto-Rig to MMD:"
 msgstr "(実験的) Auto-RigからMMD:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:132
+#: extensions/user_default/mmd_tools_append/panels.py:130
 msgid "Relevant Selection:"
 msgstr "関連選択"
 
-#: extensions/user_default/mmd_tools_append/panels.py:135
+#: extensions/user_default/mmd_tools_append/panels.py:133
 msgid "Collision Mesh"
 msgstr "コリジョンメッシュ"
 
-#: extensions/user_default/mmd_tools_append/panels.py:183
+#: extensions/user_default/mmd_tools_append/panels.py:181
 msgid "Pyramid Cloth:"
 msgstr "ピラミッドクロス:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:185
+#: extensions/user_default/mmd_tools_append/panels.py:183
 msgctxt "Operator"
 msgid "Add Pyramid"
 msgstr "ピラミッドを追加"
 
-#: extensions/user_default/mmd_tools_append/panels.py:186
+#: extensions/user_default/mmd_tools_append/panels.py:184
 msgctxt "Operator"
 msgid "Pyramid to Cloth"
 msgstr "ピラミッドをクロスに"
 
-#: extensions/user_default/mmd_tools_append/panels.py:187
+#: extensions/user_default/mmd_tools_append/panels.py:185
 msgctxt "Operator"
 msgid "Repaint Weight"
 msgstr "ウェイト再ペイント"
 
-#: extensions/user_default/mmd_tools_append/panels.py:190
+#: extensions/user_default/mmd_tools_append/panels.py:188
 msgid "Misc:"
 msgstr "その他"
 
-#: extensions/user_default/mmd_tools_append/panels.py:238
+#: extensions/user_default/mmd_tools_append/panels.py:236
 msgid "Color Layer&AOV Name"
 msgstr "カラーレイヤー&AOV名"
 
-#: extensions/user_default/mmd_tools_append/panels.py:252
+#: extensions/user_default/mmd_tools_append/panels.py:250
 msgid "Auto Segmentation:"
 msgstr "自動セグメンテーション:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:255
+#: extensions/user_default/mmd_tools_append/panels.py:253
 msgid "Thresholds:"
 msgstr "しきい値:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:257
+#: extensions/user_default/mmd_tools_append/panels.py:255
 msgid "Cost"
 msgstr "コスト"
 
-#: extensions/user_default/mmd_tools_append/panels.py:259
+#: extensions/user_default/mmd_tools_append/panels.py:257
 msgid "Area Max"
 msgstr "面積最大"
 
-#: extensions/user_default/mmd_tools_append/panels.py:260
+#: extensions/user_default/mmd_tools_append/panels.py:258
 msgid "Min"
 msgstr "最小"
 
-#: extensions/user_default/mmd_tools_append/panels.py:262
+#: extensions/user_default/mmd_tools_append/panels.py:260
 msgid "Cost Factors:"
 msgstr "コスト係数:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:265
+#: extensions/user_default/mmd_tools_append/panels.py:263
 msgid "Face Angle"
 msgstr "面角度"
 
-#: extensions/user_default/mmd_tools_append/panels.py:266
+#: extensions/user_default/mmd_tools_append/panels.py:264
 msgid "Perimeter"
 msgstr "外周"
 
-#: extensions/user_default/mmd_tools_append/panels.py:267
+#: extensions/user_default/mmd_tools_append/panels.py:265
 msgid "Material Change"
 msgstr "マテリアル変化"
 
-#: extensions/user_default/mmd_tools_append/panels.py:271
+#: extensions/user_default/mmd_tools_append/panels.py:269
 msgid "Edge "
 msgstr "辺 "
 
-#: extensions/user_default/mmd_tools_append/panels.py:272
+#: extensions/user_default/mmd_tools_append/panels.py:270
 msgid "Sharp"
 msgstr "シャープ"
 
-#: extensions/user_default/mmd_tools_append/panels.py:273
+#: extensions/user_default/mmd_tools_append/panels.py:271
 msgid "Seam"
 msgstr "シーム"
 
-#: extensions/user_default/mmd_tools_append/panels.py:277
+#: extensions/user_default/mmd_tools_append/panels.py:275
 msgid "Vertex Group "
 msgstr "頂点グループ "
 
-#: extensions/user_default/mmd_tools_append/panels.py:278
+#: extensions/user_default/mmd_tools_append/panels.py:276
 msgid "Weight"
 msgstr "ウェイト"
 
-#: extensions/user_default/mmd_tools_append/panels.py:279
+#: extensions/user_default/mmd_tools_append/panels.py:277
 msgid "Change"
 msgstr "変化"
 
-#: extensions/user_default/mmd_tools_append/panels.py:281
+#: extensions/user_default/mmd_tools_append/panels.py:279
 msgid "Other Parameters:"
 msgstr "他のパラメーター:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:284
+#: extensions/user_default/mmd_tools_append/panels.py:282
 msgid "Color Random Seed"
 msgstr "カラーランダムシード"
 
-#: extensions/user_default/mmd_tools_append/panels.py:286
+#: extensions/user_default/mmd_tools_append/panels.py:284
 msgctxt "Operator"
 msgid "Execute Auto Segmentation"
 msgstr "自動セグメンテーションを実行"
 
-#: extensions/user_default/mmd_tools_append/panels.py:70
+#: extensions/user_default/mmd_tools_append/panels.py:68
 msgid "MMD Tools is not installed."
 msgstr "MMD Toolsがインストールされていません。"
 
-#: extensions/user_default/mmd_tools_append/panels.py:87
+#: extensions/user_default/mmd_tools_append/panels.py:85
 msgctxt "Operator"
 msgid "Add Metarig"
 msgstr "メタリグを追加"
 
-#: extensions/user_default/mmd_tools_append/panels.py:142
+#: extensions/user_default/mmd_tools_append/panels.py:140
 msgid "MMD Model is not selected."
 msgstr "MMDモデルが未選択"
 
-#: extensions/user_default/mmd_tools_append/panels.py:147
+#: extensions/user_default/mmd_tools_append/panels.py:145
 msgid "Rigid Body"
 msgstr "リジッドボディ"
 
-#: extensions/user_default/mmd_tools_append/panels.py:162
+#: extensions/user_default/mmd_tools_append/panels.py:160
 msgid "Cloth Mesh"
 msgstr "クロスメッシュ"
 
-#: extensions/user_default/mmd_tools_append/panels.py:174
+#: extensions/user_default/mmd_tools_append/panels.py:172
 msgid "Converter:"
 msgstr "コンバーター:"
 
-#: extensions/user_default/mmd_tools_append/panels.py:178
+#: extensions/user_default/mmd_tools_append/panels.py:176
 msgctxt "Operator"
 msgid "Rigid Body to Cloth"
 msgstr "リジッドボディをクロスに"
 
-#: extensions/user_default/mmd_tools_append/panels.py:106
-#: extensions/user_default/mmd_tools_append/panels.py:113
-msgid "Convert to MMD compatible"
-msgstr "MMD互換に変換"
-
-#: extensions/user_default/mmd_tools_append/panels.py:108
-msgid "De-rig armature"
-msgstr "リグを解除"
-
-#: extensions/user_default/mmd_tools_append/panels.py:109
-msgid "Translate Rigify to MMD"
-msgstr "RigifyをMMDに翻訳"
-
-#: extensions/user_default/mmd_tools_append/panels.py:185
-msgid "Add Pyramid"
-msgstr "ピラミッドを追加"
-
-#: extensions/user_default/mmd_tools_append/panels.py:186
-msgid "Pyramid to Cloth"
-msgstr "ピラミッドをクロスに"
-
-#: extensions/user_default/mmd_tools_append/panels.py:187
-msgid "Repaint Weight"
-msgstr "ウェイト再ペイント"
-
-#: extensions/user_default/mmd_tools_append/panels.py:286
-msgid "Execute Auto Segmentation"
-msgstr "自動セグメンテーションを実行"
-
-#: extensions/user_default/mmd_tools_append/panels.py:87
-msgid "Add Metarig"
-msgstr "メタリグを追加"
-
-#: extensions/user_default/mmd_tools_append/panels.py:178
-msgid "Rigid Body to Cloth"
-msgstr "リジッドボディをクロスに"
-
-#: extensions/user_default/mmd_tools_append/preferences.py:86
+#: extensions/user_default/mmd_tools_append/preferences.py:83
 msgid "Check now for mmd_tools_append update"
 msgstr "mmd_tools_appendの更新を今すぐチェック"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:87
+#: extensions/user_default/mmd_tools_append/preferences.py:84
 msgid "Auto-check for Update"
 msgstr "更新を自動的にチェックする"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:88
+#: extensions/user_default/mmd_tools_append/preferences.py:85
 msgid "Last check: Never"
 msgstr "Last check: 未チェック"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:89
+#: extensions/user_default/mmd_tools_append/preferences.py:86
 msgid "Addon is up to date"
 msgstr "アドオンは最新です"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:90
+#: extensions/user_default/mmd_tools_append/preferences.py:87
 msgid "Checking..."
 msgstr "チェック中..."
 
-#: extensions/user_default/mmd_tools_append/preferences.py:91
+#: extensions/user_default/mmd_tools_append/preferences.py:88
 msgid "Choose 'Update Now' & press OK to install, "
 msgstr "「今すぐ更新」を選択し、OKを押してインストール"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:92
+#: extensions/user_default/mmd_tools_append/preferences.py:89
 msgid "or click outside window to defer"
 msgstr "またはウィンドウの外をクリックして保留"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:93
+#: extensions/user_default/mmd_tools_append/preferences.py:90
 msgid "No updates available"
 msgstr "更新はありません"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:94
+#: extensions/user_default/mmd_tools_append/preferences.py:91
 msgid "Press okay to dismiss dialog"
 msgstr "OKを押してダイアログを閉じる"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:95
+#: extensions/user_default/mmd_tools_append/preferences.py:92
 msgid "Check for update now?"
 msgstr "今すぐ更新をチェックしますか?"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:96
+#: extensions/user_default/mmd_tools_append/preferences.py:93
 msgid "Process update"
 msgstr "更新処理"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:97
+#: extensions/user_default/mmd_tools_append/preferences.py:94
 msgid "Decide to install, ignore, or defer new addon update"
 msgstr "アドオンの更新、無視または保留を選択"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:98
+#: extensions/user_default/mmd_tools_append/preferences.py:95
 msgid "Update Now"
 msgstr "今すぐ更新"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:99
+#: extensions/user_default/mmd_tools_append/preferences.py:96
 msgid "Install update now"
 msgstr "今すぐ更新をインストール"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:100
+#: extensions/user_default/mmd_tools_append/preferences.py:97
 msgid "Ignore"
 msgstr "無視"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:101
+#: extensions/user_default/mmd_tools_append/preferences.py:98
 msgid "Ignore this update to prevent future popups"
 msgstr "このアップデートは無視して今後のポップアップを止める"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:102
+#: extensions/user_default/mmd_tools_append/preferences.py:99
 msgid "Defer"
 msgstr "保留"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:103
+#: extensions/user_default/mmd_tools_append/preferences.py:100
 msgid "Defer choice till next blender session"
 msgstr "次回のBlender起動まで保留"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:129
+#: extensions/user_default/mmd_tools_append/preferences.py:126
 msgid "Asset Cache Usage:"
 msgstr "アセットキャッシュ利用量"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:134
+#: extensions/user_default/mmd_tools_append/preferences.py:131
 msgid "B"
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/preferences.py:147
+#: extensions/user_default/mmd_tools_append/preferences.py:144
 msgid "Credits:"
 msgstr "クレジット:"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:151
+#: extensions/user_default/mmd_tools_append/preferences.py:148
 msgid "Rigid body Physics to Cloth Physics feature is the work of 小威廉伯爵."
 msgstr "リジッドボディ物理からクロス物理機能は小威廉伯爵の作品です。"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:153
+#: extensions/user_default/mmd_tools_append/preferences.py:150
 msgid "It was ported with his permission."
 msgstr "この機能は本人の許可を得て移植したものです。"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:117
+#: extensions/user_default/mmd_tools_append/preferences.py:114
 msgctxt "Operator"
 msgid "Browse Assets"
 msgstr "アセットを閲覧"
 
-#: extensions/user_default/mmd_tools_append/preferences.py:121
+#: extensions/user_default/mmd_tools_append/preferences.py:118
 msgctxt "Operator"
-msgid "Query Examples"
-msgstr "クエリ例"
-
-#: extensions/user_default/mmd_tools_append/preferences.py:117
-msgid "Browse Assets"
-msgstr "アセットを閲覧"
-
-#: extensions/user_default/mmd_tools_append/preferences.py:121
 msgid "Query Examples"
 msgstr "クエリ例"
 
@@ -2555,28 +2155,28 @@ msgstr "クエリ例"
 msgid "Reset"
 msgstr "リセット"
 
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:61
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:118
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:60
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:117
 msgid "Specular IOR Level"
 msgstr "スペキュラーIORレベル"
 
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:62
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:119
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:61
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:118
 #: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:802
 msgid "Roughness"
 msgstr "粗さ"
 
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:63
-#: extensions/user_default/mmd_tools_append/tuners/panels.py:197
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:62
+msgctxt "Operator"
 msgid "Wet"
 msgstr "ウェット"
 
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:120
-#: extensions/user_default/mmd_tools_append/tuners/panels.py:198
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:119
+msgctxt "Operator"
 msgid "Glitter"
 msgstr "グリッター"
 
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:176
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:175
 #: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:574
 #: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:658
 #: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:742
@@ -2584,22 +2184,22 @@ msgstr "グリッター"
 msgid "Color"
 msgstr "カラー"
 
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:177
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:176
 msgid "Threshold"
 msgstr "しきい値"
 
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:178
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:177
 #: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:580
 #: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:664
 #: extensions/user_default/mmd_tools_append/tuners/material_tuners.py:805
 msgid "Strength"
 msgstr "強さ"
 
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:179
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:178
 msgid "Emission Color"
 msgstr "放射カラー"
 
-#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:180
+#: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:179
 msgid "Emission Strength"
 msgstr "放射の強さ"
 
@@ -2727,34 +2327,6 @@ msgstr "影のカラー"
 msgid "Rim Light Strength"
 msgstr "リムライト強度"
 
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:14
-msgid "Tune Lighting"
-msgstr "ライト調整"
-
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:32
-msgid "Freeze Lighting"
-msgstr "ライトを凍結"
-
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:49
-msgid "Tune Material"
-msgstr "マテリアル調整"
-
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:67
-msgid "Copy Append Material"
-msgstr "Appendマテリアルをコピー"
-
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:111
-msgid "Attach Material Adjuster"
-msgstr "マテリアル調整器を付加"
-
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:127
-msgid "Detach Material Adjuster"
-msgstr "マテリアル調整器を除去"
-
-#: extensions/user_default/mmd_tools_append/tuners/operators.py:146
-msgid "Tune Geometry Nodes"
-msgstr "ジオメトリノードを調整"
-
 #: extensions/user_default/mmd_tools_append/tuners/panels.py:23
 msgid "MMD Append Sky"
 msgstr "MMD Append Sky"
@@ -2815,31 +2387,300 @@ msgstr "イラディアンスボリュームが見つからないので追加し
 msgid "{material_name} is unsupported. Select other material to be output from Principled BSDF."
 msgstr "{material_name}は未対応です。プリンシプルBSDFから出力のある他のマテリアルを選択してください。"
 
-#: extensions/user_default/mmd_tools_append/tuners/panels.py:61
-msgid "Bake Indirect Lighting"
-msgstr "間接照明をベイク"
-
-#: extensions/user_default/mmd_tools_append/tuners/panels.py:148
-msgid "Copy to Active"
-msgstr "アクティブにコピー"
-
 #: extensions/user_default/mmd_tools_append/tuners/panels.py:199
+msgctxt "Operator"
 msgid "Emission"
 msgstr "放射"
 
-#: extensions/user_default/mmd_tools_append/utilities.py:125
+#: extensions/user_default/mmd_tools_append/utilities.py:123
 msgid "MMD Tools Append is not installed correctly. Please reinstall MMD Tools Append using the correct steps."
 msgstr "MMD Tools Appendが正しくインストールされていません。正しい手順でMMD Tools Appendを再インストールしてください。"
 
-#: extensions/user_default/mmd_tools_append/utilities.py:100
+#: extensions/user_default/mmd_tools_append/utilities.py:98
 msgid "MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools."
 msgstr "MMD Toolsが正しくインストールされていません。MMD Append ToolsはMMD Toolsに依存しているので、正しい手順でMMD Toolsを再インストールしてください。"
 
-#: Add-on MMD Tools Append info: name
+#. :src: Add-on MMD Tools Append info: name
 msgid "MMD Tools Append"
 msgstr "MMD Tools Append"
 
-#: Add-on MMD Tools Append info: description
+#. :src: Add-on MMD Tools Append info: description
 msgid "Appendix tools for MMD model & scene editing"
 msgstr ""
+
+
+#~ msgid "Select Rigid Body Mesh"
+#~ msgstr "リジッドボディメッシュを選択"
+
+
+#~ msgid "Show Message Box"
+#~ msgstr "メッセージボックスを表示"
+
+
+#~ msgid "Stretch Bone to Vertex"
+#~ msgstr "ボーンを頂点にストレッチ"
+
+
+#~ msgid "Paint Selected Faces"
+#~ msgstr "選択した面をペイント"
+
+
+#~ msgid "Skin Hair"
+#~ msgstr "体毛"
+
+
+#~ msgid "Select Collision Mesh"
+#~ msgstr "コリジョンメッシュを選択"
+
+
+#~ msgid "Detach Material Adjuster"
+#~ msgstr "マテリアル調整器を除去"
+
+
+#~ msgid "Rigify operability focused Integrate"
+#~ msgstr "Rigify操作性を重視して統合"
+
+
+#~ msgid "Glitter"
+#~ msgstr "グリッター"
+
+
+#~ msgid "Convert Rigid Body to Cloth"
+#~ msgstr "リジッドボディをクロスに変換"
+
+
+#~ msgid "Apply MMD Rest Pose"
+#~ msgstr "MMDレストポーズを適用"
+
+
+#~ msgid "Setup Render Engine for Workbench"
+#~ msgstr "レンダーエンジンをWorkbench用に設定"
+
+
+#~ msgid "Add Human (metarig) from MMD Armature"
+#~ msgstr "MMDアーマチュアからHuman (metarig)を追加"
+
+
+#~ msgid "Delete Debug Asset JSON"
+#~ msgstr "デバッグアセットJSONを削除"
+
+
+#~ msgid "Update Debug Asset JSON"
+#~ msgstr "デバッグアセットJSONを更新"
+
+
+#~ msgid "Remove Unused Vertex Groups"
+#~ msgstr "未使用頂点グループをすべて削除"
+
+
+#~ msgid "Freeze Lighting"
+#~ msgstr "ライトを凍結"
+
+
+#~ msgid "Attach Material Adjuster"
+#~ msgstr "マテリアル調整器を付加"
+
+
+#~ msgid "Convert Pyramid Mesh to Cloth"
+#~ msgstr "ピラミッドメッシュをクロスに変換"
+
+
+#~ msgid "Remove Unused Shape Keys"
+#~ msgstr "未使用シェイプキーをすべて削除"
+
+
+#~ msgid "Select Moved Pose Bones"
+#~ msgstr "操作済ポーズボーンを選択"
+
+
+#~ msgid "Update Assets JSON by query"
+#~ msgstr "アセットJSONをクエリで更新"
+
+
+#~ msgid "Copy Append Material"
+#~ msgstr "Appendマテリアルをコピー"
+
+
+#~ msgid "Translate Rigify to MMD"
+#~ msgstr "RigifyをMMDに翻訳"
+
+
+#~ msgid "Setup Render Engine for Toon Eevee"
+#~ msgstr "レンダーエンジンをトーンEevee用に設定"
+
+
+#~ msgid "Restore Segmentation Color Palette"
+#~ msgstr "セグメンテーションカラーパレットを復元"
+
+
+#~ msgid "Remove rig from armature"
+#~ msgstr "アーマチュアからリグを削除"
+
+
+#~ msgid "Delete Asset Cached Files"
+#~ msgstr "アセットキャッシュファイルを削除"
+
+
+#~ msgid "Browse Assets"
+#~ msgstr "アセットを閲覧"
+
+
+#~ msgid "Execute Auto Segmentation"
+#~ msgstr "自動セグメンテーションを実行"
+
+
+#~ msgid "MMD compatibility focused Integrate"
+#~ msgstr "MMD互換性を重視して統合"
+
+
+#~ msgid "Setup Render Engine for Eevee"
+#~ msgstr "レンダーエンジンをEevee用に設定"
+
+
+#~ msgid "Convert Rigify Armature to MMD compatible"
+#~ msgstr "RigifyアーマチュアをMMD互換に変換"
+
+
+#~ msgid "Tune Geometry Nodes"
+#~ msgstr "ジオメトリノードを調整"
+
+
+#~ msgid "Query Examples"
+#~ msgstr "クエリ例"
+
+
+#~ msgid "Remove Mesh Cloth"
+#~ msgstr "クロスを除去"
+
+
+#~ msgid "Pyramid to Cloth"
+#~ msgstr "ピラミッドをクロスに"
+
+
+#~ msgid "Add Metarig"
+#~ msgstr "メタリグを追加"
+
+
+#~ msgid "Translate Rigify names to MMD"
+#~ msgstr "Rigifyボーン名をMMDに翻訳"
+
+
+#~ msgid "Rigid Body to Cloth"
+#~ msgstr "リジッドボディをクロスに"
+
+
+#~ msgid "Wet"
+#~ msgstr "ウェット"
+
+
+#~ msgid "Add Pyramid"
+#~ msgstr "ピラミッドを追加"
+
+
+#~ msgid "Convert AutoRig Armature to MMD compatible"
+#~ msgstr "AutoRigアーマチュアをMMD互換に変換"
+
+
+#~ msgid "Check Eevee Rendering Performance"
+#~ msgstr "Eeveeレンダリングパフォーマンスチェック"
+
+
+#~ msgid "Assign Pyramid Weights"
+#~ msgstr "ピラミッドへウェイトを割当"
+
+
+#~ msgid "Auto Segmentation"
+#~ msgstr "自動セグメンテーション"
+
+
+#~ msgid "Tune Material"
+#~ msgstr "マテリアル調整"
+
+
+#~ msgid "Reload Asset JSONs"
+#~ msgstr "アセットJSONをリロード"
+
+
+#~ msgid "Emission"
+#~ msgstr "放射"
+
+
+#~ msgid "Tune Lighting"
+#~ msgstr "ライト調整"
+
+
+#~ msgid "Remove Mesh Collision"
+#~ msgstr "コリジョンを除去"
+
+
+#~ msgid "Copy Pyramid Cloth Adjuster Settings"
+#~ msgstr "ピラミッドクロス調整器をコピー"
+
+
+#~ msgid ""
+#~ "contact: , cost last/max: /\n"
+#~ "segment: , area min/max: /\n"
+#~ "loop: \n"
+#~ "operation:  secs, auto_segment  secs"
+#~ msgstr ""
+
+
+#~ msgid "Copy Cloth Adjuster Settings"
+#~ msgstr "クロス調整器をコピー"
+
+
+#~ msgid "Convert to MMD compatible"
+#~ msgstr "MMD互換に変換"
+
+
+#~ msgid "Select Mesh Objects with Use Alpha Hashed"
+#~ msgstr "アルファハッシュを使用するメッシュオブジェクトを選択"
+
+
+#~ msgid "Copy Collision Adjuster Settings"
+#~ msgstr "コリジョン調整器をコピー"
+
+
+#~ msgid "Add Pyramid Mesh by Breast Bone"
+#~ msgstr "胸ボーンからピラミッドメッシュを追加"
+
+
+#~ msgid "Select Shape Key Target Vertices"
+#~ msgstr "シェイプキー対象の頂点を選択"
+
+
+#~ msgid "Copy to Active"
+#~ msgstr "アクティブにコピー"
+
+
+#~ msgid "Setup Segmentation Color Palette"
+#~ msgstr "セグメンテーションカラーパレットを設定"
+
+
+#~ msgid "Update Assets JSON"
+#~ msgstr "アセットJSONを更新"
+
+
+#~ msgid "Add Center of Gravity"
+#~ msgstr "重心を追加"
+
+
+#~ msgid "Bake Indirect Lighting"
+#~ msgstr "間接照明をベイク"
+
+
+#~ msgid "De-rig armature"
+#~ msgstr "リグを解除"
+
+
+#~ msgid "Repaint Weight"
+#~ msgstr "ウェイト再ペイント"
+
+
+#~ msgid "Select Cloth Mesh"
+#~ msgstr "クロスメッシュを選択"
+
+
+#~ msgid "Add Skin Hair Mesh"
+#~ msgstr "体毛メッシュを追加"
 
