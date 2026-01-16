@@ -1,13 +1,12 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
 from abc import abstractmethod
 
 import bpy
+from bpy.app.translations import pgettext as _
 
 from ..editors.nodes import MaterialEditor
-from ..m17n import _
 
 
 class MaterialAdjusterUtilities(MaterialEditor):
@@ -55,9 +54,9 @@ class WetAdjuster(MaterialAdjusterABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Wet Adjuster")
+        return "Wet Adjuster"
 
-    translation_properties = [
+    _translation_properties = [
         _("Specular IOR Level"),
         _("Roughness"),
         _("Wet"),
@@ -112,9 +111,9 @@ class GlitterAdjuster(MaterialAdjusterABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Glitter Adjuster")
+        return "Glitter Adjuster"
 
-    translation_properties = [
+    _translation_properties = [
         _("Specular IOR Level"),
         _("Roughness"),
         _("Glitter"),
@@ -170,9 +169,9 @@ class EmissionAdjuster(MaterialAdjusterABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Emission Adjuster")
+        return "Emission Adjuster"
 
-    translation_properties = [
+    _translation_properties = [
         _("Color"),
         _("Threshold"),
         _("Strength"),

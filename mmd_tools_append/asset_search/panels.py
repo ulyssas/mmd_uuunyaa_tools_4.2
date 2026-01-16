@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -10,9 +9,10 @@ from typing import List, Optional, Tuple
 
 import bpy
 import bpy.utils.previews
+from bpy.app.translations import pgettext as _
+from bpy.app.translations import pgettext_iface as iface_
 
 from .. import PACKAGE_PATH
-from ..m17n import _, iface_
 from ..utilities import get_preferences, is_mmd_tools_installed, label_multiline, to_human_friendly_text, to_int32
 from .actions import ImportActionExecutor, MessageException
 from .assets import ASSETS, AssetDescription, AssetType
@@ -272,7 +272,7 @@ class AssetDetailPopup(bpy.types.Operator):
         (asset_state, content, task) = Utilities.get_asset_state(asset)
 
         if asset_state is AssetState.INITIALIZED:
-            layout.operator(AssetDownload.bl_idname, text=_("Download"), icon="TRIA_DOWN_BAR").asset_id = asset.id
+            layout.operator(AssetDownload.bl_idname, text="Download", icon="TRIA_DOWN_BAR").asset_id = asset.id
 
         elif asset_state is AssetState.DOWNLOADING:
             draw_titled_label(
@@ -280,26 +280,26 @@ class AssetDetailPopup(bpy.types.Operator):
                 title=_("Cache:"),
                 text=f"{iface_('Downloading')} {to_human_friendly_text(task.fetched_size)}B / {to_human_friendly_text(task.content_length)}B",
             )
-            layout.operator(AssetDownloadCancel.bl_idname, text=_("Cancel"), icon="CANCEL").asset_id = asset.id
+            layout.operator(AssetDownloadCancel.bl_idname, text="Cancel", icon="CANCEL").asset_id = asset.id
 
         elif asset_state is AssetState.CACHED:
             draw_title(layout, _("Cache:")).label(text=f"{to_human_friendly_text(content.length)}B   ({content.type})")
             draw_title(layout, _("Path:")).operator("wm.path_open", text=content.filepath, icon="FILEBROWSER").filepath = content.filepath
 
             row = layout.split(factor=0.9, align=True)
-            row.operator(AssetImport.bl_idname, text=_("Import"), icon="IMPORT").asset_id = asset.id
+            row.operator(AssetImport.bl_idname, text="Import", icon="IMPORT").asset_id = asset.id
             row.operator(AssetCacheRemove.bl_idname, text="", icon="TRASH").asset_id = asset.id
 
         elif asset_state is AssetState.EXTRACTED:
             asset_path = Utilities.resolve_path(asset)
             draw_title(layout, _("Path:")).operator("wm.path_open", text=asset_path, icon="FILEBROWSER").filepath = asset_path
-            layout.operator(AssetImport.bl_idname, text=_("Import"), icon="IMPORT").asset_id = asset.id
+            layout.operator(AssetImport.bl_idname, text="Import", icon="IMPORT").asset_id = asset.id
 
         elif asset_state is AssetState.FAILED:
-            layout.operator(AssetDownload.bl_idname, text=_("Retry"), icon="FILE_REFRESH").asset_id = asset.id
+            layout.operator(AssetDownload.bl_idname, text="Retry", icon="FILE_REFRESH").asset_id = asset.id
 
         else:
-            layout.operator(AssetDownload.bl_idname, text=_("Retry"), icon="FILE_REFRESH").asset_id = asset.id
+            layout.operator(AssetDownload.bl_idname, text="Retry", icon="FILE_REFRESH").asset_id = asset.id
 
 
 class AssetSearchQueryTags(bpy.types.UIList):
@@ -312,7 +312,7 @@ class AssetSearchQueryTags(bpy.types.UIList):
 
 class AssetSearchPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_mmd_tools_append_asset_search"
-    bl_label = _("MMD Append Asset Search")
+    bl_label = "MMD Append Asset Search"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Assets"
@@ -324,15 +324,15 @@ class AssetSearchPanel(bpy.types.Panel):
         query = search.query
         layout = self.layout
 
-        layout.prop(query, "type", text=_("Asset type"))
-        layout.prop(query, "text", text=_("Query"), icon="VIEWZOOM")
+        layout.prop(query, "type", text="Asset type")
+        layout.prop(query, "text", text="Query", icon="VIEWZOOM")
         if query.tags is not None:
             col = layout.column()
             row = col.row()
-            row.label(text=_("Tags:"))
+            row.label(text="Tags:")
             row = row.row()
             row.alignment = "RIGHT"
-            row.prop(query, "is_cached", text=_("Cached"))
+            row.prop(query, "is_cached", text="Cached")
             col.template_list(
                 AssetSearchQueryTags.bl_idname,
                 "",
@@ -396,7 +396,7 @@ class AssetSearchPanel(bpy.types.Panel):
         if display_count != asset_item_count:
             row = layout.row()
             row.alignment = "CENTER"
-            row.label(text=_("Invalid search result, Please search again."))
+            row.label(text="Invalid search result, Please search again.")
             return
 
         loading_count = search.result.count - asset_item_count
@@ -420,7 +420,7 @@ class AssetSearchPanel(bpy.types.Panel):
 
 class AssetsOperatorPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_assets_operator_panel"
-    bl_label = _("MMD Append Assets Operator")
+    bl_label = "MMD Append Assets Operator"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Assets"
@@ -431,13 +431,13 @@ class AssetsOperatorPanel(bpy.types.Panel):
 
         col = layout.column()
         box = col.box().column(align=True)
-        box.label(text=_("Reload local asset JSON files"))
+        box.label(text="Reload local asset JSON files")
         box.operator(ReloadAssetJsons.bl_idname, icon="FILE_REFRESH")
 
         preferences = get_preferences()
 
         box = col.box().column(align=True)
-        box.label(text=_("Download and Update to the latest assets"))
+        box.label(text="Download and Update to the latest assets")
         operator = box.operator(UpdateAssetJson.bl_idname, icon="TRIA_DOWN_BAR")
         operator.repo = preferences.asset_json_update_repo
         operator.query = preferences.asset_json_update_query
@@ -452,27 +452,27 @@ class AssetsOperatorPanel(bpy.types.Panel):
             icon_only=True,
             emboss=False,
         )
-        row.label(text=_("Debug"))
+        row.label(text="Debug")
 
         if not props.debug_expanded:
             return
 
         box = col.box().column()
-        box.label(text=_("Fetch an asset for debug"), icon="MODIFIER")
-        box.column(align=True).prop(props, "debug_issue_number", text=_("issue #"))
+        box.label(text="Fetch an asset for debug", icon="MODIFIER")
+        box.column(align=True).prop(props, "debug_issue_number", text="issue #")
 
         row = box.row(align=True)
         row.operator(DeleteDebugAssetJson.bl_idname, icon="CANCEL")
         row.operator(UpdateDebugAssetJson.bl_idname, icon="TRIA_DOWN_BAR").issue_number = props.debug_issue_number
 
         box = col.box().column()
-        box.label(text=_("Download and Update to the latest filtered assets for debug"), icon="FILTER")
+        box.label(text="Download and Update to the latest filtered assets for debug", icon="FILTER")
 
-        box.prop(props, "repo", text=_("Repository"))
-        box.prop(props, "query", text=_("Query"))
-        box.prop(props, "output_json", text=_("Write to"))
+        box.prop(props, "repo", text="Repository")
+        box.prop(props, "query", text="Query")
+        box.prop(props, "output_json", text="Write to")
 
-        operator = box.operator(UpdateAssetJson.bl_idname, text=_("Update Assets JSON by query"), icon="TRIA_DOWN_BAR")
+        operator = box.operator(UpdateAssetJson.bl_idname, text="Update Assets JSON by query", icon="TRIA_DOWN_BAR")
         operator.repo = props.repo
         operator.query = props.query
         operator.output_json = props.output_json

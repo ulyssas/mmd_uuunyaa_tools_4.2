@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -10,12 +9,11 @@ from ..editors.operators import (
     SelectMovedPoseBones,
     SelectShapeKeyTargetVertices,
 )
-from ..m17n import _
 
 
 class RemoveUnusedVertexGroupsMenu(bpy.types.Menu):
     bl_idname = "VGROUP_MT_mmd_tools_append_remove_unused_vertex_groups"
-    bl_label = _("MMD Append")
+    bl_label = "MMD Append"
 
     def draw(self, _):
         pass
@@ -35,7 +33,7 @@ class RemoveUnusedVertexGroupsMenu(bpy.types.Menu):
 
 class SelectShapeKeyTargetVerticesMenu(bpy.types.Menu):
     bl_idname = "SHAPEKEY_MT_mmd_tools_append_select_shape_key_target_vertices"
-    bl_label = _("MMD Append")
+    bl_label = "MMD Append"
 
     def draw(self, _):
         pass
@@ -55,7 +53,7 @@ class SelectShapeKeyTargetVerticesMenu(bpy.types.Menu):
 
 class RemoveUnusedShapeKeysMenu(bpy.types.Menu):
     bl_idname = "VGROUP_MT_mmd_tools_append_remove_unused_shape_keys"
-    bl_label = _("MMD Append")
+    bl_label = "MMD Append"
 
     def draw(self, context):
         pass
@@ -75,27 +73,27 @@ class RemoveUnusedShapeKeysMenu(bpy.types.Menu):
 
 class SelectMovedPoseBonesMenu(bpy.types.Menu):
     bl_idname = "POSE_MT_mmd_tools_append_select_moved_pose_bones"
-    bl_label = _("Select Moved")
+    bl_label = "Select Moved"
 
     def draw(self, _context):
         layout = self.layout
 
-        operator = layout.operator(SelectMovedPoseBones.bl_idname, text=_("Moved"))
+        operator = layout.operator(SelectMovedPoseBones.bl_idname, text="Moved")
         operator.select_rotated = True
         operator.select_translated = True
         operator.select_scaled = True
 
-        operator = layout.operator(SelectMovedPoseBones.bl_idname, text=_("Rotated"))
+        operator = layout.operator(SelectMovedPoseBones.bl_idname, text="Rotated")
         operator.select_rotated = True
         operator.select_translated = False
         operator.select_scaled = False
 
-        operator = layout.operator(SelectMovedPoseBones.bl_idname, text=_("Translated"))
+        operator = layout.operator(SelectMovedPoseBones.bl_idname, text="Translated")
         operator.select_rotated = False
         operator.select_translated = True
         operator.select_scaled = False
 
-        operator = layout.operator(SelectMovedPoseBones.bl_idname, text=_("Scaled"))
+        operator = layout.operator(SelectMovedPoseBones.bl_idname, text="Scaled")
         operator.select_rotated = False
         operator.select_translated = False
         operator.select_scaled = True

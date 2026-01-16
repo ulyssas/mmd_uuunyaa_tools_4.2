@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -8,8 +7,8 @@ from enum import Enum
 from typing import Optional, Set, Tuple
 
 import bpy
-
-from ..m17n import _, iface_
+from bpy.app.translations import pgettext as _
+from bpy.app.translations import pgettext_iface as iface_
 
 
 class CheckResultStatus(Enum):
@@ -67,7 +66,7 @@ class CheckResult:
 
 class CheckEeveeRenderingPerformance(bpy.types.Operator):
     bl_idname = "mmd_tools_append.check_eevee_rendering_performance"
-    bl_label = _("Check Eevee Rendering Performance")
+    bl_label = "Check Eevee Rendering Performance"
     bl_options = {"REGISTER"}
 
     @classmethod
@@ -372,7 +371,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
 
     def draw(self, context: bpy.types.Context):
         layout: bpy.types.UILayout = self.layout
-        layout.label(text=_("Eevee Rendering Performance Checker"), icon="MOD_TIME")
+        layout.label(text="Eevee Rendering Performance Checker", icon="MOD_TIME")
 
         results = list(
             filter(
@@ -449,7 +448,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
             draw_check_result(col, result)
 
         col = layout.column(align=True)
-        col.label(text=_("Object with Impact Selection:"), icon="RESTRICT_SELECT_OFF")
+        col.label(text="Object with Impact Selection:", icon="RESTRICT_SELECT_OFF")
         col.operator(SelectMeshObjectsWithSlowMaterial.bl_idname, icon="MATERIAL")
 
     # results: List[CheckResult] = []
@@ -463,7 +462,7 @@ class CheckEeveeRenderingPerformance(bpy.types.Operator):
 
 class SelectMeshObjectsWithSlowMaterial(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_mesh_objects_with_slow_material"
-    bl_label = _("Select Mesh Objects with Use Alpha Hashed")
+    bl_label = "Select Mesh Objects with Use Alpha Hashed"
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, context: bpy.types.Context):

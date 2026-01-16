@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -9,20 +8,20 @@ from typing import Set
 
 import bmesh
 import bpy
+from bpy.app.translations import pgettext as _
 
 from ..editors import segmentation
-from ..m17n import _
 from ..utilities import label_multiline
 
 
 class SetupRenderEngineForEevee(bpy.types.Operator):
     bl_idname = "mmd_tools_append.setup_render_engine_for_eevee"
-    bl_label = _("Setup Render Engine for Eevee")
-    bl_description = _("Setup render engine properties for Eevee.")
+    bl_label = "Setup Render Engine for Eevee"
+    bl_description = "Setup render engine properties for Eevee."
     bl_options = {"REGISTER", "UNDO"}
 
-    use_motion_blur: bpy.props.BoolProperty(name=_("Use Motion Blur"), default=False)
-    film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
+    use_motion_blur: bpy.props.BoolProperty(name="Use Motion Blur", default=False)
+    film_transparent: bpy.props.BoolProperty(name="Use Film Transparent", default=False)
 
     @classmethod
     def poll(cls, context):
@@ -76,13 +75,13 @@ class SetupRenderEngineForEevee(bpy.types.Operator):
 
 class SetupRenderEngineForToonEevee(bpy.types.Operator):
     bl_idname = "mmd_tools_append.setup_render_engine_for_toon_eevee"
-    bl_label = _("Setup Render Engine for Toon Eevee")
-    bl_description = _("Setup render engine properties for Toon Eevee.")
+    bl_label = "Setup Render Engine for Toon Eevee"
+    bl_description = "Setup render engine properties for Toon Eevee."
     bl_options = {"REGISTER", "UNDO"}
 
-    use_motion_blur: bpy.props.BoolProperty(name=_("Use Motion Blur"), default=False)
-    use_shadows: bpy.props.BoolProperty(name=_("Use Shadow"), default=True)
-    film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
+    use_motion_blur: bpy.props.BoolProperty(name="Use Motion Blur", default=False)
+    use_shadows: bpy.props.BoolProperty(name="Use Shadow", default=True)
+    film_transparent: bpy.props.BoolProperty(name="Use Film Transparent", default=False)
 
     @classmethod
     def poll(cls, context):
@@ -130,13 +129,13 @@ class SetupRenderEngineForToonEevee(bpy.types.Operator):
 
 class SetupRenderEngineForWorkbench(bpy.types.Operator):
     bl_idname = "mmd_tools_append.setup_render_engine_for_workbench"
-    bl_label = _("Setup Render Engine for Workbench")
-    bl_description = _("Setup render engine properties for Workbench.")
+    bl_label = "Setup Render Engine for Workbench"
+    bl_description = "Setup render engine properties for Workbench."
     bl_options = {"REGISTER", "UNDO"}
 
-    use_shadow: bpy.props.BoolProperty(name=_("Use Shadow"), default=True)
-    use_dof: bpy.props.BoolProperty(name=_("Use Depth of Field"), default=True)
-    film_transparent: bpy.props.BoolProperty(name=_("Use Film Transparent"), default=False)
+    use_shadow: bpy.props.BoolProperty(name="Use Shadow", default=True)
+    use_dof: bpy.props.BoolProperty(name="Use Depth of Field", default=True)
+    film_transparent: bpy.props.BoolProperty(name="Use Film Transparent", default=False)
 
     @classmethod
     def poll(cls, _context):
@@ -180,7 +179,7 @@ class SetupRenderEngineForWorkbench(bpy.types.Operator):
 
 class ShowMessageBox(bpy.types.Operator):
     bl_idname = "mmd_tools_append.show_message_box"
-    bl_label = _("Show Message Box")
+    bl_label = "Show Message Box"
     bl_options = {"INTERNAL"}
 
     icon: bpy.props.StringProperty(default="INFO")
@@ -201,11 +200,11 @@ class ShowMessageBox(bpy.types.Operator):
 
 class RemoveUnusedVertexGroups(bpy.types.Operator):
     bl_idname = "mmd_tools_append.remove_unused_vertex_groups"
-    bl_label = _("Remove Unused Vertex Groups")
-    bl_description = _("Remove unused vertex groups from the active meshes")
+    bl_label = "Remove Unused Vertex Groups"
+    bl_description = "Remove unused vertex groups from the active meshes"
     bl_options = {"REGISTER", "UNDO"}
 
-    weight_threshold: bpy.props.FloatProperty(name=_("Weight Threshold"), default=0.0, min=0.0, max=1.0)
+    weight_threshold: bpy.props.FloatProperty(name="Weight Threshold", default=0.0, min=0.0, max=1.0)
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -269,11 +268,11 @@ class RemoveUnusedVertexGroups(bpy.types.Operator):
 
 class SelectShapeKeyTargetVertices(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_shape_key_target_vertices"
-    bl_label = _("Select Shape Key Target Vertices")
-    bl_description = _("Select shape key target vertices from the active meshes")
+    bl_label = "Select Shape Key Target Vertices"
+    bl_description = "Select shape key target vertices from the active meshes"
     bl_options = {"REGISTER", "UNDO"}
 
-    distance_threshold: bpy.props.FloatProperty(name=_("Distance Threshold"), default=0.0, min=0.0)
+    distance_threshold: bpy.props.FloatProperty(name="Distance Threshold", default=0.0, min=0.0)
 
     @classmethod
     def poll(cls, context):
@@ -316,11 +315,11 @@ class SelectShapeKeyTargetVertices(bpy.types.Operator):
 
 class RemoveUnusedShapeKeys(bpy.types.Operator):
     bl_idname = "mmd_tools_append.remove_unused_shape_keys"
-    bl_label = _("Remove Unused Shape Keys")
-    bl_description = _("Remove unused shape keys from the active meshes")
+    bl_label = "Remove Unused Shape Keys"
+    bl_description = "Remove unused shape keys from the active meshes"
     bl_options = {"REGISTER", "UNDO"}
 
-    distance_threshold: bpy.props.FloatProperty(name=_("Distance Threshold"), default=0.0, min=0.0)
+    distance_threshold: bpy.props.FloatProperty(name="Distance Threshold", default=0.0, min=0.0)
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -381,14 +380,14 @@ class RemoveUnusedShapeKeys(bpy.types.Operator):
 
 class SelectMovedPoseBones(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_moved_pose_bones"
-    bl_label = _("Select Moved Pose Bones")
+    bl_label = "Select Moved Pose Bones"
     bl_options = {"REGISTER", "UNDO"}
 
-    select_rotated: bpy.props.BoolProperty(name=_("Rotated"), default=False)
-    select_translated: bpy.props.BoolProperty(name=_("Translated"), default=False)
-    select_scaled: bpy.props.BoolProperty(name=_("Scaled"), default=False)
+    select_rotated: bpy.props.BoolProperty(name="Rotated", default=False)
+    select_translated: bpy.props.BoolProperty(name="Translated", default=False)
+    select_scaled: bpy.props.BoolProperty(name="Scaled", default=False)
 
-    tolerance: bpy.props.FloatProperty(name=_("Tolerance"), default=1e-07)
+    tolerance: bpy.props.FloatProperty(name="Tolerance", default=1e-07)
 
     def execute(self, context):
         tolerance = self.tolerance
@@ -432,13 +431,13 @@ class SelectMovedPoseBones(bpy.types.Operator):
 
 class AutoSegmentationOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.mesh_auto_segment"
-    bl_label = _("Auto Segmentation")
+    bl_label = "Auto Segmentation"
     bl_options = {"REGISTER", "UNDO"}
 
-    cost_threshold: bpy.props.FloatProperty(name=_("Cost Threshold"), default=2.5, min=0, soft_max=3.0, step=1)
+    cost_threshold: bpy.props.FloatProperty(name="Cost Threshold", default=2.5, min=0, soft_max=3.0, step=1)
 
     maximum_area_threshold: bpy.props.FloatProperty(
-        name=_("Maximum Area Threshold"),
+        name="Maximum Area Threshold",
         default=0.500,
         min=0,
         soft_max=1.0,
@@ -446,7 +445,7 @@ class AutoSegmentationOperator(bpy.types.Operator):
         step=1,
     )
     minimum_area_threshold: bpy.props.FloatProperty(
-        name=_("Minimum Area Threshold"),
+        name="Minimum Area Threshold",
         default=0.001,
         min=0,
         soft_max=1.0,
@@ -454,30 +453,30 @@ class AutoSegmentationOperator(bpy.types.Operator):
         step=1,
     )
 
-    face_angle_cost_factor: bpy.props.FloatProperty(name=_("Face Angle Cost Factor"), default=1.0, min=0, soft_max=2.0, step=1)
-    perimeter_cost_factor: bpy.props.FloatProperty(name=_("Perimeter Cost Factor"), default=0.0, min=0, soft_max=10.0, step=1)
-    material_change_cost_factor: bpy.props.FloatProperty(name=_("Material Change Cost Factor"), default=0.3, min=0, soft_max=1.0, step=1)
-    edge_sharp_cost_factor: bpy.props.FloatProperty(name=_("Edge Sharp Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
-    edge_seam_cost_factor: bpy.props.FloatProperty(name=_("Edge Seam Cost Factor"), default=0.0, min=0, soft_max=1.0, step=1)
+    face_angle_cost_factor: bpy.props.FloatProperty(name="Face Angle Cost Factor", default=1.0, min=0, soft_max=2.0, step=1)
+    perimeter_cost_factor: bpy.props.FloatProperty(name="Perimeter Cost Factor", default=0.0, min=0, soft_max=10.0, step=1)
+    material_change_cost_factor: bpy.props.FloatProperty(name="Material Change Cost Factor", default=0.3, min=0, soft_max=1.0, step=1)
+    edge_sharp_cost_factor: bpy.props.FloatProperty(name="Edge Sharp Cost Factor", default=0.0, min=0, soft_max=1.0, step=1)
+    edge_seam_cost_factor: bpy.props.FloatProperty(name="Edge Seam Cost Factor", default=0.0, min=0, soft_max=1.0, step=1)
     vertex_group_weight_cost_factor: bpy.props.FloatProperty(
-        name=_("Vertex Group Weight Cost Factor"),
+        name="Vertex Group Weight Cost Factor",
         default=0.1,
         min=0,
         soft_max=1.0,
         step=1,
     )
     vertex_group_change_cost_factor: bpy.props.FloatProperty(
-        name=_("Vertex Group Change Cost Factor"),
+        name="Vertex Group Change Cost Factor",
         default=0.5,
         min=0,
         soft_max=1.0,
         step=1,
     )
 
-    edge_length_factor: bpy.props.FloatProperty(name=_("Edge Length Factor"), default=1.0, min=0, soft_max=1.0, step=1)
+    edge_length_factor: bpy.props.FloatProperty(name="Edge Length Factor", default=1.0, min=0, soft_max=1.0, step=1)
 
-    segmentation_vertex_color_random_seed: bpy.props.IntProperty(name=_("Segmentation Vertex Color Random Seed"), default=0, min=0)
-    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name=_("Segmentation Vertex Color Attribute Name"), default="Segmentation")
+    segmentation_vertex_color_random_seed: bpy.props.IntProperty(name="Segmentation Vertex Color Random Seed", default=0, min=0)
+    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name="Segmentation Vertex Color Attribute Name", default="Segmentation")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -571,11 +570,11 @@ operation: {operator_end_secs - operator_start_secs} secs, auto_segment {auto_se
 
 class PaintSelectedFacesOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.mesh_paint_selected_faces"
-    bl_label = _("Paint Selected Faces")
+    bl_label = "Paint Selected Faces"
     bl_options = {"REGISTER", "UNDO"}
 
-    random_color: bpy.props.BoolProperty(name=_("Random Color"), default=False)
-    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name=_("Segmentation Vertex Color Attribute Name"), default="Segmentation")
+    random_color: bpy.props.BoolProperty(name="Random Color", default=False)
+    segmentation_vertex_color_attribute_name: bpy.props.StringProperty(name="Segmentation Vertex Color Attribute Name", default="Segmentation")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -612,7 +611,7 @@ SEGMENTATION_COLOR_PALETTE_NAME = "Segmentation Color Palette"
 
 class SetupSegmentationColorPaletteOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.setup_segmentation_color_palette"
-    bl_label = _("Setup Segmentation Color Palette")
+    bl_label = "Setup Segmentation Color Palette"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -636,7 +635,7 @@ class SetupSegmentationColorPaletteOperator(bpy.types.Operator):
 
 class RestoreSegmentationColorPaletteOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.restore_segmentation_color_palette"
-    bl_label = _("Restore Segmentation Color Palette")
+    bl_label = "Restore Segmentation Color Palette"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod

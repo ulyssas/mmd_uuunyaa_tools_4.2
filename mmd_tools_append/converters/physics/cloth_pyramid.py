@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -12,11 +11,11 @@ import bmesh
 import bpy
 import mathutils
 import numpy as np
+from bpy.app.translations import pgettext as _
 from mathutils import Matrix, Vector
 
 from ...editors.armatures import ArmatureEditor
 from ...editors.meshes import MeshEditor
-from ...m17n import _
 from ...utilities import MessageException
 
 
@@ -828,6 +827,7 @@ def to_targets(
         origin: Vector
         direction: Vector
 
+        # downward direction
         if breast_bone_direction_vector.z < -0.6:
             if not breast_bone.use_connect:
                 raise MessageException("Unsupported breast bone structure. Make sure the bone is connected to parent bone. (Bone > Relations)") from None
@@ -836,6 +836,7 @@ def to_targets(
             direction = breast_bone.parent.vector.normalized()
             origin = breast_bone.parent.head + breast_bone.vector / 2 + head_tail * breast_bone.parent.vector
 
+        # forward direction
         elif -0.4 < breast_bone_direction_vector.z < +0.4:
             parent_bone_name = breast_bone.parent.name
             direction = breast_bone_direction_vector
@@ -865,14 +866,14 @@ def to_targets(
 
 class AddPyramidMeshByBreastBoneOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.add_pyramid_mesh_by_breast_bone"
-    bl_label = _("Add Pyramid Mesh by Breast Bone")
-    bl_description = _("Add pyramid meshes from selected breast bones.")
+    bl_label = "Add Pyramid Mesh by Breast Bone"
+    bl_description = "Add pyramid meshes from selected breast bones."
     bl_options = {"REGISTER", "UNDO"}
 
-    head_tail: bpy.props.FloatProperty(name=_("Head/Tail"), default=0.5, min=0.0, max=1.0, step=10)
-    string_length_ratio: bpy.props.FloatProperty(name=_("String Length Ratio"), default=2.0, min=1.0, max=100.0, step=10)
-    base_area_factor: bpy.props.FloatProperty(name=_("Base Area Factor"), default=0.1, min=0.0, max=100.0, step=10)
-    project_vertically: bpy.props.BoolProperty(name=_("Project Base Vertices Vertically"), default=False)
+    head_tail: bpy.props.FloatProperty(name="Head/Tail", default=0.5, min=0.0, max=1.0, step=10)
+    string_length_ratio: bpy.props.FloatProperty(name="String Length Ratio", default=2.0, min=1.0, max=100.0, step=10)
+    base_area_factor: bpy.props.FloatProperty(name="Base Area Factor", default=0.1, min=0.0, max=100.0, step=10)
+    project_vertically: bpy.props.BoolProperty(name="Project Base Vertices Vertically", default=False)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -913,11 +914,11 @@ class AddPyramidMeshByBreastBoneOperator(bpy.types.Operator):
 
 class ConvertPyramidMeshToClothOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.convert_pyramid_mesh_to_cloth"
-    bl_label = _("Convert Pyramid Mesh to Cloth")
-    bl_description = _("Convert pyramid meshes to cloth simulation.")
+    bl_label = "Convert Pyramid Mesh to Cloth"
+    bl_description = "Convert pyramid meshes to cloth simulation."
     bl_options = {"REGISTER", "UNDO"}
 
-    boundary_expansion_hop_count: bpy.props.IntProperty(name=_("Boundary Expansion Hop Count"), default=0, min=0, max=5)
+    boundary_expansion_hop_count: bpy.props.IntProperty(name="Boundary Expansion Hop Count", default=0, min=0, max=5)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -979,10 +980,10 @@ class ConvertPyramidMeshToClothOperator(bpy.types.Operator):
 
 class AssignPyramidWeightsOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.assign_pyramid_weights"
-    bl_label = _("Assign Pyramid Weights")
+    bl_label = "Assign Pyramid Weights"
     bl_options = {"REGISTER", "UNDO"}
 
-    boundary_expansion_hop_count: bpy.props.IntProperty(name=_("Boundary Expansion Hop Count"), default=0, min=0, max=5)
+    boundary_expansion_hop_count: bpy.props.IntProperty(name="Boundary Expansion Hop Count", default=0, min=0, max=5)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -1034,7 +1035,7 @@ class AssignPyramidWeightsOperator(bpy.types.Operator):
 
 class MMDAppendPyramidClothAdjuster(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_pyramid_cloth_adjuster"
-    bl_label = _("MMD Append Pyramid Cloth Adjuster")
+    bl_label = "MMD Append Pyramid Cloth Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"
@@ -1051,27 +1052,27 @@ class MMDAppendPyramidClothAdjuster(bpy.types.Panel):
         box = layout.box()
 
         col = box.column()
-        col.label(text=_("Weights:"))
+        col.label(text="Weights:")
         col.prop(pyramid_cloth_settings, "string_pin_weight")
         col.prop(pyramid_cloth_settings, "apex_pin_weight")
         col.prop(pyramid_cloth_settings, "base_pin_weight")
 
         col = box.column()
-        col.label(text=_("Cloth Physics:"))
+        col.label(text="Cloth Physics:")
         col.prop(pyramid_cloth_settings, "time_scale")
 
         col = box.column()
-        col.label(text=_("Batch Operation:"))
+        col.label(text="Batch Operation:")
         col.operator(
             CopyPyramidClothAdjusterSettings.bl_idname,
-            text=_("Copy to Selected"),
+            text="Copy to Selected",
             icon="DUPLICATE",
         )
 
 
 class CopyPyramidClothAdjusterSettings(bpy.types.Operator):
     bl_idname = "mmd_tools_append.copy_pyramid_cloth_adjuster_settings"
-    bl_label = _("Copy Pyramid Cloth Adjuster Settings")
+    bl_label = "Copy Pyramid Cloth Adjuster Settings"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -1100,7 +1101,7 @@ class CopyPyramidClothAdjusterSettings(bpy.types.Operator):
 
 class PyramidClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     string_pin_weight: bpy.props.FloatProperty(
-        name=_("String Pin Weight"),
+        name="String Pin Weight",
         min=0.0,
         max=1.0,
         precision=3,
@@ -1110,7 +1111,7 @@ class PyramidClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     apex_pin_weight: bpy.props.FloatProperty(
-        name=_("Apex Pin Weight"),
+        name="Apex Pin Weight",
         min=0.0,
         max=1.0,
         precision=3,
@@ -1120,7 +1121,7 @@ class PyramidClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     base_pin_weight: bpy.props.FloatProperty(
-        name=_("Base Pin Weight"),
+        name="Base Pin Weight",
         min=0.0,
         max=1.0,
         precision=3,
@@ -1130,7 +1131,7 @@ class PyramidClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     time_scale: bpy.props.FloatProperty(
-        name=_("Speed Multiplier"),
+        name="Speed Multiplier",
         min=0.0,
         soft_max=10.0,
         precision=3,

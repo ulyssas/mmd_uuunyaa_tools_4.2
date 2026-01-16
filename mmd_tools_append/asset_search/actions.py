@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -16,9 +15,9 @@ from typing import List, Optional
 
 import bpy
 import requests
+from bpy.app.translations import pgettext as _
 
 from .. import PACKAGE_PATH
-from ..m17n import _
 from ..utilities import MessageException, import_from_file
 from .assets import AssetDescription, _Utilities
 

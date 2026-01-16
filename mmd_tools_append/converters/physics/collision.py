@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -7,7 +6,6 @@ from typing import Iterable
 import bpy
 
 from ...editors.meshes import MeshEditor
-from ...m17n import _
 from ...tuners import TunerABC, TunerRegistry
 from ...utilities import MessageException, import_mmd_tools
 
@@ -23,7 +21,7 @@ class NothingCollisionTuner(CollisionTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Nothing")
+        return "Nothing"
 
     def execute(self):
         pass
@@ -36,7 +34,7 @@ class ThinSmoothCollisionTuner(CollisionTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Thin Smooth")
+        return "Thin Smooth"
 
     def execute(self):
         collision_settings: bpy.types.CollisionSettings = self.find_collision_settings()
@@ -54,7 +52,7 @@ TUNERS = TunerRegistry(
 
 class MMDAppendCollisionAdjusterPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_collision_adjuster"
-    bl_label = _("MMD Append Collision Adjuster")
+    bl_label = "MMD Append Collision Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"
@@ -76,13 +74,13 @@ class MMDAppendCollisionAdjusterPanel(bpy.types.Panel):
         col.prop(collision_settings, "cloth_friction")
 
         col = layout.column()
-        col.label(text=_("Batch Operation:"))
-        col.operator(CopyCollisionAdjusterSettings.bl_idname, text=_("Copy to Selected"), icon="DUPLICATE")
+        col.label(text="Batch Operation:")
+        col.operator(CopyCollisionAdjusterSettings.bl_idname, text="Copy to Selected", icon="DUPLICATE")
 
 
 class CopyCollisionAdjusterSettings(bpy.types.Operator):
     bl_idname = "mmd_tools_append.copy_collision_adjuster_settings"
-    bl_label = _("Copy Collision Adjuster Settings")
+    bl_label = "Copy Collision Adjuster Settings"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -115,11 +113,11 @@ class CopyCollisionAdjusterSettings(bpy.types.Operator):
 
 class SelectCollisionMesh(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_collision_mesh"
-    bl_label = _("Select Collision Mesh")
+    bl_label = "Select Collision Mesh"
     bl_options = {"REGISTER", "UNDO"}
 
-    same_mmd_model: bpy.props.BoolProperty(name=_("Same MMD Model"))
-    same_physics_settings: bpy.props.BoolProperty(name=_("Same Physics Settings"))
+    same_mmd_model: bpy.props.BoolProperty(name="Same MMD Model")
+    same_physics_settings: bpy.props.BoolProperty(name="Same Physics Settings")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -166,7 +164,7 @@ class SelectCollisionMesh(bpy.types.Operator):
 
 class RemoveMeshCollision(bpy.types.Operator):
     bl_idname = "mmd_tools_append.remove_mesh_collision"
-    bl_label = _("Remove Mesh Collision")
+    bl_label = "Remove Mesh Collision"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -206,10 +204,10 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     def _update_presets(prop, _):
         TUNERS[prop.presets](prop.id_data).execute()
 
-    presets: bpy.props.EnumProperty(name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
+    presets: bpy.props.EnumProperty(name="Presets", items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
 
     damping: bpy.props.FloatProperty(
-        name=_("Damping"),
+        name="Damping",
         min=0.000,
         max=1.000,
         precision=3,
@@ -218,7 +216,7 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     thickness_outer: bpy.props.FloatProperty(
-        name=_("Thickness Outer"),
+        name="Thickness Outer",
         min=0.001,
         max=1.000,
         precision=3,
@@ -227,7 +225,7 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     thickness_inner: bpy.props.FloatProperty(
-        name=_("Thickness Inner"),
+        name="Thickness Inner",
         min=0.001,
         max=1.000,
         precision=3,
@@ -236,7 +234,7 @@ class CollisionAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     cloth_friction: bpy.props.FloatProperty(
-        name=_("Cloth Friction"),
+        name="Cloth Friction",
         min=0.000,
         max=80.000,
         step=10,

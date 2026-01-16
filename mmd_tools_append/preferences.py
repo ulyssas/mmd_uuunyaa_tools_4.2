@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -7,78 +6,76 @@ import pathlib
 import tempfile
 
 import bpy
+from bpy.app.translations import pgettext as _
 
 from . import utilities
 from .asset_search.assets import AssetUpdater
 from .asset_search.operators import DeleteCachedFiles
-from .m17n import _
 
 
 class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
     bl_idname = __package__
 
     asset_search_results_max_display_count: bpy.props.IntProperty(
-        name=_("Asset Search Results Max. Display Count"),
-        description=_("Larger value is slower"),
+        name="Asset Search Results Max. Display Count",
+        description="Larger value is slower",
         min=10,
         soft_max=200,
         default=50,
     )
 
     asset_jsons_folder: bpy.props.StringProperty(
-        name=_("Asset JSONs Folder"),
-        description=_("Path to asset list JSON files"),
+        name="Asset JSONs Folder",
+        description="Path to asset list JSON files",
         subtype="DIR_PATH",
         default=os.path.join(os.path.dirname(__file__), "asset_jsons"),
     )
 
     asset_json_update_repo: bpy.props.StringProperty(
-        name=_("Asset JSON Update Repository"),
-        description=_("Specify the github repository which to retrieve the assets"),
+        name="Asset JSON Update Repository",
+        description="Specify the github repository which to retrieve the assets",
         default=AssetUpdater.default_repo,
     )
 
     asset_json_update_query: bpy.props.StringProperty(
-        name=_("Asset JSON Update Query"),
-        description=_("Specify the filter conditions for retrieving assets"),
+        name="Asset JSON Update Query",
+        description="Specify the filter conditions for retrieving assets",
         default=AssetUpdater.default_query,
     )
 
-    asset_json_update_on_startup_enabled: bpy.props.BoolProperty(name=_("Asset JSON Auto Update on Startup"), default=True)
+    asset_json_update_on_startup_enabled: bpy.props.BoolProperty(name="Asset JSON Auto Update on Startup", default=True)
 
     asset_cache_folder: bpy.props.StringProperty(
-        name=_("Asset Cache Folder"),
-        description=_("Path to asset cache folder"),
+        name="Asset Cache Folder",
+        description="Path to asset cache folder",
         subtype="DIR_PATH",
         default=os.path.join(tempfile.gettempdir(), "mmd_tools_append_cache"),
     )
 
     asset_max_cache_size: bpy.props.IntProperty(
-        name=_("Asset Max. Cache Size (MB)"),
-        description=_("Maximum size (Mega bytes) of the asset cache folder"),
+        name="Asset Max. Cache Size (MB)",
+        description="Maximum size (Mega bytes) of the asset cache folder",
         min=100,
         soft_max=1_000_000,
         default=10_000,
     )
 
     asset_extract_root_folder: bpy.props.StringProperty(
-        name=_("Asset Extract Root Folder"),
-        description=_("Path to extract the cached assets"),
+        name="Asset Extract Root Folder",
+        description="Path to extract the cached assets",
         subtype="DIR_PATH",
         default=os.path.join(pathlib.Path.home(), "BlenderAssets"),
     )
 
     asset_extract_folder: bpy.props.StringProperty(
-        name=_("Asset Extract Folder"),
-        description=_("Path to assets. Create it under the Asset Extract Root Folder.\nThe following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}"),
+        name="Asset Extract Folder",
+        description="Path to assets. Create it under the Asset Extract Root Folder.\nThe following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}",
         default="{type}/{id}.{name}",
     )
 
     asset_extract_json: bpy.props.StringProperty(
-        name=_("Asset Extract JSON"),
-        description=_(
-            "Name to assets marker JSON. Create it under the Asset Extract Folder.\nThe presence of this file is used to determine the existence of the asset.\nThe following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}"
-        ),
+        name="Asset Extract JSON",
+        description="Name to assets marker JSON. Create it under the Asset Extract Folder.\nThe presence of this file is used to determine the existence of the asset.\nThe following variables are available: {id}, {type}, {name}, {aliases[en]}, {aliases[ja]}",
         default="{id}.json",
     )
 
@@ -114,11 +111,11 @@ class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
 
         row = col.split(factor=0.95, align=True)
         row.prop(self, "asset_json_update_repo")
-        row.operator("wm.url_open", text=_("Browse Assets"), icon="URL").url = f"https://github.com/{self.asset_json_update_repo}/issues"
+        row.operator("wm.url_open", text="Browse Assets", icon="URL").url = f"https://github.com/{self.asset_json_update_repo}/issues"
 
         row = col.split(factor=0.95, align=True)
         row.prop(self, "asset_json_update_query")
-        row.operator("wm.url_open", text=_("Query Examples"), icon="URL").url = "https://github.com/MMD-Blender/blender_mmd_tools_append/wiki/How-to-add-a-new-asset#query-examples"
+        row.operator("wm.url_open", text="Query Examples", icon="URL").url = "https://github.com/MMD-Blender/blender_mmd_tools_append/wiki/How-to-add-a-new-asset#query-examples"
 
         col.prop(self, "asset_json_update_on_startup_enabled")
 
@@ -126,7 +123,7 @@ class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
         col.prop(self, "asset_cache_folder")
 
         usage = col.split(align=True, factor=0.24)
-        usage.label(text=_("Asset Cache Usage:"))
+        usage.label(text="Asset Cache Usage:")
         usage_row = usage.column(align=True)
         usage_row.alignment = "RIGHT"
 
@@ -144,10 +141,10 @@ class MMDToolsAppendAddonPreferences(bpy.types.AddonPreferences):
 
         layout.separator()
         col = layout.column()
-        col.label(text=_("Credits:"))
+        col.label(text="Credits:")
 
         credit = col.column(align=True)
         row = credit.split(factor=0.95)
-        row.label(text=_("Rigid body Physics to Cloth Physics feature is the work of 小威廉伯爵."))
-        row.operator("wm.url_open", text=_(""), icon="URL").url = "https://github.com/958261649/Miku_Miku_Rig"
-        credit.label(text=_("It was ported with his permission."))
+        row.label(text="Rigid body Physics to Cloth Physics feature is the work of 小威廉伯爵.")
+        row.operator("wm.url_open", text="", icon="URL").url = "https://github.com/958261649/Miku_Miku_Rig"
+        credit.label(text="It was ported with his permission.")

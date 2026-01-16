@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -9,7 +8,6 @@ import bpy
 
 from .. import PACKAGE_PATH
 from ..editors.nodes import NodeEditor
-from ..m17n import _
 
 try:
     from bpy.types import (
@@ -47,10 +45,10 @@ try:
             return node_input
 
         def get_point_random_rotation_node(self) -> ShaderNodeGroup:
-            return self.get_node_group(_("Point Random Rotation"), label="Point Random Rotation")
+            return self.get_node_group("Point Random Rotation", label="Point Random Rotation")
 
         def get_random_rotation_point_instance_node(self) -> ShaderNodeGroup:
-            return self.get_node_group(_("Random Rotation Point Instance"), label="Random Rotation Point Instance")
+            return self.get_node_group("Random Rotation Point Instance", label="Random Rotation Point Instance")
 
         def reset(self):
             node_frame = self.find_adjusters_node_frame()

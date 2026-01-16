@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -9,8 +8,8 @@ from typing import Dict, Set
 import bpy
 from mathutils import Vector
 
-from ...utilities import import_mmd_tools
 from ...editors.armatures import ArmatureEditor
+from ...utilities import import_mmd_tools
 
 
 class MMDBoneType(Enum):

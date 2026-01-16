@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -6,7 +5,6 @@ from typing import Optional
 
 import bpy
 
-from ..m17n import _
 from ..tuners import TunerABC, TunerRegistry
 
 try:
@@ -41,7 +39,7 @@ try:
 
         @classmethod
         def get_name(cls) -> str:
-            return _("Reset")
+            return "Reset"
 
         def execute(self):
             self.reset()
@@ -60,7 +58,7 @@ try:
 
         @classmethod
         def get_name(cls) -> str:
-            return _("Sequins")
+            return "Sequins"
 
         def execute(self):
             self.reset()

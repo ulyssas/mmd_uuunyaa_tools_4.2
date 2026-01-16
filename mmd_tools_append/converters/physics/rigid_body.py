@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -7,13 +6,12 @@ from typing import Iterable
 import bpy
 
 from ...editors.meshes import MeshEditor
-from ...m17n import _
 from ...utilities import import_mmd_tools
 
 
 class MMDAppendRigidBodyAdjusterPanel(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_rigid_body_adjuster"
-    bl_label = _("MMD Append Rigid Body Adjuster")
+    bl_label = "MMD Append Rigid Body Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"
@@ -27,17 +25,17 @@ class MMDAppendRigidBodyAdjusterPanel(bpy.types.Panel):
         layout = self.layout
 
         col = layout.column()
-        col.label(text=_("Batch Operation:"))
-        col.operator("rigidbody.object_settings_copy", text=_("Copy to Selected"), icon="DUPLICATE")
+        col.label(text="Batch Operation:")
+        col.operator("rigidbody.object_settings_copy", text="Copy to Selected", icon="DUPLICATE")
 
 
 class SelectMeshRigidBody(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_rigid_body_mesh"
-    bl_label = _("Select Rigid Body Mesh")
+    bl_label = "Select Rigid Body Mesh"
     bl_options = {"REGISTER", "UNDO"}
 
-    only_in_mmd_model: bpy.props.BoolProperty(name=_("Only in the MMD Model"))
-    only_same_settings: bpy.props.BoolProperty(name=_("Only the same Settings"))
+    only_in_mmd_model: bpy.props.BoolProperty(name="Only in the MMD Model")
+    only_same_settings: bpy.props.BoolProperty(name="Only the same Settings")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):

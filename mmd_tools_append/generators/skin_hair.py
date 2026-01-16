@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -9,8 +8,6 @@ from typing import Iterable, List, Tuple
 import bpy
 import bpy_extras
 from mathutils import Quaternion, Vector
-
-from ..m17n import _
 
 
 def create_skin_hair(  # pylint: disable=too-many-arguments
@@ -104,8 +101,8 @@ def create_skin_hair(  # pylint: disable=too-many-arguments
 
 class AddSkinHairMesh(bpy.types.Operator):
     bl_idname = "mmd_tools_append.add_skin_hair_mesh"
-    bl_label = _("Add Skin Hair Mesh")
-    bl_description = _("Construct a skin hair mesh")
+    bl_label = "Add Skin Hair Mesh"
+    bl_description = "Construct a skin hair mesh"
     bl_options = {"REGISTER", "UNDO"}
 
     width: bpy.props.FloatProperty(default=0.006, min=0.0, precision=4, unit="LENGTH")
@@ -121,22 +118,22 @@ class AddSkinHairMesh(bpy.types.Operator):
     segments: bpy.props.IntProperty(default=3, min=3)
 
     align: bpy.props.EnumProperty(
-        name=_("Align"),
+        name="Align",
         items=(
-            ("WORLD", _("World"), _("Align the new object to the world")),
-            ("VIEW", _("View"), _("Align the new object to the view")),
-            ("CURSOR", _("3D Cursor"), _("Use the 3D cursor orientation for the new object")),
+            ("WORLD", "World", "Align the new object to the world"),
+            ("VIEW", "View", "Align the new object to the view"),
+            ("CURSOR", "3D Cursor", "Use the 3D cursor orientation for the new object"),
         ),
         default="WORLD",
         update=lambda p, _: p.rotation.zero() if p.align == "WORLD" else None,
     )
 
     location: bpy.props.FloatVectorProperty(
-        name=_("Location"),
+        name="Location",
         subtype="TRANSLATION",
     )
     rotation: bpy.props.FloatVectorProperty(
-        name=_("Rotation"),
+        name="Rotation",
         subtype="EULER",
     )
 
@@ -167,15 +164,15 @@ class AddSkinHairMesh(bpy.types.Operator):
 
 class MMDAppendMeshExtrasMenu(bpy.types.Menu):
     bl_idname = "VIEW3D_MT_mmd_append_mesh_extras"
-    bl_label = _("MMD Append")
+    bl_label = "MMD Append"
 
     def draw(self, _context):
         self.layout.operator_context = "INVOKE_REGION_WIN"
-        self.layout.operator(AddSkinHairMesh.bl_idname, text=_("Skin Hair"))
+        self.layout.operator(AddSkinHairMesh.bl_idname, text="Skin Hair")
 
     @staticmethod
     def draw_menu(this, _context):
-        this.layout.menu(MMDAppendMeshExtrasMenu.bl_idname, text=_("MMD Append Extras"))
+        this.layout.menu(MMDAppendMeshExtrasMenu.bl_idname, text="MMD Append Extras")
 
     @staticmethod
     def register():

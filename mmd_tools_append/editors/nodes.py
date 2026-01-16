@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -9,7 +8,6 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 import bpy
 
 from .. import PACKAGE_PATH
-from ..m17n import _
 from ..utilities import raise_installation_error
 
 PATH_BLENDS_MMD_APPEND_MATERIALS = os.path.join(PACKAGE_PATH, "blends", "MMDAppend_Materials.blend")
@@ -263,58 +261,58 @@ class MaterialEditor(NodeEditor):
         return self.get_base_texture_node()
 
     def get_skin_color_adjust_node(self) -> bpy.types.ShaderNodeRGBCurve:
-        return self.get_node_group(_("Skin Color Adjust"), label="Skin Color Adjust")
+        return self.get_node_group("Skin Color Adjust", label="Skin Color Adjust")
 
     def get_skin_bump_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Skin Bump"), label="Skin Bump")
+        return self.get_node_group("Skin Bump", label="Skin Bump")
 
     def get_fabric_woven_texture_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Fabric Woven Texture"), label="Fabric Woven Texture")
+        return self.get_node_group("Fabric Woven Texture", label="Fabric Woven Texture")
 
     def get_fabric_bump_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Fabric Bump"), label="Fabric Bump")
+        return self.get_node_group("Fabric Bump", label="Fabric Bump")
 
     def get_wave_bump_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Wave Bump"), label="Wave Bump")
+        return self.get_node_group("Wave Bump", label="Wave Bump")
 
     def get_magic_bump_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Magic Bump"), label="Magic Bump")
+        return self.get_node_group("Magic Bump", label="Magic Bump")
 
     def get_shadowless_bsdf_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Shadowless BSDF"), label="Shadowless BSDF")
+        return self.get_node_group("Shadowless BSDF", label="Shadowless BSDF")
 
     def get_gem_bsdf_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Gem BSDF"), label="Gem BSDF")
+        return self.get_node_group("Gem BSDF", label="Gem BSDF")
 
     def get_liquid_bsdf_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Liquid BSDF"), label="Liquid BSDF")
+        return self.get_node_group("Liquid BSDF", label="Liquid BSDF")
 
     def get_knit_texture_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Knit Texture"), label="Knit Texture")
+        return self.get_node_group("Knit Texture", label="Knit Texture")
 
     def get_leather_texture_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Leather Texture"), label="Leather Texture")
+        return self.get_node_group("Leather Texture", label="Leather Texture")
 
     def get_watercolor_texture_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Watercolor Texture"), label="Watercolor Texture")
+        return self.get_node_group("Watercolor Texture", label="Watercolor Texture")
 
     def get_toon_shader_texture_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Toon Shader Texture"), label="Toon Shader Texture")
+        return self.get_node_group("Toon Shader Texture", label="Toon Shader Texture")
 
     def get_tex_uv(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("MMDTexUV"), name="mmd_tex_uv")
+        return self.get_node_group("MMDTexUV", name="mmd_tex_uv")
 
     def get_subsurface_adjuster_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Subsurface Adjuster"), label="Subsurface Adjuster")
+        return self.get_node_group("Subsurface Adjuster", label="Subsurface Adjuster")
 
     def get_wet_adjuster_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Wet Adjuster"), label="Wet Adjuster")
+        return self.get_node_group("Wet Adjuster", label="Wet Adjuster")
 
     def get_emission_adjuster_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Emission Adjuster"), label="Emission Adjuster")
+        return self.get_node_group("Emission Adjuster", label="Emission Adjuster")
 
     def get_glitter_adjuster_node(self) -> bpy.types.ShaderNodeGroup:
-        return self.get_node_group(_("Glitter Adjuster"), label="Glitter Adjuster")
+        return self.get_node_group("Glitter Adjuster", label="Glitter Adjuster")
 
     def reset(self):
         node_frame = self.find_adjusters_node_frame()
@@ -357,7 +355,7 @@ class MaterialEditor(NodeEditor):
                     col.prop(node_output, "default_value", text=node_output.name)
             elif isinstance(node, bpy.types.ShaderNodeTexSky):
                 if node.sky_type == "HOSEK_WILKIE":
-                    col.label(text=_("Sun Direction"))
+                    col.label(text="Sun Direction")
                     col.prop(node, "sun_direction", text="")
                     col.prop(node, "turbidity")
                     col.prop(node, "ground_albedo")

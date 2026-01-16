@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
 from typing import Iterable, Optional, Tuple
 
 import bpy
+from bpy.app.translations import pgettext as _
 
-from ...m17n import _
 from ...utilities import MessageException, import_mmd_tools
 from .autorig import AutoRigArmatureObject
 from .metarig import MetarigArmatureObject
@@ -16,13 +15,13 @@ from .rigify import MMDRigifyArmatureObject, RigifyArmatureObject
 
 class MMDArmatureAddMetarig(bpy.types.Operator):
     bl_idname = "mmd_tools_append.mmd_armature_add_metarig"
-    bl_label = _("Add Human (metarig) from MMD Armature")
-    bl_description = _("Generate Human (metarig) from MMD Armature.")
+    bl_label = "Add Human (metarig) from MMD Armature"
+    bl_description = "Generate Human (metarig) from MMD Armature."
     bl_options = {"REGISTER", "UNDO"}
 
-    use_mmd_orientation: bpy.props.BoolProperty(name=_("Align to MMD orientation"), description=_("Adjust bone rolls to fit common MMD arm and finger orientations"), default=True)
-    is_clean_armature: bpy.props.BoolProperty(name=_("Clean Armature"), default=True)
-    is_clean_koikatsu_armature: bpy.props.BoolProperty(name=_("Clean Koikatsu Armature"), default=False)
+    use_mmd_orientation: bpy.props.BoolProperty(name="Align to MMD orientation", description="Adjust bone rolls to fit common MMD arm and finger orientations", default=True)
+    is_clean_armature: bpy.props.BoolProperty(name="Clean Armature", default=True)
+    is_clean_koikatsu_armature: bpy.props.BoolProperty(name="Clean Koikatsu Armature", default=False)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -218,13 +217,13 @@ class MMDRigifyOperatorABC:
 
 class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
     bl_idname = "mmd_tools_append.mmd_rigify_mmd_focused_integrate"
-    bl_label = _("MMD compatibility focused Integrate")
-    bl_description = _("Combine Rigify rig and MMD armature.")
+    bl_label = "MMD compatibility focused Integrate"
+    bl_description = "Combine Rigify rig and MMD armature."
     bl_options = {"REGISTER", "UNDO"}
 
     is_join_armatures: bpy.props.BoolProperty(
-        name=_("Join Armatures"),
-        description=_("Join MMD and Rigify armatures"),
+        name="Join Armatures",
+        description="Join MMD and Rigify armatures",
         default=True,
     )
 
@@ -270,20 +269,20 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
 
 class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
     bl_idname = "mmd_tools_append.mmd_rigify_rigify_focused_integrate"
-    bl_label = _("Rigify operability focused Integrate")
-    bl_description = _("Combine Rigify rig and MMD armature.")
+    bl_label = "Rigify operability focused Integrate"
+    bl_description = "Combine Rigify rig and MMD armature."
     bl_options = {"REGISTER", "UNDO"}
 
     is_join_armatures: bpy.props.BoolProperty(
-        name=_("Join Armatures"),
-        description=_("Join MMD and Rigify armatures"),
+        name="Join Armatures",
+        description="Join MMD and Rigify armatures",
         default=True,
     )
-    mmd_main_bone_layer: bpy.props.IntProperty(name=_("MMD main bone layer"), default=24, min=0, max=31)
-    mmd_others_bone_layer: bpy.props.IntProperty(name=_("MMD others bone layer"), default=25, min=0, max=31)
-    mmd_shadow_bone_layer: bpy.props.IntProperty(name=_("MMD shadow bone layer"), default=26, min=0, max=31)
-    mmd_dummy_bone_layer: bpy.props.IntProperty(name=_("MMD dummy bone layer"), default=27, min=0, max=31)
-    rename_mmd_bones: bpy.props.BoolProperty(name=_("Rename MMD bones"), default=False)
+    mmd_main_bone_layer: bpy.props.IntProperty(name="MMD main bone layer", default=24, min=0, max=31)
+    mmd_others_bone_layer: bpy.props.IntProperty(name="MMD others bone layer", default=25, min=0, max=31)
+    mmd_shadow_bone_layer: bpy.props.IntProperty(name="MMD shadow bone layer", default=26, min=0, max=31)
+    mmd_dummy_bone_layer: bpy.props.IntProperty(name="MMD dummy bone layer", default=27, min=0, max=31)
+    rename_mmd_bones: bpy.props.BoolProperty(name="Rename MMD bones", default=False)
 
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):
@@ -344,11 +343,11 @@ class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
 
 class MMDRigifyConvert(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_to_mmd_compatible"
-    bl_label = _("Convert Rigify Armature to MMD compatible")
+    bl_label = "Convert Rigify Armature to MMD compatible"
     bl_options = {"REGISTER", "UNDO"}
 
     upper_body2_bind_bone: bpy.props.EnumProperty(
-        name=_("Upper Body2 as"),
+        name="Upper Body2 as",
         items=[
             ("spine_fk.002", "spine_fk.002", ""),
             ("spine_fk.003", "spine_fk.003", ""),
@@ -358,7 +357,7 @@ class MMDRigifyConvert(bpy.types.Operator):
     )
 
     lower_body_bind_bone: bpy.props.EnumProperty(
-        name=_("Lower Body as"),
+        name="Lower Body as",
         items=[
             ("spine_fk", "spine_fk", ""),
             ("hips", "hips", ""),
@@ -396,15 +395,15 @@ class MMDRigifyConvert(bpy.types.Operator):
 
 class MMDRigifyDerigger(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_derigger"
-    bl_label = _("Remove rig from armature")
-    bl_description = _("Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure.")
+    bl_label = "Remove rig from armature"
+    bl_description = "Remove non-deform bones from armature. Works for non-Rigify rigs as well.\nMay break bone structure."
     bl_options = {"REGISTER", "UNDO"}
 
-    remove_constraints: bpy.props.BoolProperty(name=_("Remove Bone Constraints"), default=True)
-    remove_driver: bpy.props.BoolProperty(name=_("Remove all drivers in Armature"), default=True)
-    remove_prefix: bpy.props.BoolProperty(name=_("Remove Rigify prefixes"), description=_("Remove Rigify prefixes (DEF-)"), default=True)
-    cleanup: bpy.props.BoolProperty(name=_("Fix Rigify Bone structure"), description=_("Only works for Rigify"), default=True)
-    unlock_bones: bpy.props.BoolProperty(name=_("Unlock Bones"), description=_("Unlock all bone transformations (translations, rotations, scales)"), default=True)
+    remove_constraints: bpy.props.BoolProperty(name="Remove Bone Constraints", default=True)
+    remove_driver: bpy.props.BoolProperty(name="Remove all drivers in Armature", default=True)
+    remove_prefix: bpy.props.BoolProperty(name="Remove Rigify prefixes", description="Remove Rigify prefixes (DEF-)", default=True)
+    cleanup: bpy.props.BoolProperty(name="Fix Rigify Bone structure", description="Only works for Rigify", default=True)
+    unlock_bones: bpy.props.BoolProperty(name="Unlock Bones", description="Unlock all bone transformations (translations, rotations, scales)", default=True)
 
     @classmethod
     def poll(cls, context):
@@ -440,8 +439,8 @@ class MMDRigifyDerigger(bpy.types.Operator):
 
 class MMDRigifyTranslator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_translator"
-    bl_label = _("Translate Rigify names to MMD")
-    bl_description = _("Translate Rigify metarig bone names to MMD.")
+    bl_label = "Translate Rigify names to MMD"
+    bl_description = "Translate Rigify metarig bone names to MMD."
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -477,19 +476,19 @@ class MMDRigifyTranslator(bpy.types.Operator):
 
 class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
     bl_idname = "mmd_tools_append.rigify_apply_mmd_rest_pose"
-    bl_label = _("Apply MMD Rest Pose")
+    bl_label = "Apply MMD Rest Pose"
     bl_options = {"REGISTER", "UNDO"}
 
     iterations: bpy.props.IntProperty(
-        name=_("Iterations"),
-        description=_("Number of solving iterations"),
+        name="Iterations",
+        description="Number of solving iterations",
         default=7,
         min=1,
         max=100,
     )
-    pose_arms: bpy.props.BoolProperty(name=_("Pose arms"), default=True)
-    pose_legs: bpy.props.BoolProperty(name=_("Pose legs"), default=True)
-    pose_fingers: bpy.props.BoolProperty(name=_("Pose fingers"), default=False)
+    pose_arms: bpy.props.BoolProperty(name="Pose arms", default=True)
+    pose_legs: bpy.props.BoolProperty(name="Pose legs", default=True)
+    pose_fingers: bpy.props.BoolProperty(name="Pose fingers", default=False)
 
     @classmethod
     def poll(cls, context):
@@ -524,7 +523,7 @@ class MMDRigifyApplyMMDRestPose(bpy.types.Operator):
 
 class MMDAutoRigConvert(bpy.types.Operator):
     bl_idname = "mmd_tools_append.autorig_to_mmd_compatible"
-    bl_label = _("Convert AutoRig Armature to MMD compatible")
+    bl_label = "Convert AutoRig Armature to MMD compatible"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -552,19 +551,19 @@ class MMDAutoRigConvert(bpy.types.Operator):
 
 class MMDAutoRigApplyMMDRestPose(bpy.types.Operator):
     bl_idname = "mmd_tools_append.autorig_apply_mmd_rest_pose"
-    bl_label = _("Apply MMD Rest Pose")
+    bl_label = "Apply MMD Rest Pose"
     bl_options = {"REGISTER", "UNDO"}
 
     iterations: bpy.props.IntProperty(
-        name=_("Iterations"),
-        description=_("Number of solving iterations"),
+        name="Iterations",
+        description="Number of solving iterations",
         default=7,
         min=1,
         max=100,
     )
-    pose_arms: bpy.props.BoolProperty(name=_("Pose arms"), default=True)
-    pose_legs: bpy.props.BoolProperty(name=_("Pose legs"), default=True)
-    pose_fingers: bpy.props.BoolProperty(name=_("Pose fingers"), default=False)
+    pose_arms: bpy.props.BoolProperty(name="Pose arms", default=True)
+    pose_legs: bpy.props.BoolProperty(name="Pose legs", default=True)
+    pose_fingers: bpy.props.BoolProperty(name="Pose fingers", default=False)
 
     @classmethod
     def poll(cls, context):

@@ -1,15 +1,14 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
 from typing import Iterable, Iterator, List
 
 import bpy
+from bpy.app.translations import pgettext as _
 
 from ...editors.meshes import MeshEditor
-from ...m17n import _
 from ...tuners import TunerABC, TunerRegistry
-from ...utilities import MessageException, MMD_TOOLS_IMPORT_HOOKS, import_mmd_tools
+from ...utilities import MMD_TOOLS_IMPORT_HOOKS, MessageException, import_mmd_tools
 from .rigid_body_to_cloth import (
     PhysicsMode,
     RigidBodyToClothConverter,
@@ -123,7 +122,7 @@ class NothingClothTuner(ClothTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Nothing")
+        return "Nothing"
 
     def execute(self):
         pass
@@ -136,7 +135,7 @@ class CottonClothTuner(ClothTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Cotton")
+        return "Cotton"
 
     def execute(self):
         cloth_settings: bpy.types.ClothSettings = self.find_cloth_settings()
@@ -159,7 +158,7 @@ class SilkClothTuner(ClothTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Silk")
+        return "Silk"
 
     def execute(self):
         cloth_settings: bpy.types.ClothSettings = self.find_cloth_settings()
@@ -182,7 +181,7 @@ class BreastPyramidClothTuner(ClothTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Breast Pyramid")
+        return "Breast Pyramid"
 
     def execute(self):
         cloth_settings: bpy.types.ClothSettings = self.find_cloth_settings()
@@ -208,7 +207,7 @@ TUNERS = TunerRegistry(
 
 class MMDAppendClothAdjuster(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_cloth_adjuster"
-    bl_label = _("MMD Append Cloth Adjuster")
+    bl_label = "MMD Append Cloth Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"
@@ -230,36 +229,36 @@ class MMDAppendClothAdjuster(bpy.types.Panel):
         col.prop(cloth_settings, "damping")
 
         col = box.column()
-        col.label(text=_("Collision:"))
+        col.label(text="Collision:")
         col.prop(cloth_settings, "collision_quality")
         col.prop(cloth_settings, "distance_min", slider=True)
         col.prop(cloth_settings, "impulse_clamp")
 
         col = box.column()
-        col.label(text=_("Batch Operation:"))
+        col.label(text="Batch Operation:")
         col.operator(
             CopyClothAdjusterSettings.bl_idname,
-            text=_("Copy to Selected"),
+            text="Copy to Selected",
             icon="DUPLICATE",
         )
 
         col = layout.column(align=True)
-        col.label(text=_("Cache:"))
+        col.label(text="Cache:")
         row = col.row(align=True)
-        row.prop(cloth_settings, "frame_start", text=_("Simulation Start"))
-        row.prop(cloth_settings, "frame_end", text=_("Simulation End"))
+        row.prop(cloth_settings, "frame_start", text="Simulation Start")
+        row.prop(cloth_settings, "frame_end", text="Simulation End")
 
         if MeshEditor(mesh_object).find_subsurface_modifier("physics_cloth_subsurface") is None:
             return
 
         col = layout.column(align=True)
-        col.label(text=_("Subdivision:"))
-        col.prop(cloth_settings, "subdivision_levels", text=_("Subdivision Levels"))
+        col.label(text="Subdivision:")
+        col.prop(cloth_settings, "subdivision_levels", text="Subdivision Levels")
 
 
 class CopyClothAdjusterSettings(bpy.types.Operator):
     bl_idname = "mmd_tools_append.copy_cloth_adjuster_settings"
-    bl_label = _("Copy Cloth Adjuster Settings")
+    bl_label = "Copy Cloth Adjuster Settings"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -294,12 +293,12 @@ class CopyClothAdjusterSettings(bpy.types.Operator):
 
 class SelectClothMesh(bpy.types.Operator):
     bl_idname = "mmd_tools_append.select_cloth_mesh"
-    bl_label = _("Select Cloth Mesh")
+    bl_label = "Select Cloth Mesh"
     bl_options = {"REGISTER", "UNDO"}
 
-    only_in_mmd_model: bpy.props.BoolProperty(name=_("Same MMD Model"))
-    only_physics_equals: bpy.props.BoolProperty(name=_("Same Physics Settings"))
-    only_cache_equals: bpy.props.BoolProperty(name=_("Same Cache Settings"))
+    only_in_mmd_model: bpy.props.BoolProperty(name="Same MMD Model")
+    only_physics_equals: bpy.props.BoolProperty(name="Same Physics Settings")
+    only_cache_equals: bpy.props.BoolProperty(name="Same Cache Settings")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -356,7 +355,7 @@ class SelectClothMesh(bpy.types.Operator):
 
 class RemoveMeshCloth(bpy.types.Operator):
     bl_idname = "mmd_tools_append.remove_mesh_cloth"
-    bl_label = _("Remove Mesh Cloth")
+    bl_label = "Remove Mesh Cloth"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -393,18 +392,18 @@ class RemoveMeshCloth(bpy.types.Operator):
 
 class ConvertRigidBodyToClothOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.convert_rigid_body_to_cloth"
-    bl_label = _("Convert Rigid Body to Cloth")
-    bl_description = _("Select both the mesh to be deformed and the rigid body")
+    bl_label = "Convert Rigid Body to Cloth"
+    bl_description = "Select both the mesh to be deformed and the rigid body"
     bl_options = {"REGISTER", "UNDO"}
 
-    subdivision_level: bpy.props.IntProperty(name=_("Subdivision Levels"), min=0, max=5, default=0)
-    ribbon_stiffness: bpy.props.FloatProperty(name=_("Ribbon Stiffness"), min=0, max=1, default=0.2)
+    subdivision_level: bpy.props.IntProperty(name="Subdivision Levels", min=0, max=5, default=0)
+    ribbon_stiffness: bpy.props.FloatProperty(name="Ribbon Stiffness", min=0, max=1, default=0.2)
     physics_mode: bpy.props.EnumProperty(
-        name=_("Physics Mode"),
+        name="Physics Mode",
         items=[(m.name, m.value, "") for m in PhysicsMode],
         default=PhysicsMode.AUTO.name,
     )
-    extend_ribbon_area: bpy.props.BoolProperty(name=_("Extend Ribbon Area"), default=True)
+    extend_ribbon_area: bpy.props.BoolProperty(name="Extend Ribbon Area", default=True)
 
     @classmethod
     def poll(cls, context: bpy.types.Context):
@@ -482,14 +481,14 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         TUNERS[prop.presets](prop.id_data).execute()
 
     presets: bpy.props.EnumProperty(
-        name=_("Presets"),
+        name="Presets",
         items=TUNERS.to_enum_property_items(),
         update=_update_presets.__func__,
         default=None,
     )
 
     mass: bpy.props.FloatProperty(
-        name=_("Vertex Mass"),
+        name="Vertex Mass",
         min=0,
         soft_max=10,
         step=10,
@@ -506,7 +505,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         cloth_settings.shear_stiffness = value
 
     stiffness: bpy.props.FloatProperty(
-        name=_("Stiffness"),
+        name="Stiffness",
         min=0,
         soft_max=50,
         max=10000,
@@ -524,7 +523,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         cloth_settings.shear_damping = value
 
     damping: bpy.props.FloatProperty(
-        name=_("Damping"),
+        name="Damping",
         min=0,
         max=50,
         precision=3,
@@ -534,7 +533,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     collision_quality: bpy.props.IntProperty(
-        name=_("Collision Quality"),
+        name="Collision Quality",
         min=1,
         max=20,
         get=lambda p: getattr(
@@ -550,7 +549,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     distance_min: bpy.props.FloatProperty(
-        name=_("Minimum Distance"),
+        name="Minimum Distance",
         min=0.001,
         max=1.000,
         step=10,
@@ -560,7 +559,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     impulse_clamp: bpy.props.FloatProperty(
-        name=_("Impulse Clamping"),
+        name="Impulse Clamping",
         min=0,
         max=100,
         precision=3,
@@ -570,7 +569,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     frame_start: bpy.props.IntProperty(
-        name=_("Simulation Start"),
+        name="Simulation Start",
         min=0,
         max=1048574,
         get=lambda p: getattr(
@@ -582,7 +581,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
     )
 
     frame_end: bpy.props.IntProperty(
-        name=_("Simulation End"),
+        name="Simulation End",
         min=1,
         max=1048574,
         get=lambda p: getattr(
@@ -641,7 +640,7 @@ class ClothAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
         set_bind_modifiers(target_mesh_modifiers, True)
 
     subdivision_levels: bpy.props.IntProperty(
-        name=_("Subdivision Levels"),
+        name="Subdivision Levels",
         min=0,
         soft_max=2,
         max=6,

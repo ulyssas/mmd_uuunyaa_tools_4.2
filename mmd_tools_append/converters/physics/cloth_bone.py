@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2022 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -8,12 +7,10 @@ import bpy
 import mathutils
 from mathutils import Matrix, Vector
 
-from ...m17n import _
-
 
 class StretchBoneToVertexOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.stretch_bone_to_vertex"
-    bl_label = _("Stretch Bone to Vertex")
+    bl_label = "Stretch Bone to Vertex"
     bl_options = {"REGISTER", "UNDO"}
 
     distance_threshold: bpy.props.FloatProperty(default=0.001, min=0, precision=4, subtype="DISTANCE")

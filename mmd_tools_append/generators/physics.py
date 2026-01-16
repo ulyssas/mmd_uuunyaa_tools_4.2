@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2022 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -6,15 +5,13 @@ from typing import List
 
 import bpy
 
-from ..m17n import _
-
 
 class AddCenterOfGravityObject(bpy.types.Operator):
     bl_idname = "mmd_tools_append.add_center_of_gravity_object"
-    bl_label = _("Add Center of Gravity")
+    bl_label = "Add Center of Gravity"
     bl_options = {"REGISTER", "UNDO"}
 
-    radius: bpy.props.FloatProperty(name=_("Radius"), default=0.1, min=0.0, precision=4, unit="LENGTH")
+    radius: bpy.props.FloatProperty(name="Radius", default=0.1, min=0.0, precision=4, unit="LENGTH")
 
     @classmethod
     def poll(cls, context: bpy.types.Context):

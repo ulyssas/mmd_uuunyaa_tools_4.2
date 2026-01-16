@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of xrarfile.
 #
@@ -29,11 +28,11 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from abc import ABC, abstractmethod
 import errno
 import os
 import subprocess
 import sys
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Iterator, List, Union
 

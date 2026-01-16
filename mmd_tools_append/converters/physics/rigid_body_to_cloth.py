@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021
 #   小威廉伯爵 https://github.com/958261649/Miku_Miku_Rig
 #   UuuNyaa <UuuNyaa@gmail.com>
@@ -10,9 +9,10 @@ from typing import Dict, Iterable, List, Optional, Set, Tuple
 
 import bmesh
 import bpy
+from bpy.app.translations import pgettext as _
+from bpy.app.translations import pgettext_iface as iface_
 
 from ...editors.meshes import MeshEditor
-from ...m17n import _, iface_
 from ...utilities import MessageException, import_mmd_tools
 
 
@@ -22,7 +22,7 @@ class PhysicsMode(Enum):
     SURFACE_DEFORM = "Surface Deform"
 
 
-translation_properties = [
+_translation_properties = [
     _("Auto"),
     _("Bone Constraint"),
     _("Surface Deform"),

@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
 import bpy
 
 from ...editors.meshes import MeshEditor
-from ...m17n import _
 from ...tuners import TunerABC, TunerRegistry
 
 
 class MMDAppendDynamicPaintAdjuster(bpy.types.Panel):
     bl_idname = "MMD_APPEND_PT_pyramid_dynamic_paint_adjuster"
-    bl_label = _("MMD Append Dynamic Paint Adjuster")
+    bl_label = "MMD Append Dynamic Paint Adjuster"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "physics"
@@ -37,7 +35,7 @@ class MMDAppendDynamicPaintAdjuster(bpy.types.Panel):
             return
 
         col = layout.column()
-        col.prop(dynamic_paint_settings, "active_surface", text=_("Cache"))
+        col.prop(dynamic_paint_settings, "active_surface", text="Cache")
 
         active_surface_index = modifier.canvas_settings.canvas_surfaces.find(dynamic_paint_settings.active_surface)
         if active_surface_index == -1:
@@ -46,8 +44,8 @@ class MMDAppendDynamicPaintAdjuster(bpy.types.Panel):
         active_surface = modifier.canvas_settings.canvas_surfaces[active_surface_index]
 
         row = col.row(align=True)
-        row.prop(active_surface, "frame_start", text=_("Simulation Start"))
-        row.prop(active_surface, "frame_end", text=_("Simulation End"))
+        row.prop(active_surface, "frame_start", text="Simulation Start")
+        row.prop(active_surface, "frame_end", text="Simulation End")
 
 
 class DynamicPaintTunerABC(TunerABC, MeshEditor):
@@ -61,7 +59,7 @@ class NothingDynamicPaintTuner(DynamicPaintTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Nothing")
+        return "Nothing"
 
     def execute(self):
         pass
@@ -74,7 +72,7 @@ class CanvasSkinPressDynamicPaintTuner(DynamicPaintTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Canvas Skin Press")
+        return "Canvas Skin Press"
 
     SKIN_PRESS_SURFACE_NAME = "Skin Press Surface"
 
@@ -109,7 +107,7 @@ class BrushDefaultDynamicPaintTuner(DynamicPaintTunerABC):
 
     @classmethod
     def get_name(cls) -> str:
-        return _("Brush Default")
+        return "Brush Default"
 
     def execute(self):
         modifier = self.find_dynamic_paint_modifier()
@@ -172,10 +170,10 @@ class DynamicPaintAdjusterSettingsPropertyGroup(bpy.types.PropertyGroup):
 
         modifier.canvas_settings.canvas_surfaces.active_index = index
 
-    presets: bpy.props.EnumProperty(name=_("Presets"), items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
+    presets: bpy.props.EnumProperty(name="Presets", items=TUNERS.to_enum_property_items(), update=_update_presets.__func__, default=None)
 
     active_surface: bpy.props.EnumProperty(
-        name=_("Active Surface"),
+        name="Active Surface",
         items=_surface_items.__func__,
         get=_get_active_surface.__func__,
         set=_set_active_surface.__func__,

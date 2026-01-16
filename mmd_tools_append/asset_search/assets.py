@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 UuuNyaa <UuuNyaa@gmail.com>
 # This file is part of MMD Tools Append.
 
@@ -12,9 +11,9 @@ from enum import Enum
 from typing import Any, Dict, ItemsView, Tuple, ValuesView
 
 import requests
+from bpy.app.translations import pgettext as _
 
 from .. import PACKAGE_PATH, REGISTER_HOOKS
-from ..m17n import _
 from ..utilities import get_preferences, import_from_file
 
 
@@ -29,7 +28,7 @@ class AssetType(Enum):
     WORLD_BLENDER = "World (.blend)"
 
 
-translation_properties = [
+_translation_properties = [
     _("All"),
     _("Model (.pmx)"),
     _("Model (.blend)"),
