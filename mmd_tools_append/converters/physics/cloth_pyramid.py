@@ -827,6 +827,7 @@ def to_targets(
         origin: Vector
         direction: Vector
 
+        # downward direction
         if breast_bone_direction_vector.z < -0.6:
             if not breast_bone.use_connect:
                 raise MessageException("Unsupported breast bone structure. Make sure the bone is connected to parent bone. (Bone > Relations)") from None
@@ -835,6 +836,7 @@ def to_targets(
             direction = breast_bone.parent.vector.normalized()
             origin = breast_bone.parent.head + breast_bone.vector / 2 + head_tail * breast_bone.parent.vector
 
+        # forward direction
         elif -0.4 < breast_bone_direction_vector.z < +0.4:
             parent_bone_name = breast_bone.parent.name
             direction = breast_bone_direction_vector
