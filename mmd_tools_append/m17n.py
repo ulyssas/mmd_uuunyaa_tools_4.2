@@ -520,6 +520,18 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
+        ("*", "Use Local axis"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.use_local_axis",), ()),
+        ("ja_JP", "ローカル軸を使用", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Set up local axis for arms and fingers"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.use_local_axis",), ()),
+        ("ja_JP", "腕と指にローカル軸を設定します", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
         ("*", "Add pyramid meshes from selected breast bones."),
         (("bpy.types.MMD_TOOLS_APPEND_OT_add_pyramid_mesh_by_breast_bone",), ()),
         ("ja_JP", "選択された胸ボーンからピラミッドメッシュを追加します", (False, ())),

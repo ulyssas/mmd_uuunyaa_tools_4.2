@@ -3,6 +3,7 @@
 
 import math
 import re
+import unicodedata
 
 import bpy
 
@@ -89,9 +90,9 @@ def generate_mmd_humanoid(arm, use_eye=True):
 
 def add_mmd_names(arm):
     def to_english(name: str) -> str:
-        for key in JP_EN_MAP:
-            if key in name:
-                return name.replace(key, JP_EN_MAP[key])
+        name = unicodedata.normalize("NFKC", name)
+        for key, value in JP_EN_MAP.items():
+            name = name.replace(key, value)
         return name
 
     def to_mmd_prefix(name: str) -> str:
@@ -108,6 +109,7 @@ def add_mmd_names(arm):
 
     editor = ArmatureEditor(arm)
 
+    # normalized by unicodedata
     JP_EN_MAP = {
         "全ての親": "Root",
         "センター": "Center",
@@ -115,8 +117,8 @@ def add_mmd_names(arm):
         "上半身2": "Chest",
         "上半身": "Spine",
         "下半身": "Hips",
-        "つま先ＩＫ": "ToeIK",
-        "足ＩＫ": "LegIK",
+        "つま先IK": "ToeIK",
+        "足IK": "LegIK",
         "つま先": "Toe",
         "足首": "Foot",
         "ひざ": "LowerLeg",
@@ -140,7 +142,7 @@ def add_mmd_names(arm):
         b.mmd_bone.name_e = to_english(b.name)
 
 
-def to_mmd_pose(arm):
+def to_mmd_pose(arm, use_local=False):
     def to_mmd_bone():
         """Locks positions of the bones and changes display connection to child bone."""
         for pbone in editor.pose_bones:
@@ -179,7 +181,8 @@ def to_mmd_pose(arm):
 
     bpy.ops.pose.armature_apply()
     to_mmd_bone()
-    apply_local()
+    if use_local:
+        apply_local()
 
 
 def add_leg_ik(arm):
@@ -317,6 +320,11 @@ class AddMMDHumanoidRig(bpy.types.Operator):
         description="Add eye bones to MMD rig",
         default=True,
     )
+    use_local_axis: bpy.props.BoolProperty(
+        name="Use Local axis",
+        description="Set up local axis for arms and fingers",
+        default=False,
+    )
 
     @classmethod
     def poll(cls, context):
@@ -338,7 +346,7 @@ class AddMMDHumanoidRig(bpy.types.Operator):
             if self.use_leg_ik:
                 add_leg_ik(rig.armature())
 
-            to_mmd_pose(rig.armature())
+            to_mmd_pose(rig.armature(), self.use_local_axis)
             add_mmd_names(rig.armature())
 
             bpy.ops.mmd_tools.display_item_quick_setup(type="GROUP_LOAD")
