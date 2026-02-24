@@ -10,7 +10,7 @@ from ..editors.armatures import ArmatureEditor
 from ..utilities import import_mmd_tools
 
 
-def generate_mmd_humanoid(arm):
+def generate_mmd_humanoid(arm, use_eye=True):
     def create_bone_pos(name, collection, head, tail, parent=None, use_connect=False) -> bpy.types.EditBone:
         """Creates child bone based on head & tail position."""
         bone = editor.edit_bones.new(name)
@@ -51,7 +51,10 @@ def generate_mmd_humanoid(arm):
     chest = create_bone_vec("上半身2", body_u_coll, 0.1, spine)
     upperchest = create_bone_vec("上半身3", body_u_coll, 0.1, chest)
     neck = create_bone_vec("首", body_u_coll, 0.05, upperchest)
-    _head = create_bone_vec("頭", body_u_coll, 0.2, neck)
+    head = create_bone_vec("頭", body_u_coll, 0.2, neck)
+    if use_eye:
+        eye = create_bone_pos("目.L", body_u_coll, (0.04, -0.03, 1.43), (0.04, -0.08, 1.43), head)
+        eye.roll = math.radians(45)
 
     upperleg = create_bone_pos("足.L", leg_coll, (0.1, 0.0, 0.9), (0.1, -0.005, 0.5), hips)
     lowerleg = create_bone_pos("ひざ.L", leg_coll, (0.1, 0.0, 0.5), (0.1, 0.0, 0.1), upperleg, True)
@@ -129,6 +132,7 @@ def add_mmd_names(arm):
         "親指": "Thumb",
         "首": "Neck",
         "頭": "Head",
+        "目": "Eye",
     }
 
     for b in editor.pose_bones:
@@ -308,6 +312,11 @@ class AddMMDHumanoidRig(bpy.types.Operator):
         description="Add Leg IK to MMD rig",
         default=True,
     )
+    add_eye: bpy.props.BoolProperty(
+        name="Add Eye bones",
+        description="Add eye bones to MMD rig",
+        default=True,
+    )
 
     @classmethod
     def poll(cls, context):
@@ -323,7 +332,7 @@ class AddMMDHumanoidRig(bpy.types.Operator):
 
             bpy.context.view_layer.objects.active = rig.armature()
             bpy.ops.object.mode_set(mode="EDIT")
-            generate_mmd_humanoid(rig.armature())
+            generate_mmd_humanoid(rig.armature(), self.add_eye)
             bpy.ops.object.mode_set(mode="POSE")
 
             if self.use_leg_ik:
