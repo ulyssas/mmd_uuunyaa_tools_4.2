@@ -14,12 +14,12 @@ translations_tuple = (
         ((), ()),
         (
             "ja_JP",
-            "Project-Id-Version: MMD Tools Append 4.5.5 (0)\n",
+            "Project-Id-Version: MMD Tools Append 4.5.6 (0)\n",
             (False, ("Blender's translation file (po format).", "Copyright (C) 2024 The Blender Authors.", "This file is distributed under the same license as the Blender package.", "FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.")),
         ),
         (
             "zh_HANS",
-            "Project-Id-Version: MMD Tools Append 4.5.5 (0)\n",
+            "Project-Id-Version: MMD Tools Append 4.5.6 (0)\n",
             (False, ("Blender's translation file (po format).", "Copyright (C) 2024 The Blender Authors.", "This file is distributed under the same license as the Blender package.", "FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.")),
         ),
     ),
@@ -142,6 +142,12 @@ translations_tuple = (
         (("bpy.types.MMD_TOOLS_APPEND_OT_add_center_of_gravity_object", "bpy.types.MMD_TOOLS_APPEND_OT_add_center_of_gravity_object", "extensions/user_default/mmd_tools_append/panels.py:191"), ()),
         ("ja_JP", "重心を追加", (False, ())),
         ("zh_HANS", "添加重心", (False, ())),
+    ),
+    (
+        ("Operator", "Add MMD Humanoid Rig"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig", "bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig"), ()),
+        ("ja_JP", "MMDヒューマノイドを追加", (False, ())),
+        ("zh_HANS", "", (False, ())),
     ),
     (
         ("Operator", "Add Pyramid Mesh by Breast Bone"),
@@ -482,6 +488,36 @@ translations_tuple = (
         (("bpy.types.MMD_TOOLS_APPEND_OT_update_debug_asset_json", "bpy.types.MMD_TOOLS_APPEND_OT_update_debug_asset_json"), ()),
         ("ja_JP", "デバッグアセットJSONを更新", (False, ())),
         ("zh_HANS", "更新调试资产JSON", (False, ())),
+    ),
+    (
+        ("*", "Generate armature with MMD compatible setup"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig",), ()),
+        ("ja_JP", "MMD互換のアーマチュアを生成します", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Add Eye bones"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_eye",), ()),
+        ("ja_JP", "目ボーンを追加", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Add eye bones to MMD rig"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_eye",), ()),
+        ("ja_JP", "MMDリグに目ボーンを追加します", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Use Leg IK"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.use_leg_ik",), ()),
+        ("ja_JP", "足IKを使用", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Add Leg IK to MMD rig"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.use_leg_ik",), ()),
+        ("ja_JP", "MMDリグに足IKを追加します", (False, ())),
+        ("zh_HANS", "", (False, ())),
     ),
     (
         ("*", "Add pyramid meshes from selected breast bones."),
@@ -2105,7 +2141,7 @@ translations_tuple = (
         (
             (
                 "extensions/user_default/mmd_tools_append/converters/physics/cloth.py:238",
-                "extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1063",
+                "extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1065",
                 "extensions/user_default/mmd_tools_append/converters/physics/collision.py:77",
                 "extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:28",
                 "extensions/user_default/mmd_tools_append/tuners/panels.py:145",
@@ -2120,7 +2156,7 @@ translations_tuple = (
         (
             (
                 "extensions/user_default/mmd_tools_append/converters/physics/cloth.py:241",
-                "extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1066",
+                "extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1068",
                 "extensions/user_default/mmd_tools_append/converters/physics/collision.py:78",
                 "extensions/user_default/mmd_tools_append/converters/physics/rigid_body.py:29",
                 "extensions/user_default/mmd_tools_append/tuners/panels.py:152",
@@ -2213,13 +2249,13 @@ translations_tuple = (
     ),
     (
         ("*", "Weights:"),
-        (("extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1053",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1055",), ()),
         ("ja_JP", "ウエイト:", (False, ())),
         ("zh_HANS", "权重:", (False, ())),
     ),
     (
         ("*", "Cloth Physics:"),
-        (("extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1059",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/physics/cloth_pyramid.py:1061",), ()),
         ("ja_JP", "クロス物理:", (False, ())),
         ("zh_HANS", "布料物理:", (False, ())),
     ),
@@ -2488,6 +2524,18 @@ translations_tuple = (
         (("extensions/user_default/mmd_tools_append/editors/operators.py:526", "extensions/user_default/mmd_tools_append/editors/operators.py:526"), ()),
         ("ja_JP", "対象のセグメントがありません。編集モードでペイントしたい面を選択してください。", (False, ())),
         ("zh_HANS", "没有目标段；在编辑模式下，选择你要画的面。", (False, ())),
+    ),
+    (
+        ("Operator", "Generate MMD humanoid"),
+        (("extensions/user_default/mmd_tools_append/generators/generate_rig.py:365",), ()),
+        ("ja_JP", "MMDヒューマノイドを生成", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Failed to add leg IK: "),
+        (("extensions/user_default/mmd_tools_append/generators/generate_rig.py:348",), ()),
+        ("ja_JP", "足IKの追加に失敗しました: ", (False, ())),
+        ("zh_HANS", "", (False, ())),
     ),
     (
         ("*", "Radius"),
