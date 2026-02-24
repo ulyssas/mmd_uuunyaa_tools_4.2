@@ -37,6 +37,7 @@ For developers looking to contribute code or translations, please check the [Dev
 
 ## Credits
 - Rigid body Physics to Cloth Physics feature is the work of [小威廉伯爵](https://github.com/958261649/Miku_Miku_Rig). It was ported with his permission.
+- Leg IK maker in MMD Humanoid Generator was ported from [MMD Tools Helper (by Hogarth-MMD)](https://github.com/Hogarth-MMD/mmd_tools_helper) (GPLv3).
 - Lighting thumbnail images depict the character "Hatsune Miku" of Crypton Future Media, Inc. under the [Piapro Character License](http://piapro.jp/license/pcl/summary).
 
 ## License
