@@ -5,6 +5,7 @@
 import bpy
 
 from .checkers.operators import CheckEeveeRenderingPerformance
+from .converters.armatures.humanoid import HumanoidInitializeOperator
 from .converters.armatures.operators import (
     MMDArmatureAddMetarig,
     MMDAutoRigApplyMMDRestPose,
@@ -214,6 +215,76 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
     @staticmethod
     def unregister():
         del bpy.types.Object.mmd_tools_append_show_cloths
+
+
+class MMDAppendHumanoidPanel(bpy.types.Panel):
+    bl_idname = "MMD_APPEND_PT_humanoid"
+    bl_label = "MMD Append Humanoid"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "MMD"
+    bl_options = {"DEFAULT_CLOSED"}
+
+    @classmethod
+    def poll(cls, _context):
+        return is_mmd_tools_installed()
+
+    def draw(self, context):
+        layout = self.layout
+
+        # Top Label
+        layout.label(text="Manual Humanoid Renamer", icon="OUTLINER_OB_ARMATURE")
+
+        active_object = context.active_object
+        if active_object is None or active_object.type != "ARMATURE":
+            layout.label(text="Select armature first.")
+            return
+
+        tree = active_object.mmd_tools_append_humanoid_settings
+        if not tree.frames:
+            layout.label(text="Humanoid not initialized.", icon="ERROR")
+            layout.operator(HumanoidInitializeOperator.bl_idname, text="Initialize Humanoid")
+            return
+
+        # HumanoidCategorySelector
+        row = layout.row()
+        row.prop(tree, "categories", text="Category", expand=True)
+
+        for frame in tree.frames:
+            if frame.category != tree.categories:
+                continue
+
+            box = layout.box()
+            box.label(text=frame.name, icon=frame.icon)
+
+            split = box.split(factor=frame.split_factor)
+            col_label = split.column(align=True)
+            col_selector = split.column(align=True)
+
+            if not frame.items:
+                return
+
+            # bone picker hint
+            match frame.display_type:
+                case "MIRRORED":
+                    col_label.label(text="")
+                    child_row = col_selector.row(align=True)
+                    child_row.label(text="Left")
+                    child_row.label(text="Right")
+                case "FINGER":
+                    col_label.label(text="")
+                    child_row = col_selector.row(align=True)
+                    child_row.label(text="Base")
+                    child_row.label(text="Mid")
+                    child_row.label(text="Tip")
+
+            # bone picker
+            for item in frame.items:
+                col_label.label(text=f"{item.name}:")
+                child_row = col_selector.row(align=True)
+
+                for slot in item.slots:
+                    child_row.prop_search(slot, "bone_name", active_object.data, "bones", icon="BONE_DATA", text="")
 
 
 class MMDAppendSegmentationPanel(bpy.types.Panel):
