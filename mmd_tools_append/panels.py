@@ -5,7 +5,7 @@
 import bpy
 
 from .checkers.operators import CheckEeveeRenderingPerformance
-from .converters.armatures.humanoid import HumanoidInitializeOperator
+from .converters.armatures.humanoid import HumanoidInitializeOperator, HumanoidRenameOperator
 from .converters.armatures.operators import (
     MMDArmatureAddMetarig,
     MMDAutoRigApplyMMDRestPose,
@@ -233,7 +233,7 @@ class MMDAppendHumanoidPanel(bpy.types.Panel):
         layout = self.layout
 
         # Top Label
-        layout.label(text="Manual Humanoid Renamer", icon="OUTLINER_OB_ARMATURE")
+        layout.label(text="Humanoid Renamer", icon="OUTLINER_OB_ARMATURE")
 
         active_object = context.active_object
         if active_object is None or active_object.type != "ARMATURE":
@@ -248,21 +248,22 @@ class MMDAppendHumanoidPanel(bpy.types.Panel):
 
         # HumanoidCategorySelector
         row = layout.row()
-        row.prop(tree, "categories", text="Category", expand=True)
+        wm = context.window_manager
+        row.prop(wm, "mmd_humanoid_category", expand=True)
 
         for frame in tree.frames:
-            if frame.category != tree.categories:
+            if frame.category != wm.mmd_humanoid_category:
                 continue
 
             box = layout.box()
-            box.label(text=frame.name, icon=frame.icon)
+            box.label(text=frame.name, translate=False, icon=frame.icon)
 
             split = box.split(factor=frame.split_factor)
             col_label = split.column(align=True)
             col_selector = split.column(align=True)
 
             if not frame.items:
-                return
+                continue
 
             # bone picker hint
             match frame.display_type:
@@ -285,6 +286,8 @@ class MMDAppendHumanoidPanel(bpy.types.Panel):
 
                 for slot in item.slots:
                     child_row.prop_search(slot, "bone_name", active_object.data, "bones", icon="BONE_DATA", text="")
+
+        layout.operator(HumanoidRenameOperator.bl_idname, text="Humanoid Rename")
 
 
 class MMDAppendSegmentationPanel(bpy.types.Panel):
