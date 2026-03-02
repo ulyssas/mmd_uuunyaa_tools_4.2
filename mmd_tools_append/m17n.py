@@ -2068,7 +2068,7 @@ translations_tuple = (
     ),
     (
         ("*", "Renamed  bones."),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/humanoid.py:298",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/humanoid.py:307",), ()),
         ("ja_JP", "", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
@@ -2658,9 +2658,9 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
-        ("*", "Failed to add leg IK: "),
+        ("*", "Failed to add MMD rig: "),
         (("extensions/user_default/mmd_tools_append/generators/generate_rig.py:356",), ()),
-        ("ja_JP", "足IKの追加に失敗しました: ", (False, ())),
+        ("ja_JP", "MMDリグの追加に失敗しました: ", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (

@@ -248,6 +248,15 @@ class HumanoidRenameOperator(bpy.types.Operator):
 
         return active_object.type == "ARMATURE"
 
+    @staticmethod
+    def from_mmd_prefix(name: str) -> str:
+        """左右 prefix to .LR suffix"""
+        if name.startswith("左"):
+            return name[1:] + ".L"
+        if name.startswith("右"):
+            return name[1:] + ".R"
+        return name
+
     def execute(self, context: bpy.types.Context):
         previous_mode = context.mode
 
@@ -257,7 +266,7 @@ class HumanoidRenameOperator(bpy.types.Operator):
             arm = ArmatureEditor(context.active_object)
             count = 0
 
-            LR_MAP = {0: "左", 1: "右"}
+            LR_MAP_MMD = {0: "左", 1: "右"}
             HALF_FULL = str.maketrans("0123456789", "０１２３４５６７８９")
 
             for frame, item in tree.iter_items():
@@ -275,14 +284,14 @@ class HumanoidRenameOperator(bpy.types.Operator):
 
                     match frame.display_type:
                         case "MIRRORED":
-                            target = f"{LR_MAP.get(idx, '')}{target}"
+                            target = f"{LR_MAP_MMD.get(idx, '')}{target}"
                         case "FINGER":
                             # 親指ならbaseから0, 1, 2 (全角)
                             init_n = 0 if item.name == "Thumb" else 1
                             target += str(idx + init_n).translate(HALF_FULL)
 
                     # rename!
-                    bone.name = target
+                    bone.name = self.from_mmd_prefix(target)
                     pbone.mmd_bone.name_j = target
                     pbone.mmd_bone.name_e = original
 

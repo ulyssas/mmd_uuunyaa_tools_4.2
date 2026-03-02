@@ -353,7 +353,7 @@ class AddMMDHumanoidRig(bpy.types.Operator):
             bpy.ops.mmd_tools.fix_bone_order()
 
         except Exception as e:
-            self.report({"ERROR"}, message=f"Failed to add leg IK: {e}")
+            self.report({"ERROR"}, message=f"Failed to add MMD rig: {e}")
             return {"CANCELLED"}
         finally:
             bpy.ops.object.mode_set(mode=previous_mode)
