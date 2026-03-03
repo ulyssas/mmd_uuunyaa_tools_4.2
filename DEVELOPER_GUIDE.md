@@ -57,7 +57,9 @@ blender_mmd_tools_append/
 We use [Manage UI translations Addon](https://developer.blender.org/docs/handbook/translating/translator_guide/#manage-ui-translations-add-on) suggested by Blender. For more details, check out [MMD Tools Developer Guide](https://github.com/MMD-Blender/blender_mmd_tools/blob/main/DEVELOPER_GUIDE.md#translating-the-extension).
 
 ## Release Process
-Currently, only @UuuNyaa has permission to perform release tasks:
+Releases may be performed by maintainers who meet both of the following requirements:
+- Management permissions on this repository
+- A [Blender Extensions](https://extensions.blender.org/add-ons/mmd-tools/) account and membership in the [MMD team](https://extensions.blender.org/team/mmd/)
 
 1. Tag the commit in `main` with the version number (`vMAJOR.MINOR.PATCH`)
 2. Pushing the tag triggers a GitHub Action that builds artifacts and creates a draft release
