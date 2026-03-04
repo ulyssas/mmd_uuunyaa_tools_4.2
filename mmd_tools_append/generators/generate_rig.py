@@ -10,6 +10,8 @@ import bpy
 from ..editors.armatures import ArmatureEditor
 from ..utilities import import_mmd_tools
 
+MMD_CONTROL = ("センター", "全ての親", "足ＩＫ.L", "足ＩＫ.R", "つま先ＩＫ.L", "つま先ＩＫ.R")
+
 
 def generate_mmd_humanoid(arm, use_eye=True):
     def create_bone_pos(name, collection, head, tail, parent=None, use_connect=False) -> bpy.types.EditBone:
@@ -146,12 +148,18 @@ def to_mmd_pose(arm, use_local=False):
     def to_mmd_bone():
         """Locks positions of the bones and changes display connection to child bone."""
         for pbone in editor.pose_bones:
-            if pbone.name not in ("センター", "全ての親", "足ＩＫ.L", "足ＩＫ.R", "つま先ＩＫ.L", "つま先ＩＫ.R"):
+            if pbone.name not in MMD_CONTROL:
                 pbone.lock_location = [True, True, True]
                 pbone.lock_rotation_w = False
             if len(pbone.children) == 1:
                 pbone.mmd_bone.display_connection_type = "BONE"
                 pbone.mmd_bone.display_connection_bone = pbone.children[0].name
+
+    def remove_deform():
+        """Disables `use_deform` to exclude from Automatic Weights."""
+        for bone in editor.bones:
+            if bone.name in MMD_CONTROL:
+                bone.use_deform = False
 
     def apply_local():
         for bone in editor.bone_collections["指"].bones:
@@ -181,6 +189,7 @@ def to_mmd_pose(arm, use_local=False):
 
     bpy.ops.pose.armature_apply()
     to_mmd_bone()
+    remove_deform()
     if use_local:
         apply_local()
 
