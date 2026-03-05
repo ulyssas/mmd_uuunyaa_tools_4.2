@@ -8,6 +8,7 @@ from bpy.app.translations import pgettext as _
 
 from ...utilities import MessageException, import_mmd_tools
 from .autorig import AutoRigArmatureObject
+from .humanoid import HumanoidEditor
 from .metarig import MetarigArmatureObject
 from .mmd import MMDArmatureObject
 from .rigify import MMDRigifyArmatureObject, RigifyArmatureObject
@@ -589,6 +590,73 @@ class MMDAutoRigApplyMMDRestPose(bpy.types.Operator):
                 pose_legs=self.pose_legs,
                 pose_fingers=self.pose_fingers,
             )
+
+        finally:
+            bpy.ops.object.mode_set(mode=previous_mode)
+
+        return {"FINISHED"}
+
+
+class HumanoidInitializeOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_initialize"
+    bl_label = "Initialize Humanoid Renamer"
+    bl_description = "Initialize MMD compatible Humanoid structure data for renaming bones"
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        try:
+            context.active_object.mmd_tools_append_humanoid_settings.initialize_humanoid()
+        except MessageException as ex:
+            self.report({"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
+
+        return {"FINISHED"}
+
+
+class HumanoidRenameOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_rename"
+    bl_label = "Execute Rename"
+    bl_description = "Rename selected bones to MMD compatible Japanese name"
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            editor = HumanoidEditor(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            rename_count = editor.rename()
+
+            self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
+
+        except MessageException as ex:
+            self.report(type={"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
 
         finally:
             bpy.ops.object.mode_set(mode=previous_mode)

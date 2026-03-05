@@ -5,8 +5,9 @@
 import bpy
 
 from .checkers.operators import CheckEeveeRenderingPerformance
-from .converters.armatures.humanoid import HumanoidInitializeOperator, HumanoidRenameOperator
 from .converters.armatures.operators import (
+    HumanoidInitializeOperator,
+    HumanoidRenameOperator,
     MMDArmatureAddMetarig,
     MMDAutoRigApplyMMDRestPose,
     MMDAutoRigConvert,

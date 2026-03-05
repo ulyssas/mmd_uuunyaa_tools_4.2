@@ -1,12 +1,15 @@
 # Copyright 2026 MMD Tools Append authors
 # This file is part of MMD Tools Append.
 
+import math
 from collections.abc import Iterator
 
 import bpy
 
 from ...editors.armatures import ArmatureEditor
-from ...utilities import MessageException
+
+# constants
+MMD_CONTROL = ("センター", "全ての親", "足ＩＫ.L", "足ＩＫ.R", "つま先ＩＫ.L", "つま先ＩＫ.R")
 
 HUMANOID_CATEGORY = [
     ("BODY", "Body", "Spine, arm and leg"),
@@ -99,6 +102,7 @@ HUMANOID_DEFAULTS = [
 ]
 
 
+# property groups
 class HumanoidBoneSlot(bpy.types.PropertyGroup):
     bone_name: bpy.props.StringProperty(name="Bone")
 
@@ -201,55 +205,15 @@ class HumanoidTree(bpy.types.PropertyGroup):
         del bpy.types.Object.mmd_tools_append_humanoid_settings
 
 
-# Operators
-class HumanoidInitializeOperator(bpy.types.Operator):
-    bl_idname = "mmd_tools_append.humanoid_initialize"
-    bl_label = "Initialize Humanoid Renamer"
-    bl_description = "Initialize MMD compatible Humanoid structure data for renaming bones"
-    bl_options = {"REGISTER", "UNDO"}
+class HumanoidEditor(ArmatureEditor):
+    tree: HumanoidTree
 
-    @classmethod
-    def poll(cls, context: bpy.types.Context):
-        if context.mode not in {"OBJECT", "POSE"}:
-            return False
-
-        active_object = context.active_object
-
-        if active_object is None:
-            return False
-
-        return active_object.type == "ARMATURE"
-
-    def execute(self, context: bpy.types.Context):
-        try:
-            context.active_object.mmd_tools_append_humanoid_settings.initialize_humanoid()
-        except MessageException as ex:
-            self.report({"ERROR"}, message=str(ex))
-            return {"CANCELLED"}
-
-        return {"FINISHED"}
-
-
-class HumanoidRenameOperator(bpy.types.Operator):
-    bl_idname = "mmd_tools_append.humanoid_rename"
-    bl_label = "Execute Rename"
-    bl_description = "Rename selected bones to MMD compatible Japanese name"
-    bl_options = {"REGISTER", "UNDO"}
-
-    @classmethod
-    def poll(cls, context: bpy.types.Context):
-        if context.mode not in {"OBJECT", "POSE"}:
-            return False
-
-        active_object = context.active_object
-
-        if active_object is None:
-            return False
-
-        return active_object.type == "ARMATURE"
+    def __init__(self, armature_object: bpy.types.Object):
+        super().__init__(armature_object)
+        self.tree = armature_object.mmd_tools_append_humanoid_settings
 
     @staticmethod
-    def from_mmd_prefix(name: str) -> str:
+    def convert_mmd_prefix(name: str) -> str:
         """左右 prefix to .LR suffix"""
         if name.startswith("左"):
             return name[1:] + ".L"
@@ -257,54 +221,192 @@ class HumanoidRenameOperator(bpy.types.Operator):
             return name[1:] + ".R"
         return name
 
-    def execute(self, context: bpy.types.Context):
-        previous_mode = context.mode
+    def to_mmd_pose(self, use_local=False):
+        def to_mmd_bone():
+            """Locks positions of the bones and changes display connection to child bone."""
+            for pbone in self.pose_bones:
+                if pbone.name not in MMD_CONTROL:
+                    pbone.lock_location = [True, True, True]
+                    pbone.lock_rotation_w = False
+                if len(pbone.children) == 1:
+                    pbone.mmd_bone.display_connection_type = "BONE"
+                    pbone.mmd_bone.display_connection_bone = pbone.children[0].name
 
-        try:
-            bpy.ops.object.mode_set(mode="EDIT")
-            tree: HumanoidTree = context.active_object.mmd_tools_append_humanoid_settings
-            arm = ArmatureEditor(context.active_object)
-            count = 0
+        def remove_deform():
+            """Disables `use_deform` to exclude from Automatic Weights."""
+            for bone in self.bones:
+                if bone.name in MMD_CONTROL:
+                    bone.use_deform = False
 
-            LR_MAP_MMD = {0: "左", 1: "右"}
-            HALF_FULL = str.maketrans("0123456789", "０１２３４５６７８９")
+        def apply_local():
+            for bone in self.bone_collections["指"].bones:
+                pbone = self.pose_bones[bone.name]
+                pbone.select = True
+                pbone.mmd_bone.enabled_local_axes = True
 
-            for frame, item in tree.iter_items():
-                for idx, slot in enumerate(item.slots):
-                    if not slot.bone_name:
-                        continue
+            for bone in self.bone_collections["腕"].bones:
+                if "肩" not in bone.name:
+                    pbone = self.pose_bones[bone.name]
+                    pbone.select = True
+                    pbone.mmd_bone.enabled_local_axes = True
 
-                    bone = arm.edit_bones.get(slot.bone_name)
-                    if not bone:
-                        continue
+            bpy.ops.mmd_tools.bone_local_axes_setup(type="LOAD")
+            bpy.ops.mmd_tools.bone_local_axes_setup(type="APPLY")
 
-                    pbone = arm.pose_bones[slot.bone_name]
-                    original = bone.name
-                    target = item.mmd_j
+        angle = math.radians(45)
 
-                    match frame.display_type:
-                        case "MIRRORED":
-                            target = f"{LR_MAP_MMD.get(idx, '')}{target}"
-                        case "FINGER":
-                            # 親指ならbaseから0, 1, 2 (全角)
-                            init_n = 0 if item.name == "Thumb" else 1
-                            target += str(idx + init_n).translate(HALF_FULL)
+        pb = self.pose_bones["腕.L"]
+        pb.rotation_mode = "XYZ"
+        pb.rotation_euler[0] = -angle
 
-                    # rename!
-                    bone.name = self.from_mmd_prefix(target)
-                    pbone.mmd_bone.name_j = target
-                    pbone.mmd_bone.name_e = original
+        pb = self.pose_bones["腕.R"]
+        pb.rotation_mode = "XYZ"
+        pb.rotation_euler[0] = -angle
 
-                    count += 1
+        bpy.ops.pose.armature_apply()
+        to_mmd_bone()
+        remove_deform()
+        if use_local:
+            apply_local()
 
-            tree.reset_humanoid()
+    def add_leg_ik(self):
+        """Adapted from MMD Tools Helper"""
 
-        except MessageException as ex:
-            self.report(type={"ERROR"}, message=str(ex))
-            return {"CANCELLED"}
+        def add_limit_rot(pbone: bpy.types.PoseBone):
+            self.add_constraint(
+                pbone,
+                "LIMIT_ROTATION",
+                "mmd_ik_limit_override",
+                use_limit_x=True,
+                use_limit_y=False,
+                use_limit_z=False,
+                min_x=math.pi / 360,  # radians=0.5 degrees
+                max_x=math.pi,  # radians=180 degrees
+                min_y=0,
+                max_y=0,
+                min_z=0,
+                max_z=0,
+                owner_space="LOCAL",
+            )
 
-        finally:
-            self.report({"INFO"}, message=f"Renamed {count} bones.")
-            bpy.ops.object.mode_set(mode=previous_mode)
+        def add_ik_limit(pbone: bpy.types.PoseBone):
+            pbone.use_ik_limit_x = True
+            pbone.use_ik_limit_y = True
+            pbone.use_ik_limit_z = True
+            pbone.ik_min_x = 0
+            pbone.ik_max_x = math.pi
+            pbone.ik_min_y = 0
+            pbone.ik_max_y = 0
+            pbone.ik_min_z = 0
+            pbone.ik_max_z = 0
 
-        return {"FINISHED"}
+        ROOT = "全ての親"
+        LEG_IK_L = "足ＩＫ.L"
+        LEG_IK_R = "足ＩＫ.R"
+        TOE_IK_L = "つま先ＩＫ.L"
+        TOE_IK_R = "つま先ＩＫ.R"
+
+        KNEE_L = "ひざ.L"
+        KNEE_R = "ひざ.R"
+        ANKLE_L = "足首.L"
+        ANKLE_R = "足首.R"
+        TOE_L = "つま先.L"
+        TOE_R = "つま先.R"
+
+        bpy.ops.object.mode_set(mode="POSE")
+
+        add_ik_limit(self.pose_bones[KNEE_L])
+        add_ik_limit(self.pose_bones[KNEE_R])
+
+        # used for IK bone length
+        FOOT_LENGTH = self.bones[ANKLE_L].length
+
+        bpy.ops.object.mode_set(mode="EDIT")
+
+        # Add IK bones
+        bone = self.edit_bones.new(LEG_IK_L)
+        bone.head = self.edit_bones[ANKLE_L].head
+        bone.tail = self.edit_bones[ANKLE_L].head
+        bone.tail.y = self.edit_bones[ANKLE_L].head.y + FOOT_LENGTH
+        bone.parent = self.edit_bones[ROOT]
+
+        bone = self.edit_bones.new(LEG_IK_R)
+        bone.head = self.edit_bones[ANKLE_R].head
+        bone.tail = self.edit_bones[ANKLE_R].head
+        bone.tail.y = self.edit_bones[ANKLE_R].head.y + FOOT_LENGTH
+        bone.parent = self.edit_bones[ROOT]
+
+        bone = self.edit_bones.new(TOE_IK_L)
+        bone.head = self.edit_bones[TOE_L].head
+        bone.tail = self.edit_bones[TOE_L].head
+        bone.tail.z = self.edit_bones[TOE_L].head.z - FOOT_LENGTH / 2
+        bone.parent = self.edit_bones[LEG_IK_L]
+
+        bone = self.edit_bones.new(TOE_IK_R)
+        bone.head = self.edit_bones[TOE_R].head
+        bone.tail = self.edit_bones[TOE_R].head
+        bone.tail.z = self.edit_bones[TOE_R].head.z - FOOT_LENGTH / 2
+        bone.parent = self.edit_bones[LEG_IK_R]
+
+        bpy.ops.object.mode_set(mode="POSE")
+
+        # Add bone constraints
+        self.add_ik_constraint(self.pose_bones[KNEE_L], self.raw_object, LEG_IK_L, 2, 200)
+        self.add_ik_constraint(self.pose_bones[KNEE_R], self.raw_object, LEG_IK_R, 2, 200)
+        self.add_ik_constraint(self.pose_bones[ANKLE_L], self.raw_object, TOE_IK_L, 1, 15)
+        self.add_ik_constraint(self.pose_bones[ANKLE_R], self.raw_object, TOE_IK_R, 1, 15)
+
+        self.pose_bones[KNEE_L].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi
+        self.pose_bones[KNEE_R].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi
+        self.pose_bones[ANKLE_L].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi
+        self.pose_bones[ANKLE_R].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi
+
+        add_limit_rot(self.pose_bones[KNEE_L])
+        add_limit_rot(self.pose_bones[KNEE_R])
+
+        # Add to Bone Collection
+        self.bone_collections["IK"].assign(self.pose_bones[LEG_IK_L])
+        self.bone_collections["IK"].assign(self.pose_bones[LEG_IK_R])
+        self.bone_collections["IK"].assign(self.pose_bones[TOE_IK_L])
+        self.bone_collections["IK"].assign(self.pose_bones[TOE_IK_R])
+
+    def rename(self) -> int:
+        count = 0
+
+        LR_MAP_MMD = {0: "左", 1: "右"}
+        HALF_FULL = str.maketrans("0123456789", "０１２３４５６７８９")
+
+        for frame, item in self.tree.iter_items():
+            for idx, slot in enumerate(item.slots):
+                if not slot.bone_name:
+                    continue
+
+                bone = self.edit_bones.get(slot.bone_name)
+                if not bone:
+                    continue
+
+                pbone = self.pose_bones[slot.bone_name]
+                original = bone.name
+                target = item.mmd_j
+
+                match frame.display_type:
+                    case "MIRRORED":
+                        target = f"{LR_MAP_MMD.get(idx, '')}{target}"
+                    case "FINGER":
+                        # 親指ならbaseから0, 1, 2 (全角)
+                        init_n = 0 if item.name == "Thumb" else 1
+                        target += str(idx + init_n).translate(HALF_FULL)
+
+                # rename!
+                bone.name = self.convert_mmd_prefix(target)
+                pbone.mmd_bone.name_j = target
+                pbone.mmd_bone.name_e = original
+
+                count += 1
+
+        self.tree.reset_humanoid()
+
+        return count
+
+    def detect(self):
+        pass
