@@ -6,7 +6,6 @@ from collections.abc import Iterator
 import bpy
 
 from ...editors.armatures import ArmatureEditor
-from ...utilities import MessageException
 
 HUMANOID_CATEGORY = [
     ("BODY", "Body", "Spine, arm and leg"),
@@ -201,55 +200,15 @@ class HumanoidTree(bpy.types.PropertyGroup):
         del bpy.types.Object.mmd_tools_append_humanoid_settings
 
 
-# Operators
-class HumanoidInitializeOperator(bpy.types.Operator):
-    bl_idname = "mmd_tools_append.humanoid_initialize"
-    bl_label = "Initialize Humanoid Renamer"
-    bl_description = "Initialize MMD compatible Humanoid structure data for renaming bones"
-    bl_options = {"REGISTER", "UNDO"}
+class HumanoidEditor(ArmatureEditor):
+    tree: HumanoidTree
 
-    @classmethod
-    def poll(cls, context: bpy.types.Context):
-        if context.mode not in {"OBJECT", "POSE"}:
-            return False
-
-        active_object = context.active_object
-
-        if active_object is None:
-            return False
-
-        return active_object.type == "ARMATURE"
-
-    def execute(self, context: bpy.types.Context):
-        try:
-            context.active_object.mmd_tools_append_humanoid_settings.initialize_humanoid()
-        except MessageException as ex:
-            self.report({"ERROR"}, message=str(ex))
-            return {"CANCELLED"}
-
-        return {"FINISHED"}
-
-
-class HumanoidRenameOperator(bpy.types.Operator):
-    bl_idname = "mmd_tools_append.humanoid_rename"
-    bl_label = "Execute Rename"
-    bl_description = "Rename selected bones to MMD compatible Japanese name"
-    bl_options = {"REGISTER", "UNDO"}
-
-    @classmethod
-    def poll(cls, context: bpy.types.Context):
-        if context.mode not in {"OBJECT", "POSE"}:
-            return False
-
-        active_object = context.active_object
-
-        if active_object is None:
-            return False
-
-        return active_object.type == "ARMATURE"
+    def __init__(self, armature_object: bpy.types.Object):
+        super().__init__(armature_object)
+        self.tree = armature_object.mmd_tools_append_humanoid_settings
 
     @staticmethod
-    def from_mmd_prefix(name: str) -> str:
+    def convert_mmd_prefix(name: str) -> str:
         """左右 prefix to .LR suffix"""
         if name.startswith("左"):
             return name[1:] + ".L"
@@ -257,54 +216,43 @@ class HumanoidRenameOperator(bpy.types.Operator):
             return name[1:] + ".R"
         return name
 
-    def execute(self, context: bpy.types.Context):
-        previous_mode = context.mode
+    def rename(self) -> int:
+        count = 0
 
-        try:
-            bpy.ops.object.mode_set(mode="EDIT")
-            tree: HumanoidTree = context.active_object.mmd_tools_append_humanoid_settings
-            arm = ArmatureEditor(context.active_object)
-            count = 0
+        LR_MAP_MMD = {0: "左", 1: "右"}
+        HALF_FULL = str.maketrans("0123456789", "０１２３４５６７８９")
 
-            LR_MAP_MMD = {0: "左", 1: "右"}
-            HALF_FULL = str.maketrans("0123456789", "０１２３４５６７８９")
+        for frame, item in self.tree.iter_items():
+            for idx, slot in enumerate(item.slots):
+                if not slot.bone_name:
+                    continue
 
-            for frame, item in tree.iter_items():
-                for idx, slot in enumerate(item.slots):
-                    if not slot.bone_name:
-                        continue
+                bone = self.edit_bones.get(slot.bone_name)
+                if not bone:
+                    continue
 
-                    bone = arm.edit_bones.get(slot.bone_name)
-                    if not bone:
-                        continue
+                pbone = self.pose_bones[slot.bone_name]
+                original = bone.name
+                target = item.mmd_j
 
-                    pbone = arm.pose_bones[slot.bone_name]
-                    original = bone.name
-                    target = item.mmd_j
+                match frame.display_type:
+                    case "MIRRORED":
+                        target = f"{LR_MAP_MMD.get(idx, '')}{target}"
+                    case "FINGER":
+                        # 親指ならbaseから0, 1, 2 (全角)
+                        init_n = 0 if item.name == "Thumb" else 1
+                        target += str(idx + init_n).translate(HALF_FULL)
 
-                    match frame.display_type:
-                        case "MIRRORED":
-                            target = f"{LR_MAP_MMD.get(idx, '')}{target}"
-                        case "FINGER":
-                            # 親指ならbaseから0, 1, 2 (全角)
-                            init_n = 0 if item.name == "Thumb" else 1
-                            target += str(idx + init_n).translate(HALF_FULL)
+                # rename!
+                bone.name = self.convert_mmd_prefix(target)
+                pbone.mmd_bone.name_j = target
+                pbone.mmd_bone.name_e = original
 
-                    # rename!
-                    bone.name = self.from_mmd_prefix(target)
-                    pbone.mmd_bone.name_j = target
-                    pbone.mmd_bone.name_e = original
+                count += 1
 
-                    count += 1
+        self.tree.reset_humanoid()
 
-            tree.reset_humanoid()
+        return count
 
-        except MessageException as ex:
-            self.report(type={"ERROR"}, message=str(ex))
-            return {"CANCELLED"}
-
-        finally:
-            self.report({"INFO"}, message=f"Renamed {count} bones.")
-            bpy.ops.object.mode_set(mode=previous_mode)
-
-        return {"FINISHED"}
+    def detect(self):
+        pass
