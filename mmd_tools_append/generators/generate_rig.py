@@ -7,10 +7,8 @@ import unicodedata
 
 import bpy
 
-from ..editors.armatures import ArmatureEditor
+from ..converters.armatures.humanoid import HumanoidEditor
 from ..utilities import import_mmd_tools
-
-MMD_CONTROL = ("センター", "全ての親", "足ＩＫ.L", "足ＩＫ.R", "つま先ＩＫ.L", "つま先ＩＫ.R")
 
 
 def generate_mmd_humanoid(arm, use_eye=True):
@@ -35,7 +33,7 @@ def generate_mmd_humanoid(arm, use_eye=True):
         collection.assign(bone)
         return bone
 
-    editor = ArmatureEditor(arm)
+    editor = HumanoidEditor(arm)
 
     root_coll = editor.bone_collections.new("Root")
     _ik_coll = editor.bone_collections.new("IK")
@@ -91,6 +89,8 @@ def generate_mmd_humanoid(arm, use_eye=True):
 
 
 def add_mmd_names(arm):
+    """Add name_j & name_e based on Blender name"""
+
     def to_english(name: str) -> str:
         name = unicodedata.normalize("NFKC", name)
         for key, value in JP_EN_MAP.items():
@@ -109,7 +109,7 @@ def add_mmd_names(arm):
 
         return side + base
 
-    editor = ArmatureEditor(arm)
+    editor = HumanoidEditor(arm)
 
     # normalized by unicodedata
     JP_EN_MAP = {
@@ -142,160 +142,6 @@ def add_mmd_names(arm):
     for b in editor.pose_bones:
         b.mmd_bone.name_j = to_mmd_prefix(b.name)
         b.mmd_bone.name_e = to_english(b.name)
-
-
-def to_mmd_pose(arm, use_local=False):
-    def to_mmd_bone():
-        """Locks positions of the bones and changes display connection to child bone."""
-        for pbone in editor.pose_bones:
-            if pbone.name not in MMD_CONTROL:
-                pbone.lock_location = [True, True, True]
-                pbone.lock_rotation_w = False
-            if len(pbone.children) == 1:
-                pbone.mmd_bone.display_connection_type = "BONE"
-                pbone.mmd_bone.display_connection_bone = pbone.children[0].name
-
-    def remove_deform():
-        """Disables `use_deform` to exclude from Automatic Weights."""
-        for bone in editor.bones:
-            if bone.name in MMD_CONTROL:
-                bone.use_deform = False
-
-    def apply_local():
-        for bone in editor.bone_collections["指"].bones:
-            pbone = editor.pose_bones[bone.name]
-            pbone.select = True
-            pbone.mmd_bone.enabled_local_axes = True
-
-        for bone in editor.bone_collections["腕"].bones:
-            if "肩" not in bone.name:
-                pbone = editor.pose_bones[bone.name]
-                pbone.select = True
-                pbone.mmd_bone.enabled_local_axes = True
-
-        bpy.ops.mmd_tools.bone_local_axes_setup(type="LOAD")
-        bpy.ops.mmd_tools.bone_local_axes_setup(type="APPLY")
-
-    editor = ArmatureEditor(arm)
-    angle = math.radians(45)
-
-    pb = editor.pose_bones["腕.L"]
-    pb.rotation_mode = "XYZ"
-    pb.rotation_euler[0] = -angle
-
-    pb = editor.pose_bones["腕.R"]
-    pb.rotation_mode = "XYZ"
-    pb.rotation_euler[0] = -angle
-
-    bpy.ops.pose.armature_apply()
-    to_mmd_bone()
-    remove_deform()
-    if use_local:
-        apply_local()
-
-
-def add_leg_ik(arm):
-    """Adapted from MMD Tools Helper"""
-
-    def add_limit_rot(pbone: bpy.types.PoseBone):
-        editor.add_constraint(
-            pbone,
-            "LIMIT_ROTATION",
-            "mmd_ik_limit_override",
-            use_limit_x=True,
-            use_limit_y=False,
-            use_limit_z=False,
-            min_x=math.pi / 360,  # radians=0.5 degrees
-            max_x=math.pi,  # radians=180 degrees
-            min_y=0,
-            max_y=0,
-            min_z=0,
-            max_z=0,
-            owner_space="LOCAL",
-        )
-
-    def add_ik_limit(pbone: bpy.types.PoseBone):
-        pbone.use_ik_limit_x = True
-        pbone.use_ik_limit_y = True
-        pbone.use_ik_limit_z = True
-        pbone.ik_min_x = 0
-        pbone.ik_max_x = math.pi
-        pbone.ik_min_y = 0
-        pbone.ik_max_y = 0
-        pbone.ik_min_z = 0
-        pbone.ik_max_z = 0
-
-    editor = ArmatureEditor(arm)
-
-    ROOT = "全ての親"
-    LEG_IK_L = "足ＩＫ.L"
-    LEG_IK_R = "足ＩＫ.R"
-    TOE_IK_L = "つま先ＩＫ.L"
-    TOE_IK_R = "つま先ＩＫ.R"
-
-    KNEE_L = "ひざ.L"
-    KNEE_R = "ひざ.R"
-    ANKLE_L = "足首.L"
-    ANKLE_R = "足首.R"
-    TOE_L = "つま先.L"
-    TOE_R = "つま先.R"
-
-    bpy.ops.object.mode_set(mode="POSE")
-
-    add_ik_limit(editor.pose_bones[KNEE_L])
-    add_ik_limit(editor.pose_bones[KNEE_R])
-
-    # used for IK bone length
-    FOOT_LENGTH = editor.bones[ANKLE_L].length
-
-    bpy.ops.object.mode_set(mode="EDIT")
-
-    # Add IK bones
-    bone = editor.edit_bones.new(LEG_IK_L)
-    bone.head = editor.edit_bones[ANKLE_L].head
-    bone.tail = editor.edit_bones[ANKLE_L].head
-    bone.tail.y = editor.edit_bones[ANKLE_L].head.y + FOOT_LENGTH
-    bone.parent = editor.edit_bones[ROOT]
-
-    bone = editor.edit_bones.new(LEG_IK_R)
-    bone.head = editor.edit_bones[ANKLE_R].head
-    bone.tail = editor.edit_bones[ANKLE_R].head
-    bone.tail.y = editor.edit_bones[ANKLE_R].head.y + FOOT_LENGTH
-    bone.parent = editor.edit_bones[ROOT]
-
-    bone = editor.edit_bones.new(TOE_IK_L)
-    bone.head = editor.edit_bones[TOE_L].head
-    bone.tail = editor.edit_bones[TOE_L].head
-    bone.tail.z = editor.edit_bones[TOE_L].head.z - FOOT_LENGTH / 2
-    bone.parent = editor.edit_bones[LEG_IK_L]
-
-    bone = editor.edit_bones.new(TOE_IK_R)
-    bone.head = editor.edit_bones[TOE_R].head
-    bone.tail = editor.edit_bones[TOE_R].head
-    bone.tail.z = editor.edit_bones[TOE_R].head.z - FOOT_LENGTH / 2
-    bone.parent = editor.edit_bones[LEG_IK_R]
-
-    bpy.ops.object.mode_set(mode="POSE")
-
-    # Add bone constraints
-    editor.add_ik_constraint(editor.pose_bones[KNEE_L], arm, LEG_IK_L, 2, 200)
-    editor.add_ik_constraint(editor.pose_bones[KNEE_R], arm, LEG_IK_R, 2, 200)
-    editor.add_ik_constraint(editor.pose_bones[ANKLE_L], arm, TOE_IK_L, 1, 15)
-    editor.add_ik_constraint(editor.pose_bones[ANKLE_R], arm, TOE_IK_R, 1, 15)
-
-    editor.pose_bones[KNEE_L].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi
-    editor.pose_bones[KNEE_R].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi
-    editor.pose_bones[ANKLE_L].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi
-    editor.pose_bones[ANKLE_R].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi
-
-    add_limit_rot(editor.pose_bones[KNEE_L])
-    add_limit_rot(editor.pose_bones[KNEE_R])
-
-    # Add to Bone Collection
-    editor.bone_collections["IK"].assign(editor.pose_bones[LEG_IK_L])
-    editor.bone_collections["IK"].assign(editor.pose_bones[LEG_IK_R])
-    editor.bone_collections["IK"].assign(editor.pose_bones[TOE_IK_L])
-    editor.bone_collections["IK"].assign(editor.pose_bones[TOE_IK_R])
 
 
 class AddMMDHumanoidRig(bpy.types.Operator):
@@ -352,10 +198,11 @@ class AddMMDHumanoidRig(bpy.types.Operator):
             generate_mmd_humanoid(rig.armature(), self.add_eye)
             bpy.ops.object.mode_set(mode="POSE")
 
+            editor = HumanoidEditor(rig.armature())
             if self.use_leg_ik:
-                add_leg_ik(rig.armature())
+                editor.add_leg_ik()
 
-            to_mmd_pose(rig.armature(), self.use_local_axis)
+            editor.to_mmd_pose(self.use_local_axis)
             add_mmd_names(rig.armature())
 
             bpy.ops.mmd_tools.display_item_quick_setup(type="GROUP_LOAD")

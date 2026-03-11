@@ -2852,7 +2852,7 @@ translations_tuple = (
     (
         ("*", "Humanoid Renamer"),
         (("extensions/user_default/mmd_tools_append/panels.py:236",), ()),
-        ("ja_JP", "", (False, ())),
+        ("ja_JP", "ヒューマノイド名称変更", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
