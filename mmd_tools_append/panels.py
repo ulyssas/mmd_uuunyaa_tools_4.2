@@ -6,8 +6,10 @@ import bpy
 
 from .checkers.operators import CheckEeveeRenderingPerformance
 from .converters.armatures.operators import (
+    HumanoidDetectOperator,
     HumanoidInitializeOperator,
     HumanoidRenameOperator,
+    HumanoidResetOperator,
     MMDArmatureAddMetarig,
     MMDAutoRigApplyMMDRestPose,
     MMDAutoRigConvert,
@@ -248,9 +250,10 @@ class MMDAppendHumanoidPanel(bpy.types.Panel):
             return
 
         # HumanoidCategorySelector
-        row = layout.row()
+        col = layout.column()
         wm = context.window_manager
-        row.prop(wm, "mmd_humanoid_category", expand=True)
+        col.operator(HumanoidDetectOperator.bl_idname, text="Auto Detect")
+        col.row().prop(wm, "mmd_humanoid_category", expand=True)
 
         for frame in tree.frames:
             if frame.category != wm.mmd_humanoid_category:
@@ -288,7 +291,9 @@ class MMDAppendHumanoidPanel(bpy.types.Panel):
                 for slot in item.slots:
                     child_row.prop_search(slot, "bone_name", active_object.data, "bones", icon="BONE_DATA", text="")
 
-        layout.operator(HumanoidRenameOperator.bl_idname, text="Humanoid Rename")
+        col = layout.grid_flow()
+        col.operator(HumanoidRenameOperator.bl_idname, text="Humanoid Rename")
+        col.operator(HumanoidResetOperator.bl_idname, text="Reset Humanoid")
 
 
 class MMDAppendSegmentationPanel(bpy.types.Panel):

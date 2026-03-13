@@ -2,9 +2,11 @@
 # This file is part of MMD Tools Append.
 
 import math
+import re
 from collections.abc import Iterator
 
 import bpy
+from mathutils import Vector
 
 from ...editors.armatures import ArmatureEditor
 
@@ -106,6 +108,9 @@ HUMANOID_DEFAULTS = [
 class HumanoidBoneSlot(bpy.types.PropertyGroup):
     bone_name: bpy.props.StringProperty(name="Bone")
 
+    def info(self):
+        return f'HumanoidBoneSlot("{self.bone_name}")'
+
 
 class HumanoidItem(bpy.types.PropertyGroup):
     """
@@ -123,8 +128,56 @@ class HumanoidItem(bpy.types.PropertyGroup):
         while len(self.slots) < self.column_count:
             self.slots.add()
 
+    def auto(self, editor, display_type):
+        """Auto fills empty slots based on existing selection."""
+
+        def flip_name(name: str) -> str:
+            """Convert names like Arm.L, Arm_L, LeftArm, ArmLeft to right."""
+
+            suffix_pattern = r"([._-])([LRlr])$"
+            match = re.search(suffix_pattern, name)
+            if match:
+                delim = match.group(1)
+                suffix = match.group(2)
+                flipped = {"L": "R", "R": "L", "l": "r", "r": "l"}[suffix]
+                return name[:-2] + delim + flipped
+            else:
+                mappings = {}
+                LR = [("left", "right"), ("right", "left")]
+                for k, v in LR:
+                    mappings[k] = v
+                    mappings[k.upper()] = v.upper()
+                    mappings[k.capitalize()] = v.capitalize()
+                pattern = re.compile("|".join(re.escape(k) for k in mappings.keys()))
+                return pattern.sub(lambda m: mappings[m.group(0)], name)
+
+        def get_lineal(name: str) -> tuple[str, str]:
+            """Get parent and first child."""
+
+            parent = ""
+            child = ""
+            if name in editor.bones:
+                bone = editor.bones[name]
+                parent = bone.parent.name if bone.parent else ""
+                child = bone.children[0].name if bone.children else ""
+            return parent, child
+
+        match display_type:
+            case "MIRRORED":
+                for i in range(len(self.slots)):
+                    if not self.slots[i].bone_name:
+                        self.slots[i].bone_name = flip_name(self.slots[i - 1].bone_name)
+            case "FINGER":
+                for i in reversed(range(len(self.slots))):
+                    if i < len(self.slots) - 1 and not self.slots[i].bone_name:
+                        self.slots[i].bone_name = get_lineal(self.slots[i + 1].bone_name)[0]
+                for i in range(len(self.slots)):
+                    if i > 0 and not self.slots[i].bone_name:
+                        self.slots[i].bone_name = get_lineal(self.slots[i - 1].bone_name)[1]
+
     name: bpy.props.StringProperty()
     mmd_j: bpy.props.StringProperty()
+    mmd_e: bpy.props.StringProperty()
     column_count: bpy.props.IntProperty(default=1, update=_update_slot_size)
     slots: bpy.props.CollectionProperty(type=HumanoidBoneSlot)
 
@@ -179,6 +232,7 @@ class HumanoidTree(bpy.types.PropertyGroup):
                 item = frame.items.add()
                 item.name = item_data["name"]
                 item.mmd_j = item_data.get("mmd_j", "")
+                item.mmd_e = item_data.get("mmd_e", "")
 
             frame.sync_display_type(None)
 
@@ -374,6 +428,7 @@ class HumanoidEditor(ArmatureEditor):
         count = 0
 
         LR_MAP_MMD = {0: "左", 1: "右"}
+        LR_MAP_BLENDER = {0: ".L", 1: ".R"}
         HALF_FULL = str.maketrans("0123456789", "０１２３４５６７８９")
 
         for frame, item in self.tree.iter_items():
@@ -387,26 +442,126 @@ class HumanoidEditor(ArmatureEditor):
 
                 pbone = self.pose_bones[slot.bone_name]
                 original = bone.name
-                target = item.mmd_j
+                target_j = item.mmd_j
+                target_e = item.mmd_e
 
                 match frame.display_type:
                     case "MIRRORED":
-                        target = f"{LR_MAP_MMD.get(idx, '')}{target}"
+                        target_j = f"{LR_MAP_MMD.get(idx, '')}{target_j}"
+                        if target_e:
+                            target_e = f"{target_e}{LR_MAP_BLENDER.get(idx, '')}"
                     case "FINGER":
                         # 親指ならbaseから0, 1, 2 (全角)
                         init_n = 0 if item.name == "Thumb" else 1
-                        target += str(idx + init_n).translate(HALF_FULL)
+                        target_j += str(idx + init_n).translate(HALF_FULL)
+                        if target_e:
+                            target_e += str(idx + init_n)
 
                 # rename!
-                bone.name = self.convert_mmd_prefix(target)
-                pbone.mmd_bone.name_j = target
-                pbone.mmd_bone.name_e = original
+                bone.name = self.convert_mmd_prefix(target_j)
+                pbone.mmd_bone.name_j = target_j
+                if not pbone.mmd_bone.name_e:
+                    pbone.mmd_bone.name_e = target_e or original
 
+                # update
+                slot.bone_name = bone.name
                 count += 1
-
-        self.tree.reset_humanoid()
 
         return count
 
-    def detect(self):
-        pass
+    def detect(self, finger_count: int = 5, precision: float = 0.0001):
+        """
+        Analyze the bone position, direction, structure and name to find Humanoid structure.
+        Intended for non-MMD models, and the model must face Y- direction.
+        """
+
+        def isclose_abs(a: float, b: float, tol: float) -> bool:
+            """Returns if the absolute values of a and b are close."""
+            return math.isclose(abs(a), abs(b), abs_tol=tol)
+
+        def isconnected(bone: bpy.types.EditBone, tol: float = precision) -> bool:
+            """Check if bone.head is connected or in the same position as tail of the parent."""
+            parent = bone.parent
+            if parent:
+                return bone.use_connect or (bone.head - parent.tail).length < tol
+            return False
+
+        def traverse_parent_chain(bone: bpy.types.EditBone, threshold: float = 0.6, chain: list[str] = None) -> list[str]:
+            """
+            Find connected parents that are pointing in a similar direction (bone chain).
+            threshold = 1 means it will treat 90deg as part of the chain.
+            """
+
+            parent = bone.parent
+            if not parent:
+                return chain if chain else []
+
+            if chain is None:
+                chain = []
+
+            angle = bone.vector.angle(parent.vector)
+            if angle < math.pi * 0.5 * threshold:
+                chain.append(parent.name)
+                return traverse_parent_chain(parent, threshold=threshold, chain=chain)
+            else:
+                return chain
+
+        # Gather bone data
+        children_map = {b.name: [c.name for c in b.children] for b in self.bones if b.use_deform}
+        bone_map: dict[str, dict[str, Vector]] = {
+            b.name: {
+                "head": b.head,
+                "tail": b.tail,
+                "vector": b.vector.normalized(),
+                "connected": isconnected(b),
+            }
+            for b in self.edit_bones
+            if b.use_deform
+        }
+
+        # find hand with finger count & furthest bone
+        finger_parent = [k for k, v in children_map.items() if len(v) >= finger_count]
+        if finger_parent:
+            print(finger_parent)
+            hand_pos = max(abs(bone_map[n]["head"].x) for n in finger_parent)
+            hands = [n for n in finger_parent if isclose_abs(hand_pos, bone_map[n]["head"].x, precision)]
+        print(hands)
+
+        # find arm chains
+        arm_l = []
+        arm_r = []
+        for h in hands:
+            if bone_map[h]["head"].x > 0:
+                arm_l = traverse_parent_chain(self.edit_bones[h])
+            else:
+                arm_r = traverse_parent_chain(self.edit_bones[h])
+        print(arm_l)
+        print(arm_r)
+
+        # find toe by lowest & furthest bone
+        min_z = min(v["head"].z for v in bone_map.values())
+        bottom = [k for k, v in bone_map.items() if abs(v["head"].z - min_z) < precision]
+        if bottom:
+            toe_pos = max(abs(bone_map[n]["head"].y) for n in bottom)
+            toes = [n for n in bottom if isclose_abs(toe_pos, bone_map[n]["head"].y, precision)]
+        print(toes)
+
+        # find leg chains (broken on MMD because EX and ToeIK)
+        leg_l = []
+        leg_r = []
+        for t in toes:
+            if bone_map[t]["head"].x > 0:
+                leg_l = traverse_parent_chain(self.edit_bones[t], threshold=0.8)
+            else:
+                leg_r = traverse_parent_chain(self.edit_bones[t], threshold=0.8)
+        print(leg_l)
+        print(leg_r)
+
+        # find head by top & upward bone (that is closer to root) わからん？？
+        upward_bones = [v for v in bone_map.values() if v["vector"].z > 0.6]
+        if upward_bones:
+            max_z = max(v["tail"].z for v in upward_bones)
+            head = [k for k, v in bone_map.items() if v["vector"].z > 0.6 and abs(v["tail"].z - max_z) < precision]
+        print(head)
+
+        print(traverse_parent_chain(self.edit_bones[head[0]]))

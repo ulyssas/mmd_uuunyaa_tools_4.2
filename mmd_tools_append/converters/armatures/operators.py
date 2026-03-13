@@ -609,7 +609,6 @@ class HumanoidInitializeOperator(bpy.types.Operator):
             return False
 
         active_object = context.active_object
-
         if active_object is None:
             return False
 
@@ -621,6 +620,73 @@ class HumanoidInitializeOperator(bpy.types.Operator):
         except MessageException as ex:
             self.report({"ERROR"}, message=str(ex))
             return {"CANCELLED"}
+
+        return {"FINISHED"}
+
+
+class HumanoidResetOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_reset"
+    bl_label = "Reset Humanoid Renamer"
+    bl_description = "Reset Humanoid structure data"
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        try:
+            context.active_object.mmd_tools_append_humanoid_settings.reset_humanoid()
+            self.report({"INFO"}, message="Reset Humanoid data.")
+        except MessageException as ex:
+            self.report({"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
+
+        return {"FINISHED"}
+
+
+class HumanoidDetectOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_detect"
+    bl_label = "Automatic Humanoid Detection"
+    bl_description = ""
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            editor = HumanoidEditor(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            editor.detect()
+
+            for frame, item in editor.tree.iter_items():
+                item.auto(editor, frame.display_type)
+
+        except MessageException as ex:
+            self.report(type={"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
+
+        finally:
+            bpy.ops.object.mode_set(mode=previous_mode)
 
         return {"FINISHED"}
 
@@ -637,7 +703,6 @@ class HumanoidRenameOperator(bpy.types.Operator):
             return False
 
         active_object = context.active_object
-
         if active_object is None:
             return False
 
