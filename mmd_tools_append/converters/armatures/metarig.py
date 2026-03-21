@@ -273,6 +273,9 @@ class MetarigArmatureObject(ArmatureEditor):
 
             metarig_edit_bones["thumb.02.L"].roll = mmd_edit_bones["左親指１"].roll + math.radians(-90)
             metarig_edit_bones["thumb.03.L"].roll = mmd_edit_bones["左親指２"].roll + math.radians(-90)
+            metarig_edit_bones["f_index.01.L"].roll = mmd_edit_bones["左人指１"].roll + math.radians(+180)
+            metarig_edit_bones["f_index.02.L"].roll = mmd_edit_bones["左人指２"].roll + math.radians(+180)
+            metarig_edit_bones["f_index.03.L"].roll = mmd_edit_bones["左人指３"].roll + math.radians(+180)
             metarig_edit_bones["f_middle.01.L"].roll = mmd_edit_bones["左中指１"].roll + math.radians(+180)
             metarig_edit_bones["f_middle.02.L"].roll = mmd_edit_bones["左中指２"].roll + math.radians(+180)
             metarig_edit_bones["f_middle.03.L"].roll = mmd_edit_bones["左中指３"].roll + math.radians(+180)
@@ -288,6 +291,9 @@ class MetarigArmatureObject(ArmatureEditor):
 
             metarig_edit_bones["thumb.02.R"].roll = mmd_edit_bones["右親指１"].roll + math.radians(-90)
             metarig_edit_bones["thumb.03.R"].roll = mmd_edit_bones["右親指２"].roll + math.radians(-90)
+            metarig_edit_bones["f_index.01.R"].roll = mmd_edit_bones["右人指１"].roll + math.radians(+0)
+            metarig_edit_bones["f_index.02.R"].roll = mmd_edit_bones["右人指２"].roll + math.radians(+0)
+            metarig_edit_bones["f_index.03.R"].roll = mmd_edit_bones["右人指３"].roll + math.radians(+0)
             metarig_edit_bones["f_middle.01.R"].roll = mmd_edit_bones["右中指１"].roll + math.radians(+0)
             metarig_edit_bones["f_middle.02.R"].roll = mmd_edit_bones["右中指２"].roll + math.radians(+0)
             metarig_edit_bones["f_middle.03.R"].roll = mmd_edit_bones["右中指３"].roll + math.radians(+0)

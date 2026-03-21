@@ -341,7 +341,6 @@ class AssetSearchPanel(bpy.types.Panel):
                 query,
                 "tags_index",
                 type="DEFAULT",
-                columns=max(1, int(context.region.width / 250)),
                 rows=2,
             )
             row = col.row()
