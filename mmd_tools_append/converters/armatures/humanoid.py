@@ -275,7 +275,32 @@ class HumanoidEditor(ArmatureEditor):
             return name[1:] + ".R"
         return name
 
+    def create_bone_pos(self, name, collection, head, tail, parent=None, use_connect=False) -> bpy.types.EditBone:
+        """Creates child bone based on head & tail position."""
+        bone = self.edit_bones.new(name)
+        bone.head = head
+        bone.tail = tail
+        if parent:
+            bone.parent = parent
+        bone.use_connect = use_connect
+        if collection:
+            collection.assign(bone)
+        return bone
+
+    def create_bone_vec(self, name, collection, length, parent) -> bpy.types.EditBone:
+        """Creates child bone based on parent's orientation and length."""
+        bone = self.edit_bones.new(name)
+        bone.use_connect = True
+        bone.parent = parent
+        bone.align_orientation(parent)
+        bone.length = length
+        if collection:
+            collection.assign(bone)
+        return bone
+
     def to_mmd_pose(self, use_local=False):
+        """Convert bones to MMD. This function expects MMD naming convention."""
+
         def to_mmd_bone():
             """Locks positions of the bones and changes display connection to child bone."""
             for pbone in self.pose_bones:
@@ -285,6 +310,12 @@ class HumanoidEditor(ArmatureEditor):
                 if len(pbone.children) == 1:
                     pbone.mmd_bone.display_connection_type = "BONE"
                     pbone.mmd_bone.display_connection_bone = pbone.children[0].name
+
+        def is_tpose(tpose_angle: float = 5.0) -> bool:
+            """Check if the model is in T-pose."""
+            arm_vec = self.pose_bones["腕.L"].vector.normalized()
+            angle = self.to_angle(arm_vec, "XZ")
+            return math.degrees(abs(angle)) < tpose_angle
 
         def remove_deform():
             """Disables `use_deform` to exclude from Automatic Weights."""
@@ -307,24 +338,49 @@ class HumanoidEditor(ArmatureEditor):
             bpy.ops.mmd_tools.bone_local_axes_setup(type="LOAD")
             bpy.ops.mmd_tools.bone_local_axes_setup(type="APPLY")
 
-        angle = math.radians(45)
+        def create_root():
+            """Create MMD center and root bone."""
 
-        pb = self.pose_bones["腕.L"]
-        pb.rotation_mode = "XYZ"
-        pb.rotation_euler[0] = -angle
+            bpy.ops.object.mode_set(mode="EDIT")
+            parent = self.edit_bones["下半身"].parent
+            if parent is None or not math.isclose(parent.head.length, 0):
+                parent = self.create_bone_pos("全ての親", None, (0.0, 0.0, 0.0), (0.0, 0.0, 0.7))
+            else:
+                parent.name = "全ての親"
 
-        pb = self.pose_bones["腕.R"]
-        pb.rotation_mode = "XYZ"
-        pb.rotation_euler[0] = -angle
+            center = self.create_bone_pos("センター", None, (0.0, 0.0, 0.7), (0.0, 0.0, 0.0), parent)
+            self.edit_bones["上半身"].use_connect = False
+            self.edit_bones["下半身"].use_connect = False
+            self.edit_bones["上半身"].parent = center
+            self.edit_bones["下半身"].parent = center
+            self.edit_bones["下半身"].tail = self.edit_bones["下半身"].head
+            self.edit_bones["下半身"].head = self.edit_bones["上半身"].head
 
-        bpy.ops.pose.armature_apply()
+            bpy.ops.object.mode_set(mode="POSE")
+
+        if not self.pose_bones.get("センター") or not self.pose_bones.get("全ての親"):
+            create_root()
+
+        if is_tpose():
+            angle = math.radians(45)
+
+            pb = self.pose_bones["腕.L"]
+            pb.rotation_mode = "XYZ"
+            pb.rotation_euler[0] = -angle
+
+            pb = self.pose_bones["腕.R"]
+            pb.rotation_mode = "XYZ"
+            pb.rotation_euler[0] = -angle
+
+            bpy.ops.pose.armature_apply()
+
         to_mmd_bone()
         remove_deform()
         if use_local:
             apply_local()
 
     def add_leg_ik(self):
-        """Adapted from MMD Tools Helper"""
+        """Leg IK maker. Adapted from MMD Tools Helper"""
 
         def add_limit_rot(pbone: bpy.types.PoseBone):
             self.add_constraint(
@@ -367,6 +423,14 @@ class HumanoidEditor(ArmatureEditor):
         TOE_L = "つま先.L"
         TOE_R = "つま先.R"
 
+        # checks
+        if self.pose_bones.get(LEG_IK_L) or self.pose_bones.get(LEG_IK_R):
+            print("This armature already has Leg IK.")
+            return
+        if not self.pose_bones.get(ROOT) or not self.pose_bones.get(ANKLE_L) or not self.pose_bones.get(ANKLE_R):
+            print("This armature does not have MMD bones.")
+            return
+
         bpy.ops.object.mode_set(mode="POSE")
 
         add_ik_limit(self.pose_bones[KNEE_L])
@@ -376,6 +440,11 @@ class HumanoidEditor(ArmatureEditor):
         FOOT_LENGTH = self.bones[ANKLE_L].length
 
         bpy.ops.object.mode_set(mode="EDIT")
+
+        # move knees forward a little to prevent glitches
+        if math.isclose(self.edit_bones["足.L"].vector.angle(self.edit_bones["ひざ.L"].vector), 0):
+            self.edit_bones["足.L"].tail.y = -0.005
+            self.edit_bones["足.R"].tail.y = -0.005
 
         # Add IK bones
         bone = self.edit_bones.new(LEG_IK_L)
@@ -419,6 +488,7 @@ class HumanoidEditor(ArmatureEditor):
         add_limit_rot(self.pose_bones[KNEE_R])
 
         # Add to Bone Collection
+        self.get_or_create_bone_collection(self.bone_collections, "IK")
         self.bone_collections["IK"].assign(self.pose_bones[LEG_IK_L])
         self.bone_collections["IK"].assign(self.pose_bones[LEG_IK_R])
         self.bone_collections["IK"].assign(self.pose_bones[TOE_IK_L])

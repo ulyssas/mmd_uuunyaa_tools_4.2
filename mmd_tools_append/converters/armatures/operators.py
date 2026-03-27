@@ -697,6 +697,22 @@ class HumanoidRenameOperator(bpy.types.Operator):
     bl_description = "Rename selected bones to MMD compatible Japanese name"
     bl_options = {"REGISTER", "UNDO"}
 
+    convert_armature: bpy.props.BoolProperty(
+        name="Convert Armature",
+        description="Convert armature to MMD",
+        default=True,
+    )
+    use_leg_ik: bpy.props.BoolProperty(
+        name="Use Leg IK",
+        description="Add Leg IK to MMD rig. (ignored if Convert Armature is disabled)",
+        default=True,
+    )
+    use_local_axis: bpy.props.BoolProperty(
+        name="Use Local axis",
+        description="Set up local axis for arms and fingers. (ignored if Convert Armature is disabled)",
+        default=False,
+    )
+
     @classmethod
     def poll(cls, context: bpy.types.Context):
         if context.mode not in {"OBJECT", "POSE"}:
@@ -717,8 +733,15 @@ class HumanoidRenameOperator(bpy.types.Operator):
             bpy.ops.object.mode_set(mode="EDIT")
             rename_count = editor.rename()
 
-            self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
+            if self.convert_armature:
+                editor.to_mmd_pose(self.use_local_axis)
+                if self.use_leg_ik:
+                    editor.add_leg_ik()
 
+            self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
+        except KeyError as e:
+            self.report(type={"ERROR"}, message=f"This armature does not have required MMD bones. {e}")
+            return {"CANCELLED"}
         except MessageException as ex:
             self.report(type={"ERROR"}, message=str(ex))
             return {"CANCELLED"}
@@ -727,3 +750,7 @@ class HumanoidRenameOperator(bpy.types.Operator):
             bpy.ops.object.mode_set(mode=previous_mode)
 
         return {"FINISHED"}
+
+    def invoke(self, context, event):
+        vm = context.window_manager
+        return vm.invoke_props_dialog(self)

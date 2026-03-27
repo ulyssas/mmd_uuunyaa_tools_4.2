@@ -361,3 +361,10 @@ class ArmatureEditor(EditBoneEditor, PoseBoneEditor):
             return edit_bones[bone_name]
 
         return edit_bones.new(bone_name)
+
+    @staticmethod
+    def get_or_create_bone_collection(bone_collections: bpy.types.BoneCollections, col_name: str) -> bpy.types.BoneCollection:
+        if col_name in bone_collections:
+            return bone_collections[col_name]
+
+        return bone_collections.new(col_name)
