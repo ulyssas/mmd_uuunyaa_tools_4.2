@@ -698,18 +698,23 @@ class HumanoidRenameOperator(bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
 
     convert_armature: bpy.props.BoolProperty(
-        name="Convert Armature",
-        description="Convert armature to MMD",
+        name="Convert Model",
+        description="Convert armature to MMD model",
         default=True,
     )
     use_leg_ik: bpy.props.BoolProperty(
         name="Use Leg IK",
-        description="Add Leg IK to MMD rig. (ignored if Convert Armature is disabled)",
+        description="Add Leg IK to MMD rig. (ignored if Convert Model is disabled)",
+        default=True,
+    )
+    add_eye: bpy.props.BoolProperty(
+        name="Add Eyes Bone",
+        description="Add eyes (両目) bone to MMD rig. (ignored if Convert Model is disabled)",
         default=True,
     )
     use_local_axis: bpy.props.BoolProperty(
         name="Use Local axis",
-        description="Set up local axis for arms and fingers. (ignored if Convert Armature is disabled)",
+        description="Set up local axis for arms and fingers. (ignored if Convert Model is disabled)",
         default=False,
     )
 
@@ -737,6 +742,20 @@ class HumanoidRenameOperator(bpy.types.Operator):
                 editor.to_mmd_pose(self.use_local_axis)
                 if self.use_leg_ik:
                     editor.add_leg_ik()
+                if self.add_eye:
+                    editor.add_eyes_bone()
+
+                bpy.ops.object.mode_set(mode="OBJECT")
+                if not editor.is_mmd_armature_object():
+                    bpy.ops.mmd_tools.convert_to_mmd_model(
+                        ambient_color_source="DIFFUSE",
+                        edge_threshold=0.1,
+                        edge_alpha_min=0.5,
+                        scale=0.08,
+                        convert_material_nodes=True,
+                        middle_joint_bones_lock=False,
+                    )
+                bpy.ops.mmd_tools.fix_bone_order()
 
             self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
         except KeyError as e:

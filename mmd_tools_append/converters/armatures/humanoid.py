@@ -9,6 +9,7 @@ import bpy
 from mathutils import Vector
 
 from ...editors.armatures import ArmatureEditor
+from ...utilities import import_mmd_tools
 
 # constants
 MMD_CONTROL = ("センター", "全ての親", "足ＩＫ.L", "足ＩＫ.R", "つま先ＩＫ.L", "つま先ＩＫ.R")
@@ -143,11 +144,10 @@ class HumanoidItem(bpy.types.PropertyGroup):
                 return name[:-2] + delim + flipped
             else:
                 mappings = {}
-                LR = [("left", "right"), ("right", "left")]
+                LR = [("left", "right"), ("Left", "Right"), ("LEFT", "RIGHT"), ("J_Bip_L", "J_Bip_R")]
                 for k, v in LR:
                     mappings[k] = v
-                    mappings[k.upper()] = v.upper()
-                    mappings[k.capitalize()] = v.capitalize()
+                    mappings[v] = k
                 pattern = re.compile("|".join(re.escape(k) for k in mappings.keys()))
                 return pattern.sub(lambda m: mappings[m.group(0)], name)
 
@@ -275,6 +275,18 @@ class HumanoidEditor(ArmatureEditor):
             return name[1:] + ".R"
         return name
 
+    def is_mmd_armature_object(self):
+        if self.raw_object is None:
+            return False
+
+        if self.raw_object.type != "ARMATURE":
+            return False
+
+        if import_mmd_tools().core.model.FnModel.find_root_object(self.raw_object) is None:
+            return False
+
+        return True
+
     def create_bone_pos(self, name, collection, head, tail, parent=None, use_connect=False) -> bpy.types.EditBone:
         """Creates child bone based on head & tail position."""
         bone = self.edit_bones.new(name)
@@ -298,7 +310,7 @@ class HumanoidEditor(ArmatureEditor):
             collection.assign(bone)
         return bone
 
-    def to_mmd_pose(self, use_local=False):
+    def to_mmd_pose(self, use_local=False, use_apose=False):
         """Convert bones to MMD. This function expects MMD naming convention."""
 
         def to_mmd_bone():
@@ -361,7 +373,7 @@ class HumanoidEditor(ArmatureEditor):
         if not self.pose_bones.get("センター") or not self.pose_bones.get("全ての親"):
             create_root()
 
-        if is_tpose():
+        if use_apose and is_tpose():
             angle = math.radians(45)
 
             pb = self.pose_bones["腕.L"]
@@ -493,6 +505,34 @@ class HumanoidEditor(ArmatureEditor):
         self.bone_collections["IK"].assign(self.pose_bones[LEG_IK_R])
         self.bone_collections["IK"].assign(self.pose_bones[TOE_IK_L])
         self.bone_collections["IK"].assign(self.pose_bones[TOE_IK_R])
+
+    def add_eyes_bone(self):
+        """Adds 両目 bone to MMD rig."""
+
+        HEAD = "頭"
+        EYE_L = "目.L"
+        EYE_R = "目.R"
+        EYES = "両目"
+
+        # checks
+        if self.pose_bones.get(EYES):
+            print("This armature already has eyes bone.")
+            return
+        if not self.pose_bones.get(EYE_L) or not self.pose_bones.get(EYE_R) or not self.pose_bones.get(HEAD):
+            print("This armature does not have eye bones.")
+            return
+
+        bpy.ops.object.mode_set(mode="EDIT")
+        bone = self.edit_bones.new(EYES)
+        bone.head = self.edit_bones[HEAD].tail + Vector((0, 0, 0.2))
+        bone.tail = bone.head + Vector((0, -0.05, 0))
+        bone.parent = self.edit_bones[HEAD]
+
+        bpy.ops.object.mode_set(mode="POSE")
+        self.pose_bones[EYE_L].mmd_bone.additional_transform_bone = EYES
+        self.pose_bones[EYE_R].mmd_bone.additional_transform_bone = EYES
+        self.pose_bones[EYE_L].mmd_bone.has_additional_rotation = True
+        self.pose_bones[EYE_R].mmd_bone.has_additional_rotation = True
 
     def rename(self) -> int:
         count = 0

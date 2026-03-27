@@ -178,9 +178,11 @@ class AddMMDHumanoidRig(bpy.types.Operator):
             bpy.ops.object.mode_set(mode="POSE")
 
             editor = HumanoidEditor(rig.armature())
-            editor.to_mmd_pose(self.use_local_axis)
+            editor.to_mmd_pose(self.use_local_axis, True)
             if self.use_leg_ik:
                 editor.add_leg_ik()
+            if self.add_eye:
+                editor.add_eyes_bone()
 
             add_mmd_names(rig.armature())
 
