@@ -252,7 +252,7 @@ class MMDAppendHumanoidPanel(bpy.types.Panel):
         # HumanoidCategorySelector
         col = layout.column()
         wm = context.window_manager
-        col.operator(HumanoidDetectOperator.bl_idname, text="Auto Detect")
+        col.operator(HumanoidDetectOperator.bl_idname, text="Auto Detect", icon="VIEWZOOM")
         col.row().prop(wm, "mmd_humanoid_category", expand=True)
 
         for frame in tree.frames:
@@ -292,8 +292,8 @@ class MMDAppendHumanoidPanel(bpy.types.Panel):
                     child_row.prop_search(slot, "bone_name", active_object.data, "bones", icon="BONE_DATA", text="")
 
         col = layout.grid_flow()
-        col.operator(HumanoidRenameOperator.bl_idname, text="Humanoid Rename")
-        col.operator(HumanoidResetOperator.bl_idname, text="Reset")
+        col.operator(HumanoidRenameOperator.bl_idname, text="Humanoid Rename", icon="HELP")
+        col.operator(HumanoidResetOperator.bl_idname, text="Reset", icon="TRASH")
 
 
 class MMDAppendSegmentationPanel(bpy.types.Panel):

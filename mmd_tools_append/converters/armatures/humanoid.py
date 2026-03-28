@@ -380,13 +380,17 @@ class HumanoidEditor(ArmatureEditor):
             """Create MMD center and root bone."""
 
             bpy.ops.object.mode_set(mode="EDIT")
+            center_coll = self.get_or_create_bone_collection(self.bone_collections, "センター")
+            root_coll = self.get_or_create_bone_collection(self.bone_collections, "Root")
+
             parent = self.edit_bones["下半身"].parent
             if parent is None or not math.isclose(parent.head.length, 0):
-                parent = self.create_bone_pos("全ての親", None, (0.0, 0.0, 0.0), (0.0, 0.0, 0.7))
+                parent = self.create_bone_pos("全ての親", root_coll, (0.0, 0.0, 0.0), (0.0, 0.0, 0.7))
             else:
                 parent.name = "全ての親"
+                root_coll.assign(parent)
 
-            center = self.create_bone_pos("センター", None, (0.0, 0.0, 0.7), (0.0, 0.0, 0.0), parent)
+            center = self.create_bone_pos("センター", center_coll, (0.0, 0.0, 0.7), (0.0, 0.0, 0.0), parent)
             self.edit_bones["上半身"].use_connect = False
             self.edit_bones["下半身"].use_connect = False
             self.edit_bones["上半身"].parent = center
@@ -574,7 +578,6 @@ class HumanoidEditor(ArmatureEditor):
         self.pose_bones[EYES].lock_rotation_w = False
         self.pose_bones[EYES].mmd_bone.name_j = "両目"
         self.pose_bones[EYES].mmd_bone.name_e = "Eyes"
-        self.pose_bones[EYES].mmd_bone.name_j = "両目"
         self.pose_bones[EYE_L].mmd_bone.additional_transform_bone = EYES
         self.pose_bones[EYE_R].mmd_bone.additional_transform_bone = EYES
         self.pose_bones[EYE_L].mmd_bone.has_additional_rotation = True
@@ -646,7 +649,7 @@ class HumanoidEditor(ArmatureEditor):
             """Returns if the absolute values of a and b are close."""
             return math.isclose(abs(a), abs(b), abs_tol=tol)
 
-        def traverse_parent_chain(bone: bpy.types.EditBone, threshold: float = 0.8, chain: list[str] = None) -> list[str]:
+        def traverse_parent_chain(bone: bpy.types.EditBone, threshold: float = 0.8, check_root: bool = False, chain: list[str] = None) -> list[str]:
             """
             Find connected parents that are pointing in a similar direction (bone chain).
             threshold = 1 means it will treat 90deg as part of the chain.
@@ -660,9 +663,9 @@ class HumanoidEditor(ArmatureEditor):
                 chain = []
 
             angle = bone.vector.angle(parent.vector)
-            if angle < math.pi * 0.5 * threshold:
+            if angle < math.pi * 0.5 * threshold and (not check_root or parent.head.length >= threshold):
                 chain.append(parent.name)
-                return traverse_parent_chain(parent, threshold=threshold, chain=chain)
+                return traverse_parent_chain(parent, threshold=threshold, check_root=check_root, chain=chain)
             else:
                 return chain
 
@@ -723,14 +726,19 @@ class HumanoidEditor(ArmatureEditor):
         # ARM (CHAIN)
         ordered_names = ["Shoulder", "UpperArm", "LowerArm"]
         for h in hands:
-            if bone_map[h]["head"].x > 0:
-                index = 0
-            else:
-                index = 1
+            index = 0 if bone_map[h]["head"].x > 0 else 1
 
             arms = list(reversed(traverse_parent_chain(self.edit_bones[h])))
-            for arm, name in zip(arms, ordered_names):
-                item_map[f"Arm.{name}"].slots[index].bone_name = arm
+            if len(arms) >= 2:
+                shoulder_name = arms[0]
+                hand_head = self.edit_bones[h].head
+                shoulder_tail = self.edit_bones[shoulder_name].tail
+                mid_point = (shoulder_tail + hand_head) * 0.5
+                lower_arm_name = min(arms[1:], key=lambda n: (self.edit_bones[n].head - mid_point).length)
+
+                item_map["Arm.Shoulder"].slots[index].bone_name = shoulder_name
+                item_map["Arm.UpperArm"].slots[index].bone_name = children_map[shoulder_name][0]
+                item_map["Arm.LowerArm"].slots[index].bone_name = lower_arm_name
 
         # HEAD
         # top & upward bone (that is closer to root)
@@ -749,7 +757,6 @@ class HumanoidEditor(ArmatureEditor):
         # EYES
         # direct children of Head, go straight in y- direction
         head_children = self.edit_bones[head].children_recursive
-        print([f.name for f in head_children])
         eyes_candidate = [b for b in head_children if abs(b.vector.z) < fine_precision and b.vector.y < 0]
         if eyes_candidate:
             eyes = [b.name for b in eyes_candidate if (self.edit_bones[head].head - b.head).length < 0.3]
@@ -762,7 +769,7 @@ class HumanoidEditor(ArmatureEditor):
                         item_map["Head.RightEye"].slots[0].bone_name = e
 
         # SPINE (CHAIN)
-        spines = traverse_parent_chain(self.edit_bones[head])
+        spines = traverse_parent_chain(self.edit_bones[head], check_root=True)
         hips = min(spines, key=lambda s: bone_map[s]["tail"].z)
         spine = children_map[hips][0]
         item_map["Body.Hips"].slots[0].bone_name = hips
@@ -795,10 +802,7 @@ class HumanoidEditor(ArmatureEditor):
         # (broken on MMD because EX and ToeIK)
         ordered_names = ["UpperLeg", "LowerLeg", "Foot"]
         for t in toes:
-            if bone_map[t]["head"].x > 0:
-                index = 0
-            else:
-                index = 1
+            index = 0 if bone_map[t]["head"].x > 0 else 1
 
             legs = list(reversed(traverse_parent_chain(self.edit_bones[t])))
             for leg, name in zip(legs, ordered_names):

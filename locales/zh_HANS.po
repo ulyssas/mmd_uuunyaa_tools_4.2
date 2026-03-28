@@ -267,8 +267,9 @@ msgid "Initialize Humanoid Renamer"
 msgstr ""
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_rename
+#: extensions/user_default/mmd_tools_append/panels.py:295
 msgctxt "Operator"
-msgid "Execute Rename"
+msgid "Humanoid Rename"
 msgstr ""
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_reset
@@ -441,6 +442,14 @@ msgstr "更新调试资产JSON"
 msgid "Generate armature with MMD compatible setup"
 msgstr ""
 
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_arm_twist
+msgid "Add Twist bones"
+msgstr ""
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_arm_twist
+msgid "Add twist bones to MMD rig"
+msgstr ""
+
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_eye
 msgid "Add Eye bones"
 msgstr ""
@@ -555,6 +564,12 @@ msgstr ""
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_copy_tune_material_settings.to_selection
 msgid "Apply Append material to materials in selected object"
+msgstr ""
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect
+msgid ""
+"Analyze the bone position, direction, structure and name to find Humanoid structure.\n"
+"Intended for non-MMD models, and the model must face Y- direction"
 msgstr ""
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_initialize
@@ -1562,7 +1577,7 @@ msgstr "迭代"
 msgid "Reset Humanoid data."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:760
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:772
 msgid "Renamed  bones."
 msgstr ""
 
@@ -1574,7 +1589,7 @@ msgstr ""
 msgid "Failed to translate bones: "
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:762
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:774
 msgid "This armature does not have required MMD bones. "
 msgstr ""
 
@@ -1957,12 +1972,12 @@ msgstr ""
 msgid "There is no target segment; In Edit Mode, select the faces you want to paint."
 msgstr "没有目标段；在编辑模式下，选择你要画的面。"
 
-#: extensions/user_default/mmd_tools_append/generators/generate_rig.py:210
+#: extensions/user_default/mmd_tools_append/generators/generate_rig.py:226
 msgctxt "Operator"
 msgid "Generate MMD humanoid"
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/generators/generate_rig.py:193
+#: extensions/user_default/mmd_tools_append/generators/generate_rig.py:209
 msgid "Failed to add MMD rig: "
 msgstr ""
 
@@ -2105,11 +2120,6 @@ msgstr ""
 #: extensions/user_default/mmd_tools_append/panels.py:255
 msgctxt "Operator"
 msgid "Auto Detect"
-msgstr ""
-
-#: extensions/user_default/mmd_tools_append/panels.py:295
-msgctxt "Operator"
-msgid "Humanoid Rename"
 msgstr ""
 
 #: extensions/user_default/mmd_tools_append/panels.py:296

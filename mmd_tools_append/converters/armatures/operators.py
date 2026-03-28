@@ -655,7 +655,7 @@ class HumanoidResetOperator(bpy.types.Operator):
 class HumanoidDetectOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.humanoid_detect"
     bl_label = "Automatic Humanoid Detection"
-    bl_description = ""
+    bl_description = "Analyze the bone position, direction, structure and name to find Humanoid structure.\nIntended for non-MMD models, and the model must face Y- direction"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -677,7 +677,6 @@ class HumanoidDetectOperator(bpy.types.Operator):
 
             bpy.ops.object.mode_set(mode="EDIT")
             editor.detect()
-
             for frame, item in editor.tree.iter_items():
                 item.auto(editor, frame.display_type)
 
@@ -693,7 +692,7 @@ class HumanoidDetectOperator(bpy.types.Operator):
 
 class HumanoidRenameOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.humanoid_rename"
-    bl_label = "Execute Rename"
+    bl_label = "Humanoid Rename"
     bl_description = "Rename selected bones to MMD compatible Japanese name"
     bl_options = {"REGISTER", "UNDO"}
 

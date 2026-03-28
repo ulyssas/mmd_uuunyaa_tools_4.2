@@ -267,9 +267,10 @@ msgid "Initialize Humanoid Renamer"
 msgstr "ヒューマノイドを初期化"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_rename
+#: extensions/user_default/mmd_tools_append/panels.py:295
 msgctxt "Operator"
-msgid "Execute Rename"
-msgstr "ボーン名変更"
+msgid "Humanoid Rename"
+msgstr "ヒューマノイド名称変更"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_reset
 msgctxt "Operator"
@@ -441,6 +442,14 @@ msgstr "デバッグアセットJSONを更新"
 msgid "Generate armature with MMD compatible setup"
 msgstr "MMD互換のアーマチュアを生成します"
 
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_arm_twist
+msgid "Add Twist bones"
+msgstr "捩りボーンを追加"
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_arm_twist
+msgid "Add twist bones to MMD rig"
+msgstr "MMDリグに捩りボーンを追加します"
+
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_eye
 msgid "Add Eye bones"
 msgstr "目ボーンを追加"
@@ -556,6 +565,14 @@ msgstr "選択に適用"
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_copy_tune_material_settings.to_selection
 msgid "Apply Append material to materials in selected object"
 msgstr "選択中のオブジェクトのマテリアルにAppendマテリアルを適用します"
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect
+msgid ""
+"Analyze the bone position, direction, structure and name to find Humanoid structure.\n"
+"Intended for non-MMD models, and the model must face Y- direction"
+msgstr ""
+"ボーンの位置、向き、構造や名前を解析しヒューマノイド構造を探します.\n"
+"MMDでないモデル専用です. モデルはY軸負の向きを向くようにしてください"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_initialize
 msgid "Initialize MMD compatible Humanoid structure data for renaming bones"
@@ -1564,7 +1581,7 @@ msgstr "反復"
 msgid "Reset Humanoid data."
 msgstr "ヒューマノイドをリセットしました"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:760
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:772
 msgid "Renamed  bones."
 msgstr ""
 
@@ -1576,7 +1593,7 @@ msgstr ""
 msgid "Failed to translate bones: "
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:762
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:774
 msgid "This armature does not have required MMD bones. "
 msgstr "アーマチュアにMMD必須ボーンがありません. "
 
@@ -1959,12 +1976,12 @@ msgstr ""
 msgid "There is no target segment; In Edit Mode, select the faces you want to paint."
 msgstr "対象のセグメントがありません。編集モードでペイントしたい面を選択してください。"
 
-#: extensions/user_default/mmd_tools_append/generators/generate_rig.py:210
+#: extensions/user_default/mmd_tools_append/generators/generate_rig.py:226
 msgctxt "Operator"
 msgid "Generate MMD humanoid"
 msgstr "MMDヒューマノイドを生成"
 
-#: extensions/user_default/mmd_tools_append/generators/generate_rig.py:193
+#: extensions/user_default/mmd_tools_append/generators/generate_rig.py:209
 msgid "Failed to add MMD rig: "
 msgstr "MMDリグの追加に失敗しました: "
 
@@ -2108,11 +2125,6 @@ msgstr "ヒューマノイド名称変更"
 msgctxt "Operator"
 msgid "Auto Detect"
 msgstr "自動認識"
-
-#: extensions/user_default/mmd_tools_append/panels.py:295
-msgctxt "Operator"
-msgid "Humanoid Rename"
-msgstr "ヒューマノイド名称変更"
 
 #: extensions/user_default/mmd_tools_append/panels.py:296
 msgctxt "Operator"

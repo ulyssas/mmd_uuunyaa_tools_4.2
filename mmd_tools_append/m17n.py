@@ -364,9 +364,9 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
-        ("Operator", "Execute Rename"),
-        (("bpy.types.MMD_TOOLS_APPEND_OT_humanoid_rename", "bpy.types.MMD_TOOLS_APPEND_OT_humanoid_rename"), ()),
-        ("ja_JP", "ボーン名変更", (False, ())),
+        ("Operator", "Humanoid Rename"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_humanoid_rename", "bpy.types.MMD_TOOLS_APPEND_OT_humanoid_rename", "extensions/user_default/mmd_tools_append/panels.py:295"), ()),
+        ("ja_JP", "ヒューマノイド名称変更", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
@@ -574,18 +574,6 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
-        ("*", "Add Eye bones"),
-        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_eye",), ()),
-        ("ja_JP", "目ボーンを追加", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "Add eye bones to MMD rig"),
-        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_eye",), ()),
-        ("ja_JP", "MMDリグに目ボーンを追加します", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
         ("*", "Add Twist bones"),
         (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_arm_twist",), ()),
         ("ja_JP", "捩りボーンを追加", (False, ())),
@@ -595,6 +583,18 @@ translations_tuple = (
         ("*", "Add twist bones to MMD rig"),
         (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_arm_twist",), ()),
         ("ja_JP", "MMDリグに捩りボーンを追加します", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Add Eye bones"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_eye",), ()),
+        ("ja_JP", "目ボーンを追加", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Add eye bones to MMD rig"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_eye",), ()),
+        ("ja_JP", "MMDリグに目ボーンを追加します", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
@@ -745,6 +745,12 @@ translations_tuple = (
         ("*", "Apply Append material to materials in selected object"),
         (("bpy.types.MMD_TOOLS_APPEND_OT_copy_tune_material_settings.to_selection",), ()),
         ("ja_JP", "選択中のオブジェクトのマテリアルにAppendマテリアルを適用します", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Analyze the bone position, direction, structure and name to find Humanoid structure.\nIntended for non-MMD models, and the model must face Y- direction"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect",), ()),
+        ("ja_JP", "ボーンの位置、向き、構造や名前を解析しヒューマノイド構造を探します.\nMMDでないモデル専用です. モデルはY軸負の向きを向くようにしてください", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
@@ -2943,12 +2949,6 @@ translations_tuple = (
         ("Operator", "Auto Detect"),
         (("extensions/user_default/mmd_tools_append/panels.py:255",), ()),
         ("ja_JP", "自動認識", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("Operator", "Humanoid Rename"),
-        (("extensions/user_default/mmd_tools_append/panels.py:295",), ()),
-        ("ja_JP", "ヒューマノイド名称変更", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
