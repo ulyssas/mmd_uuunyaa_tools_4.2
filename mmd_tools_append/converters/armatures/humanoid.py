@@ -512,6 +512,15 @@ class HumanoidEditor(ArmatureEditor):
 
         bpy.ops.object.mode_set(mode="POSE")
 
+        self.pose_bones[LEG_IK_L].mmd_bone.name_j = "左足ＩＫ"
+        self.pose_bones[LEG_IK_R].mmd_bone.name_j = "右足ＩＫ"
+        self.pose_bones[TOE_IK_L].mmd_bone.name_j = "左つま先ＩＫ"
+        self.pose_bones[TOE_IK_R].mmd_bone.name_j = "右つま先ＩＫ"
+        self.pose_bones[LEG_IK_L].mmd_bone.name_e = "LegIK.L"
+        self.pose_bones[LEG_IK_R].mmd_bone.name_e = "LegIK.R"
+        self.pose_bones[TOE_IK_L].mmd_bone.name_e = "ToeIK.L"
+        self.pose_bones[TOE_IK_R].mmd_bone.name_e = "ToeIK.R"
+
         # Add bone constraints
         self.add_ik_constraint(self.pose_bones[KNEE_L], self.raw_object, LEG_IK_L, 2, 200)
         self.add_ik_constraint(self.pose_bones[KNEE_R], self.raw_object, LEG_IK_R, 2, 200)
@@ -558,6 +567,8 @@ class HumanoidEditor(ArmatureEditor):
         bpy.ops.object.mode_set(mode="POSE")
         self.pose_bones[EYES].lock_location = [True, True, True]
         self.pose_bones[EYES].lock_rotation_w = False
+        self.pose_bones[EYES].mmd_bone.name_j = "両目"
+        self.pose_bones[EYES].mmd_bone.name_e = "Eyes"
         self.pose_bones[EYE_L].mmd_bone.additional_transform_bone = EYES
         self.pose_bones[EYE_R].mmd_bone.additional_transform_bone = EYES
         self.pose_bones[EYE_L].mmd_bone.has_additional_rotation = True
