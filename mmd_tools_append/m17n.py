@@ -586,6 +586,18 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
+        ("*", "Add Twist bones"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_arm_twist",), ()),
+        ("ja_JP", "捩りボーンを追加", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Add twist bones to MMD rig"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.add_arm_twist",), ()),
+        ("ja_JP", "MMDリグに捩りボーンを追加します", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
         ("*", "Use Leg IK"),
         (("bpy.types.MMD_TOOLS_APPEND_OT_add_mmd_humanoid_rig.use_leg_ik", "bpy.types.MMD_TOOLS_APPEND_OT_humanoid_rename.use_leg_ik"), ()),
         ("ja_JP", "足IKを使用", (False, ())),
@@ -2152,7 +2164,7 @@ translations_tuple = (
     ),
     (
         ("*", "Renamed  bones."),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:760",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:772",), ()),
         ("ja_JP", "", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
@@ -2170,7 +2182,7 @@ translations_tuple = (
     ),
     (
         ("*", "This armature does not have required MMD bones. "),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:762",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:774",), ()),
         ("ja_JP", "アーマチュアにMMD必須ボーンがありません. ", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
@@ -2725,13 +2737,13 @@ translations_tuple = (
     ),
     (
         ("Operator", "Generate MMD humanoid"),
-        (("extensions/user_default/mmd_tools_append/generators/generate_rig.py:210",), ()),
+        (("extensions/user_default/mmd_tools_append/generators/generate_rig.py:226",), ()),
         ("ja_JP", "MMDヒューマノイドを生成", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
         ("*", "Failed to add MMD rig: "),
-        (("extensions/user_default/mmd_tools_append/generators/generate_rig.py:193",), ()),
+        (("extensions/user_default/mmd_tools_append/generators/generate_rig.py:209",), ()),
         ("ja_JP", "MMDリグの追加に失敗しました: ", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),

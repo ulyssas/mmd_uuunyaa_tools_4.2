@@ -30,11 +30,12 @@ DISPLAY_TYPE_COLUMNS = {
 HUMANOID_DEFAULTS = [
     {
         "name": "Body",
+        "name_j": "体(上)",
         "icon": "OUTLINER_OB_ARMATURE",
         "category": "BODY",
         "display_type": "DEFAULT",
         "items": [
-            {"name": "Hips", "mmd_j": "下半身"},
+            {"name": "Hips", "mmd_j": "下半身", "frame_override": "体(下)"},
             {"name": "Spine", "mmd_j": "上半身"},
             {"name": "Chest", "mmd_j": "上半身2"},
             {"name": "UpperChest", "mmd_j": "上半身3"},
@@ -42,6 +43,7 @@ HUMANOID_DEFAULTS = [
     },
     {
         "name": "Arm",
+        "name_j": "腕",
         "icon": "VIEW_PAN",
         "category": "BODY",
         "display_type": "MIRRORED",
@@ -54,6 +56,7 @@ HUMANOID_DEFAULTS = [
     },
     {
         "name": "Leg",
+        "name_j": "足",
         "icon": "MOD_DYNAMICPAINT",
         "category": "BODY",
         "display_type": "MIRRORED",
@@ -66,6 +69,7 @@ HUMANOID_DEFAULTS = [
     },
     {
         "name": "Head",
+        "name_j": "頭",
         "icon": "USER",
         "category": "HEAD",
         "display_type": "DEFAULT",
@@ -78,6 +82,7 @@ HUMANOID_DEFAULTS = [
     },
     {
         "name": "Left Hand",
+        "name_j": "指",
         "icon": "VIEW_PAN",
         "category": "HAND_L",
         "display_type": "FINGER",
@@ -91,6 +96,7 @@ HUMANOID_DEFAULTS = [
     },
     {
         "name": "Right Hand",
+        "name_j": "指",
         "icon": "VIEW_PAN",
         "category": "HAND_R",
         "display_type": "FINGER",
@@ -178,6 +184,7 @@ class HumanoidItem(bpy.types.PropertyGroup):
     name: bpy.props.StringProperty()
     mmd_j: bpy.props.StringProperty()
     mmd_e: bpy.props.StringProperty()
+    frame_override: bpy.props.StringProperty()
     column_count: bpy.props.IntProperty(default=1, update=_update_slot_size)
     slots: bpy.props.CollectionProperty(type=HumanoidBoneSlot)
 
@@ -193,6 +200,9 @@ class HumanoidDisplayFrame(bpy.types.PropertyGroup):
             item.column_count = column
 
     name: bpy.props.StringProperty(translation_context="MMD_HUMANOID")
+    name_j: bpy.props.StringProperty()
+    """actual name used for MMD DisplayFrame"""
+
     icon: bpy.props.StringProperty()
     category: bpy.props.StringProperty(update=_check_category)
     """must be one of IDs in HUMANOID_CATEGORY"""
@@ -224,6 +234,7 @@ class HumanoidTree(bpy.types.PropertyGroup):
         for frame_data in data:
             frame = self.frames.add()
             frame.name = frame_data["name"]
+            frame.name_j = frame_data["name_j"]
             frame.icon = frame_data["icon"]
             frame.category = frame_data["category"]
             frame.display_type = frame_data.get("display_type", "DEFAULT")
@@ -233,6 +244,7 @@ class HumanoidTree(bpy.types.PropertyGroup):
                 item.name = item_data["name"]
                 item.mmd_j = item_data.get("mmd_j", "")
                 item.mmd_e = item_data.get("mmd_e", "")
+                item.frame_override = item_data.get("frame_override", "")
 
             frame.sync_display_type(None)
 
@@ -336,6 +348,8 @@ class HumanoidEditor(ArmatureEditor):
                     bone.use_deform = False
 
         def apply_local():
+            """Adds local axis to arm bones."""
+            bpy.ops.pose.select_all(action="DESELECT")
             for bone in self.bone_collections["指"].bones:
                 pbone = self.pose_bones[bone.name]
                 pbone.select = True
@@ -349,6 +363,18 @@ class HumanoidEditor(ArmatureEditor):
 
             bpy.ops.mmd_tools.bone_local_axes_setup(type="LOAD")
             bpy.ops.mmd_tools.bone_local_axes_setup(type="APPLY")
+
+        def apply_fixed_axis():
+            """Adds fixed axis to arm twist bones."""
+            bpy.ops.pose.select_all(action="DESELECT")
+            for bone in self.bone_collections["腕"].bones:
+                if "捩" in bone.name:
+                    pbone = self.pose_bones[bone.name]
+                    pbone.select = True
+                    pbone.mmd_bone.enabled_fixed_axis = True
+
+            bpy.ops.mmd_tools.bone_fixed_axis_setup(type="LOAD")
+            bpy.ops.mmd_tools.bone_fixed_axis_setup(type="APPLY")
 
         def create_root():
             """Create MMD center and root bone."""
@@ -388,6 +414,7 @@ class HumanoidEditor(ArmatureEditor):
 
         to_mmd_bone()
         remove_deform()
+        apply_fixed_axis()
         if use_local:
             apply_local()
 
@@ -529,10 +556,15 @@ class HumanoidEditor(ArmatureEditor):
         bone.parent = self.edit_bones[HEAD]
 
         bpy.ops.object.mode_set(mode="POSE")
+        self.pose_bones[EYES].lock_location = [True, True, True]
+        self.pose_bones[EYES].lock_rotation_w = False
         self.pose_bones[EYE_L].mmd_bone.additional_transform_bone = EYES
         self.pose_bones[EYE_R].mmd_bone.additional_transform_bone = EYES
         self.pose_bones[EYE_L].mmd_bone.has_additional_rotation = True
         self.pose_bones[EYE_R].mmd_bone.has_additional_rotation = True
+
+        self.get_or_create_bone_collection(self.bone_collections, "体(上)")
+        self.bone_collections["体(上)"].assign(self.pose_bones[EYES])
 
     def rename(self) -> int:
         count = 0
@@ -542,6 +574,8 @@ class HumanoidEditor(ArmatureEditor):
         HALF_FULL = str.maketrans("0123456789", "０１２３４５６７８９")
 
         for frame, item in self.tree.iter_items():
+            col = self.get_or_create_bone_collection(self.bone_collections, frame.name_j)
+
             for idx, slot in enumerate(item.slots):
                 if not slot.bone_name:
                     continue
@@ -572,6 +606,12 @@ class HumanoidEditor(ArmatureEditor):
                 pbone.mmd_bone.name_j = target_j
                 if not pbone.mmd_bone.name_e:
                     pbone.mmd_bone.name_e = target_e or original
+
+                if item.frame_override:
+                    col = self.get_or_create_bone_collection(self.bone_collections, item.frame_override)
+                    col.assign(bone)
+                else:
+                    col.assign(bone)
 
                 # update
                 slot.bone_name = bone.name
@@ -642,11 +682,10 @@ class HumanoidEditor(ArmatureEditor):
         arm_r = []
         for h in hands:
             if bone_map[h]["head"].x > 0:
-                arm_l = traverse_parent_chain(self.edit_bones[h])
+                arm_l = traverse_parent_chain(self.edit_bones[h], threshold=0.8)
             else:
-                arm_r = traverse_parent_chain(self.edit_bones[h])
-        print(arm_l)
-        print(arm_r)
+                arm_r = traverse_parent_chain(self.edit_bones[h], threshold=0.8)
+        print(arm_l, arm_r)
 
         # find toe by lowest & furthest bone
         min_z = min(v["head"].z for v in bone_map.values())
@@ -664,8 +703,7 @@ class HumanoidEditor(ArmatureEditor):
                 leg_l = traverse_parent_chain(self.edit_bones[t], threshold=0.8)
             else:
                 leg_r = traverse_parent_chain(self.edit_bones[t], threshold=0.8)
-        print(leg_l)
-        print(leg_r)
+        print(leg_l, leg_r)
 
         # find head by top & upward bone (that is closer to root) わからん？？
         upward_bones = [v for v in bone_map.values() if v["vector"].z > 0.6]

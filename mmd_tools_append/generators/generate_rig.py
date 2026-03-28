@@ -11,7 +11,7 @@ from ..converters.armatures.humanoid import HumanoidEditor
 from ..utilities import import_mmd_tools
 
 
-def generate_mmd_humanoid(arm, use_eye=True):
+def generate_mmd_humanoid(arm, use_eye=True, use_twist=True):
     editor = HumanoidEditor(arm)
 
     root_coll = editor.bone_collections.new("Root")
@@ -41,10 +41,18 @@ def generate_mmd_humanoid(arm, use_eye=True):
     foot = editor.create_bone_pos("足首.L", leg_coll, (0.1, 0.0, 0.1), (0.1, -0.2, 0.0), lowerleg, True)
     _toe = editor.create_bone_pos("つま先.L", leg_coll, (0.1, -0.2, 0.0), (0.1, -0.3, 0.0), foot, True)
 
-    shoulder = editor.create_bone_pos("肩.L", arm_coll, (0.02, 0.0, 1.28), (0.12, 0.0, 1.28), upperchest)
-    upperarm = editor.create_bone_vec("腕.L", arm_coll, 0.2, shoulder)
-    lowerarm = editor.create_bone_vec("ひじ.L", arm_coll, 0.15, upperarm)
-    hand = editor.create_bone_vec("手首.L", arm_coll, 0.05, lowerarm)
+    if use_twist:
+        shoulder = editor.create_bone_pos("肩.L", arm_coll, (0.02, 0.0, 1.28), (0.12, 0.0, 1.28), upperchest)
+        upperarm = editor.create_bone_vec("腕.L", arm_coll, 0.1, shoulder)
+        upperarm_twist = editor.create_bone_vec("腕捩.L", arm_coll, 0.1, upperarm)
+        lowerarm = editor.create_bone_vec("ひじ.L", arm_coll, 0.075, upperarm_twist)
+        lowerarm_twist = editor.create_bone_vec("手捩.L", arm_coll, 0.075, lowerarm)
+        hand = editor.create_bone_vec("手首.L", arm_coll, 0.05, lowerarm_twist)
+    else:
+        shoulder = editor.create_bone_pos("肩.L", arm_coll, (0.02, 0.0, 1.28), (0.12, 0.0, 1.28), upperchest)
+        upperarm = editor.create_bone_vec("腕.L", arm_coll, 0.2, shoulder)
+        lowerarm = editor.create_bone_vec("ひじ.L", arm_coll, 0.15, upperarm)
+        hand = editor.create_bone_vec("手首.L", arm_coll, 0.05, lowerarm)
 
     little1 = editor.create_bone_pos("小指１.L", finger_coll, (0.53, 0.02, 1.28), (0.545, 0.02, 1.28), hand)
     little2 = editor.create_bone_vec("小指２.L", finger_coll, 0.015, little1)
@@ -105,7 +113,9 @@ def add_mmd_names(arm):
         "ひざ": "LowerLeg",
         "足": "UpperLeg",
         "肩": "Shoulder",
+        "腕捩": "UpperArmTwist",
         "腕": "UpperArm",
+        "手捩": "LowerArmTwist",
         "ひじ": "LowerArm",
         "手首": "Hand",
         "小指": "Little",
@@ -115,6 +125,7 @@ def add_mmd_names(arm):
         "親指": "Thumb",
         "首": "Neck",
         "頭": "Head",
+        "両目": "Eyes",
         "目": "Eye",
     }
 
@@ -149,6 +160,11 @@ class AddMMDHumanoidRig(bpy.types.Operator):
         description="Add Leg IK to MMD rig",
         default=True,
     )
+    add_arm_twist: bpy.props.BoolProperty(
+        name="Add Twist bones",
+        description="Add twist bones to MMD rig",
+        default=True,
+    )
     add_eye: bpy.props.BoolProperty(
         name="Add Eye bones",
         description="Add eye bones to MMD rig",
@@ -174,7 +190,7 @@ class AddMMDHumanoidRig(bpy.types.Operator):
 
             bpy.context.view_layer.objects.active = rig.armature()
             bpy.ops.object.mode_set(mode="EDIT")
-            generate_mmd_humanoid(rig.armature(), self.add_eye)
+            generate_mmd_humanoid(rig.armature(), self.add_eye, self.add_arm_twist)
             bpy.ops.object.mode_set(mode="POSE")
 
             editor = HumanoidEditor(rig.armature())

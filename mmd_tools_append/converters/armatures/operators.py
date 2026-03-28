@@ -767,6 +767,7 @@ class HumanoidRenameOperator(bpy.types.Operator):
                         convert_material_nodes=True,
                         middle_joint_bones_lock=False,
                     )
+                bpy.ops.mmd_tools.display_item_quick_setup(type="GROUP_LOAD")
                 bpy.ops.mmd_tools.fix_bone_order()
 
             self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
@@ -778,7 +779,8 @@ class HumanoidRenameOperator(bpy.types.Operator):
             return {"CANCELLED"}
 
         finally:
-            bpy.ops.object.mode_set(mode=previous_mode)
+            if context.active_object.type == "ARMATURE":
+                bpy.ops.object.mode_set(mode=previous_mode)
 
         return {"FINISHED"}
 
