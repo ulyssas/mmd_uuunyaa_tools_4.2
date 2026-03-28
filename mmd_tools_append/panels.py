@@ -293,7 +293,7 @@ class MMDAppendHumanoidPanel(bpy.types.Panel):
 
         col = layout.grid_flow()
         col.operator(HumanoidRenameOperator.bl_idname, text="Humanoid Rename")
-        col.operator(HumanoidResetOperator.bl_idname, text="Reset Humanoid")
+        col.operator(HumanoidResetOperator.bl_idname, text="Reset")
 
 
 class MMDAppendSegmentationPanel(bpy.types.Panel):

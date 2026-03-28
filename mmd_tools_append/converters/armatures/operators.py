@@ -729,6 +729,18 @@ class HumanoidRenameOperator(bpy.types.Operator):
 
         return active_object.type == "ARMATURE"
 
+    def draw(self, _context: bpy.types.Context):
+        layout = self.layout
+        layout.use_property_split = True
+
+        col = layout.column(align=False)
+        col.prop(self, "convert_armature")
+        col = layout.column(align=False)
+        col.prop(self, "use_leg_ik")
+        col.prop(self, "add_eye")
+        col.prop(self, "use_local_axis")
+        col.active = self.convert_armature
+
     def execute(self, context: bpy.types.Context):
         previous_mode = context.mode
 
