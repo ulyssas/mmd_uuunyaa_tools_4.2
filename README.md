@@ -7,7 +7,7 @@ MMD Tools Appendは[MMD-Blender/blender_mmd_tools](https://github.com/MMD-Blende
 ## Version Compatibility
 | Blender Version | MMD Tools Append Version | Branch      |
 |-----------------|--------------------------|-------------|
-| Blender 4.2-5.0 | MMD Tools Append v4.x    | [main](https://github.com/MMD-Blender/blender_mmd_tools_append) |
+| Blender 4.2-5.1 | MMD Tools Append v4.x    | [main](https://github.com/MMD-Blender/blender_mmd_tools_append) |
 | Blender 3.6 LTS | MMD Tools Append v1.x    | [blender-v3](https://github.com/MMD-Blender/blender_mmd_tools_append/tree/blender-v3) |
 
 
@@ -37,7 +37,7 @@ For developers looking to contribute code or translations, please check the [Dev
 
 ## Credits
 - Rigid body Physics to Cloth Physics feature is the work of [小威廉伯爵](https://github.com/958261649/Miku_Miku_Rig). It was ported with his permission.
-- Leg IK maker in MMD Humanoid Generator was ported from [MMD Tools Helper (by Hogarth-MMD)](https://github.com/Hogarth-MMD/mmd_tools_helper) (GPLv3).
+- Leg IK maker in MMD Humanoid Generator & Renamer was ported from [MMD Tools Helper (by Hogarth-MMD)](https://github.com/Hogarth-MMD/mmd_tools_helper) (GPLv3).
 - Lighting thumbnail images depict the character "Hatsune Miku" of Crypton Future Media, Inc. under the [Piapro Character License](http://piapro.jp/license/pcl/summary).
 
 ## License

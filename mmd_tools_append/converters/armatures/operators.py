@@ -8,6 +8,7 @@ from bpy.app.translations import pgettext as _
 
 from ...utilities import MessageException, import_mmd_tools
 from .autorig import AutoRigArmatureObject
+from .humanoid import HumanoidEditor
 from .metarig import MetarigArmatureObject
 from .mmd import MMDArmatureObject
 from .rigify import MMDRigifyArmatureObject, RigifyArmatureObject
@@ -594,3 +595,194 @@ class MMDAutoRigApplyMMDRestPose(bpy.types.Operator):
             bpy.ops.object.mode_set(mode=previous_mode)
 
         return {"FINISHED"}
+
+
+class HumanoidInitializeOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_initialize"
+    bl_label = "Initialize Humanoid Renamer"
+    bl_description = "Initialize MMD compatible Humanoid structure data for renaming bones"
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        try:
+            context.active_object.mmd_tools_append_humanoid_settings.initialize_humanoid()
+        except MessageException as ex:
+            self.report({"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
+
+        return {"FINISHED"}
+
+
+class HumanoidResetOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_reset"
+    bl_label = "Reset Humanoid Renamer"
+    bl_description = "Reset Humanoid structure data"
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        try:
+            context.active_object.mmd_tools_append_humanoid_settings.reset_humanoid()
+            self.report({"INFO"}, message="Reset Humanoid data.")
+        except MessageException as ex:
+            self.report({"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
+
+        return {"FINISHED"}
+
+
+class HumanoidDetectOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_detect"
+    bl_label = "Automatic Humanoid Detection"
+    bl_description = "Analyze the bone position, direction, structure and name to find Humanoid structure.\nIntended for non-MMD models, and the model must face Y- direction"
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            editor = HumanoidEditor(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            editor.detect()
+            for frame, item in editor.tree.iter_items():
+                item.auto(editor, frame.display_type)
+
+        except MessageException as ex:
+            self.report(type={"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
+
+        finally:
+            bpy.ops.object.mode_set(mode=previous_mode)
+
+        return {"FINISHED"}
+
+
+class HumanoidRenameOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_rename"
+    bl_label = "Humanoid Rename"
+    bl_description = "Rename selected bones to MMD compatible Japanese name"
+    bl_options = {"REGISTER", "UNDO"}
+
+    convert_armature: bpy.props.BoolProperty(
+        name="Convert Model",
+        description="Convert armature to MMD model",
+        default=True,
+    )
+    use_leg_ik: bpy.props.BoolProperty(
+        name="Use Leg IK",
+        description="Add Leg IK to MMD rig. (ignored if Convert Model is disabled)",
+        default=True,
+    )
+    add_eye: bpy.props.BoolProperty(
+        name="Add Eyes Bone",
+        description="Add eyes (両目) bone to MMD rig. (ignored if Convert Model is disabled)",
+        default=True,
+    )
+    use_local_axis: bpy.props.BoolProperty(
+        name="Use Local axis",
+        description="Set up local axis for arms and fingers. (ignored if Convert Model is disabled)",
+        default=False,
+    )
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def draw(self, _context: bpy.types.Context):
+        layout = self.layout
+        layout.use_property_split = True
+
+        col = layout.column(align=False)
+        col.prop(self, "convert_armature")
+        col = layout.column(align=False)
+        col.prop(self, "use_leg_ik")
+        col.prop(self, "add_eye")
+        col.prop(self, "use_local_axis")
+        col.active = self.convert_armature
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            editor = HumanoidEditor(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            rename_count = editor.rename()
+
+            if self.convert_armature:
+                editor.to_mmd_pose(self.use_local_axis)
+                if self.use_leg_ik:
+                    editor.add_leg_ik()
+                if self.add_eye:
+                    editor.add_eyes_bone()
+
+                bpy.ops.object.mode_set(mode="OBJECT")
+                if not editor.is_mmd_armature_object:
+                    bpy.ops.mmd_tools.convert_to_mmd_model(
+                        ambient_color_source="DIFFUSE",
+                        edge_threshold=0.1,
+                        edge_alpha_min=0.5,
+                        scale=0.08,
+                        convert_material_nodes=True,
+                        middle_joint_bones_lock=False,
+                    )
+                bpy.ops.mmd_tools.display_item_quick_setup(type="GROUP_LOAD")
+                bpy.ops.mmd_tools.fix_bone_order()
+
+            self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
+        except KeyError as e:
+            self.report(type={"ERROR"}, message=f"This armature does not have required MMD bones. {e}")
+            return {"CANCELLED"}
+        except MessageException as ex:
+            self.report(type={"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
+
+        finally:
+            if context.active_object.type == "ARMATURE":
+                bpy.ops.object.mode_set(mode=previous_mode)
+
+        return {"FINISHED"}
+
+    def invoke(self, context, event):
+        vm = context.window_manager
+        return vm.invoke_props_dialog(self)
