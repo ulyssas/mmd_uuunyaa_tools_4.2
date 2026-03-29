@@ -278,16 +278,8 @@ class HumanoidEditor(ArmatureEditor):
         super().__init__(armature_object)
         self.tree = armature_object.mmd_tools_append_humanoid_settings
 
-    @staticmethod
-    def convert_mmd_prefix(name: str) -> str:
-        """左右 prefix to .LR suffix"""
-        if name.startswith("左"):
-            return name[1:] + ".L"
-        if name.startswith("右"):
-            return name[1:] + ".R"
-        return name
-
-    def is_mmd_armature_object(self):
+    @property
+    def is_mmd_armature_object(self) -> bool:
         if self.raw_object is None:
             return False
 
@@ -299,31 +291,43 @@ class HumanoidEditor(ArmatureEditor):
 
         return True
 
-    def create_bone_pos(self, name, collection, head, tail, parent=None, use_connect=False) -> bpy.types.EditBone:
-        """Creates child bone based on head & tail position."""
-        bone = self.edit_bones.new(name)
-        bone.head = head
-        bone.tail = tail
-        if parent:
-            bone.parent = parent
-        bone.use_connect = use_connect
-        if collection:
-            collection.assign(bone)
-        return bone
-
-    def create_bone_vec(self, name, collection, length, parent) -> bpy.types.EditBone:
-        """Creates child bone based on parent's orientation and length."""
-        bone = self.edit_bones.new(name)
-        bone.use_connect = True
-        bone.parent = parent
-        bone.align_orientation(parent)
-        bone.length = length
-        if collection:
-            collection.assign(bone)
-        return bone
+    @staticmethod
+    def convert_mmd_prefix(name: str) -> str:
+        """左右 prefix to .LR suffix"""
+        if name.startswith("左"):
+            return name[1:] + ".L"
+        if name.startswith("右"):
+            return name[1:] + ".R"
+        return name
 
     def to_mmd_pose(self, use_local=False, use_apose=False):
         """Convert bones to MMD. This function expects MMD naming convention."""
+
+        def create_root(center_length: float = 0.7):
+            """Create MMD center and root bone."""
+            bpy.ops.object.mode_set(mode="EDIT")
+            center_coll = self.get_or_create_bone_collection(self.bone_collections, "センター")
+            root_coll = self.get_or_create_bone_collection(self.bone_collections, "Root")
+
+            upper_body = self.edit_bones["上半身"]
+            lower_body = self.edit_bones["下半身"]
+            parent = lower_body.parent
+            if parent is None or not math.isclose(parent.head.length, 0):
+                parent = self.create_bone_pos("全ての親", root_coll, (0.0, 0.0, 0.0), (0.0, 0.0, center_length))
+            else:
+                parent.name = "全ての親"
+                root_coll.assign(parent)
+
+            center = self.create_bone_pos("センター", center_coll, (0.0, 0.0, center_length), (0.0, 0.0, 0.0), parent)
+            upper_body.use_connect = False
+            lower_body.use_connect = False
+            upper_body.parent = center
+            lower_body.parent = center
+            if lower_body.vector.z > 0:
+                lower_body.tail = lower_body.head
+                lower_body.head = upper_body.head
+
+            bpy.ops.object.mode_set(mode="POSE")
 
         def to_mmd_bone():
             """Locks positions of the bones and changes display connection to child bone."""
@@ -376,30 +380,7 @@ class HumanoidEditor(ArmatureEditor):
             bpy.ops.mmd_tools.bone_fixed_axis_setup(type="LOAD")
             bpy.ops.mmd_tools.bone_fixed_axis_setup(type="APPLY")
 
-        def create_root():
-            """Create MMD center and root bone."""
-
-            bpy.ops.object.mode_set(mode="EDIT")
-            center_coll = self.get_or_create_bone_collection(self.bone_collections, "センター")
-            root_coll = self.get_or_create_bone_collection(self.bone_collections, "Root")
-
-            parent = self.edit_bones["下半身"].parent
-            if parent is None or not math.isclose(parent.head.length, 0):
-                parent = self.create_bone_pos("全ての親", root_coll, (0.0, 0.0, 0.0), (0.0, 0.0, 0.7))
-            else:
-                parent.name = "全ての親"
-                root_coll.assign(parent)
-
-            center = self.create_bone_pos("センター", center_coll, (0.0, 0.0, 0.7), (0.0, 0.0, 0.0), parent)
-            self.edit_bones["上半身"].use_connect = False
-            self.edit_bones["下半身"].use_connect = False
-            self.edit_bones["上半身"].parent = center
-            self.edit_bones["下半身"].parent = center
-            self.edit_bones["下半身"].tail = self.edit_bones["下半身"].head
-            self.edit_bones["下半身"].head = self.edit_bones["上半身"].head
-
-            bpy.ops.object.mode_set(mode="POSE")
-
+        bpy.ops.object.mode_set(mode="POSE")
         if not self.pose_bones.get("センター") or not self.pose_bones.get("全ての親"):
             create_root()
 
@@ -453,6 +434,14 @@ class HumanoidEditor(ArmatureEditor):
             pbone.ik_min_z = 0
             pbone.ik_max_z = 0
 
+        def create_ik_bone(name: str, target: str, parent: str) -> bpy.types.EditBone:
+            bone = self.edit_bones.new(name)
+            bone.head = self.edit_bones[target].head
+            bone.tail = self.edit_bones[target].head
+            bone.parent = self.edit_bones[parent]
+            bone.use_deform = False
+            return bone
+
         ROOT = "全ての親"
         LEG_IK_L = "足ＩＫ.L"
         LEG_IK_R = "足ＩＫ.R"
@@ -490,29 +479,17 @@ class HumanoidEditor(ArmatureEditor):
             self.edit_bones["足.R"].tail.y = -0.005
 
         # Add IK bones
-        bone = self.edit_bones.new(LEG_IK_L)
-        bone.head = self.edit_bones[ANKLE_L].head
-        bone.tail = self.edit_bones[ANKLE_L].head
+        bone = create_ik_bone(LEG_IK_L, ANKLE_L, ROOT)
         bone.tail.y = self.edit_bones[ANKLE_L].head.y + FOOT_LENGTH
-        bone.parent = self.edit_bones[ROOT]
 
-        bone = self.edit_bones.new(LEG_IK_R)
-        bone.head = self.edit_bones[ANKLE_R].head
-        bone.tail = self.edit_bones[ANKLE_R].head
+        bone = create_ik_bone(LEG_IK_R, ANKLE_R, ROOT)
         bone.tail.y = self.edit_bones[ANKLE_R].head.y + FOOT_LENGTH
-        bone.parent = self.edit_bones[ROOT]
 
-        bone = self.edit_bones.new(TOE_IK_L)
-        bone.head = self.edit_bones[TOE_L].head
-        bone.tail = self.edit_bones[TOE_L].head
+        bone = create_ik_bone(TOE_IK_L, TOE_L, LEG_IK_L)
         bone.tail.z = self.edit_bones[TOE_L].head.z - FOOT_LENGTH / 2
-        bone.parent = self.edit_bones[LEG_IK_L]
 
-        bone = self.edit_bones.new(TOE_IK_R)
-        bone.head = self.edit_bones[TOE_R].head
-        bone.tail = self.edit_bones[TOE_R].head
+        bone = create_ik_bone(TOE_IK_R, TOE_R, LEG_IK_R)
         bone.tail.z = self.edit_bones[TOE_R].head.z - FOOT_LENGTH / 2
-        bone.parent = self.edit_bones[LEG_IK_R]
 
         bpy.ops.object.mode_set(mode="POSE")
 
@@ -524,10 +501,6 @@ class HumanoidEditor(ArmatureEditor):
         self.pose_bones[LEG_IK_R].mmd_bone.name_e = "LegIK.R"
         self.pose_bones[TOE_IK_L].mmd_bone.name_e = "ToeIK.L"
         self.pose_bones[TOE_IK_R].mmd_bone.name_e = "ToeIK.R"
-        self.bones[LEG_IK_L].use_deform = False
-        self.bones[LEG_IK_R].use_deform = False
-        self.bones[TOE_IK_L].use_deform = False
-        self.bones[TOE_IK_R].use_deform = False
 
         # Add bone constraints
         self.add_ik_constraint(self.pose_bones[KNEE_L], self.raw_object, LEG_IK_L, 2, 200)
@@ -544,19 +517,19 @@ class HumanoidEditor(ArmatureEditor):
         add_limit_rot(self.pose_bones[KNEE_R])
 
         # Add to Bone Collection
-        self.get_or_create_bone_collection(self.bone_collections, "IK")
-        self.bone_collections["IK"].assign(self.pose_bones[LEG_IK_L])
-        self.bone_collections["IK"].assign(self.pose_bones[LEG_IK_R])
-        self.bone_collections["IK"].assign(self.pose_bones[TOE_IK_L])
-        self.bone_collections["IK"].assign(self.pose_bones[TOE_IK_R])
+        ik_col = self.get_or_create_bone_collection(self.bone_collections, "IK")
+        ik_col.assign(self.pose_bones[LEG_IK_L])
+        ik_col.assign(self.pose_bones[LEG_IK_R])
+        ik_col.assign(self.pose_bones[TOE_IK_L])
+        ik_col.assign(self.pose_bones[TOE_IK_R])
 
     def add_eyes_bone(self):
         """Adds 両目 bone to MMD rig."""
 
         HEAD = "頭"
+        EYES = "両目"
         EYE_L = "目.L"
         EYE_R = "目.R"
-        EYES = "両目"
 
         # checks
         if self.pose_bones.get(EYES):
@@ -571,9 +544,9 @@ class HumanoidEditor(ArmatureEditor):
         bone.head = self.edit_bones[HEAD].tail + Vector((0, 0, 0.2))
         bone.tail = bone.head + Vector((0, -0.05, 0))
         bone.parent = self.edit_bones[HEAD]
+        bone.use_deform = False
 
         bpy.ops.object.mode_set(mode="POSE")
-        self.bones[EYES].use_deform = False
         self.pose_bones[EYES].lock_location = [True, True, True]
         self.pose_bones[EYES].lock_rotation_w = False
         self.pose_bones[EYES].mmd_bone.name_j = "両目"
@@ -583,8 +556,8 @@ class HumanoidEditor(ArmatureEditor):
         self.pose_bones[EYE_L].mmd_bone.has_additional_rotation = True
         self.pose_bones[EYE_R].mmd_bone.has_additional_rotation = True
 
-        self.get_or_create_bone_collection(self.bone_collections, "体(上)")
-        self.bone_collections["体(上)"].assign(self.pose_bones[EYES])
+        upper_body = self.get_or_create_bone_collection(self.bone_collections, "体(上)")
+        upper_body.assign(self.pose_bones[EYES])
 
     def rename(self) -> int:
         count = 0
@@ -649,30 +622,154 @@ class HumanoidEditor(ArmatureEditor):
             """Returns if the absolute values of a and b are close."""
             return math.isclose(abs(a), abs(b), abs_tol=tol)
 
-        def traverse_parent_chain(bone: bpy.types.EditBone, threshold: float = 0.8, check_root: bool = False, chain: list[str] = None) -> list[str]:
+        def traverse_parent_chain(
+            bone: bpy.types.EditBone,
+            threshold: float = 0.8,
+            check_root: bool = False,
+            allow_inverse: bool = False,
+            chain: list[str] = None,
+        ) -> list[str]:
             """
             Find connected parents that are pointing in a similar direction (bone chain).
             threshold = 1 means it will treat 90deg as part of the chain.
             """
 
             parent = bone.parent
-            if not parent:
+            if not parent or not parent.use_deform:
                 return chain if chain else []
 
             if chain is None:
                 chain = []
 
             angle = bone.vector.angle(parent.vector)
+
+            if allow_inverse:
+                angle = min(angle, math.pi - angle)
+
             if angle < math.pi * 0.5 * threshold and (not check_root or parent.head.length >= threshold):
                 chain.append(parent.name)
-                return traverse_parent_chain(parent, threshold=threshold, check_root=check_root, chain=chain)
+                return traverse_parent_chain(parent, threshold=threshold, check_root=check_root, allow_inverse=allow_inverse, chain=chain)
             else:
                 return chain
 
-        # HumanoidItems
-        item_map = {f"{frame.name}.{item.name}": item for frame, item in self.tree.iter_items()}
+        def is_left(bone_name: str) -> bool:
+            return bone_map[bone_name]["head"].x > 0
 
-        # Gather bone data
+        def assign_bone(key: str, bone_name: str, index: int = None):
+            if index is None:
+                index = 0 if is_left(bone_name) else 1
+            item_map[key].slots[index].bone_name = bone_name
+
+        # finders
+        def _find_hands(finger_count: int, fine_precision: float) -> list[str]:
+            """finger count & furthest bone: thumb and index might be in the same parent. (5 finger but 4 children)"""
+            hands = []
+            finger_parent = [k for k, v in children_map.items() if len(v) >= finger_count - 1]
+            if finger_parent:
+                hand_pos = max(abs(bone_map[n]["head"].x) for n in finger_parent)
+                hands = [n for n in finger_parent if isclose_abs(hand_pos, bone_map[n]["head"].x, fine_precision)]
+                for h in hands:
+                    assign_bone("Arm.Hand", h)
+            return hands
+
+        def _find_fingers(hands: list[str]):
+            """tip: the bottom children of hands. (HumanoidItem.auto will do the rest)"""
+            for h in hands:
+                prefix = "Left Hand" if is_left(h) else "Right Hand"
+                fingers = [bone for bone in self.edit_bones[h].children_recursive]
+                finger_tips = sorted([f for f in fingers if not f.children], key=lambda a: a.head.y)
+                if len(finger_tips) != finger_count:
+                    print(f"The finger count does not match ({len(finger_tips)}).")
+                    continue
+
+                ordered_names = ["Thumb", "Index", "Middle", "Ring", "Little"]
+                for idx, f in enumerate(finger_tips):
+                    assign_bone(f"{prefix}.{ordered_names[idx]}", f.name, 2)
+
+        def _find_arms(hands: list[str]):
+            for h in hands:
+                arms = list(reversed(traverse_parent_chain(self.edit_bones[h])))
+                if len(arms) >= 2:
+                    shoulder_name = arms[0]
+                    hand_head = self.edit_bones[h].head
+                    shoulder_tail = self.edit_bones[shoulder_name].tail
+                    mid_point = (shoulder_tail + hand_head) * 0.5
+                    lower_arm_name = min(arms[1:], key=lambda n: (self.edit_bones[n].head - mid_point).length)
+
+                    assign_bone("Arm.Shoulder", shoulder_name)
+                    assign_bone("Arm.UpperArm", children_map[shoulder_name][0])
+                    assign_bone("Arm.LowerArm", lower_arm_name)
+
+        def _find_head(rough_precision: float) -> str:
+            """top & upward bone (that is closer to root)"""
+            upward_bones = [v for v in bone_map.values() if v["vector"].z > 0.6]
+            if upward_bones:
+                max_z = max(v["tail"].z for v in upward_bones)
+                head_candidate = [k for k, v in bone_map.items() if v["vector"].z > 0.6 and abs(v["tail"].z - max_z) < rough_precision]
+                head = min(head_candidate, key=lambda name: len(self.edit_bones[name].parent_recursive))
+                assign_bone("Head.Head", head, 0)
+                assign_bone("Head.Neck", self.edit_bones[head].parent.name, 0)
+            return head
+
+        def _find_eyes(head: str):
+            """direct children of Head, go straight in y- direction"""
+            head_children = self.edit_bones[head].children_recursive
+            eyes_candidate = [b for b in head_children if abs(b.vector.z) < fine_precision and b.vector.y < 0]
+            if eyes_candidate:
+                eyes = [b.name for b in eyes_candidate if (self.edit_bones[head].head - b.head).length < 0.3]
+                if len(eyes) == 2:
+                    for e in eyes:
+                        if is_left(e):
+                            assign_bone("Head.LeftEye", e, 0)
+                        else:
+                            assign_bone("Head.RightEye", e, 0)
+
+        def _find_spine(head: str):
+            """ignore upper chest in auto detect"""
+            spines = traverse_parent_chain(self.edit_bones[head], check_root=True, allow_inverse=True)
+            hips = min(spines, key=lambda s: bone_map[s]["tail"].z)
+            spine = children_map[hips][0]
+            assign_bone("Body.Hips", hips, 0)
+            assign_bone("Body.Spine", spine, 0)
+
+            shoulder_name = item_map["Arm.Shoulder"].slots[0].bone_name or item_map["Arm.Shoulder"].slots[1].bone_name
+            if shoulder_name:
+                chest = self.edit_bones[shoulder_name].parent.name
+                if chest in spines:
+                    assign_bone("Body.Chest", chest, 0)
+
+        def _find_toes(fine_precision: float, rough_precision: float) -> list[str]:
+            """lowest & furthest bone: heel bone might get detected as lowest"""
+            toes = []
+            min_z = min(v["head"].z for v in bone_map.values())
+            bottom = [k for k, v in bone_map.items() if abs(v["head"].z - min_z) < rough_precision]
+            if bottom:
+                toe_pos = max(abs(bone_map[n]["head"].y) for n in bottom)
+                toes = [n for n in bottom if isclose_abs(toe_pos, bone_map[n]["head"].y, fine_precision)]
+                for t in toes:
+                    assign_bone("Leg.Toe", t)
+            return toes
+
+        def _find_legs(toes: list[str]):
+            """(broken on MMD because EX and ToeIK)"""
+            for t in toes:
+                legs = list(reversed(traverse_parent_chain(self.edit_bones[t])))
+                hips = item_map["Body.Hips"].slots[0].bone_name
+                if hips and hips in legs:
+                    legs.remove(hips)
+                if len(legs) >= 2:
+                    upper_leg_name = legs[0]
+                    foot_head = self.edit_bones[t].parent.head
+                    upper_leg_head = self.edit_bones[upper_leg_name].head
+                    mid_point = (upper_leg_head + foot_head) * 0.5
+                    lower_leg_name = min(legs[1:], key=lambda n: (self.edit_bones[n].head - mid_point).length)
+
+                    assign_bone("Leg.UpperLeg", upper_leg_name)
+                    assign_bone("Leg.LowerLeg", lower_leg_name)
+                    assign_bone("Leg.Foot", self.edit_bones[t].parent.name)
+
+        # Gather bone and slot data
+        item_map = {f"{frame.name}.{item.name}": item for frame, item in self.tree.iter_items()}
         children_map = {b.name: [c.name for c in b.children] for b in self.bones if b.use_deform}
         bone_map: dict[str, dict[str, Vector]] = {
             b.name: {
@@ -684,126 +781,25 @@ class HumanoidEditor(ArmatureEditor):
             if b.use_deform
         }
 
-        # required for detection
-        hands = []
-        head = None
-        toes = []
-
-        # HAND
-        # finger count & furthest bone: thumb and index might be in the same parent. (5 finger but 4 children)
-        finger_parent = [k for k, v in children_map.items() if len(v) >= finger_count - 1]
-        if finger_parent:
-            hand_pos = max(abs(bone_map[n]["head"].x) for n in finger_parent)
-            hands = [n for n in finger_parent if isclose_abs(hand_pos, bone_map[n]["head"].x, fine_precision)]
-            for h in hands:
-                if bone_map[h]["head"].x > 0:
-                    item_map["Arm.Hand"].slots[0].bone_name = h
-                else:
-                    item_map["Arm.Hand"].slots[1].bone_name = h
-
+        hands = _find_hands(finger_count, fine_precision)
         if not hands:
             print("Couldn't find hands.")
             return
 
-        # FINGERS
-        # tip: the bottom children of hands. (HumanoidItem.auto will do the rest)
-        for h in hands:
-            if bone_map[h]["head"].x > 0:
-                prefix = "Left Hand"
-            else:
-                prefix = "Right Hand"
+        _find_fingers(hands)
+        _find_arms(hands)
 
-            fingers = [bone for bone in self.edit_bones[h].children_recursive]
-            finger_tips = sorted([f for f in fingers if not f.children], key=lambda a: a.head.y)
-            if len(finger_tips) != finger_count:
-                print(f"the finger count does not match ({len(finger_tips)}).")
-                continue
-
-            ordered_names = ["Thumb", "Index", "Middle", "Ring", "Little"]
-            for idx, f in enumerate(finger_tips):
-                item_map[f"{prefix}.{ordered_names[idx]}"].slots[2].bone_name = f.name
-
-        # ARM (CHAIN)
-        ordered_names = ["Shoulder", "UpperArm", "LowerArm"]
-        for h in hands:
-            index = 0 if bone_map[h]["head"].x > 0 else 1
-
-            arms = list(reversed(traverse_parent_chain(self.edit_bones[h])))
-            if len(arms) >= 2:
-                shoulder_name = arms[0]
-                hand_head = self.edit_bones[h].head
-                shoulder_tail = self.edit_bones[shoulder_name].tail
-                mid_point = (shoulder_tail + hand_head) * 0.5
-                lower_arm_name = min(arms[1:], key=lambda n: (self.edit_bones[n].head - mid_point).length)
-
-                item_map["Arm.Shoulder"].slots[index].bone_name = shoulder_name
-                item_map["Arm.UpperArm"].slots[index].bone_name = children_map[shoulder_name][0]
-                item_map["Arm.LowerArm"].slots[index].bone_name = lower_arm_name
-
-        # HEAD
-        # top & upward bone (that is closer to root)
-        upward_bones = [v for v in bone_map.values() if v["vector"].z > 0.6]
-        if upward_bones:
-            max_z = max(v["tail"].z for v in upward_bones)
-            head_candidate = [k for k, v in bone_map.items() if v["vector"].z > 0.6 and abs(v["tail"].z - max_z) < rough_precision]
-            head = min(head_candidate, key=lambda name: len(self.edit_bones[name].parent_recursive))
-            item_map["Head.Head"].slots[0].bone_name = head
-            item_map["Head.Neck"].slots[0].bone_name = self.edit_bones[head].parent.name
-
-        if head is None:
+        head = _find_head(rough_precision)
+        if not head:
             print("Couldn't find head.")
             return
 
-        # EYES
-        # direct children of Head, go straight in y- direction
-        head_children = self.edit_bones[head].children_recursive
-        eyes_candidate = [b for b in head_children if abs(b.vector.z) < fine_precision and b.vector.y < 0]
-        if eyes_candidate:
-            eyes = [b.name for b in eyes_candidate if (self.edit_bones[head].head - b.head).length < 0.3]
+        _find_eyes(head)
+        _find_spine(head)
 
-            if len(eyes) == 2:
-                for e in eyes:
-                    if bone_map[e]["head"].x > 0:
-                        item_map["Head.LeftEye"].slots[0].bone_name = e
-                    else:
-                        item_map["Head.RightEye"].slots[0].bone_name = e
-
-        # SPINE (CHAIN)
-        spines = traverse_parent_chain(self.edit_bones[head], check_root=True)
-        hips = min(spines, key=lambda s: bone_map[s]["tail"].z)
-        spine = children_map[hips][0]
-        item_map["Body.Hips"].slots[0].bone_name = hips
-        item_map["Body.Spine"].slots[0].bone_name = spine
-
-        # UPPER/CHEST
-        # ignore upper chest in auto detect
-        chest = self.edit_bones[arms[0]].parent.name
-        if chest in spines:
-            item_map["Body.Chest"].slots[0].bone_name = chest
-
-        # TOE
-        # lowest & furthest bone: heel bone might get detected as lowest
-        min_z = min(v["head"].z for v in bone_map.values())
-        bottom = [k for k, v in bone_map.items() if abs(v["head"].z - min_z) < rough_precision]
-        if bottom:
-            toe_pos = max(abs(bone_map[n]["head"].y) for n in bottom)
-            toes = [n for n in bottom if isclose_abs(toe_pos, bone_map[n]["head"].y, fine_precision)]
-            for t in toes:
-                if bone_map[t]["head"].x > 0:
-                    item_map["Leg.Toe"].slots[0].bone_name = t
-                else:
-                    item_map["Leg.Toe"].slots[1].bone_name = t
-
+        toes = _find_toes(fine_precision, rough_precision)
         if not toes:
             print("Couldn't find toes.")
             return
 
-        # LEG (CHAIN)
-        # (broken on MMD because EX and ToeIK)
-        ordered_names = ["UpperLeg", "LowerLeg", "Foot"]
-        for t in toes:
-            index = 0 if bone_map[t]["head"].x > 0 else 1
-
-            legs = list(reversed(traverse_parent_chain(self.edit_bones[t])))
-            for leg, name in zip(legs, ordered_names):
-                item_map[f"Leg.{name}"].slots[index].bone_name = leg
+        _find_legs(toes)

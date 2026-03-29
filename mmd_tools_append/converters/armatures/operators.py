@@ -757,7 +757,7 @@ class HumanoidRenameOperator(bpy.types.Operator):
                     editor.add_eyes_bone()
 
                 bpy.ops.object.mode_set(mode="OBJECT")
-                if not editor.is_mmd_armature_object():
+                if not editor.is_mmd_armature_object:
                     bpy.ops.mmd_tools.convert_to_mmd_model(
                         ambient_color_source="DIFFUSE",
                         edge_threshold=0.1,

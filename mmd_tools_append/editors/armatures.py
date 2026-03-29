@@ -368,3 +368,26 @@ class ArmatureEditor(EditBoneEditor, PoseBoneEditor):
             return bone_collections[col_name]
 
         return bone_collections.new(col_name)
+
+    def create_bone_pos(self, name, collection, head, tail, parent=None, use_connect=False) -> bpy.types.EditBone:
+        """Creates child bone based on head & tail position."""
+        bone = self.get_or_create_bone(self.edit_bones, name)
+        bone.head = head
+        bone.tail = tail
+        if parent:
+            bone.parent = parent
+        bone.use_connect = use_connect
+        if collection:
+            collection.assign(bone)
+        return bone
+
+    def create_bone_vec(self, name, collection, length, parent) -> bpy.types.EditBone:
+        """Creates child bone based on parent's orientation and length."""
+        bone = self.get_or_create_bone(self.edit_bones, name)
+        bone.use_connect = True
+        bone.parent = parent
+        bone.align_orientation(parent)
+        bone.length = length
+        if collection:
+            collection.assign(bone)
+        return bone
