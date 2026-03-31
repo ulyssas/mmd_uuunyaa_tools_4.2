@@ -572,6 +572,14 @@ msgid ""
 "Intended for non-MMD models, and the model must face Y- direction"
 msgstr ""
 
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect.threshold
+msgid "Distance Tolerance"
+msgstr ""
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect.threshold
+msgid "Determines the precision of the bone distance measurement. Adjust this if the bone detection fails"
+msgstr ""
+
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_initialize
 msgid "Initialize MMD compatible Humanoid structure data for renaming bones"
 msgstr ""
@@ -1577,7 +1585,7 @@ msgstr "迭代"
 msgid "Reset Humanoid data."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:772
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:781
 msgid "Renamed  bones."
 msgstr ""
 
@@ -1589,7 +1597,7 @@ msgstr ""
 msgid "Failed to translate bones: "
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:774
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:783
 msgid "This armature does not have required MMD bones. "
 msgstr ""
 

@@ -754,6 +754,18 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
+        ("*", "Distance Tolerance"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect.threshold",), ()),
+        ("ja_JP", "距離の許容範囲", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Determines the precision of the bone distance measurement. Adjust this if the bone detection fails"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect.threshold",), ()),
+        ("ja_JP", "ボーンの距離を測る時の精度を決めます. ボーンの判定に失敗した際に調整してください", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
         ("*", "Initialize MMD compatible Humanoid structure data for renaming bones"),
         (("bpy.types.MMD_TOOLS_APPEND_OT_humanoid_initialize",), ()),
         ("ja_JP", "ボーン名の一括変更用にMMD互換のヒューマノイドデータを生成します", (False, ())),
@@ -2170,7 +2182,7 @@ translations_tuple = (
     ),
     (
         ("*", "Renamed  bones."),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:772",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:781",), ()),
         ("ja_JP", "", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
@@ -2188,7 +2200,7 @@ translations_tuple = (
     ),
     (
         ("*", "This armature does not have required MMD bones. "),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:774",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:783",), ()),
         ("ja_JP", "アーマチュアにMMD必須ボーンがありません. ", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
