@@ -574,6 +574,14 @@ msgstr ""
 "ボーンの位置、向き、構造や名前を解析しヒューマノイド構造を探します.\n"
 "MMDでないモデル専用です. モデルはY軸負の向きを向くようにしてください"
 
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect.threshold
+msgid "Distance Tolerance"
+msgstr "距離の許容範囲"
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect.threshold
+msgid "Determines the precision of the bone distance measurement. Adjust this if the bone detection fails"
+msgstr "ボーンの距離を測る時の精度を決めます. ボーンの判定に失敗した際に調整してください"
+
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_humanoid_initialize
 msgid "Initialize MMD compatible Humanoid structure data for renaming bones"
 msgstr "ボーン名の一括変更用にMMD互換のヒューマノイドデータを生成します"
@@ -1581,7 +1589,7 @@ msgstr "反復"
 msgid "Reset Humanoid data."
 msgstr "ヒューマノイドをリセットしました"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:772
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:781
 msgid "Renamed  bones."
 msgstr ""
 
@@ -1593,7 +1601,7 @@ msgstr ""
 msgid "Failed to translate bones: "
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:774
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:783
 msgid "This armature does not have required MMD bones. "
 msgstr "アーマチュアにMMD必須ボーンがありません. "
 

@@ -658,6 +658,15 @@ class HumanoidDetectOperator(bpy.types.Operator):
     bl_description = "Analyze the bone position, direction, structure and name to find Humanoid structure.\nIntended for non-MMD models, and the model must face Y- direction"
     bl_options = {"REGISTER", "UNDO"}
 
+    threshold: bpy.props.FloatProperty(
+        name="Distance Tolerance",
+        description="Determines the precision of the bone distance measurement. Adjust this if the bone detection fails",
+        precision=4,
+        min=0.0001,
+        max=1.0,
+        default=0.0001,
+    )
+
     @classmethod
     def poll(cls, context: bpy.types.Context):
         if context.mode not in {"OBJECT", "POSE"}:
@@ -676,7 +685,7 @@ class HumanoidDetectOperator(bpy.types.Operator):
             editor = HumanoidEditor(context.active_object)
 
             bpy.ops.object.mode_set(mode="EDIT")
-            editor.detect()
+            editor.detect(fine_precision=self.threshold)
             for frame, item in editor.tree.iter_items():
                 item.auto(editor, frame.display_type)
 

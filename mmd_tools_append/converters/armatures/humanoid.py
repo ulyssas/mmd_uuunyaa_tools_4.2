@@ -652,8 +652,51 @@ class HumanoidEditor(ArmatureEditor):
             else:
                 return chain
 
+        def traverse_child_chain(bone: bpy.types.EditBone, threshold: float = 0.8, chain: list[str] = None) -> list[str]:
+            """
+            Find connected children that are pointing in a similar direction (bone chain).
+            threshold = 1 means it will treat 90deg as part of the chain.
+            """
+            deform_children = [b for b in bone.children if b.use_deform]
+
+            if not deform_children:
+                return chain if chain else []
+
+            if chain is None:
+                chain = []
+
+            child = min(deform_children, key=lambda b: (b.head - bone.tail).length)
+            angle = bone.vector.angle(child.vector)
+            distance = (child.head - bone.tail).length
+
+            if angle < math.pi * 0.5 * threshold and distance < child.vector.length:
+                chain.append(child.name)
+                return traverse_child_chain(child, threshold=threshold, chain=chain)
+            else:
+                return chain
+
+        def find_mutual_parent(bone_names: list[str]) -> bpy.types.EditBone:
+            """Find the lowest common ancestor of the given bones."""
+            if not bone_names:
+                return None
+
+            ancestors_sets = [set(self.edit_bones[n].parent_recursive) for n in bone_names]
+            common_ancestors = set.intersection(*ancestors_sets)
+
+            if not common_ancestors:
+                return None
+
+            return max(common_ancestors, key=lambda b: len(b.parent_recursive))
+
         def is_left(bone_name: str) -> bool:
             return bone_map[bone_name]["head"].x > 0
+
+        def is_hidden(bone_name: str) -> bool:
+            pbone = self.pose_bones[bone_name]
+            if hasattr(pbone, "hide"):
+                return pbone.hide
+            else:
+                return pbone.bone.hide
 
         def assign_bone(key: str, bone_name: str, index: int = None):
             if index is None:
@@ -676,8 +719,9 @@ class HumanoidEditor(ArmatureEditor):
             """tip: the bottom children of hands. (HumanoidItem.auto will do the rest)"""
             for h in hands:
                 prefix = "Left Hand" if is_left(h) else "Right Hand"
-                fingers = [bone for bone in self.edit_bones[h].children_recursive]
-                finger_tips = sorted([f for f in fingers if not f.children], key=lambda a: a.head.y)
+                dummies = {bone for bone in self.edit_bones[h].children if not bone.children}
+                fingers = [bone for bone in self.edit_bones[h].children_recursive if bone.use_deform and bone not in dummies]
+                finger_tips = sorted([f for f in fingers if f.name in children_map and not children_map.get(f.name)], key=lambda a: a.head.y)
                 if len(finger_tips) != finger_count:
                     print(f"The finger count does not match ({len(finger_tips)}).")
                     continue
@@ -700,20 +744,46 @@ class HumanoidEditor(ArmatureEditor):
                     assign_bone("Arm.UpperArm", children_map[shoulder_name][0])
                     assign_bone("Arm.LowerArm", lower_arm_name)
 
-        def _find_head(rough_precision: float) -> str:
-            """top & upward bone (that is closer to root)"""
-            upward_bones = [v for v in bone_map.values() if v["vector"].z > 0.6]
-            if upward_bones:
-                max_z = max(v["tail"].z for v in upward_bones)
-                head_candidate = [k for k, v in bone_map.items() if v["vector"].z > 0.6 and abs(v["tail"].z - max_z) < rough_precision]
-                head = min(head_candidate, key=lambda name: len(self.edit_bones[name].parent_recursive))
-                assign_bone("Head.Head", head, 0)
-                assign_bone("Head.Neck", self.edit_bones[head].parent.name, 0)
+        def _find_spine(hands: list[str], rough_precision: float) -> str:
+            """find head & spine using existing arm."""
+            chest = find_mutual_parent(hands)
+
+            if not chest:
+                shoulder_name = item_map["Arm.Shoulder"].slots[0].bone_name or item_map["Arm.Shoulder"].slots[1].bone_name
+                if shoulder_name:
+                    chest = self.edit_bones[shoulder_name].parent
+
+            if not chest or abs(chest.vector.x) > rough_precision:
+                return None
+
+            upper_spines = list(reversed(traverse_child_chain(chest)))
+            lower_spines = list(reversed(traverse_parent_chain(chest, check_root=True, allow_inverse=True)))
+            if not lower_spines:
+                return None
+
+            hips = lower_spines[0]
+            spine = lower_spines[1] if len(lower_spines) > 1 else chest.name
+            assign_bone("Body.Hips", hips, 0)
+            assign_bone("Body.Spine", spine, 0)
+            if len(lower_spines) > 2:
+                assign_bone("Body.Chest", lower_spines[2], 0)
+                assign_bone("Body.UpperChest", chest.name, 0)
+            elif len(lower_spines) > 1:
+                assign_bone("Body.Chest", chest.name, 0)
+
+            if not upper_spines:
+                return None
+
+            head = upper_spines[0]  # prefer top
+            neck = upper_spines[-1]  # prefer bottom
+            assign_bone("Head.Head", head, 0)
+            assign_bone("Head.Neck", neck, 0)
+
             return head
 
         def _find_eyes(head: str):
             """direct children of Head, go straight in y- direction"""
-            head_children = self.edit_bones[head].children_recursive
+            head_children = self.edit_bones[head].children
             eyes_candidate = [b for b in head_children if abs(b.vector.z) < fine_precision and b.vector.y < 0]
             if eyes_candidate:
                 eyes = [b.name for b in eyes_candidate if (self.edit_bones[head].head - b.head).length < 0.3]
@@ -724,28 +794,14 @@ class HumanoidEditor(ArmatureEditor):
                         else:
                             assign_bone("Head.RightEye", e, 0)
 
-        def _find_spine(head: str):
-            """ignore upper chest in auto detect"""
-            spines = traverse_parent_chain(self.edit_bones[head], check_root=True, allow_inverse=True)
-            hips = min(spines, key=lambda s: bone_map[s]["tail"].z)
-            spine = children_map[hips][0]
-            assign_bone("Body.Hips", hips, 0)
-            assign_bone("Body.Spine", spine, 0)
-
-            shoulder_name = item_map["Arm.Shoulder"].slots[0].bone_name or item_map["Arm.Shoulder"].slots[1].bone_name
-            if shoulder_name:
-                chest = self.edit_bones[shoulder_name].parent.name
-                if chest in spines:
-                    assign_bone("Body.Chest", chest, 0)
-
         def _find_toes(fine_precision: float, rough_precision: float) -> list[str]:
             """lowest & furthest bone: heel bone might get detected as lowest"""
             toes = []
             min_z = min(v["head"].z for v in bone_map.values())
             bottom = [k for k, v in bone_map.items() if abs(v["head"].z - min_z) < rough_precision]
             if bottom:
-                toe_pos = max(abs(bone_map[n]["head"].y) for n in bottom)
-                toes = [n for n in bottom if isclose_abs(toe_pos, bone_map[n]["head"].y, fine_precision)]
+                toes_vector = min(abs(bone_map[n]["vector"].z) for n in bottom)
+                toes = [n for n in bottom if bone_map[n]["tail"].y < 0 and isclose_abs(toes_vector, bone_map[n]["vector"].z, fine_precision)]
                 for t in toes:
                     assign_bone("Leg.Toe", t)
             return toes
@@ -770,7 +826,7 @@ class HumanoidEditor(ArmatureEditor):
 
         # Gather bone and slot data
         item_map = {f"{frame.name}.{item.name}": item for frame, item in self.tree.iter_items()}
-        children_map = {b.name: [c.name for c in b.children] for b in self.bones if b.use_deform}
+        children_map = {b.name: [c.name for c in b.children if not is_hidden(c.name)] for b in self.bones if b.use_deform and not is_hidden(b.name)}
         bone_map: dict[str, dict[str, Vector]] = {
             b.name: {
                 "head": b.head,
@@ -789,13 +845,12 @@ class HumanoidEditor(ArmatureEditor):
         _find_fingers(hands)
         _find_arms(hands)
 
-        head = _find_head(rough_precision)
+        head = _find_spine(hands, rough_precision)
         if not head:
             print("Couldn't find head.")
             return
 
         _find_eyes(head)
-        _find_spine(head)
 
         toes = _find_toes(fine_precision, rough_precision)
         if not toes:
