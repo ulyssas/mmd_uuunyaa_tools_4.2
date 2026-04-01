@@ -758,24 +758,26 @@ class HumanoidEditor(ArmatureEditor):
 
             upper_spines = list(reversed(traverse_child_chain(chest)))
             lower_spines = list(reversed(traverse_parent_chain(chest, check_root=True, allow_inverse=True)))
-            if not upper_spines or not lower_spines:
+            if not lower_spines:
                 return None
 
-            head = upper_spines[0]  # prefer top
-            neck = upper_spines[-1]  # prefer bottom
             hips = lower_spines[0]
             spine = lower_spines[1] if len(lower_spines) > 1 else chest.name
-
-            assign_bone("Head.Head", head, 0)
-            assign_bone("Head.Neck", neck, 0)
             assign_bone("Body.Hips", hips, 0)
             assign_bone("Body.Spine", spine, 0)
-
             if len(lower_spines) > 2:
                 assign_bone("Body.Chest", lower_spines[2], 0)
                 assign_bone("Body.UpperChest", chest.name, 0)
             elif len(lower_spines) > 1:
                 assign_bone("Body.Chest", chest.name, 0)
+
+            if not upper_spines:
+                return None
+
+            head = upper_spines[0]  # prefer top
+            neck = upper_spines[-1]  # prefer bottom
+            assign_bone("Head.Head", head, 0)
+            assign_bone("Head.Neck", neck, 0)
 
             return head
 
