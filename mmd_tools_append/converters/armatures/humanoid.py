@@ -646,7 +646,7 @@ class HumanoidEditor(ArmatureEditor):
             if allow_inverse:
                 angle = min(angle, math.pi - angle)
 
-            if angle < math.pi * 0.5 * threshold and (not check_root or parent.head.length >= threshold):
+            if angle < math.pi * 0.5 * threshold and (not check_root or parent.head.length >= 0.001):
                 chain.append(parent.name)
                 return traverse_parent_chain(parent, threshold=threshold, check_root=check_root, allow_inverse=allow_inverse, chain=chain)
             else:
