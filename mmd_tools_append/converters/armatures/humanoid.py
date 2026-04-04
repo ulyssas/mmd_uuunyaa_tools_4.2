@@ -830,9 +830,10 @@ class HumanoidEditor(ArmatureEditor):
                 return None
 
             head = upper_spines[0]  # prefer top
-            neck = upper_spines[-1]  # prefer bottom
             assign_bone("Head.Head", head, 0)
-            assign_bone("Head.Neck", neck, 0)
+            if len(upper_spines) > 1:
+                neck = upper_spines[-1]  # prefer bottom
+                assign_bone("Head.Neck", neck, 0)
 
             return head
 
