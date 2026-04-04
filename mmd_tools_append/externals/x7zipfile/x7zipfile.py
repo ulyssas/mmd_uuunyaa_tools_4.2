@@ -136,7 +136,25 @@ class x7ZipInfo:
 
 class _Executor:
     def __init__(self, executable: str):
-        self.executable = executable
+        if sys.platform == "darwin" and os.path.sep not in executable:
+            self.executable = self._macos_path_resolve(executable)
+        else:
+            self.executable = executable
+
+    @staticmethod
+    def _macos_path_resolve(executable: str) -> str:
+        mac_common_paths = [
+            "/opt/homebrew/bin/",
+            "/usr/local/bin/",
+            "/opt/local/bin",
+            os.path.expanduser("~/.local/bin"),
+        ]
+        for path in mac_common_paths:
+            full_path = os.path.join(path, executable)
+            if os.path.isfile(full_path) and os.access(full_path, os.X_OK):
+                return full_path
+
+        return executable
 
     def is_available(self) -> bool:
         try:
