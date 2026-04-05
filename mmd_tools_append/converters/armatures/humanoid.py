@@ -278,6 +278,14 @@ class HumanoidEditor(ArmatureEditor):
         super().__init__(armature_object)
         self.tree = armature_object.mmd_tools_append_humanoid_settings
 
+    def _get_related_mesh(self) -> list[bpy.types.Object]:
+        related_meshes = []
+        for o in bpy.data.objects:
+            if o.type == "MESH":
+                if any(m.type == "ARMATURE" and m.object == self.raw_object for m in o.modifiers):
+                    related_meshes.append(o)
+        return related_meshes
+
     @property
     def is_mmd_armature_object(self) -> bool:
         if self.raw_object is None:
@@ -403,6 +411,41 @@ class HumanoidEditor(ArmatureEditor):
         if use_local:
             apply_local()
 
+    def dissolve_bone(self, target: bpy.types.EditBone):
+        """Merge the bone (target) to its parent and combine related vertex groups."""
+
+        self.raw_armature.use_mirror_x = False
+
+        parent = target.parent
+        parent.tail = target.tail
+        target_name = target.name
+        self.edit_bones.remove(target)
+
+        meshes = self._get_related_mesh()
+        for m in meshes:
+            self._combine_vertex_group(m, parent.name, target_name)
+
+    @staticmethod
+    def _combine_vertex_group(mesh_obj: bpy.types.Object, parent: str, child: str):
+        vgs = mesh_obj.vertex_groups
+        if child not in vgs:
+            return
+
+        if parent not in vgs:
+            vgs[child].name = parent
+            return
+
+        parent_vg = vgs[parent]
+        child_vg = vgs[child]
+        child_index = child_vg.index
+
+        for v in mesh_obj.data.vertices:
+            for g in v.groups:
+                if g.group == child_index:
+                    parent_vg.add([v.index], g.weight, "ADD")
+        vgs.remove(child_vg)
+        print("Combined 2 vertex groups: ", parent, child)
+
     def add_leg_ik(self):
         """Leg IK maker. Adapted from MMD Tools Helper"""
 
@@ -448,6 +491,8 @@ class HumanoidEditor(ArmatureEditor):
         TOE_IK_L = "つま先ＩＫ.L"
         TOE_IK_R = "つま先ＩＫ.R"
 
+        LEG_L = "足.L"
+        LEG_R = "足.R"
         KNEE_L = "ひざ.L"
         KNEE_R = "ひざ.R"
         ANKLE_L = "足首.L"
@@ -472,6 +517,16 @@ class HumanoidEditor(ArmatureEditor):
         FOOT_LENGTH = self.bones[ANKLE_L].length
 
         bpy.ops.object.mode_set(mode="EDIT")
+
+        # merge leg twist bones if they exist (LowerLeg & UpperLeg)
+        if self.edit_bones[KNEE_L].parent != self.edit_bones[LEG_L]:
+            self.dissolve_bone(self.edit_bones[KNEE_L].parent)
+        if self.edit_bones[KNEE_R].parent != self.edit_bones[LEG_R]:
+            self.dissolve_bone(self.edit_bones[KNEE_R].parent)
+        if self.edit_bones[ANKLE_L].parent != self.edit_bones[KNEE_L]:
+            self.dissolve_bone(self.edit_bones[ANKLE_L].parent)
+        if self.edit_bones[ANKLE_R].parent != self.edit_bones[KNEE_R]:
+            self.dissolve_bone(self.edit_bones[ANKLE_R].parent)
 
         # move knees forward a little to prevent glitches
         if math.isclose(self.edit_bones["足.L"].vector.angle(self.edit_bones["ひざ.L"].vector), 0):
@@ -646,7 +701,7 @@ class HumanoidEditor(ArmatureEditor):
             if allow_inverse:
                 angle = min(angle, math.pi - angle)
 
-            if angle < math.pi * 0.5 * threshold and (not check_root or parent.head.length >= threshold):
+            if angle < math.pi * 0.5 * threshold and (not check_root or parent.head.length >= 0.001):
                 chain.append(parent.name)
                 return traverse_parent_chain(parent, threshold=threshold, check_root=check_root, allow_inverse=allow_inverse, chain=chain)
             else:
@@ -775,9 +830,10 @@ class HumanoidEditor(ArmatureEditor):
                 return None
 
             head = upper_spines[0]  # prefer top
-            neck = upper_spines[-1]  # prefer bottom
             assign_bone("Head.Head", head, 0)
-            assign_bone("Head.Neck", neck, 0)
+            if len(upper_spines) > 1:
+                neck = upper_spines[-1]  # prefer bottom
+                assign_bone("Head.Neck", neck, 0)
 
             return head
 
