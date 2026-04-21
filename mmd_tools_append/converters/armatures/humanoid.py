@@ -286,6 +286,33 @@ class HumanoidEditor(ArmatureEditor):
                     related_meshes.append(o)
         return related_meshes
 
+    def _get_deform_bones(self) -> list[str]:
+        """Get vertex group names that have non-zero weights."""
+        meshes = self._get_related_mesh()
+        vg_names = set()
+
+        for m in meshes:
+            if not m.data or not m.vertex_groups:
+                continue
+
+            vg_map = {vg.index: vg.name for vg in m.vertex_groups}
+            vg_sets = set()
+
+            for v in m.data.vertices:
+                for g in v.groups:
+                    if g.weight > 0.0:
+                        vg_sets.add(g.group)
+
+                if len(vg_sets) == len(vg_map):
+                    break
+
+            for idx in vg_sets:
+                name = vg_map.get(idx)
+                if name and name in self.bones and self.bones[name].use_deform:
+                    vg_names.add(name)
+
+        return list(vg_names)
+
     @property
     def is_mmd_armature_object(self) -> bool:
         if self.raw_object is None:
@@ -563,10 +590,10 @@ class HumanoidEditor(ArmatureEditor):
         self.add_ik_constraint(self.pose_bones[ANKLE_L], self.raw_object, TOE_IK_L, 1, 15)
         self.add_ik_constraint(self.pose_bones[ANKLE_R], self.raw_object, TOE_IK_R, 1, 15)
 
-        self.pose_bones[KNEE_L].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi
-        self.pose_bones[KNEE_R].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi
-        self.pose_bones[ANKLE_L].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi
-        self.pose_bones[ANKLE_R].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi
+        self.pose_bones[KNEE_L].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi, 114.5916
+        self.pose_bones[KNEE_R].mmd_bone.ik_rotation_constraint = 2
+        self.pose_bones[ANKLE_L].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi, 229.1831
+        self.pose_bones[ANKLE_R].mmd_bone.ik_rotation_constraint = 4
 
         add_limit_rot(self.pose_bones[KNEE_L])
         add_limit_rot(self.pose_bones[KNEE_R])
@@ -753,6 +780,14 @@ class HumanoidEditor(ArmatureEditor):
             else:
                 return pbone.bone.hide
 
+        def is_deform(bone: bpy.types.Bone | bpy.types.EditBone) -> bool:
+            """Check if the bone actually deforms the mesh (weight check)."""
+            if deform_list:
+                return bone.name in deform_list
+            else:
+                # armature with no mesh
+                return bone.use_deform
+
         def assign_bone(key: str, bone_name: str, index: int = None):
             if index is None:
                 index = 0 if is_left(bone_name) else 1
@@ -775,7 +810,7 @@ class HumanoidEditor(ArmatureEditor):
             for h in hands:
                 prefix = "Left Hand" if is_left(h) else "Right Hand"
                 dummies = {bone for bone in self.edit_bones[h].children if not bone.children}
-                fingers = [bone for bone in self.edit_bones[h].children_recursive if bone.use_deform and bone not in dummies]
+                fingers = [bone for bone in self.edit_bones[h].children_recursive if is_deform(bone) and bone not in dummies]
                 finger_tips = sorted([f for f in fingers if f.name in children_map and not children_map.get(f.name)], key=lambda a: a.head.y)
                 if len(finger_tips) != finger_count:
                     print(f"The finger count does not match ({len(finger_tips)}).")
@@ -796,8 +831,9 @@ class HumanoidEditor(ArmatureEditor):
                     lower_arm_name = min(arms[1:], key=lambda n: (self.edit_bones[n].head - mid_point).length)
 
                     assign_bone("Arm.Shoulder", shoulder_name)
-                    assign_bone("Arm.UpperArm", children_map[shoulder_name][0])
                     assign_bone("Arm.LowerArm", lower_arm_name)
+                    if children_map.get(shoulder_name):
+                        assign_bone("Arm.UpperArm", children_map[shoulder_name][0])
 
         def _find_spine(hands: list[str], rough_precision: float) -> str:
             """find head & spine using existing arm."""
@@ -881,8 +917,9 @@ class HumanoidEditor(ArmatureEditor):
                     assign_bone("Leg.Foot", self.edit_bones[t].parent.name)
 
         # Gather bone and slot data
+        deform_list = self._get_deform_bones()
         item_map = {f"{frame.name}.{item.name}": item for frame, item in self.tree.iter_items()}
-        children_map = {b.name: [c.name for c in b.children if not is_hidden(c.name)] for b in self.bones if b.use_deform and not is_hidden(b.name)}
+        children_map = {b.name: [c.name for c in b.children if is_deform(c) and not is_hidden(c.name)] for b in self.bones if b.use_deform and not is_hidden(b.name)}
         bone_map: dict[str, dict[str, Vector]] = {
             b.name: {
                 "head": b.head,
@@ -902,11 +939,10 @@ class HumanoidEditor(ArmatureEditor):
         _find_arms(hands)
 
         head = _find_spine(hands, rough_precision)
-        if not head:
+        if head:
+            _find_eyes(head)
+        else:
             print("Couldn't find head.")
-            return
-
-        _find_eyes(head)
 
         toes = _find_toes(fine_precision, rough_precision)
         if not toes:

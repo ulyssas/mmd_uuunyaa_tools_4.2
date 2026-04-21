@@ -754,6 +754,18 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
+        ("*", "Finger Count"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect.finger_count",), ()),
+        ("ja_JP", "指の数", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "The number of fingers"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect.finger_count",), ()),
+        ("ja_JP", "指の本数", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
         ("*", "Distance Tolerance"),
         (("bpy.types.MMD_TOOLS_APPEND_OT_humanoid_detect.threshold",), ()),
         ("ja_JP", "距離の許容範囲", (False, ())),
@@ -2182,7 +2194,7 @@ translations_tuple = (
     ),
     (
         ("*", "Renamed  bones."),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:781",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:789",), ()),
         ("ja_JP", "", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
@@ -2200,7 +2212,7 @@ translations_tuple = (
     ),
     (
         ("*", "This armature does not have required MMD bones. "),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:783",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:791",), ()),
         ("ja_JP", "アーマチュアにMMD必須ボーンがありません. ", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),

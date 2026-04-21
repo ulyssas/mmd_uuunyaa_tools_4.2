@@ -667,6 +667,14 @@ class HumanoidDetectOperator(bpy.types.Operator):
         default=0.0001,
     )
 
+    finger_count: bpy.props.IntProperty(
+        name="Finger Count",
+        description="The number of fingers",
+        min=1,
+        soft_max=6,
+        default=5,
+    )
+
     @classmethod
     def poll(cls, context: bpy.types.Context):
         if context.mode not in {"OBJECT", "POSE"}:
@@ -685,7 +693,7 @@ class HumanoidDetectOperator(bpy.types.Operator):
             editor = HumanoidEditor(context.active_object)
 
             bpy.ops.object.mode_set(mode="EDIT")
-            editor.detect(fine_precision=self.threshold)
+            editor.detect(finger_count=self.finger_count, fine_precision=self.threshold)
             for frame, item in editor.tree.iter_items():
                 item.auto(editor, frame.display_type)
 
