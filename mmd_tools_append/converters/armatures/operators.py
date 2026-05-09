@@ -762,6 +762,10 @@ class HumanoidRenameOperator(bpy.types.Operator):
 
         try:
             editor = HumanoidEditor(context.active_object)
+            dups = editor.tree.get_duplicates()
+            if dups:
+                for k, v in dups.items():
+                    self.report({"WARNING"}, message=f"Bone {k} was selected {v} times.")
 
             bpy.ops.object.mode_set(mode="EDIT")
             rename_count = editor.rename()

@@ -3,6 +3,7 @@
 
 import math
 import re
+from collections import Counter
 from collections.abc import Iterator
 
 import bpy
@@ -254,6 +255,16 @@ class HumanoidTree(bpy.types.PropertyGroup):
         for frame in self.frames:
             for item in frame.items:
                 yield frame, item
+
+    def iter_slots(self) -> Iterator[HumanoidBoneSlot]:
+        for _, item in self.iter_items():
+            for slot in item.slots:
+                yield slot
+
+    def get_duplicates(self) -> dict[str, int]:
+        """Find bones that have been selected more than once."""
+        c = Counter(s.bone_name for s in self.iter_slots() if s.bone_name)
+        return {k: v for k, v in c.items() if v > 1}
 
     @staticmethod
     def register():
