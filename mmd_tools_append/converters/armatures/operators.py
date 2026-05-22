@@ -652,6 +652,42 @@ class HumanoidResetOperator(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class HumanoidAutoOrientationOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_auto_orientation"
+    bl_label = "Automatic Orientation"
+    bl_description = "Automatically set bone orientation based on child bone"
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            editor = HumanoidEditor(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            editor.auto_orientation()
+
+        except MessageException as ex:
+            self.report(type={"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
+
+        finally:
+            bpy.ops.object.mode_set(mode=previous_mode)
+
+        return {"FINISHED"}
+
+
 class HumanoidDetectOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.humanoid_detect"
     bl_label = "Automatic Humanoid Detection"
@@ -790,7 +826,10 @@ class HumanoidRenameOperator(bpy.types.Operator):
                 bpy.ops.mmd_tools.display_item_quick_setup(type="GROUP_LOAD")
                 bpy.ops.mmd_tools.fix_bone_order()
 
-            self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
+            if dups:
+                self.report({"WARNING"}, message=f"Renamed {rename_count} bones with {len(dups)} duplicates. (click to see details)")
+            else:
+                self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
         except KeyError as e:
             self.report(type={"ERROR"}, message=f"This armature does not have required MMD bones. {e}")
             return {"CANCELLED"}

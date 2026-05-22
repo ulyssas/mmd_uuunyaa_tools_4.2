@@ -449,6 +449,40 @@ class HumanoidEditor(ArmatureEditor):
         if use_local:
             apply_local()
 
+    def auto_orientation(self):
+        """Automatic Orientation, similar to legacy FBX importer"""
+
+        def sign(num) -> int:
+            return (num > 0) - (num < 0)
+
+        def find_major_axis(bone: bpy.types.EditBone) -> tuple[int, int]:
+            child_dir = (bone.children[0].head - bone.head).normalized()
+            prev_axes = bone.matrix.to_3x3().col
+            scores = [(abs(child_dir.dot(axis)), idx, sign(child_dir.dot(axis))) for idx, axis in enumerate(prev_axes)]
+            _, axis_idx, axis_sign = max(scores)
+            return axis_idx, axis_sign
+
+        axis_votes = [find_major_axis(bone) for bone in self.edit_bones if bone.children and len(bone.children) == 1]
+        if not axis_votes:
+            return
+
+        (g_axis_idx, g_axis_sign), _ = Counter(axis_votes).most_common(1)[0]
+        for bone in self.edit_bones:
+            col = bone.matrix.to_3x3().col
+            new_dir = col[g_axis_idx] * g_axis_sign
+
+            prev_roll = bone.z_axis.copy()
+            if abs(new_dir.dot(prev_roll.normalized())) > 0.99:
+                prev_roll = bone.x_axis.copy()
+
+            bone.tail = bone.head + new_dir * bone.length
+            bone.align_roll(prev_roll)
+
+            if bone.children and len(bone.children) == 1:
+                child = bone.children[0]
+                if abs(bone.length - (child.head - bone.head).length) < 0.0001:
+                    bone.tail = child.head
+
     def dissolve_bone(self, target: bpy.types.EditBone):
         """Merge the bone (target) to its parent and combine related vertex groups."""
 
@@ -567,9 +601,19 @@ class HumanoidEditor(ArmatureEditor):
             self.dissolve_bone(self.edit_bones[ANKLE_R].parent)
 
         # move knees forward a little to prevent glitches
-        if math.isclose(self.edit_bones["足.L"].vector.angle(self.edit_bones["ひざ.L"].vector), 0):
-            self.edit_bones["足.L"].tail.y = -0.005
-            self.edit_bones["足.R"].tail.y = -0.005
+        if math.isclose(self.edit_bones[LEG_L].vector.angle(self.edit_bones[KNEE_L].vector), 0):
+            self.edit_bones[LEG_L].tail.y = -0.005
+            self.edit_bones[LEG_R].tail.y = -0.005
+
+        # reset bone rolls
+        self.edit_bones[LEG_L].roll = 0
+        self.edit_bones[LEG_R].roll = 0
+        self.edit_bones[KNEE_L].roll = 0
+        self.edit_bones[KNEE_R].roll = 0
+        self.edit_bones[ANKLE_L].roll = 0
+        self.edit_bones[ANKLE_R].roll = 0
+        self.edit_bones[TOE_L].roll = 0
+        self.edit_bones[TOE_R].roll = 0
 
         # Add IK bones
         bone = create_ik_bone(LEG_IK_L, ANKLE_L, ROOT)

@@ -6,6 +6,7 @@ import bpy
 
 from .checkers.operators import CheckEeveeRenderingPerformance
 from .converters.armatures.operators import (
+    HumanoidAutoOrientationOperator,
     HumanoidDetectOperator,
     HumanoidInitializeOperator,
     HumanoidRenameOperator,
@@ -252,7 +253,9 @@ class MMDAppendHumanoidPanel(bpy.types.Panel):
         # HumanoidCategorySelector
         col = layout.column()
         wm = context.window_manager
-        col.operator(HumanoidDetectOperator.bl_idname, text="Auto Detect", icon="VIEWZOOM")
+        row = col.row(align=True)
+        row.operator(HumanoidDetectOperator.bl_idname, text="Auto Detect", icon="VIEWZOOM")
+        row.operator(HumanoidAutoOrientationOperator.bl_idname, text="", icon="ORIENTATION_GIMBAL")
         col.row().prop(wm, "mmd_humanoid_category", expand=True)
 
         for frame in tree.frames:
