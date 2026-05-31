@@ -227,6 +227,11 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
         description="Join MMD and Rigify armatures",
         default=True,
     )
+    bind_leg_d: bpy.props.BoolProperty(
+        name="Bind Leg D bones",
+        description="Bind leg bones to leg D bones (e.g. 足首D)",
+        default=False,
+    )
 
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):
@@ -251,7 +256,7 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
 
         bpy.ops.object.mode_set(mode="POSE")
         rigify_armature_object.imitate_mmd_pose_behavior_focus_on_mmd()
-        rigify_armature_object.bind_bones(mmd_armature_object)
+        rigify_armature_object.bind_bones(mmd_armature_object, self.bind_leg_d)
 
         bpy.ops.object.mode_set(mode="OBJECT")
         self.set_view_layers(rigify_armature_object)
@@ -277,7 +282,11 @@ class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
         description="Join MMD and Rigify armatures",
         default=True,
     )
-    rename_mmd_bones: bpy.props.BoolProperty(name="Rename MMD bones", default=False)
+    rename_mmd_bones: bpy.props.BoolProperty(
+        name="Rename MMD bones",
+        description="Add MMD bone names to Rigify armatures",
+        default=False,
+    )
 
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):

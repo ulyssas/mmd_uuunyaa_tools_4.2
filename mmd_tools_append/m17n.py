@@ -971,6 +971,18 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
+        ("*", "Bind Leg D bones"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.bind_leg_d",), ()),
+        ("ja_JP", "足Dボーンをバインド", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Bind leg bones to leg D bones (e.g. 足首D)"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.bind_leg_d",), ()),
+        ("ja_JP", "足ボーンを足Dボーン (足首Dなど) にバインドします", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
         ("*", "Join Armatures"),
         (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.is_join_armatures", "bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.is_join_armatures"), ()),
         ("ja_JP", "アーマチュアを結合", (False, ())),
@@ -979,38 +991,20 @@ translations_tuple = (
     (
         ("*", "Join MMD and Rigify armatures"),
         (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.is_join_armatures", "bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.is_join_armatures"), ()),
-        ("ja_JP", "RigifyとMMDアーマチュアを結合", (False, ())),
+        ("ja_JP", "RigifyとMMDアーマチュアを結合します", (False, ())),
         ("zh_HANS", "合并Rigify和MMD骨架", (False, ())),
-    ),
-    (
-        ("*", "MMD dummy bone layer"),
-        (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_dummy_bone_layer",), ()),
-        ("ja_JP", "MMDダミーボーンレイヤー", (False, ())),
-        ("zh_HANS", "MMD伪骨骼层", (False, ())),
-    ),
-    (
-        ("*", "MMD main bone layer"),
-        (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_main_bone_layer",), ()),
-        ("ja_JP", "MMDメインボーンレイヤー", (False, ())),
-        ("zh_HANS", "MMD主骨骼层", (False, ())),
-    ),
-    (
-        ("*", "MMD others bone layer"),
-        (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_others_bone_layer",), ()),
-        ("ja_JP", "MMDその他ボーンレイヤー", (False, ())),
-        ("zh_HANS", "MMD其他骨骼层", (False, ())),
-    ),
-    (
-        ("*", "MMD shadow bone layer"),
-        (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_shadow_bone_layer",), ()),
-        ("ja_JP", "MMDシャドウボーンレイヤー", (False, ())),
-        ("zh_HANS", "MMD阴影骨骼层", (False, ())),
     ),
     (
         ("*", "Rename MMD bones"),
         (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.rename_mmd_bones",), ()),
         ("ja_JP", "MMDボーンをリネーム", (False, ())),
         ("zh_HANS", "重命名MMD骨骼", (False, ())),
+    ),
+    (
+        ("*", "Add MMD bone names to Rigify armatures"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.rename_mmd_bones",), ()),
+        ("ja_JP", "MMDボーン名をRigifyアーマチュアに追加します", (False, ())),
+        ("zh_HANS", "", (False, ())),
     ),
     (
         ("*", "Remove unused shape keys from the active meshes"),
@@ -2206,7 +2200,7 @@ translations_tuple = (
     ),
     (
         ("*", "Failed to translate bones: "),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:470",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466",), ()),
         ("ja_JP", "ボーンの翻訳に失敗しました: ", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
@@ -2224,25 +2218,25 @@ translations_tuple = (
     ),
     (
         ("*", "Renamed  bones with  duplicates. (click to see details)"),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:830",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:826",), ()),
         ("ja_JP", "", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
         ("*", "Renamed  bones."),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:832",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:828",), ()),
         ("ja_JP", "", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
         ("*", "This armature does not have required MMD bones. "),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:834",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:830",), ()),
         ("ja_JP", "アーマチュアにMMD必須ボーンがありません. ", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
         ("*", "Bone  was selected  times."),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:804",), ()),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:800",), ()),
         ("ja_JP", "", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),

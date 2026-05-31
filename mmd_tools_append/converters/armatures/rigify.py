@@ -96,7 +96,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         MMDBindInfo(MMDBoneInfo.左ひざD, None, "DEF-shin.L", GroupType.LEG_L, MMDBindType.COPY_LEG_D),
         MMDBindInfo(MMDBoneInfo.左ひざ, "shin_fk.L", "DEF-shin.L", GroupType.LEG_L, MMDBindType.COPY_PARENT),
         MMDBindInfo(MMDBoneInfo.左足首D, None, "DEF-foot.L", GroupType.LEG_L, MMDBindType.COPY_LEG_D),
-        MMDBindInfo(MMDBoneInfo.左足首, "foot_fk.L", "DEF-foot.L", GroupType.LEG_L, MMDBindType.COPY_POSE),
+        MMDBindInfo(MMDBoneInfo.左足首, "foot_fk.L", "mmd_append_foot_dummy.L", GroupType.LEG_L, MMDBindType.COPY_POSE),
         MMDBindInfo(MMDBoneInfo.左足ＩＫ, "foot_ik.L", "foot_ik.L", GroupType.LEG_L, MMDBindType.COPY_POSE),
         MMDBindInfo(MMDBoneInfo.左足先EX, "toe.L", "DEF-toe.L", GroupType.LEG_L, MMDBindType.COPY_TOE),
         MMDBindInfo(MMDBoneInfo.右足D, None, "DEF-thigh.R", GroupType.LEG_R, MMDBindType.COPY_LEG_D),
@@ -104,7 +104,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         MMDBindInfo(MMDBoneInfo.右ひざD, None, "DEF-shin.R", GroupType.LEG_R, MMDBindType.COPY_LEG_D),
         MMDBindInfo(MMDBoneInfo.右ひざ, "shin_fk.R", "DEF-shin.R", GroupType.LEG_R, MMDBindType.COPY_PARENT),
         MMDBindInfo(MMDBoneInfo.右足首D, None, "DEF-foot.R", GroupType.LEG_R, MMDBindType.COPY_LEG_D),
-        MMDBindInfo(MMDBoneInfo.右足首, "foot_fk.R", "DEF-foot.R", GroupType.LEG_R, MMDBindType.COPY_POSE),
+        MMDBindInfo(MMDBoneInfo.右足首, "foot_fk.R", "mmd_append_foot_dummy.R", GroupType.LEG_R, MMDBindType.COPY_POSE),
         MMDBindInfo(MMDBoneInfo.右足ＩＫ, "foot_ik.R", "foot_ik.R", GroupType.LEG_R, MMDBindType.COPY_POSE),
         MMDBindInfo(MMDBoneInfo.右足先EX, "toe.R", "DEF-toe.R", GroupType.LEG_R, MMDBindType.COPY_TOE),
         MMDBindInfo(MMDBoneInfo.左つま先ＩＫ, "mmd_append_toe_ik.L", "mmd_append_toe_ik.L", GroupType.LEG_L, MMDBindType.COPY_PARENT),
@@ -419,6 +419,24 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
         return leg_ik_parent_l_bone, leg_ik_parent_r_bone
 
+    def _add_foot_dummy_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
+        """Add dummy foot bone for copying rotation, inspired by MMR."""
+        rig_foot_dummy_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_append_foot_dummy.L")
+        rig_foot_dummy_l_bone.head = rig_edit_bones["ORG-foot.L"].head
+        rig_foot_dummy_l_bone.tail = rig_edit_bones["ORG-foot.L"].tail
+        self.bone_collections["mmd_dummy"].assign(rig_foot_dummy_l_bone)
+        rig_foot_dummy_l_bone.parent = rig_edit_bones["ORG-foot.L"]
+        self.fit_edit_bone_rotation(rig_foot_dummy_l_bone, rig_edit_bones["ORG-foot.L"])
+
+        rig_foot_dummy_r_bone = self.get_or_create_bone(rig_edit_bones, "mmd_append_foot_dummy.R")
+        rig_foot_dummy_r_bone.head = rig_edit_bones["ORG-foot.R"].head
+        rig_foot_dummy_r_bone.tail = rig_edit_bones["ORG-foot.R"].tail
+        self.bone_collections["mmd_dummy"].assign(rig_foot_dummy_r_bone)
+        rig_foot_dummy_r_bone.parent = rig_edit_bones["ORG-foot.R"]
+        self.fit_edit_bone_rotation(rig_foot_dummy_r_bone, rig_edit_bones["ORG-foot.R"])
+
+        return rig_foot_dummy_l_bone, rig_foot_dummy_r_bone
+
     def _add_toe_ik_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones) -> Tuple[bpy.types.EditBone, bpy.types.EditBone]:
         # add toe IK (つま先ＩＫ)
         toe_ik_l_bone = self.get_or_create_bone(rig_edit_bones, "mmd_append_toe_ik.L")
@@ -588,6 +606,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
             collections.assign(bone)
 
     def imitate_mmd_bone_structure(self):
+        """Only for converting Rigify to MMD compatible"""
         # pylint: disable=too-many-statements
         rig_edit_bones = self.edit_bones
 
@@ -667,7 +686,7 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         self._adjust_torso_bone(rig_edit_bones)
 
         # adjust leg bones
-        # self._adjust_leg_bones(rig_edit_bones)
+        self._adjust_leg_bones(rig_edit_bones)
 
         # set face bones
         if not self.has_face_bones():
@@ -1537,7 +1556,8 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
             self.fit_edit_bone_rotation(mmd_edit_bones["腰"], torso_bone)
 
         # adjust leg bones
-        # self._adjust_leg_bones(rig_edit_bones)
+        self._adjust_foot_bones(mmd_armature_object, rig_edit_bones)
+        self._adjust_leg_bones(rig_edit_bones)
 
         self.imitate_mmd_face_bone_structure(mmd_armature_object)
 
@@ -1574,6 +1594,17 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
         rig_edit_bones["ORG-toe.R"].align_roll(mmd_edit_bones["左足先EX"].z_axis)
         rig_edit_bones["DEF-toe.R"].align_roll(mmd_edit_bones["右足先EX"].z_axis)
         rig_edit_bones["toe.R"].align_roll(mmd_edit_bones["右足先EX"].z_axis)
+
+    def _adjust_foot_bones(
+        self,
+        mmd_armature_object: MMDArmatureObject,
+        rig_edit_bones: bpy.types.ArmatureEditBones,
+    ):
+        mmd_edit_bones: bpy.types.ArmatureEditBones = mmd_armature_object.strict_edit_bones
+
+        rig_foot_dummy_l_bone, rig_foot_dummy_r_bone = self._add_foot_dummy_bones(rig_edit_bones)
+        self._fit_bone(rig_foot_dummy_l_bone, mmd_edit_bones, "左足首")
+        self._fit_bone(rig_foot_dummy_r_bone, mmd_edit_bones, "右足首")
 
     def _split_upper_and_lower_body(
         self,
@@ -1642,7 +1673,7 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
         self.fit_edit_bone_rotation(mmd_edit_bones["左目"], rig_eye_fk_l_bone)
         self.fit_edit_bone_rotation(mmd_edit_bones["右目"], rig_eye_fk_r_bone)
 
-    def bind_bones(self, mmd_armature_object: MMDArmatureObject):
+    def bind_bones(self, mmd_armature_object: MMDArmatureObject, bind_leg_d: bool = False):
         bind_mmd_rigify_data_path = f"pose.bones{self.datapaths[ControlType.BIND_MMD_MMD_APPEND].data_path}"
 
         binders = {
@@ -1662,6 +1693,9 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
         mmd_pose_bones: Dict[str, bpy.types.PoseBone] = mmd_armature_object.strict_pose_bones
         for mmd_bind_info in self.mmd_bind_infos:  # pylint: disable=maybe-no-member
             if mmd_bind_info.bind_type == MMDBindType.NONE:
+                continue
+
+            if not bind_leg_d and mmd_bind_info.bind_type == MMDBindType.COPY_LEG_D:
                 continue
 
             if mmd_bind_info.bind_bone_name not in rigify_pose_bones:
@@ -1785,6 +1819,8 @@ class MMDRigifyArmatureObject(RigifyArmatureObject):
         self._adjust_palm_bone(mmd_armature_object, rig_edit_bones)
 
         self._adjust_toe_bones(mmd_armature_object, rig_edit_bones)
+
+        self._adjust_foot_bones(mmd_armature_object, rig_edit_bones)
 
         self._split_upper_and_lower_body(rig_edit_bones, mmd_edit_bones)
 
