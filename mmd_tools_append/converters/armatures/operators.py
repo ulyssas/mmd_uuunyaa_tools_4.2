@@ -312,6 +312,9 @@ class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
         rigify_armature_object = MMDRigifyArmatureObject(rigify_armature_raw_object)
         mmd_armature_object = MMDArmatureObject(mmd_armature_raw_object)
 
+        # for foot dummy bone
+        rigify_armature_object.bone_collections.new("mmd_dummy")
+
         bpy.ops.object.mode_set(mode="EDIT")
         rigify_armature_object.remove_unused_face_bones()
         rigify_armature_object.fit_bone_rotations(mmd_armature_object)

@@ -730,6 +730,14 @@ msgstr "ボーンを通常のMMDモデルにおける腕と指の向きに合わ
 msgid "Combine Rigify rig and MMD armature."
 msgstr "RigifyリグとMMDアーマチュアを統合します"
 
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.bind_leg_d
+msgid "Bind Leg D bones"
+msgstr "足Dボーンをバインド"
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.bind_leg_d
+msgid "Bind leg bones to leg D bones (e.g. 足首D)"
+msgstr "足ボーンを足Dボーン (足首Dなど) にバインドします"
+
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.is_join_armatures
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.is_join_armatures
 msgid "Join Armatures"
@@ -738,27 +746,15 @@ msgstr "アーマチュアを結合"
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.is_join_armatures
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.is_join_armatures
 msgid "Join MMD and Rigify armatures"
-msgstr "RigifyとMMDアーマチュアを結合"
-
-#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_dummy_bone_layer
-msgid "MMD dummy bone layer"
-msgstr "MMDダミーボーンレイヤー"
-
-#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_main_bone_layer
-msgid "MMD main bone layer"
-msgstr "MMDメインボーンレイヤー"
-
-#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_others_bone_layer
-msgid "MMD others bone layer"
-msgstr "MMDその他ボーンレイヤー"
-
-#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_shadow_bone_layer
-msgid "MMD shadow bone layer"
-msgstr "MMDシャドウボーンレイヤー"
+msgstr "RigifyとMMDアーマチュアを結合します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.rename_mmd_bones
 msgid "Rename MMD bones"
 msgstr "MMDボーンをリネーム"
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.rename_mmd_bones
+msgid "Add MMD bone names to Rigify armatures"
+msgstr "MMDボーン名をRigifyアーマチュアに追加します"
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_remove_unused_shape_keys
 msgid "Remove unused shape keys from the active meshes"
@@ -1640,7 +1636,7 @@ msgstr "リグの除去に失敗しました: "
 msgid "Translated  bones."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:470
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466
 msgid "Failed to translate bones: "
 msgstr "ボーンの翻訳に失敗しました: "
 
@@ -1653,19 +1649,19 @@ msgstr "反復"
 msgid "Reset Humanoid data."
 msgstr "ヒューマノイドをリセットしました"
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:830
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:826
 msgid "Renamed  bones with  duplicates. (click to see details)"
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:832
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:828
 msgid "Renamed  bones."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:834
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:830
 msgid "This armature does not have required MMD bones. "
 msgstr "アーマチュアにMMD必須ボーンがありません. "
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:804
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:800
 msgid "Bone  was selected  times."
 msgstr ""
 

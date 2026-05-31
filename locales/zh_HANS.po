@@ -728,6 +728,14 @@ msgstr ""
 msgid "Combine Rigify rig and MMD armature."
 msgstr ""
 
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.bind_leg_d
+msgid "Bind Leg D bones"
+msgstr ""
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.bind_leg_d
+msgid "Bind leg bones to leg D bones (e.g. 足首D)"
+msgstr ""
+
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_mmd_focused_integrate.is_join_armatures
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.is_join_armatures
 msgid "Join Armatures"
@@ -738,25 +746,13 @@ msgstr "合并骨架"
 msgid "Join MMD and Rigify armatures"
 msgstr "合并Rigify和MMD骨架"
 
-#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_dummy_bone_layer
-msgid "MMD dummy bone layer"
-msgstr "MMD伪骨骼层"
-
-#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_main_bone_layer
-msgid "MMD main bone layer"
-msgstr "MMD主骨骼层"
-
-#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_others_bone_layer
-msgid "MMD others bone layer"
-msgstr "MMD其他骨骼层"
-
-#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.mmd_shadow_bone_layer
-msgid "MMD shadow bone layer"
-msgstr "MMD阴影骨骼层"
-
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.rename_mmd_bones
 msgid "Rename MMD bones"
 msgstr "重命名MMD骨骼"
+
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_mmd_rigify_rigify_focused_integrate.rename_mmd_bones
+msgid "Add MMD bone names to Rigify armatures"
+msgstr ""
 
 #. :src: bpy.types.MMD_TOOLS_APPEND_OT_remove_unused_shape_keys
 msgid "Remove unused shape keys from the active meshes"
@@ -1632,7 +1628,7 @@ msgstr ""
 msgid "Translated  bones."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:470
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466
 msgid "Failed to translate bones: "
 msgstr ""
 
@@ -1645,19 +1641,19 @@ msgstr "迭代"
 msgid "Reset Humanoid data."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:830
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:826
 msgid "Renamed  bones with  duplicates. (click to see details)"
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:832
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:828
 msgid "Renamed  bones."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:834
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:830
 msgid "This armature does not have required MMD bones. "
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:804
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:800
 msgid "Bone  was selected  times."
 msgstr ""
 
