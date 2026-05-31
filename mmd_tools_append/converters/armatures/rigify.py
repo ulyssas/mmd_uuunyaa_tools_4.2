@@ -580,8 +580,6 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         return shoulder_cancel_shadow_l_bone, shoulder_cancel_shadow_r_bone
 
     def _adjust_leg_bones(self, rig_edit_bones: bpy.types.ArmatureEditBones):
-        # rig_edit_bones["thigh_fk.L"].layers = list(map(any, zip(rig_edit_bones["thigh_ik.L"].layers, rig_edit_bones["thigh_fk.L"].layers)))
-        # rig_edit_bones["thigh_fk.R"].layers = list(map(any, zip(rig_edit_bones["thigh_ik.R"].layers, rig_edit_bones["thigh_fk.R"].layers)))
         bone = rig_edit_bones["thigh_fk.L"]
         for collections in rig_edit_bones["thigh_ik.L"].collections:
             collections.assign(bone)
@@ -627,7 +625,6 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
 
         # add spine fk bones
         spine_fk_bone = self.get_or_create_bone(rig_edit_bones, "spine_fk")
-        # spine_fk_bone.layers = [i in {4} for i in range(32)]
         self.bone_collections["Torso (Tweak)"].assign(spine_fk_bone)
         spine_fk_bone.head = rig_edit_bones["ORG-spine"].tail
         spine_fk_bone.tail = rig_edit_bones["ORG-spine"].tail + rig_edit_bones["ORG-spine"].vector
@@ -635,7 +632,6 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         self.insert_edit_bone(spine_fk_bone, parent_bone=rig_edit_bones["MCH-spine"])
 
         spine_fk_001_bone = self.get_or_create_bone(rig_edit_bones, "spine_fk.001")
-        # spine_fk_001_bone.layers = [i in {4} for i in range(32)]
         self.bone_collections["Torso (Tweak)"].assign(spine_fk_001_bone)
         spine_fk_001_bone.head = rig_edit_bones["ORG-spine.001"].tail
         spine_fk_001_bone.tail = rig_edit_bones["ORG-spine.001"].tail + rig_edit_bones["ORG-spine.001"].vector
@@ -643,7 +639,6 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         self.insert_edit_bone(spine_fk_001_bone, parent_bone=rig_edit_bones["MCH-spine.001"])
 
         spine_fk_002_bone = self.get_or_create_bone(rig_edit_bones, "spine_fk.002")
-        # spine_fk_002_bone.layers = [i in {4} for i in range(32)]
         self.bone_collections["Torso (Tweak)"].assign(spine_fk_002_bone)
         spine_fk_002_bone.head = rig_edit_bones["ORG-spine.002"].head
         spine_fk_002_bone.tail = rig_edit_bones["ORG-spine.002"].tail
@@ -651,7 +646,6 @@ class RigifyArmatureObject(MMDBindArmatureObjectABC):
         self.insert_edit_bone(spine_fk_002_bone, parent_bone=rig_edit_bones["MCH-spine.002"])
 
         spine_fk_003_bone = self.get_or_create_bone(rig_edit_bones, "spine_fk.003")
-        # spine_fk_003_bone.layers = [i in {4} for i in range(32)]
         self.bone_collections["Torso (Tweak)"].assign(spine_fk_003_bone)
         spine_fk_003_bone.head = rig_edit_bones["ORG-spine.003"].head
         spine_fk_003_bone.tail = rig_edit_bones["ORG-spine.003"].tail
