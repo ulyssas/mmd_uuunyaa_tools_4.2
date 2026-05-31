@@ -227,11 +227,15 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
         description="Join MMD and Rigify armatures",
         default=True,
     )
+    bind_leg_d: bpy.props.BoolProperty(
+        name="Bind Leg D bones",
+        description="Bind leg bones to leg D bones (e.g. 足首D)",
+        default=False,
+    )
 
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):
         rig_armature: bpy.types.Armature = rigify_armature_object.raw_armature
-        # rig_armature.layers = [i in {0, 3, 4, 5, 8, 11, 13, 16, 28} for i in range(32)]
         for bone_col in rig_armature.collections:
             if bone_col.name not in {"mmd_shadow", "mmd_dummy"}:
                 bone_col.is_visible = True
@@ -242,7 +246,6 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
         rigify_armature_object = MMDRigifyArmatureObject(rigify_armature_raw_object)
         mmd_armature_object = MMDArmatureObject(mmd_armature_raw_object)
 
-        # self.change_mmd_bone_layer(mmd_armature_object)
         rigify_armature_object.bone_collections.new("mmd_dummy")
         rigify_armature_object.bone_collections.new("mmd_shadow")
 
@@ -253,10 +256,10 @@ class MMDRigifyIntegrateFocusOnMMD(MMDRigifyOperatorABC, bpy.types.Operator):
 
         bpy.ops.object.mode_set(mode="POSE")
         rigify_armature_object.imitate_mmd_pose_behavior_focus_on_mmd()
-        rigify_armature_object.bind_bones(mmd_armature_object)
+        rigify_armature_object.bind_bones(mmd_armature_object, self.bind_leg_d)
 
         bpy.ops.object.mode_set(mode="OBJECT")
-        # self.set_view_layers(rigify_armature_object)
+        self.set_view_layers(rigify_armature_object)
 
         if self.is_join_armatures:
             self.adjust_bone_collections(rigify_armature_object, mmd_armature_object)
@@ -279,16 +282,15 @@ class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
         description="Join MMD and Rigify armatures",
         default=True,
     )
-    mmd_main_bone_layer: bpy.props.IntProperty(name="MMD main bone layer", default=24, min=0, max=31)
-    mmd_others_bone_layer: bpy.props.IntProperty(name="MMD others bone layer", default=25, min=0, max=31)
-    mmd_shadow_bone_layer: bpy.props.IntProperty(name="MMD shadow bone layer", default=26, min=0, max=31)
-    mmd_dummy_bone_layer: bpy.props.IntProperty(name="MMD dummy bone layer", default=27, min=0, max=31)
-    rename_mmd_bones: bpy.props.BoolProperty(name="Rename MMD bones", default=False)
+    rename_mmd_bones: bpy.props.BoolProperty(
+        name="Rename MMD bones",
+        description="Add MMD bone names to Rigify armatures",
+        default=False,
+    )
 
     @staticmethod
     def set_view_layers(rigify_armature_object: bpy.types.Object):
         rig_armature: bpy.types.Armature = rigify_armature_object.raw_armature
-        # rig_armature.layers = [i in {0, 3, 5, 7, 10, 13, 16, 28} for i in range(32)]
         for collection in rig_armature.collections:
             if collection.name in {
                 "Face",
@@ -310,7 +312,8 @@ class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
         rigify_armature_object = MMDRigifyArmatureObject(rigify_armature_raw_object)
         mmd_armature_object = MMDArmatureObject(mmd_armature_raw_object)
 
-        # self.change_mmd_bone_layer(mmd_armature_object)
+        # for foot dummy bone
+        rigify_armature_object.bone_collections.new("mmd_dummy")
 
         bpy.ops.object.mode_set(mode="EDIT")
         rigify_armature_object.remove_unused_face_bones()
@@ -329,10 +332,6 @@ class MMDRigifyIntegrateFocusOnRigify(MMDRigifyOperatorABC, bpy.types.Operator):
             self.join_armatures(
                 rigify_armature_object,
                 mmd_armature_object,
-                #    self.mmd_main_bone_layer,
-                #    self.mmd_others_bone_layer,
-                #    self.mmd_shadow_bone_layer,
-                #    self.mmd_dummy_bone_layer,
             )
             rigify_armature_object = MMDRigifyArmatureObject(mmd_armature_raw_object)
 
@@ -652,6 +651,42 @@ class HumanoidResetOperator(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class HumanoidAutoOrientationOperator(bpy.types.Operator):
+    bl_idname = "mmd_tools_append.humanoid_auto_orientation"
+    bl_label = "Automatic Orientation"
+    bl_description = "Automatically set bone orientation based on child bone"
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context: bpy.types.Context):
+        if context.mode not in {"OBJECT", "POSE"}:
+            return False
+
+        active_object = context.active_object
+        if active_object is None:
+            return False
+
+        return active_object.type == "ARMATURE"
+
+    def execute(self, context: bpy.types.Context):
+        previous_mode = context.mode
+
+        try:
+            editor = HumanoidEditor(context.active_object)
+
+            bpy.ops.object.mode_set(mode="EDIT")
+            editor.auto_orientation()
+
+        except MessageException as ex:
+            self.report(type={"ERROR"}, message=str(ex))
+            return {"CANCELLED"}
+
+        finally:
+            bpy.ops.object.mode_set(mode=previous_mode)
+
+        return {"FINISHED"}
+
+
 class HumanoidDetectOperator(bpy.types.Operator):
     bl_idname = "mmd_tools_append.humanoid_detect"
     bl_label = "Automatic Humanoid Detection"
@@ -665,6 +700,14 @@ class HumanoidDetectOperator(bpy.types.Operator):
         min=0.0001,
         max=1.0,
         default=0.0001,
+    )
+
+    finger_count: bpy.props.IntProperty(
+        name="Finger Count",
+        description="The number of fingers",
+        min=1,
+        soft_max=6,
+        default=5,
     )
 
     @classmethod
@@ -685,7 +728,7 @@ class HumanoidDetectOperator(bpy.types.Operator):
             editor = HumanoidEditor(context.active_object)
 
             bpy.ops.object.mode_set(mode="EDIT")
-            editor.detect(fine_precision=self.threshold)
+            editor.detect(finger_count=self.finger_count, fine_precision=self.threshold)
             for frame, item in editor.tree.iter_items():
                 item.auto(editor, frame.display_type)
 
@@ -754,6 +797,10 @@ class HumanoidRenameOperator(bpy.types.Operator):
 
         try:
             editor = HumanoidEditor(context.active_object)
+            dups = editor.tree.get_duplicates()
+            if dups:
+                for k, v in dups.items():
+                    self.report({"WARNING"}, message=f"Bone {k} was selected {v} times.")
 
             bpy.ops.object.mode_set(mode="EDIT")
             rename_count = editor.rename()
@@ -778,7 +825,10 @@ class HumanoidRenameOperator(bpy.types.Operator):
                 bpy.ops.mmd_tools.display_item_quick_setup(type="GROUP_LOAD")
                 bpy.ops.mmd_tools.fix_bone_order()
 
-            self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
+            if dups:
+                self.report({"WARNING"}, message=f"Renamed {rename_count} bones with {len(dups)} duplicates. (click to see details)")
+            else:
+                self.report({"INFO"}, message=f"Renamed {rename_count} bones.")
         except KeyError as e:
             self.report(type={"ERROR"}, message=f"This armature does not have required MMD bones. {e}")
             return {"CANCELLED"}

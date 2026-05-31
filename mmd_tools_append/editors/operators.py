@@ -424,7 +424,8 @@ class SelectMovedPoseBones(bpy.types.Operator):
                 if is_not_rotated and is_not_translated and is_not_scaled:
                     continue
 
-                pose_bone.bone.select = True
+                # this works on 4.x because of MMD Tools
+                pose_bone.select = True
 
         return {"FINISHED"}
 

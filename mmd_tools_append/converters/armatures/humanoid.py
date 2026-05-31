@@ -3,6 +3,7 @@
 
 import math
 import re
+from collections import Counter
 from collections.abc import Iterator
 
 import bpy
@@ -255,6 +256,16 @@ class HumanoidTree(bpy.types.PropertyGroup):
             for item in frame.items:
                 yield frame, item
 
+    def iter_slots(self) -> Iterator[HumanoidBoneSlot]:
+        for _, item in self.iter_items():
+            for slot in item.slots:
+                yield slot
+
+    def get_duplicates(self) -> dict[str, int]:
+        """Find bones that have been selected more than once."""
+        c = Counter(s.bone_name for s in self.iter_slots() if s.bone_name)
+        return {k: v for k, v in c.items() if v > 1}
+
     @staticmethod
     def register():
         bpy.types.Object.mmd_tools_append_humanoid_settings = bpy.props.PointerProperty(type=HumanoidTree)
@@ -285,6 +296,33 @@ class HumanoidEditor(ArmatureEditor):
                 if any(m.type == "ARMATURE" and m.object == self.raw_object for m in o.modifiers):
                     related_meshes.append(o)
         return related_meshes
+
+    def _get_deform_bones(self) -> list[str]:
+        """Get vertex group names that have non-zero weights."""
+        meshes = self._get_related_mesh()
+        vg_names = set()
+
+        for m in meshes:
+            if not m.data or not m.vertex_groups:
+                continue
+
+            vg_map = {vg.index: vg.name for vg in m.vertex_groups}
+            vg_sets = set()
+
+            for v in m.data.vertices:
+                for g in v.groups:
+                    if g.weight > 0.0:
+                        vg_sets.add(g.group)
+
+                if len(vg_sets) == len(vg_map):
+                    break
+
+            for idx in vg_sets:
+                name = vg_map.get(idx)
+                if name and name in self.bones and self.bones[name].use_deform:
+                    vg_names.add(name)
+
+        return list(vg_names)
 
     @property
     def is_mmd_armature_object(self) -> bool:
@@ -411,6 +449,40 @@ class HumanoidEditor(ArmatureEditor):
         if use_local:
             apply_local()
 
+    def auto_orientation(self):
+        """Automatic Orientation, similar to legacy FBX importer"""
+
+        def sign(num) -> int:
+            return (num > 0) - (num < 0)
+
+        def find_major_axis(bone: bpy.types.EditBone) -> tuple[int, int]:
+            child_dir = (bone.children[0].head - bone.head).normalized()
+            prev_axes = bone.matrix.to_3x3().col
+            scores = [(abs(child_dir.dot(axis)), idx, sign(child_dir.dot(axis))) for idx, axis in enumerate(prev_axes)]
+            _, axis_idx, axis_sign = max(scores)
+            return axis_idx, axis_sign
+
+        axis_votes = [find_major_axis(bone) for bone in self.edit_bones if bone.children and len(bone.children) == 1]
+        if not axis_votes:
+            return
+
+        (g_axis_idx, g_axis_sign), _ = Counter(axis_votes).most_common(1)[0]
+        for bone in self.edit_bones:
+            col = bone.matrix.to_3x3().col
+            new_dir = col[g_axis_idx] * g_axis_sign
+
+            prev_roll = bone.z_axis.copy()
+            if abs(new_dir.dot(prev_roll.normalized())) > 0.99:
+                prev_roll = bone.x_axis.copy()
+
+            bone.tail = bone.head + new_dir * bone.length
+            bone.align_roll(prev_roll)
+
+            if bone.children and len(bone.children) == 1:
+                child = bone.children[0]
+                if abs(bone.length - (child.head - bone.head).length) < 0.0001:
+                    bone.tail = child.head
+
     def dissolve_bone(self, target: bpy.types.EditBone):
         """Merge the bone (target) to its parent and combine related vertex groups."""
 
@@ -529,9 +601,19 @@ class HumanoidEditor(ArmatureEditor):
             self.dissolve_bone(self.edit_bones[ANKLE_R].parent)
 
         # move knees forward a little to prevent glitches
-        if math.isclose(self.edit_bones["足.L"].vector.angle(self.edit_bones["ひざ.L"].vector), 0):
-            self.edit_bones["足.L"].tail.y = -0.005
-            self.edit_bones["足.R"].tail.y = -0.005
+        if math.isclose(self.edit_bones[LEG_L].vector.angle(self.edit_bones[KNEE_L].vector), 0):
+            self.edit_bones[LEG_L].tail.y = -0.005
+            self.edit_bones[LEG_R].tail.y = -0.005
+
+        # reset bone rolls
+        self.edit_bones[LEG_L].roll = 0
+        self.edit_bones[LEG_R].roll = 0
+        self.edit_bones[KNEE_L].roll = 0
+        self.edit_bones[KNEE_R].roll = 0
+        self.edit_bones[ANKLE_L].roll = 0
+        self.edit_bones[ANKLE_R].roll = 0
+        self.edit_bones[TOE_L].roll = 0
+        self.edit_bones[TOE_R].roll = 0
 
         # Add IK bones
         bone = create_ik_bone(LEG_IK_L, ANKLE_L, ROOT)
@@ -563,10 +645,10 @@ class HumanoidEditor(ArmatureEditor):
         self.add_ik_constraint(self.pose_bones[ANKLE_L], self.raw_object, TOE_IK_L, 1, 15)
         self.add_ik_constraint(self.pose_bones[ANKLE_R], self.raw_object, TOE_IK_R, 1, 15)
 
-        self.pose_bones[KNEE_L].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi
-        self.pose_bones[KNEE_R].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi
-        self.pose_bones[ANKLE_L].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi
-        self.pose_bones[ANKLE_R].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi
+        self.pose_bones[KNEE_L].mmd_bone.ik_rotation_constraint = 2  # 180*2/math.pi, 114.5916
+        self.pose_bones[KNEE_R].mmd_bone.ik_rotation_constraint = 2
+        self.pose_bones[ANKLE_L].mmd_bone.ik_rotation_constraint = 4  # 180*4/math.pi, 229.1831
+        self.pose_bones[ANKLE_R].mmd_bone.ik_rotation_constraint = 4
 
         add_limit_rot(self.pose_bones[KNEE_L])
         add_limit_rot(self.pose_bones[KNEE_R])
@@ -753,6 +835,14 @@ class HumanoidEditor(ArmatureEditor):
             else:
                 return pbone.bone.hide
 
+        def is_deform(bone: bpy.types.Bone | bpy.types.EditBone) -> bool:
+            """Check if the bone actually deforms the mesh (weight check)."""
+            if deform_list:
+                return bone.name in deform_list
+            else:
+                # armature with no mesh
+                return bone.use_deform
+
         def assign_bone(key: str, bone_name: str, index: int = None):
             if index is None:
                 index = 0 if is_left(bone_name) else 1
@@ -775,7 +865,7 @@ class HumanoidEditor(ArmatureEditor):
             for h in hands:
                 prefix = "Left Hand" if is_left(h) else "Right Hand"
                 dummies = {bone for bone in self.edit_bones[h].children if not bone.children}
-                fingers = [bone for bone in self.edit_bones[h].children_recursive if bone.use_deform and bone not in dummies]
+                fingers = [bone for bone in self.edit_bones[h].children_recursive if is_deform(bone) and bone not in dummies]
                 finger_tips = sorted([f for f in fingers if f.name in children_map and not children_map.get(f.name)], key=lambda a: a.head.y)
                 if len(finger_tips) != finger_count:
                     print(f"The finger count does not match ({len(finger_tips)}).")
@@ -796,8 +886,9 @@ class HumanoidEditor(ArmatureEditor):
                     lower_arm_name = min(arms[1:], key=lambda n: (self.edit_bones[n].head - mid_point).length)
 
                     assign_bone("Arm.Shoulder", shoulder_name)
-                    assign_bone("Arm.UpperArm", children_map[shoulder_name][0])
                     assign_bone("Arm.LowerArm", lower_arm_name)
+                    if children_map.get(shoulder_name):
+                        assign_bone("Arm.UpperArm", children_map[shoulder_name][0])
 
         def _find_spine(hands: list[str], rough_precision: float) -> str:
             """find head & spine using existing arm."""
@@ -881,8 +972,9 @@ class HumanoidEditor(ArmatureEditor):
                     assign_bone("Leg.Foot", self.edit_bones[t].parent.name)
 
         # Gather bone and slot data
+        deform_list = self._get_deform_bones()
         item_map = {f"{frame.name}.{item.name}": item for frame, item in self.tree.iter_items()}
-        children_map = {b.name: [c.name for c in b.children if not is_hidden(c.name)] for b in self.bones if b.use_deform and not is_hidden(b.name)}
+        children_map = {b.name: [c.name for c in b.children if is_deform(c) and not is_hidden(c.name)] for b in self.bones if b.use_deform and not is_hidden(b.name)}
         bone_map: dict[str, dict[str, Vector]] = {
             b.name: {
                 "head": b.head,
@@ -902,11 +994,10 @@ class HumanoidEditor(ArmatureEditor):
         _find_arms(hands)
 
         head = _find_spine(hands, rough_precision)
-        if not head:
+        if head:
+            _find_eyes(head)
+        else:
             print("Couldn't find head.")
-            return
-
-        _find_eyes(head)
 
         toes = _find_toes(fine_precision, rough_precision)
         if not toes:
