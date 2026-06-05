@@ -75,7 +75,11 @@ class CopyTuneMaterialSettings(bpy.types.Operator):
 
     def execute(self, context):
         active = context.object.active_material
-        for obj in context.selected_objects:
+        targets = set(context.selected_objects)
+        if context.active_object:
+            targets.add(context.active_object)
+
+        for obj in targets:
             if obj == context.active_object and not self.to_active:
                 continue
 
