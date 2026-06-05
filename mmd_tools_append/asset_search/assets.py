@@ -5,6 +5,7 @@ import ast
 import glob
 import json
 import os
+import re
 import traceback
 from datetime import datetime, timezone
 from enum import Enum
@@ -64,12 +65,22 @@ class AssetDescription:
         self.updated_at = updated_at
         self.thumbnail_url = thumbnail_url
         self.source_url = source_url
-        self.download_action = download_action
+        self.download_action = self.normalize_mediafire_action(download_action)
         self.import_action = import_action
         self.aliases = aliases
         self.note = note
         self.tag_names = set(tags.values())
         self.keywords = "^".join(["", name, note, *self.tag_names, *aliases.values()]).lower()
+
+    @staticmethod
+    def normalize_mediafire_action(download_action: str) -> str:
+        """Mediafire ephemeral dl links (downloadXXXX.mediafire) to normal links."""
+        if "mediafire" not in download_action.lower():
+            return download_action
+
+        pattern = r"https?://download\d*\.mediafire\.com/[^/]+/([^/]+)/([^'\"]+)"
+        replacement = r"https://www.mediafire.com/file/\1/\2"
+        return re.sub(pattern, replacement, download_action)
 
     def tags_text(self) -> str:
         return ", ".join(self.tag_names)
