@@ -2,6 +2,7 @@
 # This file is part of MMD Tools Append.
 
 import bpy
+from bpy.types import GeometryNodeTree
 
 from ..tuners import geometry_nodes_tuners, lighting_tuners, material_tuners
 
@@ -50,31 +51,22 @@ class MaterialPropertyGroup(bpy.types.PropertyGroup):
         del bpy.types.Material.mmd_tools_append_material
 
 
-try:
-    from bpy.types import GeometryNodeTree
+class GeometryNodesPropertyGroup(bpy.types.PropertyGroup):
+    @staticmethod
+    def update_geometry_nodes_thumbnails(prop: "GeometryNodesPropertyGroup", _):
+        bpy.ops.mmd_tools_append.tune_geometry_nodes(geometry_nodes=prop.thumbnails)  # pylint: disable=no-member
 
-    hasattr(geometry_nodes_tuners.TUNERS, "to_enum_property_items")
+    thumbnails: bpy.props.EnumProperty(
+        items=geometry_nodes_tuners.TUNERS.to_enum_property_items(),
+        description="Choose the geometry nodes you want to use",
+        update=update_geometry_nodes_thumbnails.__func__,
+    )
 
-    class GeometryNodesPropertyGroup(bpy.types.PropertyGroup):
-        @staticmethod
-        def update_geometry_nodes_thumbnails(prop: "GeometryNodesPropertyGroup", _):
-            bpy.ops.mmd_tools_append.tune_geometry_nodes(geometry_nodes=prop.thumbnails)  # pylint: disable=no-member
+    @staticmethod
+    def register():
+        # pylint: disable=assignment-from-no-return
+        GeometryNodeTree.mmd_tools_append_geometry_nodes = bpy.props.PointerProperty(type=GeometryNodesPropertyGroup)
 
-        thumbnails: bpy.props.EnumProperty(
-            items=geometry_nodes_tuners.TUNERS.to_enum_property_items(),
-            description="Choose the geometry nodes you want to use",
-            update=update_geometry_nodes_thumbnails.__func__,
-        )
-
-        @staticmethod
-        def register():
-            # pylint: disable=assignment-from-no-return
-            GeometryNodeTree.mmd_tools_append_geometry_nodes = bpy.props.PointerProperty(type=GeometryNodesPropertyGroup)
-
-        @staticmethod
-        def unregister():
-            del GeometryNodeTree.mmd_tools_append_geometry_nodes
-except ImportError:
-    print("[WARN] Geometry Nodes do not exist. Ignore it.")
-except AttributeError:
-    print("[WARN] Geometry Nodes are not initialized. Ignore it.")
+    @staticmethod
+    def unregister():
+        del GeometryNodeTree.mmd_tools_append_geometry_nodes
