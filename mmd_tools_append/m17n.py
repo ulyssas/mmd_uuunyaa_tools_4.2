@@ -1362,6 +1362,12 @@ translations_tuple = (
         ("zh_HANS", "卡通着色器", (False, ())),
     ),
     (
+        ("*", "Figure"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FIGURE'", "bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FIGURE'"), ()),
+        ("ja_JP", "フィギュア", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
         ("*", "Model (.pmx)"),
         (("bpy.types.AssetSearchQuery.type:'MODEL_MMD'", "extensions/user_default/mmd_tools_append/asset_search/assets.py:33"), ()),
         ("ja_JP", "モデル (.pmx)", (False, ())),

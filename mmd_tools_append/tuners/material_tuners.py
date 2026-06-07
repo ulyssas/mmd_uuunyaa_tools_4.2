@@ -1197,6 +1197,43 @@ class ToonShaderMaterialTuner(MaterialTunerABC):
         )
 
 
+class FigureMaterialTuner(MaterialTunerABC):
+    @classmethod
+    def get_id(cls) -> str:
+        return "MATERIAL_FIGURE"
+
+    @classmethod
+    def get_name(cls) -> str:
+        return "Figure"
+
+    def execute(self):
+        self.reset()
+        node_frame = self.get_node_frame(self.get_name())
+        node_diffuse_color = self.edit(self.get_diffuse_color_node(), properties={})
+
+        self.edit(
+            self.get_output_node(),
+            {
+                "Surface": self.edit(
+                    self.get_shader_node(),
+                    {
+                        "Base Color": node_diffuse_color.outputs["Color"] if node_diffuse_color else self.hex_to_rgba(0xE7E7E7),
+                        "Roughness": 0.500,
+                        "IOR": 1.540,
+                        "Alpha": node_diffuse_color.outputs["Alpha"] if node_diffuse_color else 1.000,
+                        "Subsurface Weight": 0.500,
+                        "Specular IOR Level": 0.500,
+                        "Sheen Weight": 0.250,
+                        "Sheen Roughness": 0.300,
+                    },
+                    {"location": self.grid_to_position(+0, +0), "parent": node_frame},
+                ).outputs["BSDF"],
+            },
+            {"location": self.grid_to_position(+3, +0)},
+            force=True,
+        )
+
+
 TUNERS = TunerRegistry(
     (0, ResetMaterialTuner),
     (1, TransparentMaterialTuner),
@@ -1217,11 +1254,12 @@ TUNERS = TunerRegistry(
     (13, PlasticMatteMaterialTuner),
     (14, PlasticEmissionMaterialTuner),
     (23, PlasticBumpMaterialTuner),
+    (26, FigureMaterialTuner),
     (18, MetalNobleMaterialTuner),
     (19, MetalBaseMaterialTuner),
-    (20, StoneGemMaterialTuner),
     (15, LiquidWaterMaterialTuner),
     (16, LiquidCloudyMaterialTuner),
+    (20, StoneGemMaterialTuner),
     (24, ArtisticWatercolorMaterialTuner),
     (25, ToonShaderMaterialTuner),
 )
