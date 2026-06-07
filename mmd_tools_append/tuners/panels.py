@@ -175,11 +175,19 @@ class MaterialAdjusterPanel(bpy.types.Panel):
         return context.object.active_material
 
     def draw(self, context):
-        material = context.active_object.active_material
+        active_object = context.active_object
+        material = active_object.active_material
 
         layout = self.layout
-        col = layout.column(align=True)
 
+        global_toon_sphere = active_object.mmd_tools_append_global_toon_sphere
+        box = layout.box()
+        col = box.column(align=True)
+        col.label(text="Global Toon/Sphere Adjuster")
+        col.prop(global_toon_sphere, "toon_fac")
+        col.prop(global_toon_sphere, "sphere_fac")
+
+        col = layout.column(align=True)
         utilities = MaterialAdjusterUtilities(material)
         if not utilities.check_attachable():
             col.label(

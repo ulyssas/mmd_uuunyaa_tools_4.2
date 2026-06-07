@@ -4,6 +4,7 @@
 import bpy
 from bpy.types import GeometryNodeTree
 
+from ..editors.nodes import MaterialEditor
 from ..tuners import geometry_nodes_tuners, lighting_tuners, material_tuners
 
 
@@ -49,6 +50,54 @@ class MaterialPropertyGroup(bpy.types.PropertyGroup):
     @staticmethod
     def unregister():
         del bpy.types.Material.mmd_tools_append_material
+
+
+class GlobalToonSpherePropertyGroup(bpy.types.PropertyGroup):
+    def _update_all_materials(self, attr_name, value):
+        obj: bpy.types.Object = self.id_data
+        for slot in obj.material_slots:
+            mat = slot.material
+            if mat and mat.use_nodes:
+                mat_editor = MaterialEditor(mat)
+                method = getattr(mat_editor, attr_name, None)
+                if method:
+                    method(value)
+
+    @staticmethod
+    def adjust_toon(prop: "GlobalToonSpherePropertyGroup", _):
+        prop._update_all_materials("set_mmd_toon_fac", prop.toon_fac)
+
+    @staticmethod
+    def adjust_sphere(prop: "GlobalToonSpherePropertyGroup", _):
+        prop._update_all_materials("set_mmd_sphere_fac", prop.sphere_fac)
+
+    toon_fac: bpy.props.FloatProperty(
+        name="Toon Factor",
+        description="Adjust the model's MMD toon texture factors globally",
+        subtype="FACTOR",
+        min=0.0,
+        max=1.0,
+        default=1,
+        update=adjust_toon.__func__,
+    )
+    sphere_fac: bpy.props.FloatProperty(
+        name="Sphere Factor",
+        description="Adjust the model's MMD sphere texture factors globally",
+        subtype="FACTOR",
+        min=0.0,
+        max=1.0,
+        default=1,
+        update=adjust_sphere.__func__,
+    )
+
+    @staticmethod
+    def register():
+        # pylint: disable=assignment-from-no-return
+        bpy.types.Object.mmd_tools_append_global_toon_sphere = bpy.props.PointerProperty(type=GlobalToonSpherePropertyGroup)
+
+    @staticmethod
+    def unregister():
+        del bpy.types.Object.mmd_tools_append_global_toon_sphere
 
 
 class GeometryNodesPropertyGroup(bpy.types.PropertyGroup):
