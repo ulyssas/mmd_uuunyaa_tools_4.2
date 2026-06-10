@@ -62,35 +62,40 @@ class MMDArmatureAddMetarig(bpy.types.Operator):
             self.report(type={"ERROR"}, message=str(ex))
             return {"CANCELLED"}
 
-        mmd_armature_object = MMDArmatureObject(mmd_object)
-        metarig_object.fit_scale(mmd_armature_object)
-
-        mmd_object.select = True
-        metarig_object.select = True
-
-        if self.is_clean_koikatsu_armature:
-            mmd_armature_object.clean_koikatsu_armature_prepare()
+        try:
             mmd_armature_object = MMDArmatureObject(mmd_object)
+            metarig_object.fit_scale(mmd_armature_object)
 
-        bpy.ops.object.mode_set(mode="EDIT")
+            mmd_object.select = True
+            metarig_object.select = True
 
-        if self.is_clean_koikatsu_armature:
-            mmd_armature_object.clean_koikatsu_armature()
+            if self.is_clean_koikatsu_armature:
+                mmd_armature_object.clean_koikatsu_armature_prepare()
+                mmd_armature_object = MMDArmatureObject(mmd_object)
 
-        if self.is_clean_armature:
-            mmd_armature_object.clean_armature()
+            bpy.ops.object.mode_set(mode="EDIT")
 
-        if not mmd_armature_object.has_face_bones():
-            metarig_object.remove_face_bones()
+            if self.is_clean_koikatsu_armature:
+                mmd_armature_object.clean_koikatsu_armature()
 
-        metarig_object.fit_bones(mmd_armature_object, self.use_mmd_orientation)
+            if self.is_clean_armature:
+                mmd_armature_object.clean_armature()
 
-        bpy.ops.object.mode_set(mode="POSE")
-        metarig_object.set_rigify_parameters(mmd_armature_object)
+            if not mmd_armature_object.has_face_bones():
+                metarig_object.remove_face_bones()
 
-        bpy.ops.object.mode_set(mode="OBJECT")
+            metarig_object.fit_bones(mmd_armature_object, self.use_mmd_orientation)
 
-        return {"FINISHED"}
+            bpy.ops.object.mode_set(mode="POSE")
+            metarig_object.set_rigify_parameters(mmd_armature_object)
+
+            bpy.ops.object.mode_set(mode="OBJECT")
+
+            return {"FINISHED"}
+
+        except KeyError as e:
+            self.report(type={"ERROR"}, message=f"This armature does not have required MMD bone: {e}")
+            return {"CANCELLED"}
 
 
 class MMDRigifyOperatorABC:
