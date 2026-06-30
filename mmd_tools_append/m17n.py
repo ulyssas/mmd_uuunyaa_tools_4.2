@@ -2696,19 +2696,19 @@ translations_tuple = (
     (
         ("*", "Subsurface Adjuster"),
         (("extensions/user_default/mmd_tools_append/editors/nodes.py:308",), ()),
-        ("ja_JP", "サブサーフェス調節器", (False, ())),
+        ("ja_JP", "サブサーフェス調整器", (False, ())),
         ("zh_HANS", "次表面调整器", (False, ())),
     ),
     (
         ("*", "Wet Adjuster"),
         (("extensions/user_default/mmd_tools_append/editors/nodes.py:311", "extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:58"), ()),
-        ("ja_JP", "ウエット調節器", (False, ())),
+        ("ja_JP", "ウエット調整器", (False, ())),
         ("zh_HANS", "湿润调整器", (False, ())),
     ),
     (
         ("*", "Emission Adjuster"),
         (("extensions/user_default/mmd_tools_append/editors/nodes.py:314", "extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:173"), ()),
-        ("ja_JP", "放射調節器", (False, ())),
+        ("ja_JP", "放射調整器", (False, ())),
         ("zh_HANS", "发射调整器", (False, ())),
     ),
     (
