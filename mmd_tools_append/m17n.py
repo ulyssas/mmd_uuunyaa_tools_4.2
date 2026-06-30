@@ -1362,57 +1362,9 @@ translations_tuple = (
         ("zh_HANS", "卡通着色器", (False, ())),
     ),
     (
-        ("*", "Collection Definition"),
-        (("bpy.types.CollectionProperty",), ()),
-        ("ja_JP", "", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "RNA collection property to define lists, arrays and mappings"),
-        (("bpy.types.CollectionProperty",), ()),
-        ("ja_JP", "", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "Pointer Type"),
-        (("bpy.types.CollectionProperty.fixed_type",), ()),
-        ("ja_JP", "", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "Fixed pointer type, empty if variable type"),
-        (("bpy.types.CollectionProperty.fixed_type",), ()),
-        ("ja_JP", "", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "String Definition"),
-        (("bpy.types.StringProperty",), ()),
-        ("ja_JP", "", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "RNA text string property definition"),
-        (("bpy.types.StringProperty",), ()),
-        ("ja_JP", "", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "String default value"),
-        (("bpy.types.StringProperty.default",), ()),
-        ("ja_JP", "", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "Maximum Length"),
-        (("bpy.types.StringProperty.length_max",), ()),
-        ("ja_JP", "", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "Maximum length of the string, 0 means unlimited"),
-        (("bpy.types.StringProperty.length_max",), ()),
-        ("ja_JP", "", (False, ())),
+        ("*", "Figure"),
+        (("bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FIGURE'", "bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FIGURE'"), ()),
+        ("ja_JP", "フィギュア", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
@@ -1516,6 +1468,30 @@ translations_tuple = (
         (("bpy.types.GeometryNodesPropertyGroup.thumbnails",), ()),
         ("ja_JP", "ジオメトリノードを選択", (False, ())),
         ("zh_HANS", "选择你的几何节点", (False, ())),
+    ),
+    (
+        ("*", "Sphere Factor"),
+        (("bpy.types.GlobalToonSpherePropertyGroup.sphere_fac",), ()),
+        ("ja_JP", "スフィア係数", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Adjust the model's MMD sphere texture factors globally"),
+        (("bpy.types.GlobalToonSpherePropertyGroup.sphere_fac",), ()),
+        ("ja_JP", "モデル全体のMMDスフィアテクスチャ係数を調整します", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Toon Factor"),
+        (("bpy.types.GlobalToonSpherePropertyGroup.toon_fac",), ()),
+        ("ja_JP", "トゥーン係数", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Adjust the model's MMD toon texture factors globally"),
+        (("bpy.types.GlobalToonSpherePropertyGroup.toon_fac",), ()),
+        ("ja_JP", "モデル全体のMMDトゥーンテクスチャ係数を調整します", (False, ())),
+        ("zh_HANS", "", (False, ())),
     ),
     (
         ("*", "1 slot (default)"),
@@ -2175,33 +2151,15 @@ translations_tuple = (
         ("zh_HANS", "", (False, ())),
     ),
     (
-        ("*", "Failed to invoke Rigify\nPlease enable Rigify add-on."),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:49",), ()),
-        ("ja_JP", "Rigifyの呼び出しに失敗しました\nRigifyアドオンを有効にしてください.", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
         ("*", "Removed  bones."),
         (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:430",), ()),
         ("ja_JP", "", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
-        ("*", "Failed to remove rig: "),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:433",), ()),
-        ("ja_JP", "リグの除去に失敗しました: ", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
         ("*", "Translated  bones."),
         (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:467",), ()),
         ("ja_JP", "", (False, ())),
-        ("zh_HANS", "", (False, ())),
-    ),
-    (
-        ("*", "Failed to translate bones: "),
-        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466",), ()),
-        ("ja_JP", "ボーンの翻訳に失敗しました: ", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
@@ -2214,6 +2172,18 @@ translations_tuple = (
         ("*", "Reset Humanoid data."),
         (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:647",), ()),
         ("ja_JP", "ヒューマノイドをリセットしました", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Failed to remove rig: "),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:433",), ()),
+        ("ja_JP", "リグの除去に失敗しました: ", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Failed to translate bones: "),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466",), ()),
+        ("ja_JP", "ボーンの翻訳に失敗しました: ", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
@@ -2232,6 +2202,12 @@ translations_tuple = (
         ("*", "This armature does not have required MMD bones. "),
         (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:830",), ()),
         ("ja_JP", "アーマチュアにMMD必須ボーンがありません. ", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Failed to invoke Rigify\nPlease enable Rigify add-on."),
+        (("extensions/user_default/mmd_tools_append/converters/armatures/operators.py:49",), ()),
+        ("ja_JP", "Rigifyの呼び出しに失敗しました\nRigifyアドオンを有効にしてください.", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (
@@ -2720,19 +2696,19 @@ translations_tuple = (
     (
         ("*", "Subsurface Adjuster"),
         (("extensions/user_default/mmd_tools_append/editors/nodes.py:308",), ()),
-        ("ja_JP", "サブサーフェス調節器", (False, ())),
+        ("ja_JP", "サブサーフェス調整器", (False, ())),
         ("zh_HANS", "次表面调整器", (False, ())),
     ),
     (
         ("*", "Wet Adjuster"),
         (("extensions/user_default/mmd_tools_append/editors/nodes.py:311", "extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:58"), ()),
-        ("ja_JP", "ウエット調節器", (False, ())),
+        ("ja_JP", "ウエット調整器", (False, ())),
         ("zh_HANS", "湿润调整器", (False, ())),
     ),
     (
         ("*", "Emission Adjuster"),
         (("extensions/user_default/mmd_tools_append/editors/nodes.py:314", "extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:173"), ()),
-        ("ja_JP", "放射調節器", (False, ())),
+        ("ja_JP", "放射調整器", (False, ())),
         ("zh_HANS", "发射调整器", (False, ())),
     ),
     (
@@ -3667,6 +3643,12 @@ translations_tuple = (
         ("Operator", "Copy to Active"),
         (("extensions/user_default/mmd_tools_append/tuners/panels.py:148",), ()),
         ("ja_JP", "アクティブにコピー", (False, ())),
+        ("zh_HANS", "", (False, ())),
+    ),
+    (
+        ("*", "Global Toon/Sphere Adjuster"),
+        (("extensions/user_default/mmd_tools_append/tuners/panels.py:186",), ()),
+        ("ja_JP", "全体トゥーン/スフィア調整器", (False, ())),
         ("zh_HANS", "", (False, ())),
     ),
     (

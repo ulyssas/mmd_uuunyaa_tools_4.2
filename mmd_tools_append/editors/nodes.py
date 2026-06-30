@@ -340,6 +340,16 @@ class MaterialEditor(NodeEditor):
             setattr(self.material, name, value)
         return self
 
+    def set_mmd_toon_fac(self, value: float):
+        mmd_shader_node = self.get_mmd_shader_node()
+        if mmd_shader_node and "Toon Tex Fac" in mmd_shader_node.inputs:
+            mmd_shader_node.inputs["Toon Tex Fac"].default_value = value
+
+    def set_mmd_sphere_fac(self, value: float):
+        mmd_shader_node = self.get_mmd_shader_node()
+        if mmd_shader_node and "Sphere Tex Fac" in mmd_shader_node.inputs:
+            mmd_shader_node.inputs["Sphere Tex Fac"].default_value = value
+
     def draw_setting_shader_node_properties(self, layout: bpy.types.UILayout, nodes: Iterable[bpy.types.ShaderNode]):
         for node in nodes:
             if isinstance(node, bpy.types.ShaderNodeGroup):

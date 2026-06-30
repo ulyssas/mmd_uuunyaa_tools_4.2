@@ -92,6 +92,16 @@ class ControlType(Enum):
     LEG_R_POLE_PARENT = "leg_r_pole_parent"
 
 
+CONTROL_DESCRIPTION: Dict[ControlType, str] = {
+    ControlType.BIND_MMD_MMD_APPEND: "Toggle MMD bone binding",
+    ControlType.EYE_MMD_MMD_APPEND: "Switch between MMD and Rigify eye controller",
+    ControlType.LEG_L_MMD_MMD_APPEND: "Toggle Left thigh_ik constraint",
+    ControlType.LEG_R_MMD_MMD_APPEND: "Toggle Right thigh_ik constraint",
+    ControlType.TOE_L_MMD_MMD_APPEND: "Enable Left toe EX binding",
+    ControlType.TOE_R_MMD_MMD_APPEND: "Enable Right toe EX binding",
+}
+
+
 class MMDBindArmatureObjectABC(ArmatureEditor, PoseBoneEditor):
     # pylint: disable=too-many-public-methods
     datapaths: Dict[str, DataPath]
@@ -110,7 +120,8 @@ class MMDBindArmatureObjectABC(ArmatureEditor, PoseBoneEditor):
             if data_path is None:
                 continue
 
-            self.add_prop(prop_storage_bone, data_path.prop_name)
+            desc = CONTROL_DESCRIPTION.get(control_type)
+            self.add_prop(prop_storage_bone, data_path.prop_name, description=desc)
 
     def assign_mmd_bone_names(self, mmd2pose_bone_name_overrides: Optional[Dict[str, str]] = None):
         pose_bones = self.pose_bones

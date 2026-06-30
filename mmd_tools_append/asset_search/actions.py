@@ -54,7 +54,22 @@ class RestrictionChecker(ast.NodeVisitor):
 class DownloadActionExecutor:
     @staticmethod
     def get(url: str) -> requests.models.Response:
+        if "mediafire.com/file/" in url:
+            url = DownloadActionExecutor.resolve_mediafire_link(url)
         return requests.get(url, allow_redirects=True, stream=True)
+
+    @staticmethod
+    def resolve_mediafire_link(url: str) -> str:
+        """Get ephemeral dl link from Mediafire."""
+        try:
+            headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+            res = requests.get(url, headers=headers, timeout=10)
+            res.raise_for_status()
+            match = re.search(r'https?://download\d*\.mediafire\.com/[^/]+/[^/]+/[^"\']+', res.text)
+            return match.group(0) if match else url
+        except Exception as e:
+            print(f"Mediafire: {e}")
+            return url
 
     @staticmethod
     def tstorage(url: str, password: str = None) -> requests.models.Response:

@@ -2,7 +2,9 @@
 # This file is part of MMD Tools Append.
 
 import bpy
+from bpy.types import GeometryNodeTree
 
+from ..editors.nodes import MaterialEditor
 from ..tuners import geometry_nodes_tuners, lighting_tuners, material_tuners
 
 
@@ -50,31 +52,70 @@ class MaterialPropertyGroup(bpy.types.PropertyGroup):
         del bpy.types.Material.mmd_tools_append_material
 
 
-try:
-    from bpy.types import GeometryNodeTree
+class GlobalToonSpherePropertyGroup(bpy.types.PropertyGroup):
+    def _update_all_materials(self, attr_name, value):
+        obj: bpy.types.Object = self.id_data
+        for slot in obj.material_slots:
+            mat = slot.material
+            if mat and mat.use_nodes:
+                mat_editor = MaterialEditor(mat)
+                method = getattr(mat_editor, attr_name, None)
+                if method:
+                    method(value)
 
-    hasattr(geometry_nodes_tuners.TUNERS, "to_enum_property_items")
+    @staticmethod
+    def adjust_toon(prop: "GlobalToonSpherePropertyGroup", _):
+        prop._update_all_materials("set_mmd_toon_fac", prop.toon_fac)
 
-    class GeometryNodesPropertyGroup(bpy.types.PropertyGroup):
-        @staticmethod
-        def update_geometry_nodes_thumbnails(prop: "GeometryNodesPropertyGroup", _):
-            bpy.ops.mmd_tools_append.tune_geometry_nodes(geometry_nodes=prop.thumbnails)  # pylint: disable=no-member
+    @staticmethod
+    def adjust_sphere(prop: "GlobalToonSpherePropertyGroup", _):
+        prop._update_all_materials("set_mmd_sphere_fac", prop.sphere_fac)
 
-        thumbnails: bpy.props.EnumProperty(
-            items=geometry_nodes_tuners.TUNERS.to_enum_property_items(),
-            description="Choose the geometry nodes you want to use",
-            update=update_geometry_nodes_thumbnails.__func__,
-        )
+    toon_fac: bpy.props.FloatProperty(
+        name="Toon Factor",
+        description="Adjust the model's MMD toon texture factors globally",
+        subtype="FACTOR",
+        min=0.0,
+        max=1.0,
+        default=1,
+        update=adjust_toon.__func__,
+    )
+    sphere_fac: bpy.props.FloatProperty(
+        name="Sphere Factor",
+        description="Adjust the model's MMD sphere texture factors globally",
+        subtype="FACTOR",
+        min=0.0,
+        max=1.0,
+        default=1,
+        update=adjust_sphere.__func__,
+    )
 
-        @staticmethod
-        def register():
-            # pylint: disable=assignment-from-no-return
-            GeometryNodeTree.mmd_tools_append_geometry_nodes = bpy.props.PointerProperty(type=GeometryNodesPropertyGroup)
+    @staticmethod
+    def register():
+        # pylint: disable=assignment-from-no-return
+        bpy.types.Object.mmd_tools_append_global_toon_sphere = bpy.props.PointerProperty(type=GlobalToonSpherePropertyGroup)
 
-        @staticmethod
-        def unregister():
-            del GeometryNodeTree.mmd_tools_append_geometry_nodes
-except ImportError:
-    print("[WARN] Geometry Nodes do not exist. Ignore it.")
-except AttributeError:
-    print("[WARN] Geometry Nodes are not initialized. Ignore it.")
+    @staticmethod
+    def unregister():
+        del bpy.types.Object.mmd_tools_append_global_toon_sphere
+
+
+class GeometryNodesPropertyGroup(bpy.types.PropertyGroup):
+    @staticmethod
+    def update_geometry_nodes_thumbnails(prop: "GeometryNodesPropertyGroup", _):
+        bpy.ops.mmd_tools_append.tune_geometry_nodes(geometry_nodes=prop.thumbnails)  # pylint: disable=no-member
+
+    thumbnails: bpy.props.EnumProperty(
+        items=geometry_nodes_tuners.TUNERS.to_enum_property_items(),
+        description="Choose the geometry nodes you want to use",
+        update=update_geometry_nodes_thumbnails.__func__,
+    )
+
+    @staticmethod
+    def register():
+        # pylint: disable=assignment-from-no-return
+        GeometryNodeTree.mmd_tools_append_geometry_nodes = bpy.props.PointerProperty(type=GeometryNodesPropertyGroup)
+
+    @staticmethod
+    def unregister():
+        del GeometryNodeTree.mmd_tools_append_geometry_nodes
