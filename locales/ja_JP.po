@@ -1028,41 +1028,10 @@ msgstr "表現手法 水彩画"
 msgid "Toon Shader"
 msgstr "トーンシェーダー"
 
-#. :src: bpy.types.CollectionProperty
-msgid "Collection Definition"
-msgstr ""
-
-#. :src: bpy.types.CollectionProperty
-msgid "RNA collection property to define lists, arrays and mappings"
-msgstr ""
-
-#. :src: bpy.types.CollectionProperty.fixed_type
-msgid "Pointer Type"
-msgstr ""
-
-#. :src: bpy.types.CollectionProperty.fixed_type
-msgid "Fixed pointer type, empty if variable type"
-msgstr ""
-
-#. :src: bpy.types.StringProperty
-msgid "String Definition"
-msgstr ""
-
-#. :src: bpy.types.StringProperty
-msgid "RNA text string property definition"
-msgstr ""
-
-#. :src: bpy.types.StringProperty.default
-msgid "String default value"
-msgstr ""
-
-#. :src: bpy.types.StringProperty.length_max
-msgid "Maximum Length"
-msgstr ""
-
-#. :src: bpy.types.StringProperty.length_max
-msgid "Maximum length of the string, 0 means unlimited"
-msgstr ""
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FIGURE'
+#. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FIGURE'
+msgid "Figure"
+msgstr "フィギュア"
 
 #. :src: bpy.types.AssetSearchQuery.type:'MODEL_MMD'
 #: extensions/user_default/mmd_tools_append/asset_search/assets.py:33
@@ -1140,6 +1109,22 @@ msgstr "ブラシ デフォルト"
 #. :src: bpy.types.GeometryNodesPropertyGroup.thumbnails
 msgid "Choose the geometry nodes you want to use"
 msgstr "ジオメトリノードを選択"
+
+#. :src: bpy.types.GlobalToonSpherePropertyGroup.sphere_fac
+msgid "Sphere Factor"
+msgstr "スフィア係数"
+
+#. :src: bpy.types.GlobalToonSpherePropertyGroup.sphere_fac
+msgid "Adjust the model's MMD sphere texture factors globally"
+msgstr "モデル全体のMMDスフィアテクスチャ係数を調整します"
+
+#. :src: bpy.types.GlobalToonSpherePropertyGroup.toon_fac
+msgid "Toon Factor"
+msgstr "トゥーン係数"
+
+#. :src: bpy.types.GlobalToonSpherePropertyGroup.toon_fac
+msgid "Adjust the model's MMD toon texture factors globally"
+msgstr "モデル全体のMMDトゥーンテクスチャ係数を調整します"
 
 #. :src: bpy.types.HumanoidDisplayFrame.display_type:'DEFAULT'
 msgid "1 slot (default)"
@@ -1616,29 +1601,13 @@ msgstr ""
 msgid "{}: {}"
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:49
-msgid ""
-"Failed to invoke Rigify\n"
-"Please enable Rigify add-on."
-msgstr ""
-"Rigifyの呼び出しに失敗しました\n"
-"Rigifyアドオンを有効にしてください."
-
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:430
 msgid "Removed  bones."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:433
-msgid "Failed to remove rig: "
-msgstr "リグの除去に失敗しました: "
-
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:467
 msgid "Translated  bones."
 msgstr ""
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466
-msgid "Failed to translate bones: "
-msgstr "ボーンの翻訳に失敗しました: "
 
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:484
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:559
@@ -1648,6 +1617,14 @@ msgstr "反復"
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:647
 msgid "Reset Humanoid data."
 msgstr "ヒューマノイドをリセットしました"
+
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:433
+msgid "Failed to remove rig: "
+msgstr "リグの除去に失敗しました: "
+
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466
+msgid "Failed to translate bones: "
+msgstr "ボーンの翻訳に失敗しました: "
 
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:826
 msgid "Renamed  bones with  duplicates. (click to see details)"
@@ -1660,6 +1637,14 @@ msgstr ""
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:830
 msgid "This armature does not have required MMD bones. "
 msgstr "アーマチュアにMMD必須ボーンがありません. "
+
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:49
+msgid ""
+"Failed to invoke Rigify\n"
+"Please enable Rigify add-on."
+msgstr ""
+"Rigifyの呼び出しに失敗しました\n"
+"Rigifyアドオンを有効にしてください."
 
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:800
 msgid "Bone  was selected  times."
@@ -1988,17 +1973,17 @@ msgstr "MMDTexUV"
 
 #: extensions/user_default/mmd_tools_append/editors/nodes.py:308
 msgid "Subsurface Adjuster"
-msgstr "サブサーフェス調節器"
+msgstr "サブサーフェス調整器"
 
 #: extensions/user_default/mmd_tools_append/editors/nodes.py:311
 #: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:58
 msgid "Wet Adjuster"
-msgstr "ウエット調節器"
+msgstr "ウエット調整器"
 
 #: extensions/user_default/mmd_tools_append/editors/nodes.py:314
 #: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:173
 msgid "Emission Adjuster"
-msgstr "放射調節器"
+msgstr "放射調整器"
 
 #: extensions/user_default/mmd_tools_append/editors/nodes.py:317
 #: extensions/user_default/mmd_tools_append/tuners/material_adjusters.py:115
@@ -2660,6 +2645,10 @@ msgstr ""
 msgctxt "Operator"
 msgid "Copy to Active"
 msgstr "アクティブにコピー"
+
+#: extensions/user_default/mmd_tools_append/tuners/panels.py:186
+msgid "Global Toon/Sphere Adjuster"
+msgstr "全体トゥーン/スフィア調整器"
 
 #: extensions/user_default/mmd_tools_append/tuners/panels.py:214
 msgid "MMD Append Geometry Nodes"

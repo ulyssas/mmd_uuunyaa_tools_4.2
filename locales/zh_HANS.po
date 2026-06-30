@@ -1024,40 +1024,9 @@ msgstr "艺术性的 水彩画"
 msgid "Toon Shader"
 msgstr "卡通着色器"
 
-#. :src: bpy.types.CollectionProperty
-msgid "Collection Definition"
-msgstr ""
-
-#. :src: bpy.types.CollectionProperty
-msgid "RNA collection property to define lists, arrays and mappings"
-msgstr ""
-
-#. :src: bpy.types.CollectionProperty.fixed_type
-msgid "Pointer Type"
-msgstr ""
-
-#. :src: bpy.types.CollectionProperty.fixed_type
-msgid "Fixed pointer type, empty if variable type"
-msgstr ""
-
-#. :src: bpy.types.StringProperty
-msgid "String Definition"
-msgstr ""
-
-#. :src: bpy.types.StringProperty
-msgid "RNA text string property definition"
-msgstr ""
-
-#. :src: bpy.types.StringProperty.default
-msgid "String default value"
-msgstr ""
-
-#. :src: bpy.types.StringProperty.length_max
-msgid "Maximum Length"
-msgstr ""
-
-#. :src: bpy.types.StringProperty.length_max
-msgid "Maximum length of the string, 0 means unlimited"
+#. :src: bpy.types.MMD_TOOLS_APPEND_OT_tune_material.material:'MATERIAL_FIGURE'
+#. :src: bpy.types.MaterialPropertyGroup.thumbnails:'MATERIAL_FIGURE'
+msgid "Figure"
 msgstr ""
 
 #. :src: bpy.types.AssetSearchQuery.type:'MODEL_MMD'
@@ -1136,6 +1105,22 @@ msgstr "笔刷 默认"
 #. :src: bpy.types.GeometryNodesPropertyGroup.thumbnails
 msgid "Choose the geometry nodes you want to use"
 msgstr "选择你的几何节点"
+
+#. :src: bpy.types.GlobalToonSpherePropertyGroup.sphere_fac
+msgid "Sphere Factor"
+msgstr ""
+
+#. :src: bpy.types.GlobalToonSpherePropertyGroup.sphere_fac
+msgid "Adjust the model's MMD sphere texture factors globally"
+msgstr ""
+
+#. :src: bpy.types.GlobalToonSpherePropertyGroup.toon_fac
+msgid "Toon Factor"
+msgstr ""
+
+#. :src: bpy.types.GlobalToonSpherePropertyGroup.toon_fac
+msgid "Adjust the model's MMD toon texture factors globally"
+msgstr ""
 
 #. :src: bpy.types.HumanoidDisplayFrame.display_type:'DEFAULT'
 msgid "1 slot (default)"
@@ -1610,26 +1595,12 @@ msgstr ""
 msgid "{}: {}"
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:49
-msgid ""
-"Failed to invoke Rigify\n"
-"Please enable Rigify add-on."
-msgstr ""
-
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:430
 msgid "Removed  bones."
 msgstr ""
 
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:433
-msgid "Failed to remove rig: "
-msgstr ""
-
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:467
 msgid "Translated  bones."
-msgstr ""
-
-#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466
-msgid "Failed to translate bones: "
 msgstr ""
 
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:484
@@ -1639,6 +1610,14 @@ msgstr "迭代"
 
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:647
 msgid "Reset Humanoid data."
+msgstr ""
+
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:433
+msgid "Failed to remove rig: "
+msgstr ""
+
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:466
+msgid "Failed to translate bones: "
 msgstr ""
 
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:826
@@ -1651,6 +1630,12 @@ msgstr ""
 
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:830
 msgid "This armature does not have required MMD bones. "
+msgstr ""
+
+#: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:49
+msgid ""
+"Failed to invoke Rigify\n"
+"Please enable Rigify add-on."
 msgstr ""
 
 #: extensions/user_default/mmd_tools_append/converters/armatures/operators.py:800
@@ -2651,6 +2636,10 @@ msgstr ""
 #: extensions/user_default/mmd_tools_append/tuners/panels.py:148
 msgctxt "Operator"
 msgid "Copy to Active"
+msgstr ""
+
+#: extensions/user_default/mmd_tools_append/tuners/panels.py:186
+msgid "Global Toon/Sphere Adjuster"
 msgstr ""
 
 #: extensions/user_default/mmd_tools_append/tuners/panels.py:214
