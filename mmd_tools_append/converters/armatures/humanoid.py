@@ -128,9 +128,11 @@ class HumanoidItem(bpy.types.PropertyGroup):
     """
 
     def _update_slot_size(self, _context):
-        """keep slots at a fixed size"""
+        """keep slots at a fixed size. (at least 1)"""
 
         while len(self.slots) > self.column_count:
+            if len(self.slots) <= 1:
+                break
             self.slots.remove(len(self.slots) - 1)
 
         while len(self.slots) < self.column_count:
@@ -186,7 +188,7 @@ class HumanoidItem(bpy.types.PropertyGroup):
     mmd_j: bpy.props.StringProperty()
     mmd_e: bpy.props.StringProperty()
     frame_override: bpy.props.StringProperty()
-    column_count: bpy.props.IntProperty(default=1, update=_update_slot_size)
+    column_count: bpy.props.IntProperty(default=1, min=1, update=_update_slot_size)
     slots: bpy.props.CollectionProperty(type=HumanoidBoneSlot)
 
 
@@ -200,11 +202,15 @@ class HumanoidDisplayFrame(bpy.types.PropertyGroup):
         for item in self.items:
             item.column_count = column
 
+    def _ensure_icon(self, _context):
+        if not self.icon:
+            self.icon = "NONE"
+
     name: bpy.props.StringProperty(translation_context="MMD_HUMANOID")
     name_j: bpy.props.StringProperty()
     """actual name used for MMD DisplayFrame"""
 
-    icon: bpy.props.StringProperty()
+    icon: bpy.props.StringProperty(update=_ensure_icon)
     category: bpy.props.StringProperty(update=_check_category)
     """must be one of IDs in HUMANOID_CATEGORY"""
 
