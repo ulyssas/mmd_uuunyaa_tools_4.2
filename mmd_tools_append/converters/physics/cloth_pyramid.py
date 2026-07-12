@@ -237,6 +237,7 @@ def assign_pyramid_weights(
     pyramid_mesh_objects: List[bpy.types.Object],
     deform_mesh_objects: List[bpy.types.Object],
     boundary_expansion_hop_count: int,
+    diffuse_steps: int = 60,
 ):
     for pyramid_mesh_object in pyramid_mesh_objects:
         target_bone_name = PyramidMeshEditor(pyramid_mesh_object).target_bone_name
@@ -253,6 +254,7 @@ def assign_pyramid_weights(
                 deform_mesh_object,
                 target_bone_name,
                 boundary_expansion_hop_count,
+                diffuse_steps,
             )
 
 
@@ -260,6 +262,7 @@ def convert_pyramid_mesh_to_cloth(
     pyramid_mesh_objects: List[bpy.types.Object],
     deform_mesh_objects: List[bpy.types.Object],
     boundary_expansion_hop_count: int,
+    diffuse_steps: int = 60,
 ) -> List[Tuple[bpy.types.Object, bpy.types.Object]]:
     pairs: List[Tuple[bpy.types.Object, bpy.types.Object]] = []
 
@@ -292,6 +295,7 @@ def convert_pyramid_mesh_to_cloth(
                 deform_mesh_object,
                 target_bone_name,
                 boundary_expansion_hop_count,
+                diffuse_steps,
             )
 
             pairs.append((pyramid_mesh_object, deform_mesh_object))
@@ -394,6 +398,7 @@ def assign_deform_weights(
     deform_mesh_object: bpy.types.Object,
     target_bone_name: str,
     boundary_expansion_hop_count: int,
+    diffuse_steps: int = 60,
 ):
     mesh_editor = MeshEditor(deform_mesh_object)
     deform_bmesh: bmesh.types.BMesh = bmesh.new()
@@ -507,7 +512,7 @@ def assign_deform_weights(
         print(f"assign deform weights:auto_weight: {bone_name}, {datetime.datetime.now() - start_time}")
 
         weights = np.zeros(nid_count)
-        for _iteration in range(min(60, nid_count // 2)):
+        for _iteration in range(min(diffuse_steps, nid_count // 2)):
             for nid, weight in nid2weight.items():
                 if weight > 0:
                     weights[nid] += weight
@@ -950,6 +955,9 @@ class ConvertPyramidMeshToClothOperator(bpy.types.Operator):
 
         return False
 
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
     def execute(self, context: bpy.types.Context):
         try:
             pyramid_mesh_objects: List[bpy.types.Object] = []
@@ -1005,6 +1013,9 @@ class AssignPyramidWeightsOperator(bpy.types.Operator):
                 return True
 
         return False
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
 
     def execute(self, context: bpy.types.Context):
         try:

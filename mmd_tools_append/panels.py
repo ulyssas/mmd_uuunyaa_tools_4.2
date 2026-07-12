@@ -186,8 +186,18 @@ class MMDAppendPhysicsPanel(bpy.types.Panel):
         col.label(text="Pyramid Cloth:", icon="MESH_CONE")
         grid = col.grid_flow(row_major=True, align=True)
         grid.row(align=True).operator(AddPyramidMeshByBreastBoneOperator.bl_idname, text="Add Pyramid", icon="CONE")
-        grid.row(align=True).operator(ConvertPyramidMeshToClothOperator.bl_idname, text="Pyramid to Cloth", icon="MOD_CLOTH")
-        grid.row(align=True).operator(AssignPyramidWeightsOperator.bl_idname, text="Repaint Weight", icon="WPAINT_HLT")
+
+        row = grid.row(align=True)
+        row.operator_context = "EXEC_DEFAULT"
+        row.operator(ConvertPyramidMeshToClothOperator.bl_idname, text="Pyramid to Cloth", icon="MOD_CLOTH")
+        row.operator_context = "INVOKE_DEFAULT"
+        row.operator(ConvertPyramidMeshToClothOperator.bl_idname, text="", icon="WINDOW")
+
+        row = grid.row(align=True)
+        row.operator_context = "EXEC_DEFAULT"
+        row.operator(AssignPyramidWeightsOperator.bl_idname, text="Repaint Weight", icon="WPAINT_HLT")
+        row.operator_context = "INVOKE_DEFAULT"
+        row.operator(AssignPyramidWeightsOperator.bl_idname, text="", icon="WINDOW")
 
         col = layout.column(align=True)
         col.label(text="Misc:", icon="BLENDER")
