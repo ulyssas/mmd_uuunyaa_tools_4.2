@@ -280,7 +280,7 @@ def convert_pyramid_mesh_to_cloth(
                 continue
 
             deform_armature_object = deform_mesh_object.find_armature()
-            if deform_mesh_object is None:
+            if deform_armature_object is None:
                 continue
 
             build_pyramid_bones(
@@ -576,7 +576,7 @@ def to_vid2weight(deform_bmesh: bmesh.types.BMesh, vertex_group_index: int) -> D
 
     tri_loops: Tuple[bmesh.types.BMLoop, bmesh.types.BMLoop, bmesh.types.BMLoop]
     for tri_loops in deform_bmesh.calc_loop_triangles():
-        loop_vid2weight = {l.vert.index: l.vert[deform_layer].get(vertex_group_index, 0.0) for l in tri_loops}
+        loop_vid2weight = {loop.vert.index: loop.vert[deform_layer].get(vertex_group_index, 0.0) for loop in tri_loops}
         if max(loop_vid2weight.values()) == 0:
             continue
 
@@ -736,7 +736,7 @@ def to_apex_vertex(
 
     tri_loops: Tuple[bmesh.types.BMLoop, bmesh.types.BMLoop, bmesh.types.BMLoop]
     for tri_loops in deform_bmesh.calc_loop_triangles():
-        vertex_weights = [l.vert[deform_layer].get(vertex_group_index, 0.0) for l in tri_loops]
+        vertex_weights = [loop.vert[deform_layer].get(vertex_group_index, 0.0) for loop in tri_loops]
         loop_max_weight: float = max(vertex_weights)
         if loop_max_weight == 0:
             continue

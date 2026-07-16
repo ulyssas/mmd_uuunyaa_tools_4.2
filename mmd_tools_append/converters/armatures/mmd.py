@@ -287,8 +287,9 @@ class MMDArmatureObject(ArmatureEditor):
                 for suffix in (".L", ".R")
             ]
             for name in pbone_names:
-                if name in self.edit_bones:
-                    self.pose_bones[name].mmd_bone.enabled_local_axes = False
+                pose_bone = self.pose_bones.get(name)
+                if pose_bone is not None:
+                    pose_bone.mmd_bone.enabled_local_axes = False
 
         # toe
         self.move_bone(mmd_edit_bones["右つま先ＩＫ"], head=mmd_edit_bones["右足首"].tail)
