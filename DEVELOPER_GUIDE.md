@@ -25,6 +25,7 @@ If something is not stated here, follow the main [MMD Tools Developer Guide](htt
 
 | Blender Version | MMD Tools Append Version | Python Version | Branch      |
 |-----------------|--------------------------|---------------:|-------------|
+| Blender 5.2 LTS | MMD Tools Append v4.x    |           3.13 | [main](https://github.com/MMD-Blender/blender_mmd_tools_append) |
 | Blender 4.5 LTS | MMD Tools Append v4.x    |           3.11 | [main](https://github.com/MMD-Blender/blender_mmd_tools_append) |
 | Blender 3.6 LTS | MMD Tools Append v1.x    |           3.10 | [blender-v3](https://github.com/MMD-Blender/blender_mmd_tools_append/tree/blender-v3) |
 

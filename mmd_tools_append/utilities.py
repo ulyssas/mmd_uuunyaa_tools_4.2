@@ -64,6 +64,7 @@ def import_from_file(module_name: str, module_path: str):
 def is_mmd_tools_installed():
     candidates = (
         "bl_ext.blender_org.mmd_tools",
+        "bl_ext.user_default.mmd_tools",
         "bl_ext.vscode_development.mmd_tools",
     )
 
@@ -89,13 +90,22 @@ def import_mmd_tools():
     if _MMD_TOOLS_CACHE is not None:
         return _MMD_TOOLS_CACHE
 
-    try:
-        _MMD_TOOLS_CACHE = importlib.import_module("bl_ext.blender_org.mmd_tools")
-    except Exception as exception:
+    candidates = (
+        "bl_ext.blender_org.mmd_tools",
+        "bl_ext.user_default.mmd_tools",
+        "bl_ext.vscode_development.mmd_tools",
+    )
+
+    import_exc = None
+    for name in candidates:
         try:
-            _MMD_TOOLS_CACHE = importlib.import_module("bl_ext.vscode_development.mmd_tools")
-        except:
-            raise RuntimeError(_("MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools.")) from exception
+            _MMD_TOOLS_CACHE = importlib.import_module(name)
+            break
+        except Exception as e:
+            import_exc = e
+
+    if _MMD_TOOLS_CACHE is None:
+        raise RuntimeError(_("MMD Tools is not installed correctly. Please install MMD Tools using the correct steps, as MMD Tools Append depends on MMD Tools.")) from import_exc
 
     for hook in MMD_TOOLS_IMPORT_HOOKS:
         try:

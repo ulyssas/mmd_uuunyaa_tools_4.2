@@ -266,6 +266,30 @@ class MMDArmatureObject(ArmatureEditor):
             mmd_edit_bones["上半身"].tail = mmd_edit_bones["首"].head
             mmd_edit_bones["首"].tail = mmd_edit_bones["頭"].head
 
+        # fix leg D (e.g. Nikke-Rapi)
+        if MMDBoneType.LEG_D in self.exist_bone_types:
+            leg_ds = ("足D", "ひざD", "足首D")
+            prefixes = ("", "_dummy_", "_shadow_")
+
+            bone_names = [
+                prefix + leg_d + suffix
+                for leg_d in leg_ds  #
+                for prefix in prefixes  #
+                for suffix in (".L", ".R")
+            ]
+            for name in bone_names:
+                if name in self.edit_bones:
+                    self.edit_bones[name].roll = 0
+
+            pbone_names = [
+                leg_d + suffix
+                for leg_d in leg_ds  #
+                for suffix in (".L", ".R")
+            ]
+            for name in pbone_names:
+                if name in self.edit_bones:
+                    self.pose_bones[name].mmd_bone.enabled_local_axes = False
+
         # toe
         self.move_bone(mmd_edit_bones["右つま先ＩＫ"], head=mmd_edit_bones["右足首"].tail)
         self.move_bone(mmd_edit_bones["左つま先ＩＫ"], head=mmd_edit_bones["左足首"].tail)

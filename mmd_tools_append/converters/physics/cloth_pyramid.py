@@ -237,6 +237,7 @@ def assign_pyramid_weights(
     pyramid_mesh_objects: List[bpy.types.Object],
     deform_mesh_objects: List[bpy.types.Object],
     boundary_expansion_hop_count: int,
+    diffuse_steps: int = 60,
 ):
     for pyramid_mesh_object in pyramid_mesh_objects:
         target_bone_name = PyramidMeshEditor(pyramid_mesh_object).target_bone_name
@@ -253,6 +254,7 @@ def assign_pyramid_weights(
                 deform_mesh_object,
                 target_bone_name,
                 boundary_expansion_hop_count,
+                diffuse_steps,
             )
 
 
@@ -260,6 +262,7 @@ def convert_pyramid_mesh_to_cloth(
     pyramid_mesh_objects: List[bpy.types.Object],
     deform_mesh_objects: List[bpy.types.Object],
     boundary_expansion_hop_count: int,
+    diffuse_steps: int = 60,
 ) -> List[Tuple[bpy.types.Object, bpy.types.Object]]:
     pairs: List[Tuple[bpy.types.Object, bpy.types.Object]] = []
 
@@ -292,6 +295,7 @@ def convert_pyramid_mesh_to_cloth(
                 deform_mesh_object,
                 target_bone_name,
                 boundary_expansion_hop_count,
+                diffuse_steps,
             )
 
             pairs.append((pyramid_mesh_object, deform_mesh_object))
@@ -394,7 +398,19 @@ def assign_deform_weights(
     deform_mesh_object: bpy.types.Object,
     target_bone_name: str,
     boundary_expansion_hop_count: int,
+    diffuse_steps: int = 60,
 ):
+    """
+    Assign weights to the model mesh, using Harmonic.
+
+    Args:
+        pyramid_armature_object (bpy.types.Object): The armature object of the source model.
+        deform_mesh_object (bpy.types.Object): The mesh object of the source model.
+        target_bone_name (str): The bone to convert to pyramid cloth simulation.
+        boundary_expansion_hop_count (int): Expand boundary to prevent sudden weight drop.
+        diffuse_steps (int): Adjust heat simulation step count.
+    """
+
     mesh_editor = MeshEditor(deform_mesh_object)
     deform_bmesh: bmesh.types.BMesh = bmesh.new()
 
@@ -468,28 +484,28 @@ def assign_deform_weights(
     bone_names = PyramidBoneNames(target_bone_name)
 
     pyramid_armature: bpy.types.Armature = pyramid_armature_object.data
-    pyramid_origin = pyramid_armature_object.location
+    pyramid_world = pyramid_armature_object.matrix_world
     bone_length = pyramid_armature.bones[bone_names.apex].length
 
     bone_name2nid2weight: Dict[str, Dict[int, float]] = {
         bone_names.apex: collect_nid2weight(
-            pyramid_armature.bones[bone_names.apex].tail_local + pyramid_origin,
+            pyramid_world @ pyramid_armature.bones[bone_names.apex].tail_local,
             bone_length,
         ),
         bone_names.base_a: collect_nid2weight(
-            pyramid_armature.bones[bone_names.base_a].head_local + pyramid_origin,
+            pyramid_world @ pyramid_armature.bones[bone_names.base_a].head_local,
             bone_length,
         ),
         bone_names.base_b: collect_nid2weight(
-            pyramid_armature.bones[bone_names.base_b].head_local + pyramid_origin,
+            pyramid_world @ pyramid_armature.bones[bone_names.base_b].head_local,
             bone_length,
         ),
         bone_names.base_c: collect_nid2weight(
-            pyramid_armature.bones[bone_names.base_c].head_local + pyramid_origin,
+            pyramid_world @ pyramid_armature.bones[bone_names.base_c].head_local,
             bone_length,
         ),
         bone_names.base_d: collect_nid2weight(
-            pyramid_armature.bones[bone_names.base_d].head_local + pyramid_origin,
+            pyramid_world @ pyramid_armature.bones[bone_names.base_d].head_local,
             bone_length,
         ),
     }
@@ -501,13 +517,15 @@ def assign_deform_weights(
     eigen_values, eigen_vector = np.linalg.eigh(laplacian_matrix)
     diffusion = np.exp(-eigen_values * 2)
 
+    raw_bone_weights: Dict[str, np.ndarray] = {}
+
     for bone_name in bone_name2nid2weight:
         nid2weight = {nid: (weight * 10 if b == bone_name else -weight) for b, n2w in bone_name2nid2weight.items() for nid, weight in n2w.items()}
 
         print(f"assign deform weights:auto_weight: {bone_name}, {datetime.datetime.now() - start_time}")
 
         weights = np.zeros(nid_count)
-        for _iteration in range(min(60, nid_count // 2)):
+        for _iteration in range(min(diffuse_steps, nid_count // 2)):
             for nid, weight in nid2weight.items():
                 if weight > 0:
                     weights[nid] += weight
@@ -521,14 +539,31 @@ def assign_deform_weights(
             for nid in sink_nids:
                 weights[nid] = 0
 
-        # normalize
+        # only clipping
         weights[weights < 0] = 0
-        weights = weights / np.max(weights)
+        raw_bone_weights[bone_name] = weights.copy()
 
-        mesh_editor.edit_vertex_group(
-            bone_name,
-            [(uid2vids[nid2uid[nid]], weights[nid].item() * vid2weight[nid2uid[nid]]) for nid in range(nid_count)],
-        )
+    # normalize 5 weights (apex, base_abcd)
+    total_weights = np.zeros(nid_count)
+    for weights in raw_bone_weights.values():
+        total_weights += weights
+
+    has_weight_mask = total_weights > 1e-6
+    safe_total = np.where(has_weight_mask, total_weights, 1.0)
+
+    for bone_name, weights in raw_bone_weights.items():
+        # 0.2 means 5 bones get equal weights
+        ratios = np.where(has_weight_mask, weights / safe_total, 0.2)
+
+        # computed weight ratio * original weight
+        write_data = []
+        for nid in range(nid_count):
+            uid = nid2uid[nid]
+            ratio = ratios[nid].item()
+            for vid in uid2vids[uid]:
+                write_data.append(([vid], ratio * vid2weight.get(vid, 0.0)))
+
+        mesh_editor.edit_vertex_group(bone_name, write_data)
 
     deform_bmesh.free()
     print(f"assign deform weights:finish: {datetime.datetime.now() - start_time}")
@@ -950,6 +985,9 @@ class ConvertPyramidMeshToClothOperator(bpy.types.Operator):
 
         return False
 
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
     def execute(self, context: bpy.types.Context):
         try:
             pyramid_mesh_objects: List[bpy.types.Object] = []
@@ -1005,6 +1043,9 @@ class AssignPyramidWeightsOperator(bpy.types.Operator):
                 return True
 
         return False
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
 
     def execute(self, context: bpy.types.Context):
         try:
